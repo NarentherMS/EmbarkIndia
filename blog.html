@@ -4,13 +4,211 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog — Embark India</title>
-<meta name="description" content="Plain-spoken guidance for MBA aspirants: placements decoded, cutoffs explained, colleges compared, interviews demystified.">
+<meta name="description" content="The Embark Times — plain-spoken MBA news and guidance: placements decoded, cutoffs explained, colleges compared.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Anton&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css">
+<style>
+  :root{
+    --ink:#1B1710;
+    --hl:#DCD6C8;
+    --paper-card:#E9E5DA;
+  }
+  .np{color:var(--ink)}
+  .np a{color:inherit}
+
+  /* masthead */
+  .masthead{padding:40px 0 0;text-align:center}
+  .mast-rule{border:none;border-top:2.5px solid var(--ink);margin:0}
+  .mast-rule.thin{border-top-width:1px}
+  .mast-title{
+    font-family:"Anton",var(--display);font-weight:400;
+    font-size:clamp(2.6rem,7.5vw,5.2rem);line-height:1;letter-spacing:.015em;
+    text-transform:uppercase;padding:22px 0 14px;
+  }
+  .mast-title .mba{color:var(--orange)}
+  .mast-sub{
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    font-family:"PT Serif",serif;font-size:.86rem;font-style:italic;
+    padding:8px 2px;
+  }
+
+  /* front page */
+  .front{
+    display:grid;grid-template-columns:1.45fr 1fr .5fr;
+    padding:34px 0 40px;
+  }
+  .front > * + *{border-left:1.5px solid var(--ink);padding-left:30px;margin-left:30px}
+  .front-label{
+    font-family:"Anton",var(--display);font-size:.85rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--orange-deep);margin-bottom:16px;display:block;
+  }
+  .lead-title{
+    font-family:"Anton",var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.14;letter-spacing:.01em;
+    text-decoration:none;display:block;
+  }
+  .lead-title .hl{
+    background:var(--hl);padding:.04em .14em;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  }
+  .lead-title:hover .hl{background:var(--orange-soft)}
+  .lead-excerpt{
+    font-family:"PT Serif",serif;font-size:1.06rem;line-height:1.7;margin:22px 0 18px;max-width:52ch;
+  }
+  .lead-meta{font-family:"PT Serif",serif;font-style:italic;font-size:.88rem;color:var(--ink-soft);margin-bottom:22px}
+  .np-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:"Anton",var(--display);font-size:.92rem;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--orange);color:#fff;text-decoration:none;
+    padding:12px 22px;border:1.5px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s;
+  }
+  .np-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .np-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+
+  .headlines-h{
+    font-family:"Anton",var(--display);font-size:clamp(1.5rem,2.6vw,2.1rem);
+    text-transform:uppercase;background:var(--hl);display:inline-block;
+    padding:.06em .2em;margin-bottom:20px;
+  }
+  .headline{display:block;text-decoration:none;padding:15px 0;border-bottom:1px solid rgba(27,23,16,.25)}
+  .headline:first-of-type{padding-top:0}
+  .headline b{
+    font-family:"PT Serif",serif;font-weight:700;font-size:1.04rem;line-height:1.4;display:block;
+  }
+  .headline:hover b{color:var(--orange-deep)}
+  .headline span{font-family:"PT Serif",serif;font-style:italic;font-size:.8rem;color:var(--ink-soft);margin-top:5px;display:block}
+
+  .rail-label{
+    font-family:"Anton",var(--display);font-size:.85rem;letter-spacing:.14em;
+    text-transform:uppercase;margin-bottom:20px;display:block;
+  }
+  .rail-item{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    background:none;border:none;cursor:pointer;padding:0 0 26px;width:100%;
+    font-family:var(--body);
+  }
+  .rail-dial{
+    width:40px;height:40px;border:1.5px solid var(--ink);border-radius:50%;position:relative;
+    transition:background .2s;
+  }
+  .rail-dial::before,.rail-dial::after{
+    content:"";position:absolute;left:50%;top:50%;background:var(--ink);transform-origin:0 0;
+  }
+  .rail-dial::before{width:13px;height:1.5px}
+  .rail-dial::after{width:9px;height:1.5px;background:var(--orange)}
+  .rail-item:hover .rail-dial{background:var(--hl)}
+  .rail-item[aria-selected="true"] .rail-dial{background:var(--orange-soft)}
+  .rail-item small{
+    font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  }
+
+  /* college strip */
+  .college-strip{padding:0 0 6px}
+  .strip-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;
+    padding:14px 2px 12px;
+  }
+  .strip-head b{font-family:"Anton",var(--display);font-weight:400;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+  .strip-head span{font-family:"PT Serif",serif;font-style:italic;font-size:.85rem;color:var(--ink-soft)}
+  .college-marquee{overflow:hidden;padding:16px 0;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  }
+  .college-track{display:flex;gap:0;width:max-content;animation:slide 32s linear infinite}
+  .college-marquee:hover .college-track{animation-play-state:paused}
+  .college-mark{
+    flex:none;background:none;border:none;cursor:pointer;
+    font-family:"PT Serif",serif;font-weight:700;font-size:1.35rem;letter-spacing:-.01em;
+    color:var(--ink);padding:6px 30px;white-space:nowrap;position:relative;
+    transition:color .18s;
+  }
+  .college-mark::after{content:"✦";position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--orange)}
+  .college-mark:hover{color:var(--orange-deep)}
+  .college-mark[aria-selected="true"]{color:var(--orange-deep);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+  .college-filter-bar{
+    display:none;align-items:center;gap:14px;margin:18px 0 0;
+    font-family:"PT Serif",serif;font-size:.95rem;
+  }
+  .college-filter-bar.show{display:flex}
+  .college-filter-bar b{background:var(--hl);padding:2px 10px}
+  .clear-college{
+    background:none;border:1.5px solid var(--ink);border-radius:0;cursor:pointer;
+    font-family:var(--body);font-weight:600;font-size:.8rem;padding:6px 14px;
+    transition:background .18s;
+  }
+  .clear-college:hover{background:var(--ink);color:var(--cream)}
+
+  /* archive */
+  .archive{padding:40px 0 96px}
+  .archive-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:34px}
+  .archive-head h2{
+    font-family:"Anton",var(--display);font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);
+    text-transform:uppercase;background:var(--hl);padding:.05em .2em;margin:0;
+  }
+  .np-search{
+    display:flex;align-items:center;gap:10px;background:var(--white);
+    border:1.5px solid var(--ink);padding:0 16px;min-height:46px;min-width:240px;
+  }
+  .np-search svg{width:16px;height:16px;flex:none}
+  .np-search input{border:none;background:none;outline:none;font-family:var(--body);font-size:.92rem;width:100%;min-height:44px}
+  .np-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .np-card{
+    background:var(--paper-card);border:1.5px solid var(--ink);
+    box-shadow:9px 9px 0 -1.5px var(--paper-card),9px 9px 0 0 var(--ink);
+    padding:22px 24px 26px;display:flex;flex-direction:column;text-decoration:none;
+    transition:transform .18s;
+  }
+  .np-card:hover{transform:translate(-3px,-3px)}
+  .np-card-bar{height:9px;background:var(--ink);margin-bottom:18px}
+  .np-card-art{
+    border:1.5px solid var(--ink);height:120px;margin-bottom:18px;position:relative;overflow:hidden;
+    background-image:radial-gradient(rgba(27,23,16,.3) 1px,transparent 1.3px);
+    background-size:6px 6px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .np-card-art b{
+    font-family:"Anton",var(--display);font-weight:400;font-size:3.4rem;color:var(--ink);
+    background:var(--paper-card);padding:0 14px;line-height:1.15;
+  }
+  .np-card-title{
+    font-family:"Anton",var(--display);font-weight:400;font-size:1.22rem;line-height:1.25;
+    text-transform:uppercase;letter-spacing:.01em;margin-bottom:10px;
+  }
+  .np-card:hover .np-card-title{color:var(--orange-deep)}
+  .np-card-ex{font-family:"PT Serif",serif;font-size:.92rem;line-height:1.6;color:#3A352C;margin-bottom:16px}
+  .np-card-meta{font-family:"PT Serif",serif;font-style:italic;font-size:.8rem;color:var(--ink-soft);margin-bottom:16px}
+  .np-card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+  .np-card-tags span{
+    font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    border:1px solid rgba(27,23,16,.4);padding:3px 8px;
+  }
+  .np-card .np-btn{margin-top:auto;align-self:flex-start;font-size:.8rem;padding:9px 16px}
+  .np-empty{font-family:"PT Serif",serif;font-style:italic;text-align:center;padding:50px 0;color:var(--ink-soft)}
+
+  @media (max-width:1000px){
+    .front{grid-template-columns:1.4fr 1fr}
+    .front .rail{display:none}
+  }
+  @media (max-width:760px){
+    .front{grid-template-columns:1fr}
+    .front > * + *{border-left:none;padding-left:0;margin-left:0;border-top:1.5px solid var(--ink);padding-top:26px;margin-top:26px}
+    .np-grid{grid-template-columns:1fr}
+    .archive-head{flex-direction:column;align-items:flex-start}
+    .np-search{width:100%}
+  }
+  @media (min-width:761px) and (max-width:1000px){
+    .np-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .college-track{animation:none}
+    .np-btn,.np-card{transition:none}
+  }
+</style>
 </head>
-<body>
+<body class="np">
 
 <nav class="nav" aria-label="Main">
   <div class="nav-inner">
@@ -26,24 +224,57 @@
   </div>
 </nav>
 
-<div class="wrap blog-hero">
-  <p class="eyebrow">The Embark blog</p>
-  <h1>Notes for <span class="accent">the climb</span>.</h1>
-  <p class="lead">Placements decoded, cutoffs explained, colleges compared — written plainly, updated honestly.</p>
-  <div class="blog-tools">
-    <div class="blog-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="search" id="blog-q" placeholder="Search articles" aria-label="Search articles">
-    </div>
-    <div class="cat-chips" id="cat-chips" role="tablist" aria-label="Categories"></div>
+<div class="wrap masthead">
+  <hr class="mast-rule">
+  <h1 class="mast-title">The e<span class="mba">MBA</span>rk Times</h1>
+  <hr class="mast-rule">
+  <div class="mast-sub">
+    <span id="mast-date"></span>
+    <span>MBA news, decoded — written for aspirants, not algorithms</span>
+    <span>Est. 2026 · New Delhi to Jamshedpur</span>
+  </div>
+  <hr class="mast-rule thin">
+</div>
+
+<div class="wrap front">
+  <div class="lead" id="lead-story"></div>
+  <div class="headlines">
+    <span class="headlines-h">The headlines</span>
+    <div id="headline-list"></div>
+  </div>
+  <div class="rail">
+    <span class="rail-label">Sections</span>
+    <div id="rail-list"></div>
   </div>
 </div>
 
-<div class="wrap blog-list">
-  <div class="post-grid" id="post-grid"></div>
-  <div class="blog-empty" id="blog-empty" hidden>
-    <p>No articles match that yet. Try a different search — or tell us what you want us to write about at <a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a>.</p>
+<div class="wrap college-strip">
+  <hr class="mast-rule">
+  <div class="strip-head">
+    <b>By college</b>
+    <span>Pick a campus — read everything we've written about it</span>
   </div>
+  <hr class="mast-rule thin">
+  <div class="college-marquee">
+    <div class="college-track" id="college-track"></div>
+  </div>
+  <hr class="mast-rule">
+  <div class="college-filter-bar" id="college-bar">
+    <span>Showing stories about <b id="college-active"></b></span>
+    <button class="clear-college" id="college-clear">✕ Clear filter</button>
+  </div>
+</div>
+
+<div class="wrap archive" id="archive">
+  <div class="archive-head">
+    <h2>From the archive</h2>
+    <div class="np-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="blog-q" placeholder="Search the archive" aria-label="Search articles">
+    </div>
+  </div>
+  <div class="np-grid" id="np-grid"></div>
+  <p class="np-empty" id="np-empty" hidden>Nothing in the archive matches that — yet. Tell us what to write about: <a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a></p>
 </div>
 
 <footer>
@@ -55,7 +286,7 @@
       </div>
       <div class="foot-links">
         <div>
-          <h4>Read</h4>
+          <h4>Sections</h4>
           <ul id="foot-cats"></ul>
         </div>
         <div>
@@ -77,55 +308,96 @@
 
 <script src="posts.js"></script>
 <script>
-  const MARKS = ['pm-orange','pm-green','pm-dark','pm-soft'];
-  const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-  const cats = ['All', ...new Set(POSTS.map(p => p.category))];
+  const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+  const sorted = [...POSTS].sort((a,b) => b.date.localeCompare(a.date));
+  const cats = [...new Set(POSTS.map(p => p.category))];
+  const colleges = [...new Set(POSTS.flatMap(p => p.colleges || []))];
 
-  const chipWrap = document.getElementById('cat-chips');
-  chipWrap.innerHTML = cats.map((c,i) =>
-    `<button class="cat-chip" role="tab" aria-selected="${i===0}" data-c="${c}">${c}</button>`).join('');
+  document.getElementById('mast-date').textContent = new Date().toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 
-  document.getElementById('foot-cats').innerHTML = cats.slice(1).map(c =>
+  // ----- lead story (newest) -----
+  const lead = sorted[0];
+  const leadWords = lead.title.split(' ');
+  const leadHtml = leadWords.map(w => `<span class="hl">${w}</span>`).join(' ');
+  document.getElementById('lead-story').innerHTML = `
+    <span class="front-label">Today's lead</span>
+    <a class="lead-title" href="blog-post.html?p=${lead.slug}">${leadHtml}</a>
+    <p class="lead-excerpt">${lead.excerpt}</p>
+    <p class="lead-meta">By ${lead.author} · ${fmtDate(lead.date)} · ${lead.readMins} min read · ${lead.category}</p>
+    <a class="np-btn" href="blog-post.html?p=${lead.slug}">Read the story
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>`;
+
+  // ----- headlines (next 4) -----
+  document.getElementById('headline-list').innerHTML = sorted.slice(1, 5).map(p => `
+    <a class="headline" href="blog-post.html?p=${p.slug}">
+      <b>${p.title}</b>
+      <span>${p.category} · ${fmtDate(p.date)} · ${p.readMins} min</span>
+    </a>`).join('');
+
+  // ----- sections rail (category filter) -----
+  const rail = document.getElementById('rail-list');
+  rail.innerHTML = cats.map((c,i) => `
+    <button class="rail-item" role="tab" aria-selected="false" data-cat="${c}">
+      <span class="rail-dial" style="transform:rotate(${i * 40}deg)" aria-hidden="true"></span>
+      <small>${c}</small>
+    </button>`).join('');
+
+  document.getElementById('foot-cats').innerHTML = cats.map(c =>
     `<li><a href="blog.html?cat=${encodeURIComponent(c)}">${c}</a></li>`).join('');
 
-  const grid = document.getElementById('post-grid');
-  const empty = document.getElementById('blog-empty');
-  let activeCat = 'All', query = '';
+  // ----- college strip -----
+  const track = document.getElementById('college-track');
+  const marks = colleges.map(c => `<button class="college-mark" aria-selected="false" data-college="${c}">${c}</button>`).join('');
+  track.innerHTML = marks + marks;
 
-  const card = (p, i, featured) => `
-    <a class="post-card${featured ? ' featured' : ''}" href="blog-post.html?p=${p.slug}">
-      ${featured ? '<span class="ghost" aria-hidden="true">' + p.category[0] + '</span>' : ''}
-      <span class="post-mark ${MARKS[i % MARKS.length]}" aria-hidden="true">${p.category[0]}</span>
-      <span class="post-cat">${p.category}</span>
-      <span class="post-title">${p.title}</span>
-      <span class="post-excerpt">${p.excerpt}</span>
-      <span class="post-meta"><b>${p.author}</b> · ${fmtDate(p.date)} · ${p.readMins} min read</span>
-    </a>`;
+  // ----- archive with combined filters -----
+  let activeCat = null, activeCollege = null, query = '';
+  const grid = document.getElementById('np-grid');
+  const empty = document.getElementById('np-empty');
 
   const render = () => {
     const q = query.toLowerCase();
-    const list = POSTS
-      .filter(p => activeCat === 'All' || p.category === activeCat)
-      .filter(p => !q || (p.title + ' ' + p.excerpt + ' ' + p.tags.join(' ')).toLowerCase().includes(q))
-      .sort((a,b) => b.date.localeCompare(a.date));
-    grid.innerHTML = list.map((p,i) => card(p, i, i === 0 && activeCat === 'All' && !q)).join('');
+    const list = sorted
+      .filter(p => !activeCat || p.category === activeCat)
+      .filter(p => !activeCollege || (p.colleges || []).includes(activeCollege))
+      .filter(p => !q || (p.title + ' ' + p.excerpt + ' ' + p.tags.join(' ') + ' ' + (p.colleges || []).join(' ')).toLowerCase().includes(q));
+    grid.innerHTML = list.map(p => `
+      <a class="np-card" href="blog-post.html?p=${p.slug}">
+        <span class="np-card-bar" aria-hidden="true"></span>
+        <span class="np-card-art" aria-hidden="true"><b>${p.category.slice(0,2).toUpperCase()}</b></span>
+        <span class="np-card-title">${p.title}</span>
+        <span class="np-card-meta">By ${p.author} · ${fmtDate(p.date)} · ${p.readMins} min read</span>
+        <span class="np-card-ex">${p.excerpt}</span>
+        <span class="np-card-tags">${(p.colleges || []).map(c => `<span>${c}</span>`).join('')}</span>
+        <span class="np-btn">Read more</span>
+      </a>`).join('');
     empty.hidden = list.length > 0;
+    document.querySelectorAll('.rail-item').forEach(r => r.setAttribute('aria-selected', r.dataset.cat === activeCat));
+    document.querySelectorAll('.college-mark').forEach(m => m.setAttribute('aria-selected', m.dataset.college === activeCollege));
+    const bar = document.getElementById('college-bar');
+    bar.classList.toggle('show', !!activeCollege);
+    if (activeCollege) document.getElementById('college-active').textContent = activeCollege;
   };
 
-  chipWrap.addEventListener('click', e => {
-    const chip = e.target.closest('.cat-chip');
-    if (!chip) return;
-    activeCat = chip.dataset.c;
-    chipWrap.querySelectorAll('.cat-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.c === activeCat));
+  rail.addEventListener('click', e => {
+    const item = e.target.closest('.rail-item');
+    if (!item) return;
+    activeCat = activeCat === item.dataset.cat ? null : item.dataset.cat;
     render();
+    document.getElementById('archive').scrollIntoView({ behavior: 'smooth' });
   });
+  track.addEventListener('click', e => {
+    const mark = e.target.closest('.college-mark');
+    if (!mark) return;
+    activeCollege = activeCollege === mark.dataset.college ? null : mark.dataset.college;
+    render();
+    document.getElementById('archive').scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('college-clear').addEventListener('click', () => { activeCollege = null; render(); });
   document.getElementById('blog-q').addEventListener('input', e => { query = e.target.value; render(); });
 
   const urlCat = new URLSearchParams(location.search).get('cat');
-  if (urlCat && cats.includes(urlCat)) {
-    activeCat = urlCat;
-    chipWrap.querySelectorAll('.cat-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.c === urlCat));
-  }
+  if (urlCat && cats.includes(urlCat)) activeCat = urlCat;
   render();
 </script>
 </body>

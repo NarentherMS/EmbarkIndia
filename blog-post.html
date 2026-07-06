@@ -7,8 +7,27 @@
 <meta name="description" content="Plain-spoken guidance for MBA aspirants from Embark India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Anton&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css">
+<style>
+  .article-head h1{
+    font-family:"Anton",var(--display);font-weight:400;text-transform:uppercase;
+    letter-spacing:.01em;line-height:1.16;
+  }
+  .article-head h1 .hl{
+    background:#DCD6C8;padding:.04em .14em;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  }
+  .article-body{font-family:"PT Serif",serif}
+  .article-body h2{font-family:"Anton",var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.01em}
+  .article-colleges{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 22px}
+  .article-colleges a{
+    font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    border:1px solid rgba(32,28,21,.4);padding:4px 10px;text-decoration:none;color:inherit;
+    transition:background .18s;
+  }
+  .article-colleges a:hover{background:var(--orange-soft)}
+</style>
 </head>
 <body>
 
@@ -29,6 +48,7 @@
   <div class="article-head">
     <p class="post-cat" id="a-cat"></p>
     <h1 id="a-title"></h1>
+    <div class="article-colleges" id="a-colleges"></div>
     <div class="article-meta">
       <div class="article-avatar" id="a-avatar" aria-hidden="true"></div>
       <div>
@@ -93,7 +113,9 @@
 
   document.title = post.title + ' — Embark India';
   document.getElementById('a-cat').textContent = post.category;
-  document.getElementById('a-title').textContent = post.title;
+  document.getElementById('a-title').innerHTML = post.title.split(' ').map(w => '<span class="hl">' + w + '</span>').join(' ');
+  document.getElementById('a-colleges').innerHTML = (post.colleges || []).map(c =>
+    '<a href="blog.html">' + c + '</a>').join('');
   document.getElementById('a-avatar').textContent = post.author.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
   document.getElementById('a-author').textContent = post.author;
   document.getElementById('a-date').textContent = fmtDate(post.date) + ' · ' + post.readMins + ' min read';

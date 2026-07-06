@@ -4,306 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Embark India — Your MBA journey starts here</title>
-<meta name="description" content="One-on-one MBA admissions guidance from IIM and ISB alumni. Profile building, exam strategy, applications and interview prep — from first mock to final admit.">
+<meta name="description" content="Embark India: guest lectures from verified industry experts, and plain-spoken MBA guidance on the blog. More services on the way.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
 <style>
-  :root{
-    --orange:#F97316;
-    --orange-deep:#D95B04;
-    --orange-soft:#FDE8D4;
-    --cream:#F4F0E6;
-    --cream-deep:#ECE6D6;
-    --charcoal:#201C15;
-    --ink-soft:#5C554A;
-    --green:#1E4034;
-    --green-soft:#E4EAE4;
-    --white:#FFFFFF;
-    --display:"Bricolage Grotesque",system-ui,sans-serif;
-    --body:"Instrument Sans",system-ui,sans-serif;
-    --radius-lg:28px;
-    --radius-md:18px;
-    --radius-pill:999px;
-    --shadow-card:0 2px 8px rgba(32,28,21,.06),0 12px 32px rgba(32,28,21,.07);
-    --maxw:1120px;
+  .home-hero{position:relative;padding:96px 0 72px;overflow:hidden;text-align:center}
+  .home-hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:18px}
+  .home-hero h1 .accent{color:var(--orange)}
+  .home-tag{font-size:1.12rem;color:var(--ink-soft);max-width:520px;margin:0 auto}
+  .home-doors{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:760px;margin:52px auto 0;text-align:left}
+  .home-door{
+    display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;
+    border-radius:24px;padding:34px 32px;box-shadow:var(--shadow-card);
+    transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--body);
-    background:var(--cream);
-    color:var(--charcoal);
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+  .home-door:hover{transform:translateY(-6px)}
+  .home-door:hover .door-arrow{transform:translateX(6px)}
+  .home-door .door-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center}
+  .home-door .door-icon svg{width:26px;height:26px}
+  .home-door h2{font-size:1.45rem;margin:4px 0 0}
+  .home-door p{font-size:.95rem}
+  .home-door .door-arrow{margin-top:10px;transition:transform .2s}
+  .home-door .door-arrow svg{width:22px;height:22px}
+  .hd-dark{background:var(--charcoal)}
+  .hd-dark h2{color:#fff}
+  .hd-dark p{color:rgba(244,240,230,.72)}
+  .hd-dark .door-icon{background:rgba(249,115,22,.18);color:var(--orange)}
+  .hd-dark .door-arrow{color:var(--orange)}
+  .hd-light{background:var(--white)}
+  .hd-light p{color:var(--ink-soft)}
+  .hd-light .door-icon{background:var(--green-soft);color:var(--green)}
+  .hd-light .door-arrow{color:var(--green)}
+  .home-soon{padding:72px 0 96px;text-align:center}
+  .home-soon .eyebrow{justify-content:center}
+  .soon-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px;margin:26px auto 0}
+  .soon-chip{
+    font-size:.9rem;font-weight:500;color:var(--ink-soft);
+    border:1.5px dashed rgba(32,28,21,.3);border-radius:var(--radius-pill);padding:10px 20px;
   }
-  img,svg{display:block;max-width:100%}
-  a{color:inherit}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-
-  /* ---------- wordmark ---------- */
-  .wordmark{
-    font-family:var(--display);
-    font-weight:800;
-    font-size:1.5rem;
-    letter-spacing:-.02em;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:baseline;
-    line-height:1;
-  }
-  .wordmark .mba{color:var(--orange)}
-  .wordmark-tag{
-    display:block;
-    font-family:var(--body);
-    font-size:.68rem;
-    font-weight:500;
-    letter-spacing:.04em;
-    color:var(--ink-soft);
-    margin-top:4px;
-  }
-
-  /* ---------- nav ---------- */
-  .nav{
-    position:sticky;top:0;z-index:100;
-    background:rgba(244,240,230,.88);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(32,28,21,.08);
-  }
-  .nav-inner{
-    max-width:var(--maxw);margin:0 auto;padding:14px 24px;
-    display:flex;align-items:center;justify-content:space-between;gap:24px;
-  }
-  .nav-links{display:flex;gap:28px;list-style:none}
-  .nav-links a{
-    text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-soft);
-    transition:color .18s ease;
-  }
-  .nav-links a:hover{color:var(--charcoal)}
-
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:var(--body);font-weight:600;font-size:1rem;
-    padding:14px 26px;border-radius:var(--radius-pill);
-    text-decoration:none;cursor:pointer;border:none;
-    transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
-    min-height:48px;
-  }
-  .btn:active{transform:scale(.97)}
-  .btn-primary{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(249,115,22,.32)}
-  .btn-primary:hover{background:var(--orange-deep)}
-  .btn-ghost{background:transparent;color:var(--charcoal);border:1.5px solid rgba(32,28,21,.25)}
-  .btn-ghost:hover{border-color:var(--charcoal);background:rgba(32,28,21,.04)}
-  .btn-sm{padding:10px 20px;font-size:.92rem;min-height:44px}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
-  .btn:focus-visible{border-radius:var(--radius-pill)}
-
-  /* ---------- hero ---------- */
-  .hero{position:relative;padding:88px 0 110px;overflow:hidden}
-  .hero-blob{position:absolute;z-index:0;pointer-events:none}
-  .hero-blob.tl{top:-90px;left:-110px;width:320px;opacity:.95}
-  .hero-blob.br{bottom:-130px;right:-100px;width:380px;opacity:.9}
-  .hero-inner{position:relative;z-index:1;max-width:820px}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--green);margin-bottom:22px;
-  }
-  .eyebrow::before{content:"";width:34px;height:0;border-top:2px dashed var(--green)}
-  h1{
-    font-family:var(--display);
-    font-weight:800;
-    font-size:clamp(2.5rem,6.4vw,4.6rem);
-    line-height:1.04;
-    letter-spacing:-.025em;
-    margin-bottom:26px;
-  }
-  h1 .accent{color:var(--orange)}
-  h1 .underlined{
-    position:relative;white-space:nowrap;
-  }
-  h1 .underlined svg{
-    position:absolute;left:0;bottom:-.12em;width:100%;height:.28em;overflow:visible;
-  }
-  .hero-sub{
-    font-size:1.16rem;color:var(--ink-soft);max-width:560px;margin-bottom:38px;
-  }
-  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-  .hero-note{font-size:.88rem;color:var(--ink-soft);margin-top:18px}
-  .hero-note strong{color:var(--charcoal)}
-
-  /* ---------- section scaffolding ---------- */
-  section{padding:96px 0}
-  .sec-head{max-width:640px;margin-bottom:64px}
-  h2{
-    font-family:var(--display);font-weight:700;
-    font-size:clamp(1.9rem,4vw,2.9rem);
-    line-height:1.12;letter-spacing:-.02em;margin:14px 0 18px;
-  }
-  .sec-head p{color:var(--ink-soft);font-size:1.08rem}
-
-  /* ---------- journey (signature) ---------- */
-  .journey{background:var(--cream);position:relative}
-  .journey-track{position:relative;max-width:880px;margin:0 auto}
-  .journey-path{
-    position:absolute;top:0;left:50%;transform:translateX(-50%);
-    height:100%;width:160px;pointer-events:none;
-  }
-  .journey-path path{
-    fill:none;stroke:var(--green);stroke-width:2.5;
-    stroke-dasharray:10 12;stroke-linecap:round;
-  }
-  .milestone{
-    position:relative;display:grid;
-    grid-template-columns:1fr 120px 1fr;
-    align-items:center;
-    min-height:210px;
-  }
-  .milestone-node{
-    grid-column:2;justify-self:center;
-    width:58px;height:58px;border-radius:50%;
-    background:var(--orange);color:#fff;
-    font-family:var(--display);font-weight:800;font-size:1.25rem;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 0 0 8px var(--cream),0 6px 16px rgba(249,115,22,.35);
-    z-index:1;
-  }
-  .milestone-card{
-    background:var(--white);border-radius:var(--radius-lg);
-    padding:30px 32px;box-shadow:var(--shadow-card);
-    max-width:400px;
-  }
-  .milestone:nth-child(odd) .milestone-card{grid-column:1;justify-self:end}
-  .milestone:nth-child(even) .milestone-card{grid-column:3;justify-self:start}
-  .milestone h3{
-    font-family:var(--display);font-weight:700;font-size:1.3rem;
-    letter-spacing:-.01em;margin-bottom:8px;
-  }
-  .milestone p{color:var(--ink-soft);font-size:.98rem}
-  .milestone .stage-label{
-    font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--orange);display:block;margin-bottom:6px;
-  }
-
-  /* ---------- services ---------- */
-  .services{background:var(--white)}
-  .services-grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;
-  }
-  .service-card{
-    background:var(--cream);border-radius:var(--radius-lg);
-    padding:34px 30px;
-    transition:transform .22s ease,box-shadow .22s ease;
-  }
-  .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card)}
-  .service-icon{
-    width:52px;height:52px;border-radius:16px;
-    background:var(--orange-soft);color:var(--orange-deep);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:22px;
-  }
-  .service-icon svg{width:26px;height:26px}
-  .service-card h3{
-    font-family:var(--display);font-weight:700;font-size:1.22rem;margin-bottom:10px;
-    letter-spacing:-.01em;
-  }
-  .service-card p{color:var(--ink-soft);font-size:.97rem}
-
-  /* ---------- proof strip ---------- */
-  .proof{background:var(--green);color:var(--cream);border-radius:0}
-  .proof .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:40px}
-  .stat{text-align:left}
-  .stat-num{
-    font-family:var(--display);font-weight:800;
-    font-size:clamp(2.4rem,4.6vw,3.4rem);line-height:1;letter-spacing:-.02em;
-    color:#fff;
-  }
-  .stat-num .tick{color:var(--orange)}
-  .stat-label{margin-top:10px;font-size:.95rem;color:rgba(244,240,230,.78)}
-
-  /* ---------- testimonials ---------- */
-  .stories{background:var(--cream)}
-  .stories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-  .story{
-    background:var(--white);border-radius:var(--radius-lg);
-    padding:32px;box-shadow:var(--shadow-card);
-    display:flex;flex-direction:column;gap:18px;
-  }
-  .story blockquote{font-size:1.02rem;line-height:1.65;color:var(--charcoal)}
-  .story blockquote::before{
-    content:"“";display:block;
-    font-family:var(--display);font-size:2.6rem;font-weight:800;line-height:.6;
-    color:var(--orange);margin-bottom:12px;
-  }
-  .story-who{display:flex;align-items:center;gap:14px;margin-top:auto}
-  .story-avatar{
-    width:46px;height:46px;border-radius:50%;flex:none;
-    background:var(--green);color:#fff;
-    font-family:var(--display);font-weight:700;font-size:1rem;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .story-who b{display:block;font-size:.96rem}
-  .story-who span{font-size:.85rem;color:var(--ink-soft)}
-
-  /* ---------- final CTA ---------- */
-  .final{background:var(--white)}
-  .final-card{
-    position:relative;overflow:hidden;
-    background:var(--charcoal);color:var(--cream);
-    border-radius:36px;padding:72px 56px;
-    text-align:center;
-  }
-  .final-card h2{color:#fff;max-width:640px;margin:14px auto 18px}
-  .final-card h2 .accent{color:var(--orange)}
-  .final-card p{color:rgba(244,240,230,.75);max-width:480px;margin:0 auto 36px}
-  .final-card .eyebrow{color:var(--orange);justify-content:center}
-  .final-card .eyebrow::before{border-color:var(--orange)}
-  .final-blob{position:absolute;pointer-events:none;opacity:.16}
-  .final-blob.l{left:-70px;top:-60px;width:260px}
-  .final-blob.r{right:-80px;bottom:-90px;width:300px}
-  .final-inner{position:relative;z-index:1}
-
-  /* ---------- footer ---------- */
-  footer{background:var(--white);padding:56px 0 40px;border-top:1px solid rgba(32,28,21,.08)}
-  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
-  .foot-links{display:flex;gap:48px;flex-wrap:wrap}
-  .foot-links h4{
-    font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--ink-soft);margin-bottom:14px;
-  }
-  .foot-links ul{list-style:none}
-  .foot-links li{margin-bottom:10px}
-  .foot-links a{text-decoration:none;font-size:.95rem;color:var(--charcoal)}
-  .foot-links a:hover{color:var(--orange-deep)}
-  .foot-base{
-    margin-top:44px;padding-top:24px;border-top:1px dashed rgba(32,28,21,.18);
-    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    font-size:.85rem;color:var(--ink-soft);
-  }
-
-  /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
-
-  /* ---------- responsive ---------- */
-  @media (max-width:860px){
-    .nav-links{display:none}
-    section{padding:72px 0}
-    .hero{padding:64px 0 84px}
-    .journey-path{left:29px;transform:none;width:60px}
-    .milestone{grid-template-columns:58px 1fr;gap:20px;min-height:0;padding:26px 0}
-    .milestone-node{grid-column:1;box-shadow:0 0 0 6px var(--cream),0 6px 16px rgba(249,115,22,.35)}
-    .milestone:nth-child(odd) .milestone-card,
-    .milestone:nth-child(even) .milestone-card{grid-column:2;justify-self:stretch;max-width:none}
-    .final-card{padding:56px 28px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    .reveal{opacity:1;transform:none;transition:none}
-    .journey-path path{stroke-dashoffset:0 !important}
-    .btn,.service-card{transition:none}
+  @media (max-width:760px){
+    .home-doors{grid-template-columns:1fr}
+    .home-hero{padding:64px 0 52px}
   }
 </style>
 </head>
@@ -311,202 +54,59 @@
 
 <nav class="nav" aria-label="Main">
   <div class="nav-inner">
-    <a class="wordmark" href="#top" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+    <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
     <ul class="nav-links">
-      <li><a href="#journey">How it works</a></li>
-      <li><a href="#services">What we do</a></li>
-      <li><a href="#stories">Stories</a></li>
+      <li><a href="guest-lectures.html">Guest lectures</a></li>
+      <li><a href="blog.html">Blog</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm" href="#connect">Book a free call</a>
+    <a class="btn btn-primary btn-sm" href="guest-lectures.html">Explore services</a>
   </div>
 </nav>
 
-<header class="hero" id="top">
-  <svg class="hero-blob tl" viewBox="0 0 320 300" aria-hidden="true">
-    <path fill="#F97316" d="M226 18c46 24 88 68 84 112-4 45-54 90-108 104-53 14-110-4-142-42C28 154 22 96 48 58 74 19 132 1 172 4c20 2 38 6 54 14Z"/>
-    <circle cx="268" cy="216" r="26" fill="none" stroke="#F97316" stroke-width="10"/>
+<header class="home-hero">
+  <svg class="hero-blob tr" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
+    <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
   </svg>
-  <svg class="hero-blob br" viewBox="0 0 380 340" aria-hidden="true">
-    <path fill="#F97316" d="M312 34c44 34 72 92 62 142s-58 92-114 108c-56 17-120 8-158-28C64 220 52 158 70 108 88 57 136 19 190 10c46-8 88 0 122 24Z"/>
+  <svg class="hero-blob bl" style="position:absolute;bottom:-150px;left:-150px;width:300px;opacity:.45" viewBox="0 0 300 270" aria-hidden="true">
+    <path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/>
   </svg>
+  <div class="wrap" style="position:relative;z-index:1">
+    <h1>Your MBA journey<br><span class="accent">starts here</span>.</h1>
+    <p class="home-tag">Everything an aspirant needs on the climb — built one service at a time.</p>
 
-  <div class="wrap hero-inner">
-    <p class="eyebrow">Your MBA journey starts here</p>
-    <h1>From first mock<br>to <span class="underlined">final admit<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 18 C 80 6, 220 6, 296 14" fill="none" stroke="#F97316" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 13"/></svg></span>,<br>we climb <span class="accent">with you</span>.</h1>
-    <p class="hero-sub">One-on-one guidance from IIM and ISB alumni who've made the climb themselves — profile building, exam strategy, applications and interview prep, all in one place.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="#connect">Book a free counselling call</a>
-      <a class="btn btn-ghost" href="#journey">See how it works</a>
+    <div class="home-doors">
+      <a class="home-door hd-dark" href="guest-lectures.html">
+        <span class="door-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 8-4 8 4-8 4-8-4z"/><path d="M4 6v6c0 2 3.6 4 8 4s8-2 8-4V6"/><path d="M20 6v8"/></svg>
+        </span>
+        <h2>Guest lectures as a service</h2>
+        <p>Verified industry practitioners for your classroom — lectures, workshops and curriculum partnerships, matched within 48 hours.</p>
+        <span class="door-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="home-door hd-light" href="blog.html">
+        <span class="door-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7M9 11.5h5"/></svg>
+        </span>
+        <h2>The Embark blog</h2>
+        <p>Placements decoded, cutoffs explained, colleges compared — plain-spoken guidance, filterable by college.</p>
+        <span class="door-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
     </div>
-    <p class="hero-note"><strong>Free 30-minute call.</strong> No scripts, no pressure — just an honest read on where you stand.</p>
   </div>
 </header>
 
-<section class="journey" id="journey">
+<section class="home-soon">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">How it works</p>
-      <h2>One journey, five base camps.</h2>
-      <p>The MBA path is a sequence, not a scramble. We walk it with you stage by stage — and you always know which camp you're at.</p>
-    </div>
-
-    <div class="journey-track">
-      <svg class="journey-path" viewBox="0 0 160 1050" preserveAspectRatio="none" aria-hidden="true">
-        <path id="trail" d="M80 20 C 150 120, 10 190, 80 300 C 150 410, 10 480, 80 590 C 150 700, 10 770, 80 880 C 120 940, 80 1000, 80 1030"/>
-      </svg>
-
-      <div class="milestone reveal">
-        <div class="milestone-card">
-          <span class="stage-label">Stage 1</span>
-          <h3>Discover</h3>
-          <p>A frank profile evaluation with a mentor: your academics, work experience, goals — and which schools genuinely fit them.</p>
-        </div>
-        <div class="milestone-node" aria-hidden="true">1</div>
-      </div>
-
-      <div class="milestone reveal">
-        <div class="milestone-card">
-          <span class="stage-label">Stage 2</span>
-          <h3>Prepare</h3>
-          <p>A study plan built around your CAT, XAT or GMAT date — with mentor check-ins that keep the plan honest when work gets busy.</p>
-        </div>
-        <div class="milestone-node" aria-hidden="true">2</div>
-      </div>
-
-      <div class="milestone reveal">
-        <div class="milestone-card">
-          <span class="stage-label">Stage 3</span>
-          <h3>Apply</h3>
-          <p>Essays, SOPs and forms that sound like you on your best day — drafted with editors who know what each school reads for.</p>
-        </div>
-        <div class="milestone-node" aria-hidden="true">3</div>
-      </div>
-
-      <div class="milestone reveal">
-        <div class="milestone-card">
-          <span class="stage-label">Stage 4</span>
-          <h3>Interview</h3>
-          <p>Mock WAT-PI panels with alumni of your target schools, followed by written feedback you can act on before the real thing.</p>
-        </div>
-        <div class="milestone-node" aria-hidden="true">4</div>
-      </div>
-
-      <div class="milestone reveal">
-        <div class="milestone-card">
-          <span class="stage-label">Stage 5</span>
-          <h3>Admit</h3>
-          <p>Offers in hand, we help you compare programmes, negotiate scholarships and get ready for day one on campus.</p>
-        </div>
-        <div class="milestone-node" aria-hidden="true">5</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="services" id="services">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">What we do</p>
-      <h2>Everything between you and your admit letter.</h2>
-      <p>Pick the support you need, or take the full journey with one mentor who stays with you throughout.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
-        </div>
-        <h3>Admissions consulting</h3>
-        <p>School selection, application strategy and deadline management across IIMs, ISB, XLRI and international B-schools.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7M9 11.5h5"/></svg>
-        </div>
-        <h3>Exam strategy</h3>
-        <p>Personal study plans for CAT, XAT and GMAT — sectional targets, mock analysis and course-corrections that fit a working schedule.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M15.5 4.13a3.5 3.5 0 0 1 0 6.75"/></svg>
-        </div>
-        <h3>Alumni mentorship</h3>
-        <p>A mentor from your target school who has sat in the same interview chair — on call through every stage of your journey.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-        </div>
-        <h3>Essays &amp; interviews</h3>
-        <p>SOP and essay editing plus mock WAT-PI panels, with written feedback after every session so progress is visible.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="proof" aria-label="Results">
-  <div class="wrap">
-    <div class="stat reveal">
-      <div class="stat-num" data-count="500">0<span class="tick">+</span></div>
-      <div class="stat-label">aspirants guided since we started</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-num" data-count="40">0<span class="tick">+</span></div>
-      <div class="stat-label">IIM &amp; ISB alumni on the mentor bench</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-num" data-count="9">0<span class="tick">/10</span></div>
-      <div class="stat-label">mentees would recommend us to a friend</div>
-    </div>
-    <div class="stat reveal">
-      <div class="stat-num" data-count="25">0<span class="tick">+</span></div>
-      <div class="stat-label">B-schools our mentees joined last season</div>
-    </div>
-  </div>
-</section>
-
-<section class="stories" id="stories">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Mentee stories</p>
-      <h2>People who made the climb.</h2>
-    </div>
-    <div class="stories-grid">
-      <div class="story reveal">
-        <blockquote>My mentor tore my first SOP draft apart — kindly, but completely. The version that got me my interview call was unrecognisable, and unmistakably mine.</blockquote>
-        <div class="story-who">
-          <div class="story-avatar" aria-hidden="true">PR</div>
-          <div><b>Priya R.</b><span>Admitted to IIM Bangalore, PGP</span></div>
-        </div>
-      </div>
-      <div class="story reveal">
-        <blockquote>I was preparing for CAT alongside a 10-hour workday. The study plan wasn't heroic — it was realistic. That's exactly why it worked.</blockquote>
-        <div class="story-who">
-          <div class="story-avatar" aria-hidden="true">AK</div>
-          <div><b>Arjun K.</b><span>Admitted to ISB Hyderabad, PGP</span></div>
-        </div>
-      </div>
-      <div class="story reveal">
-        <blockquote>Three mock interviews with actual XLRI alumni. By the real panel, nothing they asked surprised me — I'd already answered harder versions of it.</blockquote>
-        <div class="story-who">
-          <div class="story-avatar" aria-hidden="true">SM</div>
-          <div><b>Sneha M.</b><span>Admitted to XLRI Jamshedpur, BM</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="final" id="connect">
-  <div class="wrap">
-    <div class="final-card reveal">
-      <svg class="final-blob l" viewBox="0 0 260 240" aria-hidden="true"><path fill="#F97316" d="M186 14c38 20 72 56 68 92-3 37-44 74-88 85-44 12-90-3-116-34C24 126 20 78 41 47 63 15 110 1 143 3c17 1 31 5 43 11Z"/></svg>
-      <svg class="final-blob r" viewBox="0 0 300 270" aria-hidden="true"><path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/></svg>
-      <div class="final-inner">
-        <p class="eyebrow">Connect with us to know more</p>
-        <h2>Your journey deserves more than <span class="accent">generic advice</span>.</h2>
-        <p>Tell us where you are today — we'll tell you honestly what the climb to your target school looks like.</p>
-        <a class="btn btn-primary" href="mailto:hello@embarkindia.in?subject=Free%20counselling%20call">Book a free counselling call</a>
-      </div>
+    <p class="eyebrow">On the roadmap</p>
+    <h2>The rest of the climb is coming.</h2>
+    <div class="soon-chips">
+      <span class="soon-chip">Case competitions</span>
+      <span class="soon-chip">MBA mentorship</span>
+      <span class="soon-chip">Jobs &amp; internships</span>
+      <span class="soon-chip">Courses</span>
+      <span class="soon-chip">Mock interviews &amp; GDs</span>
+      <span class="soon-chip">Stream playbooks</span>
+      <span class="soon-chip">College hub</span>
     </div>
   </div>
 </section>
@@ -515,23 +115,21 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="wordmark" href="#top">e<span class="mba">MBA</span>rk</a>
+        <a class="wordmark" href="index.html">e<span class="mba">MBA</span>rk</a>
         <span class="wordmark-tag">Your MBA journey starts here…</span>
       </div>
       <div class="foot-links">
         <div>
-          <h4>Explore</h4>
+          <h4>Services</h4>
           <ul>
-            <li><a href="#journey">How it works</a></li>
-            <li><a href="#services">What we do</a></li>
-            <li><a href="#stories">Mentee stories</a></li>
+            <li><a href="guest-lectures.html">Guest lectures</a></li>
+            <li><a href="blog.html">Blog</a></li>
           </ul>
         </div>
         <div>
           <h4>Connect</h4>
           <ul>
             <li><a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a></li>
-            <li><a href="https://embarkindia.in">embarkindia.in</a></li>
           </ul>
         </div>
       </div>
@@ -543,60 +141,5 @@
   </div>
 </footer>
 
-<script>
-  // Scroll reveal
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const reveals = document.querySelectorAll('.reveal');
-  if (reduced) {
-    reveals.forEach(el => el.classList.add('in'));
-  } else {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => io.observe(el));
-  }
-
-  // Journey trail draws itself as you scroll through the section
-  const trail = document.getElementById('trail');
-  if (trail && !reduced) {
-    const len = trail.getTotalLength();
-    trail.style.strokeDasharray = '10 12';
-    trail.style.strokeDashoffset = len;
-    // switch to a solid dash reveal: mask via dashoffset over the dashed pattern
-    // simpler approach: animate opacity segments via clip; use dashoffset on a duplicate solid line is overkill.
-    // We reveal by animating stroke-dashoffset from len to 0 with a large dash pattern layered on the dashes.
-    trail.style.strokeDasharray = `10 12`;
-    const onScroll = () => {
-      const sec = document.getElementById('journey');
-      const rect = sec.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const progress = Math.min(1, Math.max(0, (vh * 0.7 - rect.top) / (rect.height)));
-      trail.style.strokeDashoffset = String(len * (1 - progress));
-    };
-    trail.style.transition = 'stroke-dashoffset .1s linear';
-    document.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  // Count-up stats
-  const stats = document.querySelectorAll('.stat-num');
-  const fmt = n => String(Math.round(n));
-  const runCount = el => {
-    const target = +el.dataset.count;
-    const suffix = el.querySelector('.tick');
-    if (reduced) { el.firstChild.textContent = fmt(target); return; }
-    const t0 = performance.now(), dur = 1200;
-    const step = t => {
-      const p = Math.min(1, (t - t0) / dur);
-      el.firstChild.textContent = fmt(target * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const statIO = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { runCount(e.target); statIO.unobserve(e.target); } });
-  }, { threshold: 0.6 });
-  stats.forEach(el => statIO.observe(el));
-</script>
 </body>
 </html>

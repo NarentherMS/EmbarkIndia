@@ -1,12 +1,33 @@
-// Embark India blog — sample posts. Each post: slug, title, category, tags, date,
-// author, readMins, excerpt, body (HTML). Replace/extend freely — the blog pages
-// render whatever is in this list.
+// Embark India blog — sample posts. Each post: slug, title, category, tags,
+// colleges (drives the college carousel filter), date, author, readMins,
+// excerpt, body (HTML). Replace/extend freely — the blog pages render this list.
 const POSTS = [
+  {
+    slug: 'nirf-2026-what-actually-moved',
+    title: 'NIRF 2026: what actually moved, and what it means for your list',
+    category: 'News',
+    tags: ['news', 'rankings', 'NIRF'],
+    colleges: ['IIM Ahmedabad', 'IIM Bangalore', 'ISB Hyderabad'],
+    date: '2026-07-04',
+    author: 'Narenther',
+    readMins: 5,
+    excerpt: 'The top three did not move — they almost never do. The story is in ranks 15 to 40, where two big jumps and one quiet slide should change a few application lists.',
+    body: `
+      <p>Every NIRF release produces the same headlines about the same three colleges. Ignore them: the top of the table is frozen, and your decision probably does not live there anyway. The useful information is in the middle of the table, where movement is real and reasons matter.</p>
+      <h2>Jumps deserve suspicion before applause</h2>
+      <p>When a college climbs eight places, find out which parameter moved. A jump driven by placement outcomes and faculty additions is a real signal. A jump driven by perception score — a survey — is marketing with a rank attached. NIRF publishes the parameter split; read it before you reorder your list.</p>
+      <h2>Slides are slower than reputations</h2>
+      <p>A college that slips three years in a row is telling you something the brochure will not. Reputation decays slower than quality — which means the rank often falls <em>after</em> the batch experience already has. Cross-check recent placement medians against two years ago before you trust the brand memory.</p>
+      <h2>What to do with this</h2>
+      <p>Rebuild your college bands once a year, after NIRF and after placement reports — not after a coaching institute's "top colleges" poster. And if a college you care about moved sharply either way this year, that is exactly the kind of question worth asking someone who studied there.</p>
+    `
+  },
   {
     slug: 'reading-placement-reports',
     title: 'How to read a placement report without getting fooled',
     category: 'Placements',
     tags: ['placements', 'guides'],
+    colleges: ['IIM Indore', 'XLRI Jamshedpur'],
     date: '2026-07-01',
     author: 'Narenther',
     readMins: 6,
@@ -28,6 +49,7 @@ const POSTS = [
     title: 'CAT percentile vs cutoff: what the numbers actually mean',
     category: 'Exam prep',
     tags: ['exam prep', 'admissions', 'CAT'],
+    colleges: ['IIM Ahmedabad', 'IIM Bangalore', 'FMS Delhi'],
     date: '2026-06-24',
     author: 'Narenther',
     readMins: 5,
@@ -48,6 +70,7 @@ const POSTS = [
     title: 'Tier 2 MBA colleges that punch above their weight',
     category: 'Rankings',
     tags: ['rankings', 'guides', 'tier 2'],
+    colleges: ['IIM Indore', 'SPJIMR Mumbai', 'XLRI Jamshedpur'],
     date: '2026-06-15',
     author: 'Narenther',
     readMins: 7,
@@ -68,6 +91,7 @@ const POSTS = [
     title: 'WAT-PI season: what interview panels actually listen for',
     category: 'Admissions',
     tags: ['admissions', 'interviews'],
+    colleges: ['IIM Calcutta', 'FMS Delhi'],
     date: '2026-06-05',
     author: 'Narenther',
     readMins: 4,
@@ -81,6 +105,27 @@ const POSTS = [
       <h2>The WAT is a thinking sample, not an essay</h2>
       <p>Twenty minutes, one page. Structure beats vocabulary: a clear position, two supporting arguments, one honest acknowledgement of the other side, a conclusion that follows. Examiners read hundreds of these; the one that is easy to follow wins.</p>
       <p>Mock interviews with people who have sat on real panels remain the highest-leverage prep there is — which is exactly why mock interviews are on the Embark India roadmap.</p>
+    `
+  },
+  {
+    slug: 'from-82-percentile-to-fms',
+    title: 'From an 82 percentile mock to FMS Delhi: a working plan, not a miracle',
+    category: 'Success stories',
+    tags: ['success stories', 'CAT', 'FMS'],
+    colleges: ['FMS Delhi'],
+    date: '2026-05-28',
+    author: 'Narenther',
+    readMins: 5,
+    excerpt: 'Ninety days out, her mocks said 82 percentile. She closed at 97.8 and converted FMS. The plan was boring, specific, and completely copyable.',
+    body: `
+      <p>Success stories usually hide the mechanics behind the emotion. This one is worth telling because the mechanics were the whole story: no heroic streaks, no 14-hour days — a working professional with three evenings a week and a plan she actually followed.</p>
+      <h2>The audit came before the effort</h2>
+      <p>Her first move was not more mocks — it was a two-hour autopsy of the last three. The finding: quant accuracy was fine but attempt count was low, and VARC was bleeding marks on reading-comprehension inference questions specifically. That converted "study harder" into two named problems.</p>
+      <h2>One fix per fortnight</h2>
+      <p>Each fortnight targeted exactly one weakness. Quant attempt-count went first: timed sectionals with a forced-skip rule — fifteen seconds of no progress means move. VARC inference came second, twenty passages a week with answers argued out loud. Nothing else changed. The mocks climbed almost reluctantly: 82, 85, 89, 91.</p>
+      <h2>The last month was rehearsal, not learning</h2>
+      <p>The final four weeks added nothing new. Same slot as the real exam, same breakfast, full mock, full analysis, sleep. Exam day, in her words, "felt like the eleventh rehearsal." She scored 97.8, cleared the FMS cutoff, and converted the interview by talking plainly about her failure-and-fix cycle — the very thing this plan produced.</p>
+      <p>The copyable part is not her percentile. It is the shape: audit first, one named fix at a time, rehearsal at the end.</p>
     `
   }
 ];
