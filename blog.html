@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Embark India</title>
+<meta name="description" content="Plain-spoken guidance for MBA aspirants: placements decoded, cutoffs explained, colleges compared, interviews demystified.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Blog</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guest-lectures.html">Guest lectures</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="mailto:hello@embarkindia.in?subject=Newsletter">Follow updates</a>
+  </div>
+</nav>
+
+<div class="wrap blog-hero">
+  <p class="eyebrow">The Embark blog</p>
+  <h1>Notes for <span class="accent">the climb</span>.</h1>
+  <p class="lead">Placements decoded, cutoffs explained, colleges compared — written plainly, updated honestly.</p>
+  <div class="blog-tools">
+    <div class="blog-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="blog-q" placeholder="Search articles" aria-label="Search articles">
+    </div>
+    <div class="cat-chips" id="cat-chips" role="tablist" aria-label="Categories"></div>
+  </div>
+</div>
+
+<div class="wrap blog-list">
+  <div class="post-grid" id="post-grid"></div>
+  <div class="blog-empty" id="blog-empty" hidden>
+    <p>No articles match that yet. Try a different search — or tell us what you want us to write about at <a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a>.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="index.html">e<span class="mba">MBA</span>rk</a>
+        <span class="wordmark-tag">Your MBA journey starts here…</span>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Read</h4>
+          <ul id="foot-cats"></ul>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="index.html">Embark India home</a></li>
+            <li><a href="guest-lectures.html">Guest lectures</a></li>
+            <li><a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Embark India. All rights reserved.</span>
+      <span>Written for aspirants, not for algorithms.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="posts.js"></script>
+<script>
+  const MARKS = ['pm-orange','pm-green','pm-dark','pm-soft'];
+  const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+  const cats = ['All', ...new Set(POSTS.map(p => p.category))];
+
+  const chipWrap = document.getElementById('cat-chips');
+  chipWrap.innerHTML = cats.map((c,i) =>
+    `<button class="cat-chip" role="tab" aria-selected="${i===0}" data-c="${c}">${c}</button>`).join('');
+
+  document.getElementById('foot-cats').innerHTML = cats.slice(1).map(c =>
+    `<li><a href="blog.html?cat=${encodeURIComponent(c)}">${c}</a></li>`).join('');
+
+  const grid = document.getElementById('post-grid');
+  const empty = document.getElementById('blog-empty');
+  let activeCat = 'All', query = '';
+
+  const card = (p, i, featured) => `
+    <a class="post-card${featured ? ' featured' : ''}" href="blog-post.html?p=${p.slug}">
+      ${featured ? '<span class="ghost" aria-hidden="true">' + p.category[0] + '</span>' : ''}
+      <span class="post-mark ${MARKS[i % MARKS.length]}" aria-hidden="true">${p.category[0]}</span>
+      <span class="post-cat">${p.category}</span>
+      <span class="post-title">${p.title}</span>
+      <span class="post-excerpt">${p.excerpt}</span>
+      <span class="post-meta"><b>${p.author}</b> · ${fmtDate(p.date)} · ${p.readMins} min read</span>
+    </a>`;
+
+  const render = () => {
+    const q = query.toLowerCase();
+    const list = POSTS
+      .filter(p => activeCat === 'All' || p.category === activeCat)
+      .filter(p => !q || (p.title + ' ' + p.excerpt + ' ' + p.tags.join(' ')).toLowerCase().includes(q))
+      .sort((a,b) => b.date.localeCompare(a.date));
+    grid.innerHTML = list.map((p,i) => card(p, i, i === 0 && activeCat === 'All' && !q)).join('');
+    empty.hidden = list.length > 0;
+  };
+
+  chipWrap.addEventListener('click', e => {
+    const chip = e.target.closest('.cat-chip');
+    if (!chip) return;
+    activeCat = chip.dataset.c;
+    chipWrap.querySelectorAll('.cat-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.c === activeCat));
+    render();
+  });
+  document.getElementById('blog-q').addEventListener('input', e => { query = e.target.value; render(); });
+
+  const urlCat = new URLSearchParams(location.search).get('cat');
+  if (urlCat && cats.includes(urlCat)) {
+    activeCat = urlCat;
+    chipWrap.querySelectorAll('.cat-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.c === urlCat));
+  }
+  render();
+</script>
+</body>
+</html>
