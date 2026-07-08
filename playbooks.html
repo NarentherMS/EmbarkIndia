@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stream Playbooks — Embark India</title>
+<meta name="description" content="One playbook per MBA stream — marketing, finance, operations, HR, analytics and general management. Roles, recruiters, skills, and a 2-year gameplan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Playbooks</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guest-lectures.html">Guest lectures</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#streams">Pick your stream</a>
+  </div>
+</nav>
+
+<header class="hero" style="padding:72px 0 56px">
+  <svg class="hero-blob tr" viewBox="0 0 330 300" aria-hidden="true">
+    <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
+  </svg>
+  <div class="wrap" style="position:relative;z-index:1;max-width:760px;text-align:center;margin:0 auto">
+    <p class="eyebrow" style="justify-content:center">Stream playbooks</p>
+    <h1>Pick a stream.<br>Get <span style="color:var(--orange)">the whole map</span>.</h1>
+    <p class="hero-sub" style="margin:20px auto 0">Every specialisation, decoded the same way: the roles, the recruiters, the skills, and a two-year gameplan from day zero to placement day.</p>
+  </div>
+</header>
+
+<section id="streams" style="padding:24px 0 96px">
+  <div class="wrap">
+    <div class="pb-grid" id="pb-grid"></div>
+  </div>
+</section>
+
+<section class="how" style="background:var(--white);padding:80px 0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">How to use a playbook</p>
+      <h2>Read once. Work it for two years.</h2>
+    </div>
+    <div class="how-cards">
+      <div class="how-connect" aria-hidden="true"></div>
+      <div class="how-card tilt-l reveal" style="background:var(--cream)">
+        <span class="ghost" aria-hidden="true">1</span>
+        <h3>Choose honestly</h3>
+        <p>Each playbook opens with "this is for you if". If none of the three lines feel like you, that's an answer too.</p>
+      </div>
+      <div class="how-card tilt-r reveal" style="background:var(--cream)">
+        <span class="ghost" aria-hidden="true">2</span>
+        <h3>Follow the gameplan</h3>
+        <p>The term-by-term timeline tells you what matters when — so placement season is a rehearsal, not a scramble.</p>
+      </div>
+      <div class="how-card tilt-l reveal" style="background:var(--cream)">
+        <span class="ghost" aria-hidden="true">3</span>
+        <h3>Tick the checklist</h3>
+        <p>Every playbook has a skill checklist that saves your progress in your browser. Come back and tick as you build.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="index.html">e<span class="mba">MBA</span>rk</a>
+        <span class="wordmark-tag">Your MBA journey starts here…</span>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Playbooks</h4>
+          <ul id="foot-pbs"></ul>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="index.html">Embark India home</a></li>
+            <li><a href="guest-lectures.html">Guest lectures</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Embark India. All rights reserved.</span>
+      <span>Maps drawn by people who made the climb.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="playbooks.js"></script>
+<script>
+  const THEME = { orange: 'pbt-orange', dark: 'pbt-dark', green: 'pbt-green' };
+  document.getElementById('pb-grid').innerHTML = PLAYBOOKS.map(p => `
+    <a class="pb-tile ${THEME[p.theme]} reveal" href="playbook.html?s=${p.slug}">
+      <span class="ghost" aria-hidden="true">${p.name.split(' ').map(w=>w[0]).join('')}</span>
+      <h3>${p.name}</h3>
+      <p>${p.tagline}</p>
+      <span class="pb-go">Open playbook
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>`).join('');
+  document.getElementById('foot-pbs').innerHTML = PLAYBOOKS.map(p =>
+    `<li><a href="playbook.html?s=${p.slug}">${p.name}</a></li>`).join('');
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduced) { reveals.forEach(el => el.classList.add('in')); }
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+    reveals.forEach(el => io.observe(el));
+  }
+</script>
+</body>
+</html>

@@ -14,7 +14,7 @@
   .home-hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:18px}
   .home-hero h1 .accent{color:var(--orange)}
   .home-tag{font-size:1.12rem;color:var(--ink-soft);max-width:520px;margin:0 auto}
-  .home-doors{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:760px;margin:52px auto 0;text-align:left}
+  .home-doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1040px;margin:52px auto 0;text-align:left}
   .home-door{
     display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;
     border-radius:24px;padding:34px 32px;box-shadow:var(--shadow-card);
@@ -58,6 +58,7 @@
     <ul class="nav-links">
       <li><a href="guest-lectures.html">Guest lectures</a></li>
       <li><a href="blog.html">Blog</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
     <a class="btn btn-primary btn-sm" href="guest-lectures.html">Explore services</a>
   </div>
@@ -91,6 +92,14 @@
         <p>Placements decoded, cutoffs explained, colleges compared — plain-spoken guidance, filterable by college.</p>
         <span class="door-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
+      <a class="home-door hd-light" href="playbooks.html" style="background:var(--green)">
+        <span class="door-icon" aria-hidden="true" style="background:rgba(244,240,230,.14);color:var(--orange-soft)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg>
+        </span>
+        <h2 style="color:#fff">Stream playbooks</h2>
+        <p style="color:rgba(244,240,230,.75)">One map per specialisation — roles, recruiters, skills and a two-year gameplan, from Gen Management to Analytics.</p>
+        <span class="door-arrow" aria-hidden="true" style="color:var(--orange-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
     </div>
   </div>
 </header>
@@ -105,7 +114,6 @@
       <span class="soon-chip">Jobs &amp; internships</span>
       <span class="soon-chip">Courses</span>
       <span class="soon-chip">Mock interviews &amp; GDs</span>
-      <span class="soon-chip">Stream playbooks</span>
       <span class="soon-chip">College hub</span>
     </div>
   </div>
@@ -124,6 +132,7 @@
           <ul>
             <li><a href="guest-lectures.html">Guest lectures</a></li>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="playbooks.html">Stream playbooks</a></li>
           </ul>
         </div>
         <div>

@@ -219,6 +219,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="guest-lectures.html">Guest lectures</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
     <a class="btn btn-primary btn-sm" href="mailto:hello@embarkindia.in?subject=Newsletter">Follow updates</a>
   </div>
@@ -396,8 +397,14 @@
   document.getElementById('college-clear').addEventListener('click', () => { activeCollege = null; render(); });
   document.getElementById('blog-q').addEventListener('input', e => { query = e.target.value; render(); });
 
-  const urlCat = new URLSearchParams(location.search).get('cat');
+  const params = new URLSearchParams(location.search);
+  const urlCat = params.get('cat');
   if (urlCat && cats.includes(urlCat)) activeCat = urlCat;
+  const urlCollege = params.get('college');
+  if (urlCollege && colleges.includes(urlCollege)) {
+    activeCollege = urlCollege;
+    setTimeout(() => document.getElementById('archive').scrollIntoView(), 150);
+  }
   render();
 </script>
 </body>
