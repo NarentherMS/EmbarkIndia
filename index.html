@@ -4,49 +4,218 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Embark India — Your MBA journey starts here</title>
-<meta name="description" content="Embark India: guest lectures from verified industry experts, and plain-spoken MBA guidance on the blog. More services on the way.">
+<meta name="description" content="Embark India: guest lectures from verified industry experts, stream playbooks, and plain-spoken MBA guidance. Tell us where you are in the journey — we'll point you right.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=PT+Serif:ital@1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css">
 <style>
-  .home-hero{position:relative;padding:96px 0 72px;overflow:hidden;text-align:center}
-  .home-hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:18px}
+  /* ---------- hero ---------- */
+  .home-hero{position:relative;padding:80px 0 56px;overflow:hidden}
+  .home-hero .wrap{position:relative;z-index:1;text-align:center}
+  .home-hero h1{font-size:clamp(2.3rem,5.6vw,4rem);margin-bottom:16px}
   .home-hero h1 .accent{color:var(--orange)}
-  .home-tag{font-size:1.12rem;color:var(--ink-soft);max-width:520px;margin:0 auto}
-  .home-doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1040px;margin:52px auto 0;text-align:left}
-  .home-door{
-    display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;
-    border-radius:24px;padding:34px 32px;box-shadow:var(--shadow-card);
-    transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;
+  .home-tag{font-size:1.1rem;color:var(--ink-soft);max-width:540px;margin:0 auto}
+
+  /* persona selector (monday-style chips) */
+  .persona-q{
+    font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--green);margin:44px 0 16px;
   }
-  .home-door:hover{transform:translateY(-6px)}
-  .home-door:hover .door-arrow{transform:translateX(6px)}
-  .home-door .door-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center}
-  .home-door .door-icon svg{width:26px;height:26px}
-  .home-door h2{font-size:1.45rem;margin:4px 0 0}
-  .home-door p{font-size:.95rem}
-  .home-door .door-arrow{margin-top:10px;transition:transform .2s}
-  .home-door .door-arrow svg{width:22px;height:22px}
-  .hd-dark{background:var(--charcoal)}
-  .hd-dark h2{color:#fff}
-  .hd-dark p{color:rgba(244,240,230,.72)}
-  .hd-dark .door-icon{background:rgba(249,115,22,.18);color:var(--orange)}
-  .hd-dark .door-arrow{color:var(--orange)}
-  .hd-light{background:var(--white)}
-  .hd-light p{color:var(--ink-soft)}
-  .hd-light .door-icon{background:var(--green-soft);color:var(--green)}
-  .hd-light .door-arrow{color:var(--green)}
-  .home-soon{padding:72px 0 96px;text-align:center}
-  .home-soon .eyebrow{justify-content:center}
-  .soon-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px;margin:26px auto 0}
-  .soon-chip{
-    font-size:.9rem;font-weight:500;color:var(--ink-soft);
-    border:1.5px dashed rgba(32,28,21,.3);border-radius:var(--radius-pill);padding:10px 20px;
+  .persona-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .p-chip{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--body);font-weight:500;font-size:.94rem;color:var(--charcoal);
+    background:var(--white);border:1.5px solid rgba(32,28,21,.14);
+    border-radius:var(--radius-pill);padding:11px 20px;min-height:46px;cursor:pointer;
+    box-shadow:var(--shadow-card);
+    transition:border-color .2s,transform .2s,background .2s,color .2s;
   }
-  @media (max-width:760px){
-    .home-doors{grid-template-columns:1fr}
-    .home-hero{padding:64px 0 52px}
+  .p-chip svg{width:18px;height:18px;flex:none;color:var(--orange-deep);transition:color .2s}
+  .p-chip:hover{border-color:rgba(32,28,21,.4);transform:translateY(-2px)}
+  .p-chip[aria-selected="true"]{background:var(--charcoal);color:var(--cream);border-color:var(--charcoal)}
+  .p-chip[aria-selected="true"] svg{color:var(--orange)}
+
+  /* persona panel */
+  .persona-panel{
+    max-width:900px;margin:36px auto 0;background:var(--white);
+    border-radius:28px;box-shadow:var(--shadow-card);
+    display:grid;grid-template-columns:1.15fr .85fr;gap:0;overflow:hidden;
+    text-align:left;
+  }
+  .pp-copy{padding:44px 46px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .pp-copy.fade{animation:ppfade .35s ease}
+  @keyframes ppfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .pp-copy h2{font-size:1.6rem;margin:0}
+  .pp-copy p{color:var(--ink-soft);font-size:.98rem}
+  .pp-metrics{display:flex;flex-wrap:wrap;gap:8px}
+  .pp-metric{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:.8rem;font-weight:600;color:var(--green);
+    background:var(--green-soft);border-radius:var(--radius-pill);padding:6px 13px;
+  }
+  .pp-metric svg{width:14px;height:14px;flex:none}
+  .pp-copy .btn{margin-top:8px}
+  .pp-visual{
+    background:var(--cream);display:flex;align-items:center;justify-content:center;
+    padding:36px;position:relative;overflow:hidden;
+  }
+  .pp-visual.fade{animation:ppfade .35s ease}
+  .pp-visual::before{
+    content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+    background:var(--orange);opacity:.14;right:-70px;bottom:-70px;
+  }
+
+  /* mini mockup cards inside the panel */
+  .mock{
+    background:var(--white);border-radius:18px;box-shadow:0 8px 24px rgba(32,28,21,.14);
+    padding:20px 22px;width:100%;max-width:290px;position:relative;z-index:1;
+    animation:bob2 5s ease-in-out infinite alternate;
+  }
+  @keyframes bob2{from{transform:translateY(-4px) rotate(-1deg)}to{transform:translateY(6px) rotate(1deg)}}
+  .mock-row{display:flex;align-items:center;gap:12px}
+  .mock-av{width:44px;height:44px;border-radius:12px;object-fit:cover;flex:none}
+  .mock-av.ring{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--green)}
+  .mock b{font-family:var(--display);font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .mock small{font-size:.76rem;color:var(--ink-soft)}
+  .mock-badge{
+    display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;
+    color:var(--green);background:var(--green-soft);border-radius:999px;padding:3px 9px;margin-top:6px;
+  }
+  .mock-badge svg{width:11px;height:11px}
+  .mock-lines{margin-top:14px;display:grid;gap:7px}
+  .mock-lines span{height:8px;border-radius:99px;background:var(--cream-deep)}
+  .mock-lines span:nth-child(1){width:90%}
+  .mock-lines span:nth-child(2){width:70%}
+  .mock-lines span:nth-child(3){width:80%;background:var(--orange-soft)}
+  .mock-btn{
+    display:inline-block;margin-top:16px;background:var(--orange);color:#fff;
+    font-size:.78rem;font-weight:600;border-radius:999px;padding:8px 16px;
+  }
+  .mock-check{display:flex;gap:9px;align-items:center;font-size:.82rem;margin-top:10px}
+  .mock-check .bx{
+    width:16px;height:16px;border-radius:5px;border:2px solid var(--green);flex:none;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:.6rem;
+  }
+  .mock-check.on .bx{background:var(--green)}
+  .mock-check.on span{text-decoration:line-through;opacity:.55}
+  .mock-cover{
+    width:120px;height:170px;border-radius:4px 10px 10px 4px;margin:0 auto;
+    background:linear-gradient(165deg,#FF8A33,#F97316 45%,#DE5F04);color:#fff;
+    padding:14px;display:flex;flex-direction:column;box-shadow:0 14px 30px rgba(32,28,21,.3);
+    animation:bob2 5s ease-in-out infinite alternate;position:relative;z-index:1;
+  }
+  .mock-cover i{font-size:.5rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-style:normal;opacity:.8}
+  .mock-cover b{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem;line-height:1.1;margin:auto 0;text-transform:uppercase}
+  .mock-cover small{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;text-align:center;opacity:.8}
+  .mock-news{font-family:"PT Serif",serif}
+  .mock-news .mn-mast{
+    font-family:var(--display);font-weight:800;font-size:1rem;text-align:center;
+    border-top:2px solid var(--charcoal);border-bottom:2px solid var(--charcoal);padding:6px 0;letter-spacing:.02em;
+  }
+  .mock-news .mn-head{font-weight:700;font-size:.92rem;line-height:1.35;margin-top:12px}
+  .mock-news .mn-head mark{background:var(--cream-deep);padding:0 3px}
+  .mock-news .mn-meta{font-style:italic;font-size:.72rem;color:var(--ink-soft);margin-top:8px}
+
+  /* ---------- trust stats ---------- */
+  .trust{background:var(--white);padding:44px 0}
+  .trust .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 54px}
+  .t-stat{display:flex;align-items:center;gap:12px}
+  .t-stat svg{width:22px;height:22px;color:var(--orange);flex:none}
+  .t-stat b{font-family:var(--display);font-weight:800;font-size:1.15rem;white-space:nowrap}
+  .t-stat span{font-size:.85rem;color:var(--ink-soft);white-space:nowrap}
+
+  /* ---------- service cards ---------- */
+  .svc{padding:88px 0}
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+  .svc-card{
+    background:var(--white);border-radius:24px;padding:34px 30px;
+    display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit;
+    box-shadow:var(--shadow-card);position:relative;overflow:hidden;
+    transition:transform .22s,box-shadow .22s;
+  }
+  .svc-card:hover{transform:translateY(-7px)}
+  .svc-card.c-orange:hover{box-shadow:0 18px 40px rgba(249,115,22,.25)}
+  .svc-card.c-green:hover{box-shadow:0 18px 40px rgba(30,64,52,.25)}
+  .svc-card.c-dark:hover{box-shadow:0 18px 40px rgba(32,28,21,.28)}
+  .svc-card:hover .svc-go svg{transform:translateX(5px)}
+  .svc-icon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center}
+  .svc-icon svg{width:27px;height:27px}
+  .c-orange .svc-icon{background:var(--orange-soft);color:var(--orange-deep)}
+  .c-green .svc-icon{background:var(--green-soft);color:var(--green)}
+  .c-dark .svc-icon{background:var(--cream-deep);color:var(--charcoal)}
+  .svc-card h3{font-size:1.35rem;font-weight:700}
+  .svc-card p{font-size:.94rem;color:var(--ink-soft)}
+  .svc-outcome{
+    display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+    font-size:.8rem;font-weight:600;border-radius:999px;padding:6px 13px;
+  }
+  .c-orange .svc-outcome{background:var(--orange-soft);color:var(--orange-deep)}
+  .c-green .svc-outcome{background:var(--green-soft);color:var(--green)}
+  .c-dark .svc-outcome{background:var(--cream-deep);color:var(--charcoal)}
+  .svc-go{
+    margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+    font-weight:600;font-size:.94rem;
+  }
+  .c-orange .svc-go{color:var(--orange-deep)}
+  .c-green .svc-go{color:var(--green)}
+  .c-dark .svc-go{color:var(--charcoal)}
+  .svc-go svg{width:18px;height:18px;transition:transform .2s}
+
+  /* ---------- roadmap tiles ---------- */
+  .soon-sec{padding:88px 0;background:var(--white)}
+  .soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+  .soon-tile{
+    border-radius:18px;padding:24px 22px;position:relative;
+    transition:transform .2s;
+  }
+  .soon-tile:hover{transform:translateY(-4px)}
+  .soon-tile .st-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:rgba(255,255,255,.6)}
+  .soon-tile .st-icon svg{width:20px;height:20px}
+  .soon-tile h3{font-size:1.02rem;font-weight:700;margin-bottom:4px}
+  .soon-tile p{font-size:.82rem;color:var(--ink-soft)}
+  .soon-tag{
+    position:absolute;top:16px;right:16px;font-size:.62rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+    border:1px dashed rgba(32,28,21,.3);border-radius:999px;padding:3px 9px;
+  }
+  .st-1{background:var(--orange-soft)}
+  .st-1 .st-icon{color:var(--orange-deep)}
+  .st-2{background:var(--green-soft)}
+  .st-2 .st-icon{color:var(--green)}
+  .st-3{background:var(--cream-deep)}
+  .st-3 .st-icon{color:var(--charcoal)}
+  .st-4{background:#FBE3E3}
+  .st-4 .st-icon{color:#A03D3D}
+  .st-5{background:#E9E4F2}
+  .st-5 .st-icon{color:#5B4A80}
+
+  /* ---------- final CTA ---------- */
+  .final-home{padding:20px 0 96px}
+  .fh-card{
+    position:relative;overflow:hidden;background:var(--charcoal);color:var(--cream);
+    border-radius:34px;padding:68px 56px;text-align:center;
+  }
+  .fh-card h2{color:#fff;font-size:clamp(1.8rem,4.4vw,3rem);max-width:640px;margin:0 auto 14px}
+  .fh-card h2 .accent{color:var(--orange)}
+  .fh-card p{color:rgba(244,240,230,.72);max-width:460px;margin:0 auto 34px}
+  .fh-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+  .fh-blob{position:absolute;pointer-events:none;opacity:.15}
+  .fh-blob.l{left:-70px;top:-60px;width:250px}
+  .fh-blob.r{right:-80px;bottom:-90px;width:290px}
+  .fh-inner{position:relative;z-index:1}
+
+  @media (max-width:860px){
+    .home-hero{padding:56px 0 44px}
+    .persona-panel{grid-template-columns:1fr}
+    .pp-visual{order:-1;padding:28px}
+    .pp-copy{padding:30px 26px}
+    .trust .wrap{gap:16px 28px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mock,.mock-cover{animation:none}
+    .pp-copy.fade,.pp-visual.fade{animation:none}
+    .p-chip,.svc-card,.soon-tile{transition:none}
   }
 </style>
 </head>
@@ -60,61 +229,133 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm" href="guest-lectures.html">Explore services</a>
+    <a class="btn btn-primary btn-sm" href="#start">Get started</a>
   </div>
 </nav>
 
-<header class="home-hero">
-  <svg class="hero-blob tr" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
+<header class="home-hero" id="start">
+  <svg class="hero-blob" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
     <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
   </svg>
-  <svg class="hero-blob bl" style="position:absolute;bottom:-150px;left:-150px;width:300px;opacity:.45" viewBox="0 0 300 270" aria-hidden="true">
+  <svg class="hero-blob" style="position:absolute;bottom:-150px;left:-150px;width:300px;opacity:.4" viewBox="0 0 300 270" aria-hidden="true">
     <path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/>
   </svg>
-  <div class="wrap" style="position:relative;z-index:1">
-    <h1>Your MBA journey<br><span class="accent">starts here</span>.</h1>
-    <p class="home-tag">Everything an aspirant needs on the climb — built one service at a time.</p>
 
-    <div class="home-doors">
-      <a class="home-door hd-dark" href="guest-lectures.html">
-        <span class="door-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 8-4 8 4-8 4-8-4z"/><path d="M4 6v6c0 2 3.6 4 8 4s8-2 8-4V6"/><path d="M20 6v8"/></svg>
-        </span>
-        <h2>Guest lectures as a service</h2>
-        <p>Verified industry practitioners for your classroom — lectures, workshops and curriculum partnerships, matched within 48 hours.</p>
-        <span class="door-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="home-door hd-light" href="blog.html">
-        <span class="door-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7M9 11.5h5"/></svg>
-        </span>
-        <h2>The Embark blog</h2>
-        <p>Placements decoded, cutoffs explained, colleges compared — plain-spoken guidance, filterable by college.</p>
-        <span class="door-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="home-door hd-light" href="playbooks.html" style="background:var(--green)">
-        <span class="door-icon" aria-hidden="true" style="background:rgba(244,240,230,.14);color:var(--orange-soft)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg>
-        </span>
-        <h2 style="color:#fff">Stream playbooks</h2>
-        <p style="color:rgba(244,240,230,.75)">One map per specialisation — roles, recruiters, skills and a two-year gameplan, from Gen Management to Analytics.</p>
-        <span class="door-arrow" aria-hidden="true" style="color:var(--orange-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
+  <div class="wrap">
+    <h1>Your MBA journey,<br><span class="accent">pointed in the right direction</span>.</h1>
+    <p class="home-tag">Guest lectures, stream playbooks and plain-spoken guidance — built one service at a time, for every stage of the climb.</p>
+
+    <p class="persona-q">Where are you in the journey?</p>
+    <div class="persona-chips" id="persona-chips" role="tablist" aria-label="Choose your situation"></div>
+
+    <div class="persona-panel">
+      <div class="pp-copy" id="pp-copy"></div>
+      <div class="pp-visual" id="pp-visual"></div>
     </div>
   </div>
 </header>
 
-<section class="home-soon">
+<section class="trust" aria-label="At a glance">
   <div class="wrap">
-    <p class="eyebrow">On the roadmap</p>
-    <h2>The rest of the climb is coming.</h2>
-    <div class="soon-chips">
-      <span class="soon-chip">Case competitions</span>
-      <span class="soon-chip">MBA mentorship</span>
-      <span class="soon-chip">Jobs &amp; internships</span>
-      <span class="soon-chip">Courses</span>
-      <span class="soon-chip">Mock interviews &amp; GDs</span>
-      <span class="soon-chip">College hub</span>
+    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><b>100% verified</b><br><span>every speaker, identity-checked</span></div></div>
+    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><b>48 hours</b><br><span>to a speaker shortlist</span></div></div>
+    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg><div><b>6 playbooks</b><br><span>one map per MBA stream</span></div></div>
+    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7"/></svg><div><b>14 verticals</b><br><span>marketing to project management</span></div></div>
+  </div>
+</section>
+
+<section class="svc">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Live today</p>
+      <h2>Three services. Zero brochure-speak.</h2>
+    </div>
+    <div class="svc-grid">
+      <a class="svc-card c-orange reveal" href="guest-lectures.html">
+        <span class="svc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 8-4 8 4-8 4-8-4z"/><path d="M4 6v6c0 2 3.6 4 8 4s8-2 8-4V6"/><path d="M20 6v8"/></svg>
+        </span>
+        <h3>Guest lectures</h3>
+        <p>Verified industry practitioners for your classroom — lectures, workshops and curriculum partnerships.</p>
+        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Shortlist in 48 hours</span>
+        <span class="svc-go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="svc-card c-green reveal" href="blog.html">
+        <span class="svc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7M9 11.5h5"/></svg>
+        </span>
+        <h3>The eMBArk Times</h3>
+        <p>Placements decoded, cutoffs explained, colleges compared — filterable by the college you care about.</p>
+        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Written for aspirants, not algorithms</span>
+        <span class="svc-go">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="svc-card c-dark reveal" href="playbooks.html">
+        <span class="svc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg>
+        </span>
+        <h3>Stream playbooks</h3>
+        <p>One book per specialisation — roles, recruiters, a term-by-term gameplan and a checklist that tracks you.</p>
+        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free, no signup wall</span>
+        <span class="svc-go">Pick your book <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="soon-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">On the roadmap</p>
+      <h2>The rest of the climb is coming.</h2>
+    </div>
+    <div class="soon-grid">
+      <div class="soon-tile st-1 reveal">
+        <span class="soon-tag">Coming soon</span>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4h3v3a5 5 0 0 1-5 5M7 4H4v3a5 5 0 0 0 5 5"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg></span>
+        <h3>Case competitions</h3>
+        <p>Compete, get judged by practitioners, get noticed.</p>
+      </div>
+      <div class="soon-tile st-2 reveal">
+        <span class="soon-tag">Coming soon</span>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+        <h3>MBA mentorship</h3>
+        <p>One mentor, end to end — college pick to placement.</p>
+      </div>
+      <div class="soon-tile st-3 reveal">
+        <span class="soon-tag">Coming soon</span>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
+        <h3>Jobs &amp; internships</h3>
+        <p>Openings across industry, in one feed.</p>
+      </div>
+      <div class="soon-tile st-4 reveal">
+        <span class="soon-tag">Coming soon</span>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+        <h3>Mock interviews &amp; GDs</h3>
+        <p>Panels who've sat on the real ones.</p>
+      </div>
+      <div class="soon-tile st-5 reveal">
+        <span class="soon-tag">Coming soon</span>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12l4-3 4 4 6-6v13"/></svg></span>
+        <h3>College hub</h3>
+        <p>Cutoffs, fees, placements — sourced and dated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-home">
+  <div class="wrap">
+    <div class="fh-card reveal">
+      <svg class="fh-blob l" viewBox="0 0 260 240" aria-hidden="true"><path fill="#F97316" d="M186 14c38 20 72 56 68 92-3 37-44 74-88 85-44 12-90-3-116-34C24 126 20 78 41 47 63 15 110 1 143 3c17 1 31 5 43 11Z"/></svg>
+      <svg class="fh-blob r" viewBox="0 0 300 270" aria-hidden="true"><path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/></svg>
+      <div class="fh-inner">
+        <h2>Start before you <span class="accent">feel ready</span>.</h2>
+        <p>That's how every good MBA journey begins. Pick a door — the rest unfolds from there.</p>
+        <div class="fh-btns">
+          <a class="btn btn-primary" href="playbooks.html">Pick your stream</a>
+          <a class="btn btn-light" href="mailto:hello@embarkindia.in">Talk to us</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -150,5 +391,116 @@
   </div>
 </footer>
 
+<script>
+  // ----- persona selector (monday-style) -----
+  const PERSONAS = [
+    {
+      id: 'aspirant',
+      chip: 'Preparing for my MBA',
+      icon: '<path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7"/>',
+      title: 'Cut through the noise before the exam.',
+      desc: 'Cutoffs explained, placement reports decoded, colleges compared honestly — the reading that changes decisions, not just moods.',
+      metrics: ['College-wise stories', 'Plain-spoken, sourced'],
+      cta: 'Read the guidance', href: 'blog.html',
+      visual: 'news'
+    },
+    {
+      id: 'student',
+      chip: 'Choosing my specialisation',
+      icon: '<path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/>',
+      title: 'Six streams. One honest pick.',
+      desc: 'Each playbook tells you if the stream fits, where it leads, who hires, and what to do each term — with a checklist that remembers your progress.',
+      metrics: ['Term-by-term gameplans', 'Free, no signup'],
+      cta: 'Pick your book', href: 'playbooks.html',
+      visual: 'book'
+    },
+    {
+      id: 'college',
+      chip: 'I run a college / placement cell',
+      icon: '<path d="m4 6 8-4 8 4-8 4-8-4z"/><path d="M4 6v6c0 2 3.6 4 8 4s8-2 8-4V6"/><path d="M20 6v8"/>',
+      title: 'Industry, in your classroom, in a week.',
+      desc: 'Tell us the topic, batch and date. We send a shortlist of verified practitioners within 48 hours — you pick, we coordinate.',
+      metrics: ['48-hour shortlist', 'Identity-verified speakers'],
+      cta: 'Invite an expert', href: 'invite-expert.html',
+      visual: 'speaker'
+    },
+    {
+      id: 'pro',
+      chip: "I'm an industry professional",
+      icon: '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/>',
+      title: 'Give an hour. Shape a batch.',
+      desc: 'Join the verified speaker community — guest lectures, workshops and webinars on your schedule, honorarium on your terms. Free to join.',
+      metrics: ['Free listing', 'You set the terms'],
+      cta: 'Become a speaker', href: 'become-speaker.html',
+      visual: 'apply'
+    }
+  ];
+
+  const VISUALS = {
+    news: `<div class="mock mock-news">
+      <div class="mn-mast">The e<span style="color:var(--orange)">MBA</span>rk Times</div>
+      <div class="mn-head"><mark>How to read</mark> <mark>a placement report</mark> <mark>without getting fooled</mark></div>
+      <div class="mn-meta">Placements · 6 min read</div>
+    </div>`,
+    book: `<div class="mock-cover"><i>Stream playbook</i><b>Own<br>the<br>Shelf</b><small>Embark India</small></div>`,
+    speaker: `<div class="mock">
+      <div class="mock-row">
+        <img class="mock-av ring" src="assets/people/p1.jpg" alt="" onerror="this.style.display='none'">
+        <div><b>Kavitha Venkat</b><small>Marketing leader · HUL</small>
+        <span class="mock-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Verified</span></div>
+      </div>
+      <div class="mock-lines"><span></span><span></span><span></span></div>
+      <span class="mock-btn">Invite to campus</span>
+    </div>`,
+    apply: `<div class="mock">
+      <b style="font-size:1.02rem">Your speaker profile</b>
+      <div class="mock-check on"><span class="bx">✓</span><span>Apply in five minutes</span></div>
+      <div class="mock-check on"><span class="bx">✓</span><span>Identity verified</span></div>
+      <div class="mock-check"><span class="bx"></span><span>First invitation lands</span></div>
+      <span class="mock-btn">Apply to join</span>
+    </div>`
+  };
+
+  const chipsWrap = document.getElementById('persona-chips');
+  chipsWrap.innerHTML = PERSONAS.map((p,i) => `
+    <button class="p-chip" role="tab" aria-selected="${i===0}" data-p="${p.id}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p.icon}</svg>
+      ${p.chip}
+    </button>`).join('');
+
+  const copyEl = document.getElementById('pp-copy');
+  const visEl = document.getElementById('pp-visual');
+  const showPersona = id => {
+    const p = PERSONAS.find(x => x.id === id);
+    copyEl.innerHTML = `
+      <h2>${p.title}</h2>
+      <p>${p.desc}</p>
+      <div class="pp-metrics">${p.metrics.map(m => `
+        <span class="pp-metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>${m}</span>`).join('')}
+      </div>
+      <a class="btn btn-primary" href="${p.href}">${p.cta}</a>`;
+    visEl.innerHTML = VISUALS[p.visual];
+    copyEl.classList.remove('fade'); visEl.classList.remove('fade');
+    void copyEl.offsetWidth;
+    copyEl.classList.add('fade'); visEl.classList.add('fade');
+    chipsWrap.querySelectorAll('.p-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.p === id));
+  };
+  chipsWrap.addEventListener('click', e => {
+    const chip = e.target.closest('.p-chip');
+    if (chip) showPersona(chip.dataset.p);
+  });
+  showPersona('aspirant');
+
+  // ----- reveal -----
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduced) { reveals.forEach(el => el.classList.add('in')); }
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12 });
+    reveals.forEach(el => io.observe(el));
+  }
+</script>
 </body>
 </html>
