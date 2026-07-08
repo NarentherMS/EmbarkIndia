@@ -3,14 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stream Playbooks — Embark India</title>
-<meta name="description" content="One playbook per MBA stream — marketing, finance, operations, HR, analytics and general management. Roles, recruiters, skills, and a 2-year gameplan.">
+<title>Playbooks — Embark India</title>
+<meta name="description" content="One playbook per MBA stream — pick your book off the shelf: marketing, finance, operations, HR, analytics and general management.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Anton&family=Gloock&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css">
+<style>
+  body.shelf-page{background:#0D0B08;color:#F4F0E6}
+
+  /* dark nav variant */
+  .shelf-page .nav{background:rgba(13,11,8,.85);border-bottom:1px solid rgba(244,240,230,.12)}
+  .shelf-page .wordmark{color:#F4F0E6}
+  .shelf-page .nav-service{color:#F4F0E6;border-color:rgba(244,240,230,.4)}
+  .shelf-page .nav-links a{color:rgba(244,240,230,.65)}
+  .shelf-page .nav-links a:hover{color:#fff}
+
+  .stage{
+    min-height:calc(100vh - 70px);display:flex;flex-direction:column;
+    justify-content:center;align-items:center;overflow:hidden;
+    padding:40px 0 60px;position:relative;
+  }
+  .stage-title{
+    font-family:"Gloock",serif;font-weight:400;
+    font-size:clamp(4rem,13vw,10rem);line-height:.95;color:#F4F0E6;
+    text-align:center;letter-spacing:-.01em;
+    position:relative;z-index:1;user-select:none;
+  }
+  .stage-sub{
+    font-family:"PT Serif",serif;font-style:italic;color:rgba(244,240,230,.55);
+    font-size:1rem;margin-top:14px;position:relative;z-index:1;text-align:center;padding:0 24px;
+  }
+
+  /* ---------- bookshelf ---------- */
+  .shelf{
+    display:flex;justify-content:center;align-items:flex-end;
+    perspective:1400px;perspective-origin:50% 30%;
+    margin-top:-2.2rem;padding:70px 0 30px;position:relative;z-index:2;
+    width:100%;
+  }
+  .book{
+    position:relative;width:186px;height:280px;flex:none;
+    transform-style:preserve-3d;
+    transform:rotateY(46deg);
+    transition:transform .55s cubic-bezier(.22,.9,.3,1.15);
+    text-decoration:none;display:block;cursor:pointer;
+  }
+  .book + .book{margin-left:-58px}
+  .book:hover,.book:focus-visible{
+    transform:rotateY(6deg) translateY(-36px) scale(1.07);
+    z-index:60 !important;
+  }
+  .book::after{
+    content:"";position:absolute;left:8%;right:8%;bottom:-26px;height:20px;
+    background:radial-gradient(ellipse at center,rgba(0,0,0,.55),transparent 70%);
+    transform:rotateY(-46deg);
+  }
+  .bk-face{
+    position:absolute;inset:0;border-radius:3px 8px 8px 3px;
+    display:flex;flex-direction:column;overflow:hidden;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);
+    backface-visibility:hidden;
+  }
+  .bk-spine{
+    position:absolute;top:0;left:0;width:30px;height:100%;
+    transform-origin:left center;transform:rotateY(-84deg);
+    display:flex;align-items:center;justify-content:center;
+    border-radius:3px 0 0 3px;
+  }
+  .bk-spine span{
+    writing-mode:vertical-rl;font-family:"Anton",sans-serif;font-size:.72rem;
+    letter-spacing:.18em;text-transform:uppercase;opacity:.9;
+  }
+  .bk-pages{
+    content:"";position:absolute;top:2px;bottom:2px;right:-6px;width:10px;
+    background:repeating-linear-gradient(180deg,#EDE7D8 0 2px,#DDD5C2 2px 4px);
+    transform:rotateY(38deg);border-radius:0 2px 2px 0;
+  }
+  .bk-cover{padding:22px 20px;height:100%;display:flex;flex-direction:column}
+  .bk-kicker{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;opacity:.75;font-family:"Inter",sans-serif}
+  .bk-title{margin:auto 0}
+  .bk-title b{display:block;font-weight:400}
+  .bk-foot{font-size:.6rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;opacity:.8;font-family:"Inter",sans-serif;text-align:center}
+
+  /* cover designs */
+  .cv-gm .bk-face{background:#201C15;color:#F4F0E6}
+  .cv-gm .bk-spine{background:#14110C;color:#F4F0E6}
+  .cv-gm .bk-title b{font-family:"Anton",sans-serif;font-size:2rem;line-height:1.05;text-transform:uppercase}
+  .cv-gm .bk-title::after{content:"";display:block;width:44px;border-top:3px solid #F97316;margin-top:12px}
+
+  .cv-mkt .bk-face{background:#F97316;color:#fff}
+  .cv-mkt .bk-spine{background:#D95B04;color:#fff}
+  .cv-mkt .bk-title b{font-family:"Anton",sans-serif;font-size:2.5rem;line-height:.98;text-transform:uppercase}
+  .cv-mkt .bk-title i{display:block;font-family:"PT Serif",serif;font-size:.78rem;font-style:italic;margin-top:10px;opacity:.9}
+
+  .cv-fin .bk-face{background:#1E4034;color:#F4F0E6}
+  .cv-fin .bk-spine{background:#152E25;color:#F4F0E6}
+  .cv-fin .bk-title b{font-family:"Gloock",serif;font-size:2.5rem;line-height:1}
+  .cv-fin .bk-title i{display:block;font-family:"PT Serif",serif;font-style:italic;font-size:.78rem;margin-top:10px;opacity:.8}
+  .cv-fin .bk-face{box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),inset 0 0 0 7px #1E4034,inset 0 0 0 8px rgba(244,240,230,.35)}
+
+  .cv-ops .bk-face{background:#F4F0E6;color:#201C15}
+  .cv-ops .bk-spine{background:#E2DCCB;color:#201C15}
+  .cv-ops .bk-face::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,transparent 62%,#F97316 62%);
+  }
+  .cv-ops .bk-cover{position:relative}
+  .cv-ops .bk-title b{font-family:"Anton",sans-serif;font-size:1.72rem;line-height:1.05;text-transform:uppercase}
+  .cv-ops .bk-title i{display:block;font-family:"PT Serif",serif;font-style:italic;font-size:.76rem;margin-top:10px;color:#5C554A}
+
+  .cv-hr .bk-face{background:#E2EAE3;color:#1E4034}
+  .cv-hr .bk-spine{background:#C9D6CB;color:#1E4034}
+  .cv-hr .bk-title b{font-family:"Gloock",serif;font-size:2.1rem;line-height:1.02}
+  .cv-hr .bk-title i{display:block;font-family:"PT Serif",serif;font-style:italic;font-size:.78rem;margin-top:10px;opacity:.75}
+  .cv-hr .bk-face::after{content:"";position:absolute;left:20px;right:20px;bottom:52px;border-top:1.5px dashed rgba(30,64,52,.5)}
+
+  .cv-ana .bk-face{
+    background:#14110C;color:#F97316;
+    background-image:radial-gradient(rgba(249,115,22,.25) 1.5px,transparent 1.8px);
+    background-size:14px 14px;
+  }
+  .cv-ana .bk-spine{background:#000;color:#F97316}
+  .cv-ana .bk-title b{font-family:"Anton",sans-serif;font-size:1.9rem;line-height:1.05;text-transform:uppercase;color:#F97316}
+  .cv-ana .bk-title i{display:block;font-family:"PT Serif",serif;font-style:italic;font-size:.76rem;margin-top:10px;color:rgba(244,240,230,.75)}
+
+  .book.soon{pointer-events:none;opacity:.45;filter:saturate(.3)}
+  .cv-soon .bk-face{background:#242019;color:rgba(244,240,230,.7)}
+  .cv-soon .bk-spine{background:#191510;color:rgba(244,240,230,.7)}
+  .cv-soon .bk-title b{font-family:"Gloock",serif;font-size:1.8rem;line-height:1.05}
+  .cv-soon .bk-title i{display:block;font-family:"PT Serif",serif;font-style:italic;font-size:.76rem;margin-top:10px;opacity:.8}
+
+  /* pills */
+  .pill-row{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    margin-top:44px;position:relative;z-index:3;padding:0 24px;
+  }
+  .pill{
+    font-family:"Inter",sans-serif;font-weight:500;font-size:.9rem;
+    color:rgba(244,240,230,.85);text-decoration:none;
+    background:rgba(244,240,230,.08);border:1px solid rgba(244,240,230,.16);
+    border-radius:999px;padding:11px 22px;min-height:44px;display:inline-flex;align-items:center;
+    transition:background .2s,border-color .2s,transform .2s;
+  }
+  .pill:hover{background:rgba(244,240,230,.16);border-color:rgba(244,240,230,.4);transform:translateY(-2px)}
+
+  .shelf-foot{
+    text-align:center;padding:26px 24px 34px;
+    font-size:.82rem;color:rgba(244,240,230,.4);
+    border-top:1px solid rgba(244,240,230,.1);
+  }
+  .shelf-foot a{color:rgba(244,240,230,.65);text-decoration:none}
+  .shelf-foot a:hover{color:#fff}
+
+  @media (max-width:860px){
+    .shelf{
+      justify-content:flex-start;overflow-x:auto;perspective:none;
+      padding:50px 24px 30px;gap:16px;
+      -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+    }
+    .book{transform:none;scroll-snap-align:center;width:170px;height:255px}
+    .book + .book{margin-left:0}
+    .book:hover,.book:focus-visible{transform:translateY(-14px)}
+    .book::after,.bk-spine,.bk-pages{display:none}
+    .book.soon{display:none}
+    .stage{min-height:0;padding:52px 0 40px}
+    .shelf{margin-top:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .book{transition:none}
+    .book:hover,.book:focus-visible{transform:rotateY(46deg) translateY(-14px)}
+    .pill{transition:none}
+  }
+</style>
 </head>
-<body>
+<body class="shelf-page">
 
 <nav class="nav" aria-label="Main">
   <div class="nav-inner">
@@ -23,105 +190,115 @@
       <li><a href="guest-lectures.html">Guest lectures</a></li>
       <li><a href="blog.html">Blog</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm" href="#streams">Pick your stream</a>
+    <a class="btn btn-primary btn-sm" href="#shelf">Pick your book</a>
   </div>
 </nav>
 
-<header class="hero" style="padding:72px 0 56px">
-  <svg class="hero-blob tr" viewBox="0 0 330 300" aria-hidden="true">
-    <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
-  </svg>
-  <div class="wrap" style="position:relative;z-index:1;max-width:760px;text-align:center;margin:0 auto">
-    <p class="eyebrow" style="justify-content:center">Stream playbooks</p>
-    <h1>Pick a stream.<br>Get <span style="color:var(--orange)">the whole map</span>.</h1>
-    <p class="hero-sub" style="margin:20px auto 0">Every specialisation, decoded the same way: the roles, the recruiters, the skills, and a two-year gameplan from day zero to placement day.</p>
-  </div>
-</header>
+<main class="stage">
+  <h1 class="stage-title">Playbooks</h1>
+  <p class="stage-sub">One book per MBA stream. Pull yours off the shelf.</p>
 
-<section id="streams" style="padding:24px 0 96px">
-  <div class="wrap">
-    <div class="pb-grid" id="pb-grid"></div>
-  </div>
-</section>
+  <div class="shelf" id="shelf">
+    <span class="book soon" aria-hidden="true">
+      <span class="bk-pages"></span>
+      <span class="bk-face cv-soon"><span class="bk-cover">
+        <span class="bk-kicker">Coming soon</span>
+        <span class="bk-title"><b>Consulting</b><i>the case-cracker's route</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine"><span>Consulting</span></span>
+    </span>
 
-<section class="how" style="background:var(--white);padding:80px 0">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">How to use a playbook</p>
-      <h2>Read once. Work it for two years.</h2>
-    </div>
-    <div class="how-cards">
-      <div class="how-connect" aria-hidden="true"></div>
-      <div class="how-card tilt-l reveal" style="background:var(--cream)">
-        <span class="ghost" aria-hidden="true">1</span>
-        <h3>Choose honestly</h3>
-        <p>Each playbook opens with "this is for you if". If none of the three lines feel like you, that's an answer too.</p>
-      </div>
-      <div class="how-card tilt-r reveal" style="background:var(--cream)">
-        <span class="ghost" aria-hidden="true">2</span>
-        <h3>Follow the gameplan</h3>
-        <p>The term-by-term timeline tells you what matters when — so placement season is a rehearsal, not a scramble.</p>
-      </div>
-      <div class="how-card tilt-l reveal" style="background:var(--cream)">
-        <span class="ghost" aria-hidden="true">3</span>
-        <h3>Tick the checklist</h3>
-        <p>Every playbook has a skill checklist that saves your progress in your browser. Come back and tick as you build.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <a class="book" href="playbook.html?s=general-management" aria-label="General Management playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-gm"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>General<br>Manage&shy;ment</b></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" style="background:#14110C;color:#F4F0E6" aria-hidden="true"><span>Gen Management</span></span>
+    </a>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <a class="wordmark" href="index.html">e<span class="mba">MBA</span>rk</a>
-        <span class="wordmark-tag">Your MBA journey starts here…</span>
-      </div>
-      <div class="foot-links">
-        <div>
-          <h4>Playbooks</h4>
-          <ul id="foot-pbs"></ul>
-        </div>
-        <div>
-          <h4>Platform</h4>
-          <ul>
-            <li><a href="index.html">Embark India home</a></li>
-            <li><a href="guest-lectures.html">Guest lectures</a></li>
-            <li><a href="blog.html">Blog</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="foot-base">
-      <span>© 2026 Embark India. All rights reserved.</span>
-      <span>Maps drawn by people who made the climb.</span>
-    </div>
-  </div>
-</footer>
+    <a class="book" href="playbook.html?s=marketing" aria-label="Marketing playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-mkt"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>Own<br>the<br>Shelf</b><i>the marketing route</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" aria-hidden="true"><span>Marketing</span></span>
+    </a>
 
-<script src="playbooks.js"></script>
+    <a class="book" href="playbook.html?s=finance" aria-label="Finance playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-fin"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>Finance</b><i>trusted with capital</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" aria-hidden="true"><span>Finance</span></span>
+    </a>
+
+    <a class="book" href="playbook.html?s=operations-supply-chain" aria-label="Operations and Supply Chain playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-ops"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>Moving<br>Atoms</b><i>operations &amp; supply chain</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" aria-hidden="true"><span>Operations</span></span>
+    </a>
+
+    <a class="book" href="playbook.html?s=human-resources" aria-label="Human Resources playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-hr"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>The People<br>P&amp;L</b><i>human resources</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" aria-hidden="true"><span>Human Resources</span></span>
+    </a>
+
+    <a class="book" href="playbook.html?s=business-analytics" aria-label="Business Analytics playbook">
+      <span class="bk-pages" aria-hidden="true"></span>
+      <span class="bk-face cv-ana"><span class="bk-cover">
+        <span class="bk-kicker">Stream playbook</span>
+        <span class="bk-title"><b>Decisions,<br>with<br>Evidence</b><i>business analytics</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine" aria-hidden="true"><span>Analytics</span></span>
+    </a>
+
+    <span class="book soon" aria-hidden="true">
+      <span class="bk-pages"></span>
+      <span class="bk-face cv-soon"><span class="bk-cover">
+        <span class="bk-kicker">Coming soon</span>
+        <span class="bk-title"><b>Product</b><i>the builder's route</i></span>
+        <span class="bk-foot">Embark India</span>
+      </span></span>
+      <span class="bk-spine"><span>Product</span></span>
+    </span>
+  </div>
+
+  <div class="pill-row" aria-label="Streams">
+    <a class="pill" href="playbook.html?s=general-management">Gen Management</a>
+    <a class="pill" href="playbook.html?s=marketing">Marketing</a>
+    <a class="pill" href="playbook.html?s=finance">Finance</a>
+    <a class="pill" href="playbook.html?s=operations-supply-chain">Operations</a>
+    <a class="pill" href="playbook.html?s=human-resources">HR</a>
+    <a class="pill" href="playbook.html?s=business-analytics">Analytics</a>
+  </div>
+</main>
+
+<div class="shelf-foot">
+  © 2026 Embark India · <a href="index.html">Home</a> · <a href="guest-lectures.html">Guest lectures</a> · <a href="blog.html">Blog</a>
+</div>
+
 <script>
-  const THEME = { orange: 'pbt-orange', dark: 'pbt-dark', green: 'pbt-green' };
-  document.getElementById('pb-grid').innerHTML = PLAYBOOKS.map(p => `
-    <a class="pb-tile ${THEME[p.theme]} reveal" href="playbook.html?s=${p.slug}">
-      <span class="ghost" aria-hidden="true">${p.name.split(' ').map(w=>w[0]).join('')}</span>
-      <h3>${p.name}</h3>
-      <p>${p.tagline}</p>
-      <span class="pb-go">Open playbook
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </span>
-    </a>`).join('');
-  document.getElementById('foot-pbs').innerHTML = PLAYBOOKS.map(p =>
-    `<li><a href="playbook.html?s=${p.slug}">${p.name}</a></li>`).join('');
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const reveals = document.querySelectorAll('.reveal');
-  if (reduced) { reveals.forEach(el => el.classList.add('in')); }
-  else {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
-    reveals.forEach(el => io.observe(el));
-  }
+  // left books sit in front, like a leaning row
+  document.querySelectorAll('.shelf .book').forEach((b, i, all) => {
+    b.style.zIndex = all.length - i;
+  });
 </script>
 </body>
 </html>
