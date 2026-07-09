@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentor profile — Embark India</title>
+<meta name="description" content="Unified professional profile on Embark India — mentorship sessions and guest lectures from one verified profile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+<style>
+  .prof-head{background:var(--white);padding:56px 0 0}
+  .prof-top{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+  .prof-photo{width:120px;height:120px;border-radius:26px;object-fit:cover;box-shadow:0 0 0 4px var(--cream),0 12px 30px rgba(32,28,21,.18);flex:none}
+  .prof-id h1{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-bottom:4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .v-badge{
+    display:inline-flex;align-items:center;gap:6px;font-family:var(--body);
+    font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--green);
+    background:var(--green-soft);border-radius:999px;padding:5px 12px;
+  }
+  .v-badge svg{width:13px;height:13px}
+  .prof-id .role{font-size:1.02rem;color:var(--ink-soft)}
+  .prof-id .alma{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-size:.82rem;font-weight:600;color:var(--green);
+    background:var(--green-soft);border-radius:999px;padding:5px 13px;
+  }
+  .prof-stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0 0}
+  .ps{display:flex;flex-direction:column}
+  .ps b{font-family:var(--display);font-weight:800;font-size:1.35rem}
+  .ps span{font-size:.8rem;color:var(--ink-soft)}
+  .ps .star{color:#BA7517}
+
+  .prof-tabs{display:flex;gap:4px;margin-top:34px;border-bottom:1.5px solid rgba(32,28,21,.12)}
+  .pt-btn{
+    font-family:var(--body);font-weight:600;font-size:.95rem;color:var(--ink-soft);
+    background:none;border:none;cursor:pointer;padding:14px 22px;min-height:48px;
+    border-bottom:3px solid transparent;margin-bottom:-1.5px;transition:color .18s,border-color .18s;
+  }
+  .pt-btn:hover{color:var(--charcoal)}
+  .pt-btn[aria-selected="true"]{color:var(--charcoal);border-bottom-color:var(--orange)}
+
+  .prof-body{padding:52px 0 96px}
+  .prof-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:44px;align-items:start}
+  .pb-block{margin-bottom:38px}
+  .pb-block h2{font-size:1.3rem;margin-bottom:14px}
+  .pb-block p{color:#3A352C;font-size:.98rem}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px}
+  .chip-row span{
+    font-size:.85rem;font-weight:500;background:var(--white);border-radius:999px;
+    padding:8px 16px;box-shadow:var(--shadow-card);
+  }
+  .stage-list{list-style:none;display:grid;gap:10px}
+  .stage-list li{
+    display:flex;gap:11px;align-items:flex-start;font-size:.94rem;color:#3A352C;
+  }
+  .stage-list svg{width:16px;height:16px;flex:none;color:var(--orange);margin-top:3px}
+  .review-card{
+    background:var(--white);border-radius:18px;padding:24px 26px;box-shadow:var(--shadow-card);
+  }
+  .review-card blockquote{font-family:"PT Serif",serif;font-style:italic;font-size:.98rem;line-height:1.65;color:var(--charcoal)}
+  .review-card cite{display:block;margin-top:12px;font-size:.82rem;font-style:normal;color:var(--ink-soft)}
+
+  .book-card{
+    position:sticky;top:96px;background:var(--white);border-radius:24px;
+    box-shadow:var(--shadow-card);padding:32px;
+  }
+  .book-card .price{font-family:var(--display);font-weight:800;font-size:1.7rem}
+  .book-card .price small{font-family:var(--body);font-weight:400;font-size:.82rem;color:var(--ink-soft)}
+  .book-card .note{font-size:.83rem;color:var(--ink-soft);margin:10px 0 20px}
+  .book-card form{grid-template-columns:1fr}
+  .gl-cta{
+    background:var(--green);color:var(--cream);border-radius:24px;padding:32px;
+  }
+  .gl-cta h3{color:#fff;font-size:1.2rem;margin-bottom:10px}
+  .gl-cta p{color:rgba(244,240,230,.75);font-size:.92rem;margin-bottom:18px}
+
+  [role="tabpanel"][hidden]{display:none}
+
+  @media (max-width:900px){
+    .prof-grid{grid-template-columns:1fr}
+    .book-card{position:static}
+    .prof-tabs{overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Profile</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="mentorship.html">← All mentors</a></li>
+      <li><a href="guest-lectures.html">Guest lectures</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="mentorship.html#match">Get matched instead</a>
+  </div>
+</nav>
+
+<header class="prof-head">
+  <div class="wrap">
+    <div class="prof-top">
+      <img class="prof-photo" id="p-photo" src="" alt="">
+      <div class="prof-id">
+        <h1><span id="p-name"></span>
+          <span class="v-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Verified</span>
+        </h1>
+        <p class="role" id="p-role"></p>
+        <span class="alma" id="p-alma"></span>
+        <div class="prof-stats">
+          <div class="ps"><b><span class="star">★</span> <span id="p-rating"></span></b><span>mentee rating</span></div>
+          <div class="ps"><b id="p-sessions"></b><span>sessions delivered</span></div>
+          <div class="ps"><b id="p-years"></b><span>years in industry</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="prof-tabs" role="tablist" aria-label="Profile sections" id="prof-tabs">
+      <button class="pt-btn" role="tab" id="tab-overview" aria-selected="false" aria-controls="panel-overview">Overview</button>
+      <button class="pt-btn" role="tab" id="tab-mentorship" aria-selected="true" aria-controls="panel-mentorship">Mentorship</button>
+      <button class="pt-btn" role="tab" id="tab-gl" aria-selected="false" aria-controls="panel-gl" hidden>Guest lectures</button>
+    </div>
+  </div>
+</header>
+
+<div class="prof-body">
+  <div class="wrap">
+    <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" hidden>
+      <div class="prof-grid">
+        <div>
+          <div class="pb-block">
+            <h2>About</h2>
+            <p id="p-bio"></p>
+          </div>
+          <div class="pb-block">
+            <h2>Expertise</h2>
+            <div class="chip-row" id="p-expertise"></div>
+          </div>
+          <div class="pb-block">
+            <h2>Streams</h2>
+            <div class="chip-row" id="p-streams"></div>
+          </div>
+        </div>
+        <div>
+          <div class="review-card">
+            <blockquote id="p-review-o"></blockquote>
+            <cite id="p-review-who-o"></cite>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-mentorship" role="tabpanel" aria-labelledby="tab-mentorship">
+      <div class="prof-grid">
+        <div>
+          <div class="pb-block">
+            <h2>How mentorship works with <span id="p-first"></span></h2>
+            <ul class="stage-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>One-on-one video sessions, 45–60 minutes, on your schedule</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Come with a specific problem — leave with a specific plan</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Session notes and next steps in writing afterwards</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Also available inside the end-to-end Journey — same mentor, bundled pricing</li>
+            </ul>
+          </div>
+          <div class="pb-block">
+            <h2>Journey phases covered</h2>
+            <div class="chip-row" id="p-phases"></div>
+          </div>
+          <div class="pb-block">
+            <h2>What mentees say</h2>
+            <div class="review-card">
+              <blockquote id="p-review"></blockquote>
+              <cite id="p-review-who"></cite>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="book-card" id="book-card">
+            <div class="price">₹<span id="p-price"></span> <small>/ session</small></div>
+            <p class="note">Indicative per-session price. Inside the Journey, sessions are bundled — <a href="mentorship.html#pricing" style="color:var(--orange-deep)">see packaging</a>.</p>
+            <form id="book-form" novalidate>
+              <div class="field"><label for="b-name">Your name <span class="req">*</span></label><input id="b-name" type="text" required></div>
+              <div class="field"><label for="b-email">Email <span class="req">*</span></label><input id="b-email" type="email" required></div>
+              <div class="field"><label for="b-topic">What's the session about? <span class="req">*</span></label><textarea id="b-topic" style="min-height:80px" placeholder="The more specific, the better the session" required></textarea></div>
+              <div class="form-foot" style="justify-content:center">
+                <button class="btn btn-primary" type="submit" style="width:100%">Request a session</button>
+              </div>
+            </form>
+            <div class="form-success" id="book-success" style="padding:26px 6px">
+              <div class="tick-ring" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h3>Request sent</h3>
+              <p>You'll get slot options on email and WhatsApp within a day. Payment happens only after you confirm a slot.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-gl" role="tabpanel" aria-labelledby="tab-gl" hidden>
+      <div class="prof-grid">
+        <div>
+          <div class="pb-block">
+            <h2>Also available for guest lectures</h2>
+            <p id="p-gl-bio"></p>
+          </div>
+          <div class="pb-block">
+            <h2>Lecture topics</h2>
+            <div class="chip-row" id="p-gl-topics"></div>
+          </div>
+        </div>
+        <div>
+          <div class="gl-cta">
+            <h3>Bring <span id="p-first-gl"></span> to your campus</h3>
+            <p>Guest lectures are a B2B engagement for institutes — honorarium and logistics handled through the guest-lecture service.</p>
+            <a class="btn btn-primary btn-sm" href="invite-expert.html">Invite to campus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-base" style="margin-top:0;border-top:none;padding-top:0">
+      <span>© 2026 Embark India. All rights reserved.</span>
+      <a href="mentorship.html" style="color:inherit">← Back to mentorship</a>
+    </div>
+  </div>
+</footer>
+
+<script src="mentors.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const m = MENTORS.find(x => x.slug === params.get('m')) || MENTORS[0];
+  const PHASE_NAMES = {1:'Get into the right college',2:'Start strong',3:'Win your summers',4:'Win case competitions',5:'Land your final placement'};
+
+  document.title = m.name + ' — Embark India';
+  document.getElementById('p-photo').src = m.img;
+  document.getElementById('p-photo').alt = m.name;
+  document.getElementById('p-name').textContent = m.name;
+  document.getElementById('p-role').textContent = m.role + ' · ' + m.company;
+  document.getElementById('p-alma').textContent = m.college + ' ' + m.batch;
+  document.getElementById('p-rating').textContent = m.rating;
+  document.getElementById('p-sessions').textContent = m.sessions;
+  document.getElementById('p-years').textContent = m.years;
+  document.getElementById('p-bio').textContent = m.bio;
+  document.getElementById('p-first').textContent = m.name.split(' ')[0];
+  document.getElementById('p-expertise').innerHTML = m.expertise.map(e => `<span>${e}</span>`).join('');
+  document.getElementById('p-streams').innerHTML = m.streams.map(s => `<span>${s}</span>`).join('');
+  document.getElementById('p-phases').innerHTML = m.phases.map(p => `<span>Phase ${p} · ${PHASE_NAMES[p]}</span>`).join('');
+  document.getElementById('p-price').textContent = m.price.toLocaleString('en-IN');
+  document.getElementById('p-review').textContent = '“' + m.review.text + '”';
+  document.getElementById('p-review-who').textContent = '— ' + m.review.who;
+  document.getElementById('p-review-o').textContent = '“' + m.review.text + '”';
+  document.getElementById('p-review-who-o').textContent = '— ' + m.review.who;
+
+  // guest-lecture tab only if this professional offers it (unified profile, dynamic tabs)
+  if (m.guestLectures) {
+    document.getElementById('tab-gl').hidden = false;
+    document.getElementById('p-first-gl').textContent = m.name.split(' ')[0];
+    document.getElementById('p-gl-bio').textContent =
+      m.name.split(' ')[0] + ' is also part of the verified speaker community — available to institutes for guest lectures, workshops and webinars on ' + m.streams.join(', ').toLowerCase() + '.';
+    document.getElementById('p-gl-topics').innerHTML = m.expertise.map(e => `<span>${e}</span>`).join('');
+  }
+
+  // tabs (context-aware entry: ?tab= overrides; default = mentorship)
+  const TABS = [['tab-overview','panel-overview'],['tab-mentorship','panel-mentorship'],['tab-gl','panel-gl']];
+  const showTab = id => {
+    TABS.forEach(([b,p]) => {
+      document.getElementById(b).setAttribute('aria-selected', b === id);
+      document.getElementById(p).hidden = ('tab-' + p.split('-')[1]) !== id;
+    });
+  };
+  document.getElementById('prof-tabs').addEventListener('click', e => {
+    const btn = e.target.closest('.pt-btn');
+    if (btn) showTab(btn.id);
+  });
+  const wanted = params.get('tab');
+  if (wanted === 'gl' && m.guestLectures) showTab('tab-gl');
+  else if (wanted === 'overview') showTab('tab-overview');
+  else showTab('tab-mentorship');
+
+  // booking (6.7 — B2C book-a-session)
+  const bf = document.getElementById('book-form');
+  bf.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!bf.checkValidity()) { bf.reportValidity(); return; }
+    bf.style.display = 'none';
+    document.getElementById('book-success').classList.add('show');
+  });
+</script>
+</body>
+</html>

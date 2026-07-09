@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentorship — Embark India</title>
+<meta name="description" content="End-to-end MBA mentorship: from choosing the right college to landing your final placement. Browse mentors, get matched, or book a free intro call.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+<style>
+  /* ---------- hero ---------- */
+  .m-hero{position:relative;padding:80px 0 64px;overflow:hidden}
+  .m-hero .wrap{position:relative;z-index:1;max-width:820px;text-align:center;margin:0 auto}
+  .m-hero h1{font-size:clamp(2.3rem,5.4vw,3.9rem);margin-bottom:18px}
+  .m-hero h1 .accent{color:var(--orange)}
+  .m-hero .lead{font-size:1.12rem;color:var(--ink-soft);max-width:580px;margin:0 auto 32px}
+  .m-hero .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .m-trust{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:30px}
+  .m-trust span{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:500;color:var(--ink-soft)}
+  .m-trust svg{width:15px;height:15px;color:var(--green);flex:none}
+
+  /* ---------- stage selector ---------- */
+  .stage-sec{padding:0 0 56px}
+  .stage-box{
+    max-width:860px;margin:0 auto;background:var(--white);border-radius:26px;
+    box-shadow:var(--shadow-card);padding:34px 38px;text-align:center;
+  }
+  .stage-q{font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+  .stage-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .s-chip{
+    display:inline-flex;flex-direction:column;align-items:center;gap:3px;
+    font-family:var(--body);background:var(--cream);border:1.5px solid transparent;
+    border-radius:16px;padding:14px 26px;cursor:pointer;min-height:48px;
+    transition:all .2s;
+  }
+  .s-chip b{font-weight:600;font-size:.98rem;color:var(--charcoal)}
+  .s-chip small{font-size:.76rem;color:var(--ink-soft)}
+  .s-chip:hover{border-color:rgba(32,28,21,.3)}
+  .s-chip[aria-selected="true"]{background:var(--charcoal);border-color:var(--charcoal)}
+  .s-chip[aria-selected="true"] b{color:var(--cream)}
+  .s-chip[aria-selected="true"] small{color:rgba(244,240,230,.65)}
+  .stage-reco{
+    margin-top:22px;padding:16px 22px;border-radius:14px;background:var(--orange-soft);
+    color:var(--orange-deep);font-size:.95rem;display:none;text-align:left;
+  }
+  .stage-reco.show{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .stage-reco b{font-weight:600}
+  .stage-reco a{color:var(--orange-deep);font-weight:600;white-space:nowrap}
+
+  /* ---------- journey timeline (centerpiece) ---------- */
+  .journey-sec{background:var(--white);padding:88px 0}
+  .jt{position:relative;margin-top:26px}
+  .jt-line{position:absolute;top:37px;left:6%;right:6%;border-top:2.5px dashed var(--green);opacity:.45}
+  .jt-nodes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative}
+  .jt-node{
+    background:none;border:none;font-family:var(--body);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 6px;
+    transition:transform .2s;
+  }
+  .jt-node:hover{transform:translateY(-4px)}
+  .jt-dot{
+    width:74px;height:74px;border-radius:50%;background:var(--cream);
+    border:2.5px dashed rgba(32,28,21,.3);color:var(--charcoal);
+    font-family:var(--display);font-weight:800;font-size:1.35rem;
+    display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+    transition:all .25s;box-shadow:0 0 0 8px var(--white);
+  }
+  .jt-node:hover .jt-dot{border-style:solid;border-color:var(--orange)}
+  .jt-node.lit .jt-dot{background:var(--orange);border:none;color:#fff;box-shadow:0 0 0 8px var(--white),0 8px 20px rgba(249,115,22,.35)}
+  .jt-node b{font-family:var(--display);font-weight:700;font-size:.98rem;letter-spacing:-.01em;line-height:1.25}
+  .jt-node small{font-size:.78rem;color:var(--ink-soft);line-height:1.4}
+  .jt-node.dim{opacity:.45}
+
+  /* ---------- phase details ---------- */
+  .phases-sec{padding:88px 0 40px}
+  .phase-card{
+    background:var(--white);border-radius:28px;box-shadow:var(--shadow-card);
+    padding:44px 46px;margin-bottom:26px;position:relative;overflow:hidden;
+    display:grid;grid-template-columns:1.25fr .75fr;gap:40px;
+    transition:opacity .3s;scroll-margin-top:110px;
+  }
+  .phase-card.dim{opacity:.45}
+  .phase-card.lit{box-shadow:0 2px 8px rgba(32,28,21,.06),0 12px 32px rgba(32,28,21,.07),0 0 0 2.5px var(--orange)}
+  .phase-card .ghost{
+    position:absolute;top:-26px;right:6px;
+    font-family:var(--display);font-weight:800;font-size:8.5rem;line-height:1;
+    color:transparent;-webkit-text-stroke:1.5px var(--cream-deep);pointer-events:none;
+  }
+  .ph-kicker{font-size:.76rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:8px}
+  .phase-card h3{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+  .ph-outcome{
+    display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;
+    font-size:.85rem;font-weight:600;color:var(--green);
+    background:var(--green-soft);border-radius:999px;padding:7px 15px;
+  }
+  .ph-outcome svg{width:15px;height:15px;flex:none}
+  .ph-includes{list-style:none;display:grid;gap:11px}
+  .ph-includes li{display:flex;gap:11px;font-size:.94rem;color:#3A352C;align-items:flex-start}
+  .ph-includes svg{width:17px;height:17px;flex:none;color:var(--orange);margin-top:2px}
+  .ph-side{display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
+  .ph-mentors{background:var(--cream);border-radius:18px;padding:22px 24px}
+  .ph-mentors h4{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .ph-faces{display:flex;align-items:center}
+  .ph-faces img{
+    width:44px;height:44px;border-radius:50%;object-fit:cover;
+    border:3px solid var(--cream);margin-left:-10px;
+  }
+  .ph-faces img:first-child{margin-left:0}
+  .ph-faces .more{
+    width:44px;height:44px;border-radius:50%;background:var(--charcoal);color:var(--cream);
+    font-size:.72rem;font-weight:600;display:flex;align-items:center;justify-content:center;
+    border:3px solid var(--cream);margin-left:-10px;
+  }
+  .ph-mentors p{font-size:.85rem;color:var(--ink-soft);margin-top:12px}
+  .ph-links{display:flex;flex-wrap:wrap;gap:8px}
+  .ph-link{
+    font-size:.8rem;font-weight:600;text-decoration:none;color:var(--charcoal);
+    border:1.5px solid rgba(32,28,21,.2);border-radius:999px;padding:7px 14px;
+    transition:all .18s;
+  }
+  .ph-link:hover{border-color:var(--charcoal)}
+  .ph-link.soon{opacity:.55;pointer-events:none;border-style:dashed}
+
+  /* ---------- success stories ---------- */
+  .stories-sec{background:var(--green);color:var(--cream);padding:92px 0}
+  .stories-sec .eyebrow{color:var(--orange-soft)}
+  .stories-sec .eyebrow::before{border-color:var(--orange)}
+  .stories-sec h2{color:#fff}
+  .stories-sec .sec-head p{color:rgba(244,240,230,.65)}
+  .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .story-card{
+    background:rgba(244,240,230,.06);border:1px solid rgba(244,240,230,.15);
+    border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;gap:14px;
+    transition:background .25s,transform .25s;
+  }
+  .story-card:hover{background:rgba(244,240,230,.1);transform:translateY(-5px)}
+  .story-phase{
+    align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--orange);
+    border:1px solid rgba(249,115,22,.5);border-radius:999px;padding:4px 11px;
+  }
+  .story-card h3{color:#fff;font-size:1.2rem;font-weight:700;line-height:1.3}
+  .story-card blockquote{font-family:"PT Serif",serif;font-style:italic;font-size:.94rem;color:rgba(244,240,230,.75);line-height:1.6}
+  .story-who{margin-top:auto;font-size:.82rem;color:rgba(244,240,230,.55)}
+  .stories-note{text-align:center;font-size:.8rem;color:rgba(244,240,230,.4);margin-top:30px}
+
+  /* ---------- mentor carousel ---------- */
+  .mentors-sec{padding:92px 0;background:var(--white)}
+  .m-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+  .mf-chip{
+    font-family:var(--body);font-weight:500;font-size:.88rem;color:var(--charcoal);
+    background:var(--cream);border:1.5px solid transparent;border-radius:999px;
+    padding:9px 18px;cursor:pointer;min-height:42px;transition:all .18s;
+  }
+  .mf-chip:hover{border-color:rgba(32,28,21,.3)}
+  .mf-chip[aria-selected="true"]{background:var(--orange);color:#fff}
+  .mc-view{overflow:hidden;margin:0 -4px;padding:4px}
+  .mc-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.22,.8,.3,1)}
+  .mc-slide{flex:0 0 calc((100% - 40px)/3);min-width:0}
+  .mentor-card{
+    background:var(--cream);border-radius:22px;padding:26px;height:100%;
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .mc-top{display:flex;gap:14px;align-items:center}
+  .mc-photo{width:64px;height:64px;border-radius:18px;object-fit:cover;flex:none;box-shadow:0 0 0 3px #fff}
+  .mc-top b{font-family:var(--display);font-weight:700;font-size:1.02rem;display:block;letter-spacing:-.01em}
+  .mc-top small{font-size:.8rem;color:var(--ink-soft);display:block}
+  .mc-college{
+    display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;
+    color:var(--green);background:var(--green-soft);border-radius:999px;padding:3px 9px;margin-top:4px;
+  }
+  .mc-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .mc-tags span{font-size:.72rem;font-weight:500;background:#fff;border-radius:999px;padding:4px 10px;color:var(--ink-soft)}
+  .mc-meta{display:flex;align-items:center;gap:14px;font-size:.82rem;color:var(--ink-soft)}
+  .mc-meta b{color:var(--charcoal)}
+  .mc-meta .star{color:#BA7517}
+  .mentor-card .btn{margin-top:auto}
+  .mc-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px}
+
+  /* ---------- get matched ---------- */
+  .match-sec{padding:92px 0}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .match-form-card{background:var(--white);border-radius:26px;box-shadow:var(--shadow-card);padding:40px}
+  .match-form-card form{grid-template-columns:1fr 1fr}
+  .match-result{display:none}
+  .match-result.show{display:block}
+  .match-searching{display:none;text-align:center;padding:60px 20px}
+  .match-searching.show{display:block}
+  .spinner{
+    width:52px;height:52px;border-radius:50%;margin:0 auto 18px;
+    border:4px solid var(--cream-deep);border-top-color:var(--orange);
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .match-searching p{color:var(--ink-soft);font-size:.95rem}
+  .matched-card{background:var(--green-soft);border-radius:20px;padding:28px;margin-top:6px}
+  .matched-label{
+    display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:16px;
+  }
+  .matched-label svg{width:15px;height:15px}
+  .match-note{font-size:.83rem;color:var(--ink-soft);margin-top:16px}
+  .match-side h2{margin-bottom:14px}
+  .match-side>p{color:var(--ink-soft);margin-bottom:24px;max-width:440px}
+  .match-how{list-style:none;display:grid;gap:16px}
+  .match-how li{display:flex;gap:14px;font-size:.94rem;color:var(--ink-soft);align-items:flex-start}
+  .match-how .n{
+    flex:none;width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;
+    font-family:var(--display);font-weight:700;font-size:.85rem;
+    display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+
+  /* ---------- pricing ladder ---------- */
+  .ladder-sec{padding:92px 0;background:var(--white)}
+  .ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .rung{
+    border-radius:24px;padding:34px 30px;display:flex;flex-direction:column;gap:14px;
+    background:var(--cream);position:relative;
+  }
+  .rung h3{font-size:1.25rem;font-weight:700}
+  .rung .rung-tag{font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .rung p{font-size:.9rem;color:var(--ink-soft)}
+  .rung ul{list-style:none;display:grid;gap:9px;margin:6px 0}
+  .rung li{display:flex;gap:9px;font-size:.87rem;color:#3A352C;align-items:flex-start}
+  .rung li svg{width:15px;height:15px;flex:none;color:var(--green);margin-top:3px}
+  .rung .price-line{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-top:auto}
+  .rung .price-line small{display:block;font-family:var(--body);font-weight:400;font-size:.78rem;color:var(--ink-soft);margin-top:3px}
+  .rung.flagship{
+    background:var(--charcoal);color:var(--cream);
+    box-shadow:0 18px 44px rgba(32,28,21,.3);transform:scale(1.03);
+  }
+  .rung.flagship h3{color:#fff}
+  .rung.flagship .rung-tag{color:var(--orange)}
+  .rung.flagship p{color:rgba(244,240,230,.7)}
+  .rung.flagship li{color:rgba(244,240,230,.85)}
+  .rung.flagship li svg{color:var(--orange)}
+  .rung.flagship .price-line{color:#fff}
+  .rung.flagship .price-line small{color:rgba(244,240,230,.6)}
+  .rung .flag-badge{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--orange);color:#fff;font-size:.72rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 15px;white-space:nowrap;
+  }
+  .rung.soon-rung{opacity:.75}
+  .fair-use{
+    max-width:680px;margin:34px auto 0;text-align:center;
+    font-size:.85rem;color:var(--ink-soft);
+  }
+
+  /* ---------- intro call ---------- */
+  .intro-sec{padding:92px 0}
+  .intro-card{
+    background:var(--white);border-radius:30px;box-shadow:var(--shadow-card);
+    max-width:760px;margin:0 auto;padding:50px;scroll-margin-top:100px;
+  }
+  .intro-card .sec-head{text-align:center;margin:0 auto 34px}
+
+  /* cross-sell strip */
+  .xsell{padding:0 0 92px}
+  .xsell-card{
+    background:var(--cream-deep);border-radius:24px;padding:34px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  }
+  .xsell-card p{font-size:1rem;color:var(--charcoal);max-width:520px}
+  .xsell-card p b{font-weight:600}
+  .xsell-links{display:flex;flex-wrap:wrap;gap:8px}
+
+  @media (max-width:1000px){
+    .mc-slide{flex-basis:calc((100% - 20px)/2)}
+    .story-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:900px){
+    .phase-card{grid-template-columns:1fr;padding:32px 26px;gap:24px}
+    .match-grid{grid-template-columns:1fr}
+    .ladder{grid-template-columns:1fr;max-width:480px;margin:0 auto}
+    .rung.flagship{transform:none}
+    .jt-line{display:none}
+    .jt-nodes{grid-template-columns:1fr;gap:8px}
+    .jt-node{flex-direction:row;text-align:left;gap:16px;padding:10px 0}
+    .jt-dot{width:56px;height:56px;font-size:1.05rem;flex:none;box-shadow:none}
+    .jt-node>div{display:flex;flex-direction:column;gap:2px}
+  }
+  @media (max-width:640px){
+    .mc-slide{flex-basis:100%}
+    .story-grid{grid-template-columns:1fr}
+    .intro-card{padding:32px 22px}
+    .match-form-card{padding:28px 22px}
+    .match-form-card form{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .spinner{animation:none;border-top-color:var(--cream-deep)}
+    .jt-node,.story-card,.s-chip{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Mentorship</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guest-lectures.html">Guest lectures</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#intro">Book a free intro call</a>
+  </div>
+</nav>
+
+<!-- 6.1 HERO -->
+<header class="m-hero">
+  <svg class="hero-blob" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
+    <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
+  </svg>
+  <svg class="hero-blob" style="position:absolute;bottom:-140px;left:-150px;width:290px;opacity:.4" viewBox="0 0 300 270" aria-hidden="true">
+    <path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center">The flagship — end-to-end mentorship</p>
+    <h1>From CAT result to final offer,<br><span class="accent">you're not climbing alone</span>.</h1>
+    <p class="lead">One mentorship journey across your entire MBA — the right college, the right start, a summer that converts, competitions that count, and a final offer you chose.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#intro">Book a free intro call</a>
+      <a class="btn btn-ghost" href="#mentors">Browse mentors</a>
+    </div>
+    <div class="m-trust">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Mentors from IIM A/B/C, XLRI, ISB &amp; FMS</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Every phase, one journey</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Intro call is free, always</span>
+    </div>
+  </div>
+</header>
+
+<!-- 6.3 STAGE SELECTOR -->
+<section class="stage-sec">
+  <div class="wrap">
+    <div class="stage-box reveal">
+      <p class="stage-q">Where are you right now?</p>
+      <div class="stage-chips" id="stage-chips" role="tablist" aria-label="Your current stage">
+        <button class="s-chip" role="tab" aria-selected="false" data-stage="aspirant"><b>Aspirant</b><small>exam done, calls ahead</small></button>
+        <button class="s-chip" role="tab" aria-selected="false" data-stage="first-year"><b>First year</b><small>on campus, summers ahead</small></button>
+        <button class="s-chip" role="tab" aria-selected="false" data-stage="final-year"><b>Final year</b><small>placements ahead</small></button>
+      </div>
+      <div class="stage-reco" id="stage-reco"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.2 JOURNEY TIMELINE -->
+<section class="journey-sec" id="journey">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The journey</p>
+      <h2>Five phases. One climb. Zero gaps.</h2>
+      <p>This is not a menu of services — it's one continuous journey. Click any phase to see exactly what's inside.</p>
+    </div>
+    <div class="jt">
+      <div class="jt-line" aria-hidden="true"></div>
+      <div class="jt-nodes" id="jt-nodes"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.4 PHASE DETAILS -->
+<section class="phases-sec">
+  <div class="wrap" id="phase-cards"></div>
+</section>
+
+<!-- 6.8 SUCCESS STORIES -->
+<section class="stories-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Outcomes, not promises</p>
+      <h2>What the journey actually produces.</h2>
+    </div>
+    <div class="story-grid" id="story-grid"></div>
+    <p class="stories-note">Illustrative early-programme stories — as our founding cohort graduates, these become named, verifiable outcomes.</p>
+  </div>
+</section>
+
+<!-- 6.5 MENTOR CAROUSEL -->
+<section class="mentors-sec" id="mentors">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The bench</p>
+      <h2>Browse mentors by where you need them.</h2>
+      <p>Seniors and recent alumni for the fresh intel; industry professionals for the rooms they now run. Same mentors, whether you book one session or the whole journey.</p>
+    </div>
+    <div class="m-filter" id="m-filter" role="tablist" aria-label="Filter mentors by phase">
+      <button class="mf-chip" role="tab" aria-selected="true" data-f="all">All mentors</button>
+      <button class="mf-chip" role="tab" aria-selected="false" data-f="1">Admissions</button>
+      <button class="mf-chip" role="tab" aria-selected="false" data-f="2">First year</button>
+      <button class="mf-chip" role="tab" aria-selected="false" data-f="3">Summers</button>
+      <button class="mf-chip" role="tab" aria-selected="false" data-f="4">Case comps</button>
+      <button class="mf-chip" role="tab" aria-selected="false" data-f="5">Final placement</button>
+    </div>
+    <div class="mc-view">
+      <div class="mc-track" id="mc-track"></div>
+    </div>
+    <div class="mc-nav">
+      <button class="car-btn" id="mc-prev" aria-label="Previous mentors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="car-dots" id="mc-dots" role="tablist" aria-label="Mentor pages"></div>
+      <button class="car-btn" id="mc-next" aria-label="Next mentors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 6.6 GET MATCHED -->
+<section class="match-sec" id="match">
+  <div class="wrap">
+    <div class="match-grid">
+      <div class="match-side reveal">
+        <p class="eyebrow">Or skip the browsing</p>
+        <h2>Describe your need. We'll find your mentor.</h2>
+        <p>Tell us where you are and what you're chasing — we match you with the mentor whose story fits yours.</p>
+        <ol class="match-how">
+          <li><span class="n">1</span>You describe your stage, stream and specific ask.</li>
+          <li><span class="n">2</span>We match you with the best-fit mentor from the bench — and tell you why them.</li>
+          <li><span class="n">3</span>You get the match here, on email and on WhatsApp — then book directly.</li>
+        </ol>
+      </div>
+      <div class="match-form-card reveal">
+        <form id="match-form" novalidate>
+          <div class="field"><label for="mm-stage">Your current stage <span class="req">*</span></label>
+            <select id="mm-stage" required>
+              <option value="aspirant">Aspirant — exam done, calls ahead</option>
+              <option value="first-year">First year — summers ahead</option>
+              <option value="final-year">Final year — placements ahead</option>
+            </select>
+          </div>
+          <div class="field"><label for="mm-stream">Stream you're aiming for <span class="req">*</span></label>
+            <select id="mm-stream" required></select>
+          </div>
+          <div class="field full"><label for="mm-goal">Your goal <span class="req">*</span></label>
+            <input id="mm-goal" type="text" placeholder="Convert my IIM Indore call / PPO at an FMCG / win one national case comp" required>
+          </div>
+          <div class="field full"><label for="mm-ask">Your specific ask</label>
+            <textarea id="mm-ask" placeholder="What do you most need help with right now? Any mentor preferences (college, company, background)?"></textarea>
+          </div>
+          <div class="form-foot">
+            <small>Matching is free. You only pay if you book a session.</small>
+            <button class="btn btn-primary" type="submit">Get matched</button>
+          </div>
+        </form>
+        <div class="match-searching" id="match-searching">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Reading your ask… matching against the bench…</p>
+        </div>
+        <div class="match-result" id="match-result"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.9 PRICING & PACKAGING -->
+<section class="ladder-sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">How it's packaged</p>
+      <h2>Start small, or take the whole journey.</h2>
+      <p>Same mentors either way — only the packaging differs. Most students start with one session and upgrade once they feel the difference.</p>
+    </div>
+    <div class="ladder">
+      <div class="rung reveal">
+        <span class="rung-tag">Start here</span>
+        <h3>Single sessions</h3>
+        <p>Book any mentor directly from their profile — one session, one specific problem.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pay per session, mentor-set price</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No commitment</li>
+        </ul>
+        <div class="price-line">₹699–1,999 <small>per session, set by each mentor</small></div>
+      </div>
+      <div class="rung flagship reveal">
+        <span class="flag-badge">The flagship</span>
+        <span class="rung-tag">End to end</span>
+        <h3>The Journey</h3>
+        <p>All five phases, one dedicated mentor relationship, every service woven in — from college selection to your final offer.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Dedicated mentor + phase specialists</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Mocks, case-comp coaching, placement prep included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Generous fair-use — built for real journeys, not gimmick "unlimited"</li>
+        </ul>
+        <div class="price-line">Priced on your intro call <small>founding cohort gets founding terms</small></div>
+      </div>
+      <div class="rung soon-rung reveal">
+        <span class="rung-tag">Coming soon</span>
+        <h3>Prep packs</h3>
+        <p>Capped bundles for one job to be done — a pack of 5 mock interviews, or support across 5 case competitions.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fixed scope, fixed price</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Lives on the Prep &amp; Coaching page</li>
+        </ul>
+        <div class="price-line">Launching soon <small>waitlist via the intro call</small></div>
+      </div>
+    </div>
+    <p class="fair-use">Open and honest: journey pricing isn't final yet. Every intro call gets the current founding-cohort terms in writing before you decide anything.</p>
+  </div>
+</section>
+
+<!-- 6.10 CROSS-SELL -->
+<section class="xsell">
+  <div class="wrap">
+    <div class="xsell-card reveal">
+      <p><b>Not ready for mentorship?</b> Start free — the playbooks map every stream, and the blog decodes colleges and placements. When you want a person, not a page, come back.</p>
+      <div class="xsell-links">
+        <a class="ph-link" href="playbooks.html">Stream playbooks</a>
+        <a class="ph-link" href="blog.html">The blog</a>
+        <span class="ph-link soon">Prep &amp; Coaching — soon</span>
+        <span class="ph-link soon">Case competitions — soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.11 INTRO CALL -->
+<section class="intro-sec">
+  <div class="wrap">
+    <div class="intro-card" id="intro">
+      <div class="sec-head reveal">
+        <p class="eyebrow" style="justify-content:center">Free intro call</p>
+        <h2>Twenty minutes. Zero pressure.</h2>
+        <p>We hear where you are, tell you honestly what would help — even if the answer is "just read the playbook" — and you decide from there.</p>
+      </div>
+      <form id="intro-form" novalidate>
+        <div class="field"><label for="ic-name">Your name <span class="req">*</span></label><input id="ic-name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="ic-email">Email <span class="req">*</span></label><input id="ic-email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="ic-phone">WhatsApp number <span class="req">*</span></label><input id="ic-phone" type="tel" autocomplete="tel" placeholder="For the call reminder" required></div>
+        <div class="field"><label for="ic-stage">Your stage <span class="req">*</span></label>
+          <select id="ic-stage" required>
+            <option>Aspirant — exam done, calls ahead</option>
+            <option>First year — summers ahead</option>
+            <option>Final year — placements ahead</option>
+            <option>Still deciding on the MBA itself</option>
+          </select>
+        </div>
+        <div class="field full"><label for="ic-when">When works for you?</label><input id="ic-when" type="text" placeholder="Weekday evenings / Sunday morning — we'll confirm on WhatsApp"></div>
+        <div class="form-foot">
+          <small>Confirmation lands on email and WhatsApp. Reschedule anytime.</small>
+          <button class="btn btn-primary" type="submit">Book my free call</button>
+        </div>
+      </form>
+      <div class="form-success" id="intro-success">
+        <div class="tick-ring" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Call requested</h3>
+        <p>We'll confirm a slot on WhatsApp and email within one working day. Meanwhile, pick your stream playbook — it makes the call twice as useful.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="index.html">e<span class="mba">MBA</span>rk</a>
+        <span class="wordmark-tag">Your MBA journey starts here…</span>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Mentorship</h4>
+          <ul>
+            <li><a href="#journey">The journey</a></li>
+            <li><a href="#mentors">Browse mentors</a></li>
+            <li><a href="#match">Get matched</a></li>
+            <li><a href="#intro">Free intro call</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="index.html">Embark India home</a></li>
+            <li><a href="guest-lectures.html">Guest lectures</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="playbooks.html">Playbooks</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Embark India. All rights reserved.</span>
+      <span>The climb is yours. The rope is ours.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="mentors.js"></script>
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- phase data (6.4 / 6.5) ----------
+  const PHASES = [
+    {
+      n: 1, name: 'Get into the right college', label: 'Aspirant · calls to converts',
+      outcome: 'Calls converted, not just received',
+      includes: [
+        'College list built on your percentile, goals and honest ROI — not brand fog',
+        'WAT and SOP drafting with real edits, not templates',
+        'Resume built for admissions panels',
+        'Mock PI panels with alumni of your target colleges',
+        'Call strategy: which converts to chase, which to let go'
+      ],
+      mentorNote: 'Recent admits for fresh formats + alumni panellists for the hard mocks.',
+      links: [['Mock interviews', null], ['College stories on the blog', 'blog.html']]
+    },
+    {
+      n: 2, name: 'Start strong', label: 'First year · first 90 days',
+      outcome: 'A first year that compounds',
+      includes: [
+        'Club and committee selection — the two that compound, not the five that don\'t',
+        'CV foundation from week one, so nothing is retrofitted later',
+        'Academic prioritisation: where grades gate shortlists and where they don\'t',
+        'A network map: the seniors, professors and alumni worth knowing early'
+      ],
+      mentorNote: 'Seniors and recent alumni who just played this exact game.',
+      links: [['Stream playbooks', 'playbooks.html']]
+    },
+    {
+      n: 3, name: 'Win your summers', label: 'First year · Day-0 season',
+      outcome: 'A summer that ends with an offer',
+      includes: [
+        'CV freeze prep — your points sharpened before the shortlist deadline',
+        'Company selection: where your profile actually converts, not just where queues form',
+        'Sector-specific mock interviews and GD drills',
+        'The 8-week internship plan — because PPOs are won during the summer, not after',
+        'Weekly check-ins through the internship, aimed at the conversion'
+      ],
+      mentorNote: 'Industry mentors who hire summer interns in your target sector.',
+      links: [['Mock interviews', null], ['Placement decoding on the blog', 'blog.html']]
+    },
+    {
+      n: 4, name: 'Win case competitions', label: 'Both years · comp season',
+      outcome: 'Podiums that become offers',
+      includes: [
+        'Competition calendar: which comps carry PPO weight for your stream',
+        'Team formation and role clarity before the first deck',
+        'Stage-by-stage coaching — screening deck, semis story, finals delivery',
+        'Finals Q&A rehearsal with mentors who judge these competitions',
+        'Converting a podium into interview conversations'
+      ],
+      mentorNote: 'Comp winners and judges — people who\'ve seen both sides of the table.',
+      links: [['Case competitions', null]]
+    },
+    {
+      n: 5, name: 'Land your final placement', label: 'Final year · the last climb',
+      outcome: 'An offer you chose, not settled for',
+      includes: [
+        'Final CV narrative: two years of work compressed into one coherent story',
+        'Company-specific interview prep with role-holders',
+        'Mock panels calibrated to your shortlists — as many rounds as it takes',
+        'Offer evaluation and negotiation support',
+        'Backup planning, so Day 2 has a strategy too'
+      ],
+      mentorNote: 'Industry professionals in the exact rooms you\'re interviewing for.',
+      links: [['Mock interviews', null]]
+    }
+  ];
+
+  const STORIES = [
+    { phase: 1, headline: '91.4 %ile, three calls, one convert — the right one', quote: 'My mentor made me drop two "safe" calls and rebuild WAT prep for the one that mattered. Converted IIM Indore.', who: 'Aspirant cohort \'25' },
+    { phase: 3, headline: 'A summer built around one metric, converted at HUL', quote: 'Week two, my mentor asked: what number does your guide report upward? We built my whole internship around it. PPO.', who: 'First-year cohort \'25' },
+    { phase: 4, headline: 'First-ever finals, then two in one season', quote: 'Stage-wise deck coaching changed everything. The finals Q&A rehearsal predicted four of the judges\' five questions.', who: 'Case comp team \'26' },
+    { phase: 5, headline: 'Day-1 offer after nine mock panels', quote: 'By panel nine I\'d heard every version of "walk me through your CV". The real one felt like a formality.', who: 'Final-year cohort \'25' },
+    { phase: 2, headline: 'Two committees, zero regrets', quote: 'The unpopular advice — skip the glamour committee — gave me a CV line with a budget on it. It came up in every interview.', who: 'First-year cohort \'26' },
+    { phase: 1, headline: 'From "reapply next year" to a seat this year', quote: 'Coaching said my profile was weak. My mentor found the story in it. The panel spent 15 minutes on exactly that story.', who: 'Aspirant cohort \'26' }
+  ];
+
+  // ---------- journey timeline (6.2) ----------
+  document.getElementById('jt-nodes').innerHTML = PHASES.map(p => `
+    <button class="jt-node" data-n="${p.n}" aria-label="Phase ${p.n}: ${p.name}">
+      <span class="jt-dot">${p.n}</span>
+      <div><b>${p.name}</b><small>${p.label}</small></div>
+    </button>`).join('');
+
+  // ---------- phase cards (6.4) ----------
+  const tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  document.getElementById('phase-cards').innerHTML = PHASES.map(p => {
+    const phMentors = MENTORS.filter(m => m.phases.includes(p.n));
+    const faces = phMentors.slice(0,3).map(m => `<img src="${m.img}" alt="${m.name}" title="${m.name}" onerror="this.remove()">`).join('');
+    const extra = phMentors.length > 3 ? `<span class="more">+${phMentors.length-3}</span>` : '';
+    const links = p.links.map(([t, href]) => href
+      ? `<a class="ph-link" href="${href}">${t}</a>`
+      : `<span class="ph-link soon">${t} — soon</span>`).join('');
+    return `
+    <div class="phase-card reveal" id="phase-${p.n}" data-n="${p.n}">
+      <span class="ghost" aria-hidden="true">${p.n}</span>
+      <div>
+        <p class="ph-kicker">Phase ${p.n} · ${p.label}</p>
+        <h3>${p.name}</h3>
+        <span class="ph-outcome">${tick}Outcome: ${p.outcome}</span>
+        <ul class="ph-includes">${p.includes.map(i => `<li>${tick}${i}</li>`).join('')}</ul>
+      </div>
+      <div class="ph-side">
+        <div class="ph-mentors">
+          <h4>Who handles this phase</h4>
+          <div class="ph-faces">${faces}${extra}</div>
+          <p>${p.mentorNote}</p>
+        </div>
+        <div class="ph-links">${links}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // timeline node click → scroll to phase
+  document.getElementById('jt-nodes').addEventListener('click', e => {
+    const node = e.target.closest('.jt-node');
+    if (node) document.getElementById('phase-' + node.dataset.n).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  });
+
+  // ---------- stage selector (6.3) ----------
+  const STAGE_COPY = {
+    'aspirant': { text: '<b>Your phase right now is Phase 1 — Get into the right college.</b> Everything below is highlighted for you.', link: ['See Phase 1', '#phase-1'] },
+    'first-year': { text: '<b>Phases 2–4 are your battlefield:</b> start strong, win your summers, win case competitions.', link: ['See Phase 2', '#phase-2'] },
+    'final-year': { text: '<b>Phases 4–5 are what\'s left — and they decide everything.</b> Case comps and the final placement push.', link: ['See Phase 4', '#phase-4'] }
+  };
+  let activeStage = null;
+  const applyStage = stage => {
+    activeStage = stage;
+    const phases = STAGE_PHASES[stage] || [];
+    document.querySelectorAll('#stage-chips .s-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.stage === stage));
+    document.querySelectorAll('.jt-node').forEach(n => {
+      const inSet = phases.includes(+n.dataset.n);
+      n.classList.toggle('lit', inSet);
+      n.classList.toggle('dim', !!stage && !inSet);
+    });
+    document.querySelectorAll('.phase-card').forEach(c => {
+      const inSet = phases.includes(+c.dataset.n);
+      c.classList.toggle('lit', inSet);
+      c.classList.toggle('dim', !!stage && !inSet);
+    });
+    const reco = document.getElementById('stage-reco');
+    if (stage) {
+      const s = STAGE_COPY[stage];
+      reco.innerHTML = `<span>${s.text}</span><a href="${s.link[1]}">${s.link[0]} →</a>`;
+      reco.classList.add('show');
+    } else reco.classList.remove('show');
+    // filter mentor carousel to the stage's phases
+    if (stage) setFilter(String(phases[0]), false);
+    document.getElementById('mm-stage').value = stage || 'aspirant';
+  };
+  document.getElementById('stage-chips').addEventListener('click', e => {
+    const chip = e.target.closest('.s-chip');
+    if (!chip) return;
+    applyStage(chip.dataset.stage === activeStage ? null : chip.dataset.stage);
+  });
+
+  // ---------- success stories (6.8) ----------
+  document.getElementById('story-grid').innerHTML = STORIES.map(s => `
+    <div class="story-card reveal">
+      <span class="story-phase">Phase ${s.phase} · ${PHASES[s.phase-1].name}</span>
+      <h3>${s.headline}</h3>
+      <blockquote>“${s.quote}”</blockquote>
+      <span class="story-who">${s.who}</span>
+    </div>`).join('');
+
+  // ---------- mentor carousel (6.5) ----------
+  const track = document.getElementById('mc-track');
+  const dotsWrap = document.getElementById('mc-dots');
+  let filtered = [...MENTORS], idx = 0;
+  const starSvg = '<svg class="star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>';
+  const renderMentors = () => {
+    track.innerHTML = filtered.map(m => `
+      <div class="mc-slide">
+        <div class="mentor-card">
+          <div class="mc-top">
+            <img class="mc-photo" src="${m.img}" alt="${m.name}" onerror="this.remove()">
+            <div>
+              <b>${m.name}</b>
+              <small>${m.role} · ${m.company}</small>
+              <span class="mc-college">${m.college} ${m.batch}</span>
+            </div>
+          </div>
+          <div class="mc-tags">${m.expertise.map(t => `<span>${t}</span>`).join('')}</div>
+          <div class="mc-meta">
+            <span>${starSvg} <b>${m.rating}</b></span>
+            <span><b>${m.sessions}</b> sessions</span>
+            <span>${m.tier === 'alumni' ? 'Recent alumni' : 'Industry pro'}</span>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="mentor-profile.html?m=${m.slug}">View profile</a>
+        </div>
+      </div>`).join('');
+    idx = 0; renderDots(); go(0);
+  };
+  const visible = () => innerWidth > 1000 ? 3 : innerWidth > 640 ? 2 : 1;
+  const maxIdx = () => Math.max(0, filtered.length - visible());
+  const renderDots = () => {
+    dotsWrap.innerHTML = Array.from({length: maxIdx() + 1}, (_,i) =>
+      `<button class="car-dot" role="tab" aria-label="Position ${i+1}" aria-current="${i===idx}"></button>`).join('');
+    dotsWrap.querySelectorAll('.car-dot').forEach((d,j) => d.addEventListener('click', () => go(j)));
+  };
+  const go = i => {
+    idx = Math.max(0, Math.min(i, maxIdx()));
+    const slide = track.children[0];
+    if (!slide) return;
+    const w = slide.getBoundingClientRect().width + 20;
+    track.style.transform = `translateX(-${idx * w}px)`;
+    dotsWrap.querySelectorAll('.car-dot').forEach((d,j) => d.setAttribute('aria-current', j === idx));
+  };
+  document.getElementById('mc-prev').addEventListener('click', () => go(idx - 1));
+  document.getElementById('mc-next').addEventListener('click', () => go(idx + 1));
+  addEventListener('resize', () => { renderDots(); go(idx); });
+
+  const setFilter = (f, scroll = true) => {
+    document.querySelectorAll('.mf-chip').forEach(c => c.setAttribute('aria-selected', c.dataset.f === f));
+    filtered = f === 'all' ? [...MENTORS] : MENTORS.filter(m => m.phases.includes(+f));
+    renderMentors();
+    if (scroll) document.getElementById('mentors').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  };
+  document.getElementById('m-filter').addEventListener('click', e => {
+    const chip = e.target.closest('.mf-chip');
+    if (chip) setFilter(chip.dataset.f, false);
+  });
+  renderMentors();
+
+  // ---------- get matched (6.6) ----------
+  const streamSel = document.getElementById('mm-stream');
+  const STREAMS = ['Marketing','Finance','Consulting','Strategy','Operations & Supply Chain','Human Resources','Business Analytics','Product Management','Sales','General Management','Not sure yet'];
+  streamSel.innerHTML = STREAMS.map(s => `<option>${s}</option>`).join('');
+  document.getElementById('match-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const stage = document.getElementById('mm-stage').value;
+    const stream = streamSel.value;
+    form.style.display = 'none';
+    const searching = document.getElementById('match-searching');
+    searching.classList.add('show');
+    setTimeout(() => {
+      searching.classList.remove('show');
+      const phases = STAGE_PHASES[stage];
+      let pool = MENTORS.filter(m => m.phases.some(p => phases.includes(p)));
+      const streamMatch = pool.filter(m => m.streams.some(s => stream.includes(s) || s.includes(stream)));
+      if (streamMatch.length) pool = streamMatch;
+      const m = pool.sort((a,b) => b.rating - a.rating)[0] || MENTORS[0];
+      const why = streamMatch.length
+        ? `${m.streams[0]} is ${m.name.split(' ')[0]}'s home turf, and your stage sits exactly in the phases they mentor.`
+        : `${m.name.split(' ')[0]} covers your stage's phases with the strongest track record on the bench.`;
+      document.getElementById('match-result').innerHTML = `
+        <div class="matched-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Your match</div>
+        <div class="matched-card">
+          <div class="mc-top">
+            <img class="mc-photo" src="${m.img}" alt="${m.name}" onerror="this.remove()">
+            <div>
+              <b style="font-family:var(--display);font-weight:700">${m.name}</b>
+              <small style="display:block;color:var(--ink-soft)">${m.role} · ${m.company} · ${m.college} ${m.batch}</small>
+              <span class="mc-college" style="margin-top:5px">${starSvg} ${m.rating} · ${m.sessions} sessions</span>
+            </div>
+          </div>
+          <p style="font-size:.92rem;margin-top:14px;color:#3A352C"><b>Why this match:</b> ${why}</p>
+          <a class="btn btn-primary btn-sm" style="margin-top:16px" href="mentor-profile.html?m=${m.slug}">See profile &amp; book</a>
+        </div>
+        <p class="match-note">This match is also on its way to your email and WhatsApp (prototype: simulated). Not the right fit? Reply and we'll re-match — free.</p>`;
+      document.getElementById('match-result').classList.add('show');
+    }, reduced ? 100 : 1400);
+  });
+
+  // ---------- intro call (6.11) ----------
+  const introForm = document.getElementById('intro-form');
+  introForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!introForm.checkValidity()) { introForm.reportValidity(); return; }
+    introForm.style.display = 'none';
+    document.getElementById('intro-success').classList.add('show');
+  });
+
+  // ---------- reveal ----------
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduced) { reveals.forEach(el => el.classList.add('in')); }
+  else {
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    }), { threshold: .08 });
+    reveals.forEach(el => io.observe(el));
+  }
+</script>
+</body>
+</html>
