@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Competitions — Embark India</title>
+<meta name="description" content="PPO-oriented case competitions built for Tier 2 talent. Register solo or as a team, submit within timed rounds, earn shareable certificates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+<style>
+  .cc-hero{position:relative;padding:72px 0 48px;overflow:hidden}
+  .cc-hero .wrap{position:relative;z-index:1;max-width:780px;text-align:center;margin:0 auto}
+  .cc-hero h1{font-size:clamp(2.2rem,5.2vw,3.7rem);margin-bottom:16px}
+  .cc-hero h1 .accent{color:var(--orange)}
+  .cc-hero .lead{font-size:1.08rem;color:var(--ink-soft);max-width:560px;margin:0 auto}
+  .cc-wedge{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:26px}
+  .cc-wedge span{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:500;color:var(--ink-soft)}
+  .cc-wedge svg{width:15px;height:15px;color:var(--green);flex:none}
+
+  .cc-section{padding:44px 0}
+  .cc-section h2{font-size:clamp(1.4rem,2.8vw,1.9rem);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+  .live-dot{width:11px;height:11px;border-radius:50%;background:#D92D20;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,45,32,.4)}50%{box-shadow:0 0 0 7px rgba(217,45,32,0)}}
+  .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+
+  .cc-card{
+    background:var(--white);border-radius:22px;overflow:hidden;text-decoration:none;color:inherit;
+    box-shadow:var(--shadow-card);display:flex;flex-direction:column;
+    transition:transform .22s,box-shadow .22s;
+  }
+  .cc-card:hover{transform:translateY(-6px)}
+  .cc-banner{height:104px;position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;overflow:hidden}
+  .cc-banner .ghost{
+    position:absolute;right:-6px;bottom:-34px;font-family:var(--display);font-weight:800;
+    font-size:6.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.3);pointer-events:none;
+  }
+  .bn-orange{background:linear-gradient(135deg,#FF8A33,#F97316 55%,#DE5F04)}
+  .bn-green{background:linear-gradient(135deg,#2A5A46,#1E4034 60%,#152E25)}
+  .bn-dark{background:linear-gradient(135deg,#332C20,#201C15 60%,#14110C)}
+  .bn-charcoal{background:linear-gradient(135deg,#201C15,#0f0d0a);background-image:radial-gradient(rgba(249,115,22,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#14110C}
+  .st-chip{
+    font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;backdrop-filter:blur(4px);
+  }
+  .st-live{background:rgba(255,255,255,.92);color:#B42318}
+  .st-live::before{content:"●";margin-right:5px;color:#D92D20}
+  .st-upcoming{background:rgba(255,255,255,.9);color:var(--charcoal)}
+  .st-closed{background:rgba(0,0,0,.4);color:rgba(255,255,255,.85)}
+  .ppo-chip{
+    font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--charcoal);color:var(--orange);border-radius:999px;padding:5px 11px;
+  }
+  .cc-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:11px;flex:1}
+  .cc-host{font-size:.78rem;font-weight:600;color:var(--ink-soft)}
+  .cc-title{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.25;letter-spacing:-.01em}
+  .cc-card:hover .cc-title{color:var(--orange-deep)}
+  .cc-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .cc-tags span{font-size:.7rem;font-weight:600;background:var(--cream);border-radius:999px;padding:4px 10px;color:var(--ink-soft)}
+  .cc-meta{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:.8rem;color:var(--ink-soft);margin-top:2px}
+  .cc-meta b{color:var(--charcoal);font-weight:600}
+  .cc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px dashed rgba(32,28,21,.15)}
+  .cc-count{
+    display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;
+  }
+  .cc-count svg{width:14px;height:14px;flex:none}
+  .cd-warn{color:#B42318}
+  .cd-ok{color:var(--green)}
+  .cc-go{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.88rem;color:var(--orange-deep)}
+  .cc-go svg{width:16px;height:16px}
+  .cc-empty{color:var(--ink-soft);font-size:.95rem;padding:8px 0 20px}
+
+  .my-strip{background:var(--green-soft);border-radius:18px;padding:18px 24px;margin-bottom:34px;display:none}
+  .my-strip.show{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .my-strip b{color:var(--green)}
+  .my-strip .links{display:flex;flex-wrap:wrap;gap:8px}
+  .my-strip a{font-size:.85rem;font-weight:600;color:var(--green);text-decoration:none;border:1.5px solid rgba(30,64,52,.4);border-radius:999px;padding:6px 14px}
+  .my-strip a:hover{background:var(--green);color:#fff}
+
+  .cc-cross{background:var(--charcoal);color:var(--cream);border-radius:26px;padding:44px 46px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .cc-cross h2{color:#fff;font-size:1.5rem;margin:0 0 8px}
+  .cc-cross p{color:rgba(244,240,230,.7);font-size:.95rem;max-width:520px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Competitions</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mentorship.html">Mentorship</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#live">See live competitions</a>
+  </div>
+</nav>
+
+<header class="cc-hero">
+  <svg class="hero-blob" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
+    <path fill="#F97316" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center">Case competitions</p>
+    <h1>Your college brand won't open doors.<br><span class="accent">A podium will</span>.</h1>
+    <p class="lead">PPO-oriented case competitions where a strong team from any campus can beat a brand-name college on the merits. Register, submit within timed rounds, earn certificates worth posting.</p>
+    <div class="cc-wedge">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Built for Tier 2 talent</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>PPO &amp; PPI-track prizes</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Shareable certificates</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Coaching to win, built in</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="my-strip" id="my-strip">
+    <span><b>My competitions:</b> you're registered — jump back in.</span>
+    <span class="links" id="my-links"></span>
+  </div>
+</div>
+
+<section class="cc-section" id="live">
+  <div class="wrap">
+    <h2><span class="live-dot" aria-hidden="true"></span>Live now</h2>
+    <div class="cc-grid" id="grid-live"></div>
+    <p class="cc-empty" id="empty-live" hidden>Nothing live at this moment — check the upcoming list below.</p>
+  </div>
+</section>
+
+<section class="cc-section">
+  <div class="wrap">
+    <h2>Upcoming</h2>
+    <div class="cc-grid" id="grid-upcoming"></div>
+    <p class="cc-empty" id="empty-upcoming" hidden>New competitions are announced here first.</p>
+  </div>
+</section>
+
+<section class="cc-section">
+  <div class="wrap">
+    <h2>Past competitions</h2>
+    <div class="cc-grid" id="grid-closed"></div>
+  </div>
+</section>
+
+<section class="cc-section" style="padding-bottom:96px">
+  <div class="wrap">
+    <div class="cc-cross reveal">
+      <div>
+        <h2>Want to actually win one?</h2>
+        <p>Stage-by-stage case-competition coaching — deck reviews, finals rehearsals, judges'-eye feedback — is Phase 4 of the mentorship journey.</p>
+      </div>
+      <a class="btn btn-primary" href="mentorship.html#phase-4">Get coached to win</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-base" style="margin-top:0;border-top:none;padding-top:0">
+      <span>© 2026 Embark India. All rights reserved. Sponsors shown are illustrative.</span>
+      <span><a href="comp-admin.html" style="color:inherit">Admin</a> · <a href="index.html" style="color:inherit">Home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="competitions.js"></script>
+<script>
+  const tickers = [];
+  const card = c => {
+    const st = compStatus(c);
+    const rw = regWindow(c);
+    const stChip = st === 'live' ? '<span class="st-chip st-live">Live</span>'
+      : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
+      : '<span class="st-chip st-closed">Closed</span>';
+    let foot;
+    if (st === 'closed') {
+      const w = (c.seedWinners && c.seedWinners[0]) || null;
+      foot = `<span class="cc-count cd-ok">${w ? '🏆'.replace('🏆','') + 'Winners declared' : 'Completed'}</span>`;
+    } else if (rw === 'open') {
+      foot = `<span class="cc-count cd-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Reg closes in <span data-count="${c.regClose}">${countdown(c.regClose) || '—'}</span></span>`;
+    } else if (rw === 'not-open') {
+      foot = `<span class="cc-count cd-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Reg opens ${fmtDate(c.regOpen)}</span>`;
+    } else {
+      foot = `<span class="cc-count" style="color:var(--ink-soft)">Registration closed</span>`;
+    }
+    return `
+    <a class="cc-card" href="competition.html?c=${c.id}">
+      <div class="cc-banner bn-${c.banner}">
+        <span class="ghost" aria-hidden="true">${c.category.slice(0,2).toUpperCase()}</span>
+        ${stChip}
+        ${c.ppo ? '<span class="ppo-chip">PPO track</span>' : ''}
+      </div>
+      <div class="cc-body">
+        <span class="cc-host">${c.host}</span>
+        <span class="cc-title">${c.title}</span>
+        <div class="cc-tags"><span>${c.category}</span><span>${c.fee ? '₹' + c.fee + ' / team' : 'Free'}</span><span>Team ${c.teamMin}–${c.teamMax}</span></div>
+        <div class="cc-meta">
+          <span><b>${totalRegs(c).toLocaleString('en-IN')}</b> registered</span>
+          <span><b>${c.rounds.length}</b> rounds</span>
+          <span>${fmtDate(c.start)} – ${fmtDate(c.end)}</span>
+        </div>
+        <div class="cc-foot">
+          ${foot}
+          <span class="cc-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </div>
+    </a>`;
+  };
+
+  const comps = allComps(false);
+  const groups = { live: [], upcoming: [], closed: [] };
+  comps.forEach(c => groups[compStatus(c)].push(c));
+  ['live','upcoming','closed'].forEach(g => {
+    const grid = document.getElementById('grid-' + g);
+    grid.innerHTML = groups[g].map(card).join('');
+    const empty = document.getElementById('empty-' + g);
+    if (empty) empty.hidden = groups[g].length > 0;
+  });
+
+  // My competitions strip (6.2)
+  const mine = comps.filter(c => myReg(c.id));
+  if (mine.length) {
+    document.getElementById('my-strip').classList.add('show');
+    document.getElementById('my-links').innerHTML = mine.map(c =>
+      `<a href="competition.html?c=${c.id}">${c.title.split(':')[0]} · ${compStatus(c)}</a>`).join('');
+  }
+
+  // live countdowns
+  setInterval(() => {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      el.textContent = countdown(el.dataset.count) || 'closed';
+    });
+  }, 1000);
+</script>
+</body>
+</html>

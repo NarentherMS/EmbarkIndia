@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Competition Admin — Embark India</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gl.css">
+<style>
+  .adm-banner{background:var(--charcoal);color:var(--cream);padding:14px 0;font-size:.85rem}
+  .adm-banner .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .adm-banner b{color:var(--orange)}
+  .adm-head{padding:44px 0 24px}
+  .adm-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px}
+  .at-btn{
+    font-family:var(--body);font-weight:600;font-size:.9rem;color:var(--ink-soft);
+    background:var(--white);border:1.5px solid transparent;border-radius:999px;
+    padding:10px 20px;cursor:pointer;min-height:44px;box-shadow:var(--shadow-card);transition:all .18s;
+  }
+  .at-btn[aria-selected="true"]{background:var(--charcoal);color:var(--cream)}
+  .adm-body{padding:28px 0 96px}
+  .adm-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow-card);padding:32px;margin-bottom:22px}
+  .adm-card h2{font-size:1.25rem;margin-bottom:18px}
+  table.adm{width:100%;border-collapse:collapse;font-size:.9rem}
+  table.adm th{
+    text-align:left;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);padding:10px 12px;border-bottom:1.5px solid rgba(32,28,21,.15);white-space:nowrap;
+  }
+  table.adm td{padding:13px 12px;border-bottom:1px dashed rgba(32,28,21,.12);vertical-align:top}
+  .pill{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .pl-live{background:#FEE4E2;color:#B42318}
+  .pl-upcoming{background:var(--green-soft);color:var(--green)}
+  .pl-closed{background:var(--cream-deep);color:var(--ink-soft)}
+  .pl-draft{background:var(--orange-soft);color:var(--orange-deep)}
+  .row-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .mini-btn{
+    font-family:var(--body);font-weight:600;font-size:.76rem;color:var(--charcoal);
+    background:var(--cream);border:none;border-radius:999px;padding:7px 13px;cursor:pointer;
+    text-decoration:none;display:inline-block;min-height:32px;
+  }
+  .mini-btn:hover{background:var(--cream-deep)}
+  .mini-btn.danger{color:#B42318}
+  .adm-card form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .round-editor{
+    grid-column:1/-1;border:1.5px dashed rgba(32,28,21,.25);border-radius:14px;padding:18px;
+    display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;
+  }
+  .round-editor .field{margin:0}
+  .sel-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .sel-row .field{min-width:240px}
+  .check-team{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid rgba(32,28,21,.12);
+    border-radius:12px;margin-bottom:8px;cursor:pointer;transition:border-color .15s;
+  }
+  .check-team:hover{border-color:rgba(32,28,21,.35)}
+  .check-team input{width:19px;height:19px;accent-color:#F97316}
+  .check-team b{font-size:.92rem}
+  .check-team small{color:var(--ink-soft);font-size:.78rem}
+  .adm-note{font-size:.82rem;color:var(--ink-soft);background:var(--cream);border-radius:10px;padding:11px 14px;margin-top:14px}
+  .save-ok{display:none;color:var(--green);font-weight:600;font-size:.88rem;margin-left:12px}
+  .save-ok.show{display:inline}
+  [role="tabpanel"][hidden]{display:none}
+  @media (max-width:860px){
+    .adm-card form{grid-template-columns:1fr}
+    .round-editor{grid-template-columns:1fr}
+    .adm-card{padding:22px 18px;overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="adm-banner">
+  <div class="wrap">
+    <span><b>Admin prototype.</b> Everything you do here is stored in this browser and instantly drives the student pages — exactly how the real admin layer will behave, minus the server.</span>
+    <a href="competitions.html" style="color:var(--cream)">View student portal →</a>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+      <span class="nav-service">Competition admin</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="competitions.html">Student portal</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#" id="new-comp-btn">+ New competition</a>
+  </div>
+</nav>
+
+<div class="wrap adm-head">
+  <h1 style="font-size:clamp(1.7rem,3.6vw,2.4rem)">Competition admin</h1>
+  <div class="adm-tabs" role="tablist">
+    <button class="at-btn" role="tab" aria-selected="true" data-t="list">Competitions</button>
+    <button class="at-btn" role="tab" aria-selected="false" data-t="create">Create / edit</button>
+    <button class="at-btn" role="tab" aria-selected="false" data-t="regs">Registrations</button>
+    <button class="at-btn" role="tab" aria-selected="false" data-t="prog">Round progression</button>
+    <button class="at-btn" role="tab" aria-selected="false" data-t="results">Results & certificates</button>
+  </div>
+</div>
+
+<div class="wrap adm-body">
+
+  <div id="panel-list" role="tabpanel">
+    <div class="adm-card" style="overflow-x:auto">
+      <h2>All competitions</h2>
+      <table class="adm">
+        <thead><tr><th>Competition</th><th>Status (auto)</th><th>Visibility</th><th>Fee</th><th>Regs</th><th>Dates</th><th>Actions</th></tr></thead>
+        <tbody id="comp-rows"></tbody>
+      </table>
+      <p class="adm-note">Status is computed from dates — Live competitions appear on the home page and competitions page automatically, and drop off when the end date passes. There is no manual toggle, by design (spec 5.2).</p>
+    </div>
+  </div>
+
+  <div id="panel-create" role="tabpanel" hidden>
+    <div class="adm-card">
+      <h2 id="create-title">Create competition</h2>
+      <form id="comp-form" novalidate>
+        <div class="field"><label>Title <span class="req">*</span></label><input id="cf-title" type="text" required></div>
+        <div class="field"><label>Host / brand <span class="req">*</span></label><input id="cf-host" type="text" placeholder="Embark India × Sponsor" required></div>
+        <div class="field"><label>Category / stream</label>
+          <select id="cf-cat"><option>Marketing</option><option>Finance</option><option>Operations</option><option>Analytics</option><option>Human Resources</option><option>Strategy</option><option>General Management</option></select>
+        </div>
+        <div class="field"><label>Banner style</label>
+          <select id="cf-banner"><option value="orange">Orange</option><option value="green">Green</option><option value="dark">Dark</option><option value="charcoal">Charcoal dots</option></select>
+        </div>
+        <div class="field"><label>Registration fee (₹, 0 = free)</label><input id="cf-fee" type="number" min="0" value="0"></div>
+        <div class="field"><label>Team size (min–max)</label>
+          <div style="display:flex;gap:8px"><input id="cf-tmin" type="number" min="1" max="6" value="1" style="width:50%"><input id="cf-tmax" type="number" min="1" max="6" value="4" style="width:50%"></div>
+        </div>
+        <div class="field full"><label>Description <span class="req">*</span></label><textarea id="cf-about" required></textarea></div>
+        <div class="field full"><label>Eligibility</label><input id="cf-elig" type="text" placeholder="MBA/PGDM students of any year…"></div>
+        <div class="field full"><label>Rules (one per line)</label><textarea id="cf-rules" placeholder="Teams of 1–4&#10;Decks in PDF, max 12 slides"></textarea></div>
+        <div class="field full"><label>Prizes (one per line: Label | Prize)</label><textarea id="cf-prizes" placeholder="Winner | ₹30,000 + PPI interviews&#10;Runner-up | ₹15,000"></textarea></div>
+        <div class="field"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="cf-ppo" style="width:18px;height:18px;accent-color:#F97316">PPO / PPI track</label></div>
+        <div class="field"></div>
+        <div class="field"><label>Registration opens <span class="req">*</span></label><input id="cf-regopen" type="datetime-local" required></div>
+        <div class="field"><label>Registration closes <span class="req">*</span></label><input id="cf-regclose" type="datetime-local" required></div>
+        <div class="field"><label>Competition starts <span class="req">*</span></label><input id="cf-start" type="datetime-local" required></div>
+        <div class="field"><label>Competition ends <span class="req">*</span></label><input id="cf-end" type="datetime-local" required></div>
+        <div class="field"><label>Result date</label><input id="cf-result" type="datetime-local"></div>
+        <div class="field"></div>
+        <div class="field full"><label style="font-weight:600">Rounds — each with its own window <span class="req">*</span></label><div id="rounds-editor"></div>
+          <button type="button" class="add-member" id="add-round" style="margin-top:10px">+ Add round</button>
+        </div>
+        <div class="form-foot">
+          <small>Draft = hidden from students. Published competitions surface automatically by date.</small>
+          <span style="display:flex;gap:10px;align-items:center">
+            <button class="btn btn-ghost" type="button" id="save-draft">Save as draft</button>
+            <button class="btn btn-primary" type="submit">Publish</button>
+            <span class="save-ok" id="save-ok">Saved ✓</span>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="panel-regs" role="tabpanel" hidden>
+    <div class="adm-card" style="overflow-x:auto">
+      <h2>Registrations</h2>
+      <div class="sel-row"><div class="field"><label>Competition</label><select id="regs-comp"></select></div></div>
+      <table class="adm">
+        <thead><tr><th>Team</th><th>Type</th><th>Lead</th><th>Members</th><th>College</th><th>Payment</th><th>Submissions</th></tr></thead>
+        <tbody id="regs-rows"></tbody>
+      </table>
+      <p class="adm-note" id="regs-empty" hidden>No registrations in this browser yet — register on the student page and it appears here instantly.</p>
+    </div>
+  </div>
+
+  <div id="panel-prog" role="tabpanel" hidden>
+    <div class="adm-card">
+      <h2>Round progression — select who advances</h2>
+      <div class="sel-row">
+        <div class="field"><label>Competition</label><select id="prog-comp"></select></div>
+        <div class="field"><label>After round</label><select id="prog-round"></select></div>
+      </div>
+      <div id="prog-list"></div>
+      <button class="btn btn-primary btn-sm" id="prog-save" style="margin-top:14px">Save advancing teams</button>
+      <span class="save-ok" id="prog-ok">Saved — only these teams proceed ✓</span>
+      <p class="adm-note">Judging happens offline. You select advancing teams from the registered list — never free-typed — so a name mismatch can't knock a team out (spec 5.4). Download their submissions from the Registrations tab.</p>
+    </div>
+  </div>
+
+  <div id="panel-results" role="tabpanel" hidden>
+    <div class="adm-card">
+      <h2>Flag winners &amp; issue certificates</h2>
+      <div class="sel-row"><div class="field"><label>Competition</label><select id="res-comp"></select></div></div>
+      <div id="res-list"></div>
+      <button class="btn btn-primary btn-sm" id="res-save" style="margin-top:14px">Save winners &amp; issue certificates</button>
+      <span class="save-ok" id="res-ok">Winners flagged — certificates unlocked on student pages ✓</span>
+      <p class="adm-note">Winner certificates unlock for flagged teams; participation certificates unlock for every registered team once results exist or the competition closes (spec 5.5).</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-base" style="margin-top:0;border-top:none;padding-top:0">
+      <span>© 2026 Embark India · Admin prototype</span>
+      <a href="competitions.html" style="color:inherit">Student portal →</a>
+    </div>
+  </div>
+</footer>
+
+<script src="competitions.js"></script>
+<script>
+  /* ---------- tabs ---------- */
+  const TABS = ['list','create','regs','prog','results'];
+  const showTab = t => {
+    TABS.forEach(x => {
+      document.querySelector(`[data-t="${x}"]`).setAttribute('aria-selected', x === t);
+      document.getElementById('panel-' + x).hidden = x !== t;
+    });
+  };
+  document.querySelectorAll('.at-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.t)));
+  document.getElementById('new-comp-btn').addEventListener('click', e => { e.preventDefault(); resetForm(); showTab('create'); });
+
+  const toLocal = iso => { const d = new Date(iso); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0,16); };
+  const toISO = local => new Date(local).toISOString();
+
+  /* ---------- competitions list (5.1/5.2) ---------- */
+  const renderList = () => {
+    const comps = allComps(true);
+    document.getElementById('comp-rows').innerHTML = comps.map(c => {
+      const st = compStatus(c);
+      return `<tr>
+        <td><b style="font-weight:600">${c.title}</b><br><small style="color:var(--ink-soft)">${c.host}</small></td>
+        <td><span class="pill pl-${st}">${st}</span></td>
+        <td>${c.draft ? '<span class="pill pl-draft">Draft</span>' : '<span class="pill pl-upcoming" style="background:var(--cream);color:var(--ink-soft)">Published</span>'}</td>
+        <td>${c.fee ? '₹' + c.fee : 'Free'}</td>
+        <td>${totalRegs(c)}</td>
+        <td style="white-space:nowrap">${fmtDate(c.start)} – ${fmtDate(c.end)}</td>
+        <td><div class="row-actions">
+          <a class="mini-btn" href="competition.html?c=${c.id}">View</a>
+          <button class="mini-btn" data-edit="${c.id}">Edit</button>
+          <button class="mini-btn" data-pub="${c.id}">${c.draft ? 'Publish' : 'Unpublish'}</button>
+          <button class="mini-btn danger" data-del="${c.id}">Delete</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+    document.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => { loadForm(b.dataset.edit); showTab('create'); }));
+    document.querySelectorAll('[data-pub]').forEach(b => b.addEventListener('click', () => {
+      const c = getComp(b.dataset.pub);
+      saveOverride(c.id, { draft: !c.draft });
+      renderList();
+    }));
+    document.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
+      if (!confirm('Delete this competition? Registrations for it remain stored but it disappears everywhere.')) return;
+      const deleted = ccpGet('deleted', []);
+      deleted.push(b.dataset.del);
+      ccpSet('deleted', deleted);
+      renderList(); fillSelectors();
+    }));
+  };
+  const saveOverride = (id, patch) => {
+    if (COMP_SEED.find(s => s.id === id)) {
+      const o = ccpGet('overrides', {});
+      o[id] = { ...(o[id] || {}), ...patch };
+      ccpSet('overrides', o);
+    } else {
+      const custom = ccpGet('customComps', []);
+      const i = custom.findIndex(c => c.id === id);
+      if (i >= 0) { custom[i] = { ...custom[i], ...patch }; ccpSet('customComps', custom); }
+    }
+  };
+
+  /* ---------- create / edit form (5.1) ---------- */
+  let editingId = null, roundCount = 0;
+  const addRoundRow = (r = {}) => {
+    roundCount++;
+    const div = document.createElement('div');
+    div.className = 'round-editor';
+    div.innerHTML = `
+      <div class="field"><label>Round name</label><input type="text" class="rd-name" value="${r.name || 'Round ' + roundCount}"></div>
+      <div class="field"><label>Opens</label><input type="datetime-local" class="rd-open" value="${r.opens ? toLocal(r.opens) : ''}"></div>
+      <div class="field"><label>Closes (deadline)</label><input type="datetime-local" class="rd-close" value="${r.closes ? toLocal(r.closes) : ''}"></div>
+      <button type="button" class="mini-btn danger rd-del" style="height:44px">Remove</button>
+      <div class="field" style="grid-column:1/-1"><label>Instructions</label><input type="text" class="rd-brief" value="${r.brief || ''}" placeholder="What must teams submit in this round?"></div>`;
+    div.querySelector('.rd-del').addEventListener('click', () => div.remove());
+    document.getElementById('rounds-editor').appendChild(div);
+  };
+  const resetForm = () => {
+    editingId = null; roundCount = 0;
+    document.getElementById('create-title').textContent = 'Create competition';
+    document.getElementById('comp-form').reset();
+    document.getElementById('rounds-editor').innerHTML = '';
+    addRoundRow();
+  };
+  const loadForm = id => {
+    const c = getComp(id);
+    if (!c) return;
+    editingId = id; roundCount = 0;
+    document.getElementById('create-title').textContent = 'Edit: ' + c.title;
+    document.getElementById('cf-title').value = c.title;
+    document.getElementById('cf-host').value = c.host;
+    document.getElementById('cf-cat').value = c.category;
+    document.getElementById('cf-banner').value = c.banner;
+    document.getElementById('cf-fee').value = c.fee;
+    document.getElementById('cf-tmin').value = c.teamMin;
+    document.getElementById('cf-tmax').value = c.teamMax;
+    document.getElementById('cf-about').value = c.about;
+    document.getElementById('cf-elig').value = c.eligibility;
+    document.getElementById('cf-rules').value = c.rules.join('\n');
+    document.getElementById('cf-prizes').value = c.prizes.map(p => p.join(' | ')).join('\n');
+    document.getElementById('cf-ppo').checked = !!c.ppo;
+    document.getElementById('cf-regopen').value = toLocal(c.regOpen);
+    document.getElementById('cf-regclose').value = toLocal(c.regClose);
+    document.getElementById('cf-start').value = toLocal(c.start);
+    document.getElementById('cf-end').value = toLocal(c.end);
+    document.getElementById('cf-result').value = c.result ? toLocal(c.result) : '';
+    document.getElementById('rounds-editor').innerHTML = '';
+    c.rounds.forEach(r => addRoundRow(r));
+  };
+  document.getElementById('add-round').addEventListener('click', () => addRoundRow());
+
+  const collectForm = draft => {
+    const form = document.getElementById('comp-form');
+    if (!form.checkValidity()) { form.reportValidity(); return null; }
+    const rounds = [...document.querySelectorAll('.round-editor')].map(re => ({
+      name: re.querySelector('.rd-name').value.trim() || 'Round',
+      brief: re.querySelector('.rd-brief').value.trim(),
+      opens: re.querySelector('.rd-open').value ? toISO(re.querySelector('.rd-open').value) : new Date().toISOString(),
+      closes: re.querySelector('.rd-close').value ? toISO(re.querySelector('.rd-close').value) : new Date().toISOString()
+    }));
+    if (!rounds.length) { alert('Add at least one round.'); return null; }
+    return {
+      title: document.getElementById('cf-title').value.trim(),
+      host: document.getElementById('cf-host').value.trim(),
+      category: document.getElementById('cf-cat').value,
+      banner: document.getElementById('cf-banner').value,
+      fee: +document.getElementById('cf-fee').value || 0,
+      teamMin: +document.getElementById('cf-tmin').value || 1,
+      teamMax: +document.getElementById('cf-tmax').value || 4,
+      about: document.getElementById('cf-about').value.trim(),
+      eligibility: document.getElementById('cf-elig').value.trim() || 'Open to all MBA/PGDM students.',
+      rules: document.getElementById('cf-rules').value.split('\n').map(s => s.trim()).filter(Boolean),
+      prizes: document.getElementById('cf-prizes').value.split('\n').map(s => s.trim()).filter(Boolean).map(l => l.split('|').map(x => x.trim())),
+      ppo: document.getElementById('cf-ppo').checked,
+      regOpen: toISO(document.getElementById('cf-regopen').value),
+      regClose: toISO(document.getElementById('cf-regclose').value),
+      start: toISO(document.getElementById('cf-start').value),
+      end: toISO(document.getElementById('cf-end').value),
+      result: document.getElementById('cf-result').value ? toISO(document.getElementById('cf-result').value) : toISO(document.getElementById('cf-end').value),
+      rounds, draft, seedRegs: 0
+    };
+  };
+  const saveComp = draft => {
+    const data = collectForm(draft);
+    if (!data) return;
+    if (editingId) {
+      saveOverride(editingId, data);
+    } else {
+      const custom = ccpGet('customComps', []);
+      data.id = slugify(data.title) + '-' + Math.random().toString(36).slice(2, 5);
+      custom.push(data);
+      ccpSet('customComps', custom);
+      editingId = data.id;
+    }
+    document.getElementById('save-ok').classList.add('show');
+    setTimeout(() => document.getElementById('save-ok').classList.remove('show'), 2200);
+    renderList(); fillSelectors();
+  };
+  document.getElementById('comp-form').addEventListener('submit', e => { e.preventDefault(); saveComp(false); });
+  document.getElementById('save-draft').addEventListener('click', () => saveComp(true));
+
+  /* ---------- selectors shared by regs / prog / results ---------- */
+  const fillSelectors = () => {
+    const opts = allComps(true).map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+    ['regs-comp','prog-comp','res-comp'].forEach(id => { document.getElementById(id).innerHTML = opts; });
+    renderRegs(); fillProgRounds(); renderResults();
+  };
+
+  /* ---------- registrations (5.3) ---------- */
+  const renderRegs = () => {
+    const id = document.getElementById('regs-comp').value;
+    const regs = regsFor(id);
+    const subs = subsFor(id);
+    document.getElementById('regs-rows').innerHTML = regs.map(r => {
+      const subCells = Object.entries(subs).filter(([ri, m]) => m[r.id])
+        .map(([ri, m]) => `R${+ri+1}: ${m[r.id].name}`).join('<br>') || '—';
+      return `<tr>
+        <td><b style="font-weight:600">${r.teamName}</b></td>
+        <td>${r.solo ? 'Solo' : 'Team of ' + (r.members.length + 1)}</td>
+        <td>${r.lead.name}<br><small style="color:var(--ink-soft)">${r.lead.email}</small></td>
+        <td>${r.members.map(m => m.name).join(', ') || '—'}</td>
+        <td>${r.lead.college || '—'}</td>
+        <td>${r.paid ? '✓ ' + (r.receipt || '') : 'Free'}</td>
+        <td>${subCells}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('regs-empty').hidden = regs.length > 0;
+  };
+  document.getElementById('regs-comp').addEventListener('change', renderRegs);
+
+  /* ---------- progression (5.4) ---------- */
+  const fillProgRounds = () => {
+    const id = document.getElementById('prog-comp').value;
+    const c = getComp(id);
+    if (!c) return;
+    document.getElementById('prog-round').innerHTML = c.rounds.map((r, i) => `<option value="${i}">${r.name}</option>`).join('');
+    renderProgList();
+  };
+  const renderProgList = () => {
+    const id = document.getElementById('prog-comp').value;
+    const ri = +document.getElementById('prog-round').value || 0;
+    const c = getComp(id);
+    if (!c) return;
+    const regs = regsFor(id);
+    const adv = advFor(id);
+    // eligible = everyone registered for round 0; else teams advanced through previous round
+    const eligible = ri === 0 ? regs : regs.filter(r => (adv[ri-1] || []).includes(r.id));
+    const chosen = adv[ri] || [];
+    const subs = subsFor(id)[ri] || {};
+    document.getElementById('prog-list').innerHTML = eligible.length ? eligible.map(r => `
+      <label class="check-team">
+        <input type="checkbox" value="${r.id}" ${chosen.includes(r.id) ? 'checked' : ''}>
+        <span><b>${r.teamName}</b> <small>· ${r.lead.name} (${r.lead.college || '—'}) · ${subs[r.id] ? 'submitted: ' + subs[r.id].name : 'no submission'}</small></span>
+      </label>`).join('')
+      : '<p style="color:var(--ink-soft);font-size:.9rem">No eligible teams for this round yet (register on the student page, or advance teams through the previous round first).</p>';
+  };
+  document.getElementById('prog-comp').addEventListener('change', fillProgRounds);
+  document.getElementById('prog-round').addEventListener('change', renderProgList);
+  document.getElementById('prog-save').addEventListener('click', () => {
+    const id = document.getElementById('prog-comp').value;
+    const ri = +document.getElementById('prog-round').value || 0;
+    const chosen = [...document.querySelectorAll('#prog-list input:checked')].map(i => i.value);
+    setAdv(id, ri, chosen);
+    document.getElementById('prog-ok').classList.add('show');
+    setTimeout(() => document.getElementById('prog-ok').classList.remove('show'), 2400);
+  });
+
+  /* ---------- results & certificates (5.5) ---------- */
+  const renderResults = () => {
+    const id = document.getElementById('res-comp').value;
+    const c = getComp(id);
+    if (!c) return;
+    const regs = regsFor(id);
+    const adv = advFor(id);
+    const lastRound = c.rounds.length - 1;
+    const finalists = (adv[lastRound - 1] && adv[lastRound - 1].length)
+      ? regs.filter(r => adv[lastRound - 1].includes(r.id))
+      : regs;
+    const winners = winnersFor(id);
+    const rankOf = tid => { const w = winners.find(x => x.teamId === tid); return w ? w.rank : ''; };
+    document.getElementById('res-list').innerHTML = finalists.length ? finalists.map(r => `
+      <div class="check-team" style="cursor:default">
+        <select data-team="${r.id}" style="min-height:40px;border-radius:10px;border:1.5px solid rgba(32,28,21,.2);font-family:var(--body);padding:6px 10px">
+          <option value="">—</option>
+          <option value="1" ${rankOf(r.id)===1?'selected':''}>Rank 1</option>
+          <option value="2" ${rankOf(r.id)===2?'selected':''}>Rank 2</option>
+          <option value="3" ${rankOf(r.id)===3?'selected':''}>Rank 3</option>
+        </select>
+        <span><b>${r.teamName}</b> <small>· ${r.lead.name} (${r.lead.college || '—'})</small></span>
+      </div>`).join('')
+      : '<p style="color:var(--ink-soft);font-size:.9rem">No finalist teams in this browser yet.</p>';
+  };
+  document.getElementById('res-comp').addEventListener('change', renderResults);
+  document.getElementById('res-save').addEventListener('click', () => {
+    const id = document.getElementById('res-comp').value;
+    const list = [...document.querySelectorAll('#res-list select')]
+      .filter(s => s.value)
+      .map(s => ({ teamId: s.dataset.team, rank: +s.value }));
+    setWinners(id, list);
+    document.getElementById('res-ok').classList.add('show');
+    setTimeout(() => document.getElementById('res-ok').classList.remove('show'), 2600);
+  });
+
+  /* init */
+  renderList(); resetForm(); fillSelectors();
+</script>
+</body>
+</html>

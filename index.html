@@ -226,6 +226,7 @@
     <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
     <ul class="nav-links">
       <li><a href="mentorship.html">Mentorship</a></li>
+      <li><a href="competitions.html">Competitions</a></li>
       <li><a href="guest-lectures.html">Guest lectures</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="playbooks.html">Playbooks</a></li>
@@ -265,11 +266,21 @@
   </div>
 </section>
 
+<section class="svc" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:26px">
+      <p class="eyebrow">Happening now</p>
+      <h2>Live competitions.</h2>
+    </div>
+    <div id="home-live-comps" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px"></div>
+  </div>
+</section>
+
 <section class="svc">
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">Live today</p>
-      <h2>Four services. Zero brochure-speak.</h2>
+      <h2>Five services. Zero brochure-speak.</h2>
     </div>
     <div class="svc-grid">
       <a class="svc-card c-green reveal" href="mentorship.html">
@@ -280,6 +291,15 @@
         <p>End-to-end, CAT result to final offer — one journey, five phases, mentors who've made the climb.</p>
         <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free intro call</span>
         <span class="svc-go">Start the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="svc-card c-dark reveal" href="competitions.html">
+        <span class="svc-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4h3v3a5 5 0 0 1-5 5M7 4H4v3a5 5 0 0 0 5 5"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg>
+        </span>
+        <h3>Case competitions</h3>
+        <p>PPO-oriented competitions with timed rounds and certificates worth posting — built for Tier 2 talent.</p>
+        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Live competitions open now</span>
+        <span class="svc-go">Compete <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="svc-card c-orange reveal" href="guest-lectures.html">
         <span class="svc-icon" aria-hidden="true">
@@ -321,9 +341,9 @@
     <div class="soon-grid">
       <div class="soon-tile st-1 reveal">
         <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4h3v3a5 5 0 0 1-5 5M7 4H4v3a5 5 0 0 0 5 5"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg></span>
-        <h3>Case competitions</h3>
-        <p>Compete, get judged by practitioners, get noticed.</p>
+        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 3-6 3z" transform="translate(1 0)"/></svg></span>
+        <h3>Courses</h3>
+        <p>Practitioner-built courses for the skills panels test.</p>
       </div>
       <div class="soon-tile st-2 reveal">
         <span class="soon-tag">Coming soon</span>
@@ -382,6 +402,7 @@
           <h4>Services</h4>
           <ul>
             <li><a href="mentorship.html">Mentorship</a></li>
+            <li><a href="competitions.html">Case competitions</a></li>
             <li><a href="guest-lectures.html">Guest lectures</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="playbooks.html">Stream playbooks</a></li>
@@ -402,7 +423,28 @@
   </div>
 </footer>
 
+<script src="competitions.js"></script>
 <script>
+  // ----- live competitions on home (spec 5.2: automatic display by date) -----
+  (() => {
+    const live = allComps(false).filter(c => compStatus(c) === 'live');
+    const wrap = document.getElementById('home-live-comps');
+    if (!live.length) {
+      wrap.closest('section').style.display = 'none';
+      return;
+    }
+    wrap.innerHTML = live.map(c => `
+      <a href="competition.html?c=${c.id}" style="display:flex;flex-direction:column;gap:9px;background:var(--white);border-radius:20px;padding:24px 26px;text-decoration:none;color:inherit;box-shadow:var(--shadow-card)">
+        <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#FEE4E2;color:#B42318;border-radius:999px;padding:4px 11px">● Live</span>
+          ${c.ppo ? '<span style="font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--charcoal);color:var(--orange);border-radius:999px;padding:4px 11px">PPO track</span>' : ''}
+        </span>
+        <b style="font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:-.01em">${c.title}</b>
+        <span style="font-size:.82rem;color:var(--ink-soft)">${c.host} · ${c.fee ? '₹' + c.fee + '/team' : 'Free'} · ${totalRegs(c)} registered</span>
+        <span style="font-size:.85rem;font-weight:600;color:var(--orange-deep)">View & register →</span>
+      </a>`).join('');
+  })();
+
   // ----- persona selector (monday-style) -----
   const PERSONAS = [
     {
