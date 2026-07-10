@@ -163,52 +163,74 @@
   .svc-go svg{width:18px;height:18px;transition:transform .2s}
 
   /* ---------- pastel service strip ---------- */
-  .pstrip-sec{padding:88px 0;background:var(--white)}
+  .pstrip-sec{padding:88px 0;background:var(--white);overflow:hidden}
   .pstrip-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
   .pstrip-nav{display:flex;gap:10px}
   .pstrip{
-    display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;
-    padding:8px 4px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:14px 6px 30px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .pstrip::-webkit-scrollbar{display:none}
   .pcard{
-    flex:0 0 282px;height:216px;border-radius:24px;position:relative;overflow:hidden;
-    scroll-snap-align:start;padding:24px 26px;text-decoration:none;color:#1B1710;
-    display:block;transition:transform .22s;
+    flex:0 0 300px;height:238px;border-radius:28px;position:relative;overflow:hidden;
+    scroll-snap-align:start;padding:26px 28px;text-decoration:none;color:#1B1710;
+    display:block;will-change:transform;
+    transition:transform .45s cubic-bezier(.22,.9,.3,1.2),box-shadow .35s;
+    opacity:0;translate:0 46px;rotate:2.5deg;
   }
-  .pcard:hover{transform:translateY(-6px) rotate(-.5deg)}
+  .pcard.in{
+    opacity:1;translate:0 0;rotate:0deg;
+    transition:opacity .6s ease,translate .7s cubic-bezier(.2,.8,.25,1.1),rotate .7s cubic-bezier(.2,.8,.25,1.1),transform .45s cubic-bezier(.22,.9,.3,1.2),box-shadow .35s;
+  }
+  .pcard:hover{box-shadow:0 22px 44px rgba(32,28,21,.22)}
+  .pcard:hover .part{transform:scale(1.14) rotate(-5deg) translateY(-6px)}
+  .pcard:hover .pb1{transform:scale(1.25) rotate(14deg)}
+  .pcard:hover .pb2{transform:scale(1.2) rotate(-10deg)}
+  .pcard:hover .pgo{background:#1B1710;color:#fff;gap:11px}
   .pcard h3{
-    font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.12;
-    letter-spacing:-.01em;max-width:78%;position:relative;z-index:2;
+    font-family:var(--display);font-weight:800;font-size:1.5rem;line-height:1.1;
+    letter-spacing:-.015em;max-width:82%;position:relative;z-index:2;
   }
-  .ptag{
-    position:absolute;top:18px;right:18px;z-index:3;
-    font-size:.6rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
-    border-radius:999px;padding:4px 10px;
+  .pblob{position:absolute;pointer-events:none;z-index:0;transition:transform 1s cubic-bezier(.2,.8,.3,1)}
+  .pb1{width:190px;right:-50px;top:-60px;animation:pdrift 9s ease-in-out infinite alternate}
+  .pb2{width:130px;left:-42px;bottom:-48px;animation:pdrift 11s ease-in-out infinite alternate-reverse}
+  @keyframes pdrift{
+    from{translate:0 0}
+    to{translate:10px 9px}
   }
-  .ptag.live{background:rgba(255,255,255,.9);color:#B42318}
-  .ptag.live::before{content:"●";margin-right:4px;color:#D92D20}
-  .ptag.soon{background:rgba(0,0,0,.1);color:rgba(27,23,16,.65)}
-  .pblob{position:absolute;pointer-events:none;z-index:0}
-  .pblob.big{width:170px;right:-45px;top:-55px}
-  .pblob.small{width:110px;left:-35px;bottom:-40px}
-  .psquig{position:absolute;pointer-events:none;z-index:0;opacity:.85}
-  .part{position:absolute;right:16px;bottom:12px;width:104px;height:104px;z-index:1}
-  .pcard .pgo{
-    position:absolute;left:24px;bottom:18px;z-index:2;
-    font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;
+  .psquig{position:absolute;pointer-events:none;z-index:0;opacity:.9;left:22px;bottom:82px;width:54px}
+  .psquig path{stroke-dasharray:80;stroke-dashoffset:80;transition:stroke-dashoffset .8s ease .3s}
+  .pcard.in .psquig path{stroke-dashoffset:26}
+  .part{
+    position:absolute;right:16px;bottom:14px;width:112px;height:112px;z-index:1;
+    filter:drop-shadow(0 8px 10px rgba(32,28,21,.18));
+    transition:transform .5s cubic-bezier(.2,.9,.3,1.4);
+    animation:pfloat 5s ease-in-out infinite alternate;
   }
-  .pcard .pgo svg{width:15px;height:15px}
-  /* palettes */
-  .pc-1{background:#F8B7CC}
-  .pc-2{background:#CDE5AE}
-  .pc-3{background:#FBF2A9}
-  .pc-4{background:#D8C8EC}
-  .pc-5{background:#FBD5B0}
-  .pc-6{background:#BFE0F0}
-  .pc-7{background:#C4E8DC}
-  .pc-8{background:#F6C9B8}
-  .pc-9{background:#F2E2A9}
+  @keyframes pfloat{from{margin-bottom:0}to{margin-bottom:9px}}
+  .pgo{
+    position:absolute;left:24px;bottom:20px;z-index:2;
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:.82rem;font-weight:600;color:#1B1710;
+    background:rgba(255,255,255,.78);border-radius:999px;padding:9px 16px;
+    transition:background .3s,color .3s,gap .3s;
+  }
+  .pgo svg{width:15px;height:15px}
+  /* palettes — soft two-tone gradients */
+  .pc-1{background:linear-gradient(150deg,#FBCEDD 0%,#F5A9C6 100%)}
+  .pc-2{background:linear-gradient(150deg,#DDEEC6 0%,#C2E09E 100%)}
+  .pc-3{background:linear-gradient(150deg,#FCF6C0 0%,#F7EC90 100%)}
+  .pc-4{background:linear-gradient(150deg,#E4D8F3 0%,#CDB9E7 100%)}
+  .pc-5{background:linear-gradient(150deg,#FDE0C3 0%,#F9C99A 100%)}
+  .pc-6{background:linear-gradient(150deg,#D2EAF7 0%,#AFD9EE 100%)}
+  .pc-7{background:linear-gradient(150deg,#D4EFE5 0%,#B4E2D1 100%)}
+  .pc-8{background:linear-gradient(150deg,#FAD8CB 0%,#F3BBA6 100%)}
+  .pc-9{background:linear-gradient(150deg,#F7EAC4 0%,#EEDB9C 100%)}
+  @media (prefers-reduced-motion:reduce){
+    .pcard{opacity:1;translate:0 0;rotate:0deg;transition:none}
+    .pblob,.part{animation:none;transition:none}
+    .psquig path{stroke-dashoffset:26;transition:none}
+  }
 
   /* ---------- roadmap tiles ---------- */
   .soon-sec{padding:88px 0;background:var(--white)}
@@ -482,9 +504,10 @@
       quiz: `<rect x="16" y="14" width="46" height="58" rx="9" fill="${WH}" transform="rotate(-6 39 43)"/><text x="34" y="52" font-family="Arial" font-size="34" font-weight="bold" fill="${CH}" transform="rotate(-6 39 43)">?</text><circle cx="70" cy="62" r="17" fill="${OR}"/><path d="M62 62l6 6 11-12" stroke="${WH}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
       workshop: `<rect x="16" y="16" width="60" height="42" rx="6" fill="${WH}"/><path d="M24 48l12-14 9 8 14-18" stroke="${OR}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M34 58L26 82M58 58l8 24M46 58v14" stroke="${CH}" stroke-width="5" stroke-linecap="round"/>`
     };
-    const blob = op => `<svg class="pblob big" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,${op})" d="M142 8c34 14 58 48 52 78-6 31-42 56-78 58-36 3-72-18-82-48C24 66 42 30 70 14 92 2 120 0 142 8Z"/></svg>
-      <svg class="pblob small" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,${op - .1})" d="M142 8c34 14 58 48 52 78-6 31-42 56-78 58-36 3-72-18-82-48C24 66 42 30 70 14 92 2 120 0 142 8Z"/></svg>
-      <svg class="psquig" style="left:20px;bottom:70px;width:52px" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 26C18 4 40 30 58 8" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="3" stroke-linecap="round"/></svg>`;
+    const BLOB_D = 'M142 8c34 14 58 48 52 78-6 31-42 56-78 58-36 3-72-18-82-48C24 66 42 30 70 14 92 2 120 0 142 8Z';
+    const blob = () => `<svg class="pblob pb1" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,.5)" d="${BLOB_D}"/></svg>
+      <svg class="pblob pb2" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,.38)" d="${BLOB_D}"/></svg>
+      <svg class="psquig" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 26C18 4 40 30 58 8" fill="none" stroke="rgba(255,255,255,.95)" stroke-width="3" stroke-linecap="round"/></svg>`;
     const ITEMS = [
       { t: 'Competitions', art: 'trophy', href: 'competitions.html' },
       { t: 'Mock interviews & GD', art: 'mic', href: null },
@@ -498,8 +521,7 @@
     ];
     document.getElementById('pstrip').innerHTML = ITEMS.map((it, i) => {
       const inner = `
-        ${blob(.45)}
-        <span class="ptag ${it.href ? 'live' : 'soon'}">${it.href ? 'Live' : 'Coming soon'}</span>
+        ${blob()}
         <h3>${it.t}</h3>
         <svg class="part" viewBox="0 0 100 100" aria-hidden="true">${ART[it.art]}</svg>
         ${it.href ? `<span class="pgo">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>` : ''}`;
@@ -508,8 +530,34 @@
         : `<span class="pcard pc-${i + 1}">${inner}</span>`;
     }).join('');
     const strip = document.getElementById('pstrip');
-    document.getElementById('ps-prev').addEventListener('click', () => strip.scrollBy({ left: -320, behavior: 'smooth' }));
-    document.getElementById('ps-next').addEventListener('click', () => strip.scrollBy({ left: 320, behavior: 'smooth' }));
+    document.getElementById('ps-prev').addEventListener('click', () => strip.scrollBy({ left: -340, behavior: 'smooth' }));
+    document.getElementById('ps-next').addEventListener('click', () => strip.scrollBy({ left: 340, behavior: 'smooth' }));
+
+    const reducedP = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = [...strip.querySelectorAll('.pcard')];
+
+    // staggered entrance when the strip scrolls into view
+    if (reducedP) cards.forEach(c => c.classList.add('in'));
+    else {
+      const io = new IntersectionObserver(es => es.forEach(en => {
+        if (!en.isIntersecting) return;
+        cards.forEach((c, i) => setTimeout(() => c.classList.add('in'), i * 90));
+        io.disconnect();
+      }), { threshold: .15 });
+      io.observe(strip);
+    }
+
+    // 3D tilt-follow on hover
+    if (!reducedP) cards.forEach(c => {
+      c.addEventListener('mousemove', e => {
+        if (!c.classList.contains('in')) return;
+        const r = c.getBoundingClientRect();
+        const rx = ((e.clientY - r.top) / r.height - .5) * -9;
+        const ry = ((e.clientX - r.left) / r.width - .5) * 10;
+        c.style.transform = `perspective(700px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
+      });
+      c.addEventListener('mouseleave', () => { c.style.transform = ''; });
+    });
   })();
 
   // ----- persona selector (monday-style) -----
