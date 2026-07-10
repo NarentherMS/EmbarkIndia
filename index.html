@@ -162,6 +162,54 @@
   .c-dark .svc-go{color:var(--charcoal)}
   .svc-go svg{width:18px;height:18px;transition:transform .2s}
 
+  /* ---------- pastel service strip ---------- */
+  .pstrip-sec{padding:88px 0;background:var(--white)}
+  .pstrip-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+  .pstrip-nav{display:flex;gap:10px}
+  .pstrip{
+    display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 4px 24px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .pstrip::-webkit-scrollbar{display:none}
+  .pcard{
+    flex:0 0 282px;height:216px;border-radius:24px;position:relative;overflow:hidden;
+    scroll-snap-align:start;padding:24px 26px;text-decoration:none;color:#1B1710;
+    display:block;transition:transform .22s;
+  }
+  .pcard:hover{transform:translateY(-6px) rotate(-.5deg)}
+  .pcard h3{
+    font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.12;
+    letter-spacing:-.01em;max-width:78%;position:relative;z-index:2;
+  }
+  .ptag{
+    position:absolute;top:18px;right:18px;z-index:3;
+    font-size:.6rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    border-radius:999px;padding:4px 10px;
+  }
+  .ptag.live{background:rgba(255,255,255,.9);color:#B42318}
+  .ptag.live::before{content:"●";margin-right:4px;color:#D92D20}
+  .ptag.soon{background:rgba(0,0,0,.1);color:rgba(27,23,16,.65)}
+  .pblob{position:absolute;pointer-events:none;z-index:0}
+  .pblob.big{width:170px;right:-45px;top:-55px}
+  .pblob.small{width:110px;left:-35px;bottom:-40px}
+  .psquig{position:absolute;pointer-events:none;z-index:0;opacity:.85}
+  .part{position:absolute;right:16px;bottom:12px;width:104px;height:104px;z-index:1}
+  .pcard .pgo{
+    position:absolute;left:24px;bottom:18px;z-index:2;
+    font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;
+  }
+  .pcard .pgo svg{width:15px;height:15px}
+  /* palettes */
+  .pc-1{background:#F8B7CC}
+  .pc-2{background:#CDE5AE}
+  .pc-3{background:#FBF2A9}
+  .pc-4{background:#D8C8EC}
+  .pc-5{background:#FBD5B0}
+  .pc-6{background:#BFE0F0}
+  .pc-7{background:#C4E8DC}
+  .pc-8{background:#F6C9B8}
+  .pc-9{background:#F2E2A9}
+
   /* ---------- roadmap tiles ---------- */
   .soon-sec{padding:88px 0;background:var(--white)}
   .soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
@@ -332,44 +380,19 @@
   </div>
 </section>
 
-<section class="soon-sec">
+<section class="pstrip-sec">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">On the roadmap</p>
-      <h2>The rest of the climb is coming.</h2>
-    </div>
-    <div class="soon-grid">
-      <div class="soon-tile st-1 reveal">
-        <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 3-6 3z" transform="translate(1 0)"/></svg></span>
-        <h3>Courses</h3>
-        <p>Practitioner-built courses for the skills panels test.</p>
+    <div class="pstrip-head reveal">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">The full climb</p>
+        <h2>Nine ways up.</h2>
       </div>
-      <div class="soon-tile st-2 reveal">
-        <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
-        <h3>Prep &amp; coaching packs</h3>
-        <p>Capped bundles — 5 mocks, 5 case comps, fixed price.</p>
-      </div>
-      <div class="soon-tile st-3 reveal">
-        <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
-        <h3>Jobs &amp; internships</h3>
-        <p>Openings across industry, in one feed.</p>
-      </div>
-      <div class="soon-tile st-4 reveal">
-        <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
-        <h3>Mock interviews &amp; GDs</h3>
-        <p>Panels who've sat on the real ones.</p>
-      </div>
-      <div class="soon-tile st-5 reveal">
-        <span class="soon-tag">Coming soon</span>
-        <span class="st-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12l4-3 4 4 6-6v13"/></svg></span>
-        <h3>College hub</h3>
-        <p>Cutoffs, fees, placements — sourced and dated.</p>
+      <div class="pstrip-nav">
+        <button class="car-btn" id="ps-prev" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button class="car-btn" id="ps-next" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
     </div>
+    <div class="pstrip" id="pstrip"></div>
   </div>
 </section>
 
@@ -443,6 +466,50 @@
         <span style="font-size:.82rem;color:var(--ink-soft)">${c.host} · ${c.fee ? '₹' + c.fee + '/team' : 'Free'} · ${totalRegs(c)} registered</span>
         <span style="font-size:.85rem;font-weight:600;color:var(--orange-deep)">View & register →</span>
       </a>`).join('');
+  })();
+
+  // ----- pastel service strip -----
+  (() => {
+    const CH = '#241F17', OR = '#F97316', GR = '#1E4034', GO = '#F2B01E', WH = '#FFFFFF';
+    const ART = {
+      trophy: `<rect x="8" y="30" width="60" height="44" rx="6" fill="${CH}"/><path d="M26 44l-8 8 8 8M42 44l8 8-8 8" stroke="${WH}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="24" y="74" width="28" height="7" rx="3" fill="#9CA3AF"/><path d="M60 26h24v14a12 12 0 0 1-24 0z" fill="${OR}"/><path d="M60 30h-7a7 7 0 0 0 7 10M84 30h7a7 7 0 0 1-7 10" stroke="${OR}" stroke-width="5" fill="none"/><rect x="67" y="50" width="10" height="12" fill="${OR}"/><rect x="60" y="62" width="24" height="7" rx="3" fill="${GO}"/>`,
+      mic: `<rect x="10" y="18" width="44" height="30" rx="12" fill="${WH}"/><circle cx="24" cy="33" r="3" fill="${CH}"/><circle cx="33" cy="33" r="3" fill="${CH}"/><circle cx="42" cy="33" r="3" fill="${CH}"/><path d="M20 48l-4 10 12-8" fill="${WH}"/><rect x="58" y="26" width="20" height="34" rx="10" fill="${CH}"/><path d="M52 50a16 16 0 0 0 32 0" stroke="${CH}" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M68 68v12M56 82h24" stroke="${CH}" stroke-width="5" stroke-linecap="round"/>`,
+      books: `<rect x="14" y="58" width="66" height="14" rx="4" fill="${GR}"/><rect x="20" y="42" width="56" height="14" rx="4" fill="${OR}"/><rect x="27" y="26" width="44" height="14" rx="4" fill="${CH}"/><rect x="34" y="30" width="18" height="4" rx="2" fill="${WH}" opacity=".8"/><rect x="28" y="46" width="18" height="4" rx="2" fill="${WH}" opacity=".8"/><rect x="22" y="62" width="18" height="4" rx="2" fill="${WH}" opacity=".7"/>`,
+      mountain: `<path d="M8 82L38 30l16 26 10-14 22 40z" fill="${GR}"/><path d="M38 30l7 12-7 6-8-5z" fill="${WH}"/><path d="M64 26V10l14 5-14 6" fill="${OR}"/><rect x="61" y="8" width="4" height="22" rx="2" fill="${CH}"/><path d="M14 78c14-8 26-4 34-16" stroke="${WH}" stroke-width="3" stroke-dasharray="5 6" fill="none" stroke-linecap="round"/>`,
+      play: `<rect x="12" y="18" width="64" height="48" rx="10" fill="${CH}"/><path d="M38 32l18 10-18 10z" fill="${OR}"/><rect x="24" y="74" width="40" height="7" rx="3" fill="#9CA3AF"/><path d="M78 46l14-14M86 50l10-10" stroke="${GO}" stroke-width="5" stroke-linecap="round"/>`,
+      briefcase: `<rect x="14" y="34" width="68" height="44" rx="9" fill="${CH}"/><path d="M36 34v-8a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v8" stroke="${CH}" stroke-width="6" fill="none"/><rect x="14" y="50" width="68" height="6" fill="${OR}"/><rect x="42" y="48" width="12" height="12" rx="3" fill="${WH}"/>`,
+      college: `<path d="M12 38L48 16l36 22z" fill="${GR}"/><rect x="20" y="42" width="8" height="26" fill="${CH}"/><rect x="36" y="42" width="8" height="26" fill="${CH}"/><rect x="52" y="42" width="8" height="26" fill="${CH}"/><rect x="68" y="42" width="8" height="26" fill="${CH}"/><rect x="12" y="70" width="72" height="8" rx="3" fill="${GR}"/><circle cx="48" cy="30" r="4" fill="${GO}"/>`,
+      quiz: `<rect x="16" y="14" width="46" height="58" rx="9" fill="${WH}" transform="rotate(-6 39 43)"/><text x="34" y="52" font-family="Arial" font-size="34" font-weight="bold" fill="${CH}" transform="rotate(-6 39 43)">?</text><circle cx="70" cy="62" r="17" fill="${OR}"/><path d="M62 62l6 6 11-12" stroke="${WH}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+      workshop: `<rect x="16" y="16" width="60" height="42" rx="6" fill="${WH}"/><path d="M24 48l12-14 9 8 14-18" stroke="${OR}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M34 58L26 82M58 58l8 24M46 58v14" stroke="${CH}" stroke-width="5" stroke-linecap="round"/>`
+    };
+    const blob = op => `<svg class="pblob big" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,${op})" d="M142 8c34 14 58 48 52 78-6 31-42 56-78 58-36 3-72-18-82-48C24 66 42 30 70 14 92 2 120 0 142 8Z"/></svg>
+      <svg class="pblob small" viewBox="0 0 200 160" aria-hidden="true"><path fill="rgba(255,255,255,${op - .1})" d="M142 8c34 14 58 48 52 78-6 31-42 56-78 58-36 3-72-18-82-48C24 66 42 30 70 14 92 2 120 0 142 8Z"/></svg>
+      <svg class="psquig" style="left:20px;bottom:70px;width:52px" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 26C18 4 40 30 58 8" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="3" stroke-linecap="round"/></svg>`;
+    const ITEMS = [
+      { t: 'Competitions', art: 'trophy', href: 'competitions.html' },
+      { t: 'Mock interviews & GD', art: 'mic', href: null },
+      { t: 'Industry Playbooks', art: 'books', href: 'playbooks.html' },
+      { t: 'End-to-end mentorship', art: 'mountain', href: 'mentorship.html' },
+      { t: 'Courses', art: 'play', href: null },
+      { t: 'Jobs & Internships', art: 'briefcase', href: null },
+      { t: 'College hub', art: 'college', href: null },
+      { t: 'Quizzes', art: 'quiz', href: null },
+      { t: 'Workshops', art: 'workshop', href: null }
+    ];
+    document.getElementById('pstrip').innerHTML = ITEMS.map((it, i) => {
+      const inner = `
+        ${blob(.45)}
+        <span class="ptag ${it.href ? 'live' : 'soon'}">${it.href ? 'Live' : 'Coming soon'}</span>
+        <h3>${it.t}</h3>
+        <svg class="part" viewBox="0 0 100 100" aria-hidden="true">${ART[it.art]}</svg>
+        ${it.href ? `<span class="pgo">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>` : ''}`;
+      return it.href
+        ? `<a class="pcard pc-${i + 1}" href="${it.href}">${inner}</a>`
+        : `<span class="pcard pc-${i + 1}">${inner}</span>`;
+    }).join('');
+    const strip = document.getElementById('pstrip');
+    document.getElementById('ps-prev').addEventListener('click', () => strip.scrollBy({ left: -320, behavior: 'smooth' }));
+    document.getElementById('ps-next').addEventListener('click', () => strip.scrollBy({ left: 320, behavior: 'smooth' }));
   })();
 
   // ----- persona selector (monday-style) -----
