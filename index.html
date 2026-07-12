@@ -256,13 +256,46 @@
     .rgrid{grid-template-columns:1fr}
   }
 
-  /* ---------- trust stats ---------- */
-  .trust{background:var(--white);padding:44px 0}
-  .trust .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 54px}
-  .t-stat{display:flex;align-items:center;gap:12px}
-  .t-stat svg{width:22px;height:22px;color:var(--orange);flex:none}
-  .t-stat b{font-family:var(--display);font-weight:800;font-size:1.15rem;white-space:nowrap}
-  .t-stat span{font-size:.85rem;color:var(--ink-soft);white-space:nowrap}
+  /* ---------- next-gen statement band ---------- */
+  .nextgen{background:var(--cream);padding:104px 0 96px}
+  .ng-top{
+    display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center;
+    margin-bottom:84px;
+  }
+  .ng-top h2{
+    font-size:clamp(2.2rem,4.8vw,3.6rem);line-height:1.08;margin:0;letter-spacing:-.02em;
+  }
+  .ng-top h2 em{font-style:normal;color:var(--orange)}
+  .ng-right p{font-size:1.02rem;color:var(--ink-soft);max-width:400px;margin-bottom:26px}
+  .ng-cta{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--charcoal);color:#fff;text-decoration:none;
+    font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    border-radius:999px;padding:17px 30px;min-height:52px;
+    transition:background .25s,gap .25s;
+  }
+  .ng-cta:hover{background:#000;gap:18px}
+  .ng-cta svg{width:16px;height:16px;flex:none}
+  .ng-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .ng-stat{padding:6px 34px}
+  .ng-stat + .ng-stat{border-left:1.5px solid rgba(32,28,21,.16)}
+  .ng-stat:first-child{padding-left:0}
+  .ng-num{
+    font-family:var(--display);font-weight:800;letter-spacing:-.03em;
+    font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;display:block;
+  }
+  .ng-num.acc{color:var(--orange)}
+  .ng-stat p{font-size:.88rem;color:var(--ink-soft);margin-top:12px;max-width:200px}
+  @media (max-width:960px){
+    .ng-top{grid-template-columns:1fr;gap:30px;margin-bottom:56px}
+    .ng-stats{grid-template-columns:1fr 1fr;gap:30px 0}
+    .ng-stat{padding:0 26px}
+    .ng-stat:nth-child(odd){padding-left:0;border-left:none}
+  }
+  @media (max-width:540px){
+    .ng-stats{grid-template-columns:1fr;gap:26px}
+    .ng-stat{padding:0;border-left:none !important}
+  }
 
   /* ---------- service cards ---------- */
   .svc{padding:88px 0}
@@ -648,12 +681,35 @@
   </div>
 </section>
 
-<section class="trust" aria-label="At a glance">
+<section class="nextgen" aria-label="Built for the next generation">
   <div class="wrap">
-    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><b>100% verified</b><br><span>every speaker, identity-checked</span></div></div>
-    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><b>48 hours</b><br><span>to a speaker shortlist</span></div></div>
-    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg><div><b>6 playbooks</b><br><span>one map per MBA stream</span></div></div>
-    <div class="t-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7"/></svg><div><b>14 verticals</b><br><span>marketing to project management</span></div></div>
+    <div class="ng-top">
+      <h2 class="reveal">Built to support the <em>next generation</em> of MBA talent</h2>
+      <div class="ng-right reveal">
+        <p>Embark India helps tier-2 MBA students prepare, compete, and get placed — with mentors who've made the climb, competitions that build proof, and playbooks that map every stream.</p>
+        <a class="ng-cta" href="mentorship.html">Start your journey
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="ng-stats" id="ng-stats">
+      <div class="ng-stat reveal">
+        <span class="ng-num" data-t="1000" data-suf="+">1,000+</span>
+        <p>MBA aspirants reached</p>
+      </div>
+      <div class="ng-stat reveal">
+        <span class="ng-num" data-t="150" data-suf="+">150+</span>
+        <p>Mentors &amp; industry speakers</p>
+      </div>
+      <div class="ng-stat reveal">
+        <span class="ng-num acc" data-t="100" data-suf="+">100+</span>
+        <p>MBA prep resources</p>
+      </div>
+      <div class="ng-stat reveal">
+        <span class="ng-num" data-t="1000" data-suf="+">1,000+</span>
+        <p>Curated opportunities</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -809,6 +865,28 @@
         <span style="font-size:.82rem;color:var(--ink-soft)">${c.host} · ${c.fee ? '₹' + c.fee + '/team' : 'Free'} · ${totalRegs(c)} registered</span>
         <span style="font-size:.85rem;font-weight:600;color:var(--orange-deep)">View & register →</span>
       </a>`).join('');
+  })();
+
+  // ----- next-gen band: count-up on scroll into view -----
+  (() => {
+    const reducedN = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wrap = document.getElementById('ng-stats');
+    if (!wrap || reducedN) return;
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      wrap.querySelectorAll('.ng-num').forEach((el, i) => {
+        const target = +el.dataset.t, suf = el.dataset.suf || '';
+        const t0 = performance.now() + i * 130, dur = 1100;
+        const step = t => {
+          const p = Math.min(1, Math.max(0, (t - t0) / dur));
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString('en-IN') + suf;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }), { threshold: .4 });
+    io.observe(wrap);
   })();
 
   // ----- reality grid: count-up stats on hover -----
