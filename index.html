@@ -758,7 +758,7 @@
   body .ng-num,body .ng-num.acc{color:var(--orange);font-size:clamp(1.9rem,3vw,2.5rem)}
   body .ng-stat p{color:#3D3B36;margin-top:12px;max-width:none}
   .dotwave{position:absolute;left:0;right:0;pointer-events:none;width:100%}
-  .dotwave.dark{bottom:-40px;height:280px;opacity:.65}
+  .dotwave.dark{top:60px;height:110%;opacity:.5}
   .dotwave.light{bottom:-30px;height:240px;opacity:.5}
   @media (max-width:960px){
     body .ng-top{grid-template-columns:1fr;gap:28px;margin-bottom:48px}
@@ -770,6 +770,24 @@
   /* light wave section */
   body .bloghl{position:relative;overflow:hidden}
   .bloghl .wrap{position:relative;z-index:1}
+
+  /* ---------- reality grid polish ---------- */
+  body .ng-stat p{margin-top:16px}
+  body .rcell{padding:26px 24px;min-height:124px;gap:2px}
+  /* descriptions always visible, hover just warms them */
+  body .rc-desc{opacity:.75;translate:0 0;transition:opacity .3s,color .3s}
+  body .rcell:hover .rc-desc{opacity:1;color:#3D3B36}
+  /* exam chips always visible */
+  body .rc-chips span{scale:1;background:#F4F1EA;border-color:rgba(22,22,22,.12);transition:background .25s,border-color .25s}
+  body .rcell:hover .rc-chips span{background:var(--orange-soft);border-color:rgba(251,77,10,.35)}
+  /* funnel: tucked into the corner, out of the title's way */
+  body .rc-funnel{top:auto;bottom:12px;right:12px;translate:0 0;width:40px;height:54px;opacity:.55}
+  body .rcell:hover .rc-funnel{opacity:.95}
+  /* brand cell: restore navy (was losing cascade to the white cell rule) */
+  body .rcell.rbrand{background:var(--navy);color:#FAF7F2}
+  body .rcell.rbrand:hover{background:var(--navy-deep)}
+  body .rcell.rbrand .rc-desc{color:rgba(250,247,242,.75);opacity:1}
+  body .rcell.rbrand:hover .rc-desc{color:rgba(250,247,242,.9)}
 </style>
 </head>
 <body>
@@ -1047,7 +1065,7 @@
 <section class="nextgen" aria-label="Built for the next generation">
   <svg class="dotwave dark" viewBox="0 0 1300 280" preserveAspectRatio="none" aria-hidden="true">
     <defs><pattern id="dotsw1" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.4" fill="rgba(255,255,255,.28)"/></pattern></defs>
-    <path d="M-60 200 C 220 90, 460 270, 760 160 S 1120 30, 1380 120" fill="none" stroke="url(#dotsw1)" stroke-width="86"/>
+    <path d="M-60 150 C 260 30, 520 250, 820 120 S 1150 -10, 1380 80" fill="none" stroke="url(#dotsw1)" stroke-width="100"/>
   </svg>
   <div class="wrap">
     <div class="ng-top">
@@ -1119,6 +1137,10 @@
 <section class="final-home">
   <div class="wrap">
     <div class="fh-card reveal">
+      <svg class="dotwave" style="position:absolute;left:0;right:0;bottom:-30px;height:200px;opacity:.45;width:100%" viewBox="0 0 1300 200" preserveAspectRatio="none" aria-hidden="true">
+        <defs><pattern id="dotsw3" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.4" fill="rgba(255,255,255,.3)"/></pattern></defs>
+        <path d="M-60 120 C 260 20, 520 190, 820 90 S 1150 -20, 1380 60" fill="none" stroke="url(#dotsw3)" stroke-width="70"/>
+      </svg>
       <svg class="fh-blob l" viewBox="0 0 260 240" aria-hidden="true"><path fill="#F97316" d="M186 14c38 20 72 56 68 92-3 37-44 74-88 85-44 12-90-3-116-34C24 126 20 78 41 47 63 15 110 1 143 3c17 1 31 5 43 11Z"/></svg>
       <svg class="fh-blob r" viewBox="0 0 300 270" aria-hidden="true"><path fill="#F97316" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/></svg>
       <div class="fh-inner">
