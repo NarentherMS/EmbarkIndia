@@ -790,6 +790,136 @@
   body .rcell.rbrand:hover{background:var(--navy-deep)}
   body .rcell.rbrand .rc-desc{color:rgba(250,247,242,.75);opacity:1}
   body .rcell.rbrand:hover .rc-desc{color:rgba(250,247,242,.9)}
+
+  /* ---------- featured blogs (spotlight style) ---------- */
+  .spot-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--orange-deep);background:var(--orange-soft);
+    border:1px solid rgba(251,77,10,.3);border-radius:999px;padding:7px 15px;margin-bottom:14px;
+  }
+  .spot-pill svg{width:13px;height:13px}
+  .fb-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+  .fb-head h2{margin-bottom:8px}
+  .fb-sub{color:var(--ink-soft);font-size:.98rem;max-width:520px}
+  .fb-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:24px;align-items:stretch}
+  .fb-feature{
+    position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+    border-radius:22px;overflow:hidden;text-decoration:none;color:#fff;
+    background:linear-gradient(155deg,#16345C 0%,#0B1F3A 60%,#081729 100%);
+    padding:40px 40px 30px;min-height:420px;
+    box-shadow:0 16px 40px rgba(11,31,58,.28);
+    transition:transform .25s,box-shadow .25s;
+  }
+  .fb-feature:hover{transform:translateY(-6px);box-shadow:0 24px 54px rgba(11,31,58,.36)}
+  .fb-feature::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.12) 1.3px,transparent 1.7px);
+    background-size:12px 12px;
+    -webkit-mask-image:linear-gradient(120deg,#000 0%,transparent 55%);
+    mask-image:linear-gradient(120deg,#000 0%,transparent 55%);
+  }
+  .fbf-ghost{
+    position:absolute;top:-30px;right:-8px;font-family:var(--display);font-weight:800;
+    font-size:11rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.12);
+    pointer-events:none;
+  }
+  .fbf-badge{
+    position:absolute;top:26px;left:40px;
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--orange);color:#fff;border-radius:999px;padding:6px 14px;
+  }
+  .fbf-mast{font-family:var(--display);font-weight:800;font-size:.95rem;color:rgba(250,247,242,.7);margin-bottom:14px;position:relative}
+  .fbf-mast b{color:var(--orange)}
+  .fb-feature h3{
+    font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.6vw,2rem);
+    line-height:1.2;letter-spacing:-.01em;margin-bottom:12px;position:relative;color:#fff;
+  }
+  .fb-feature p{font-size:.95rem;color:rgba(250,247,242,.75);max-width:520px;position:relative;margin-bottom:22px}
+  .fbf-meta{
+    display:flex;gap:20px;align-items:center;position:relative;flex-wrap:wrap;
+    border-top:1px solid rgba(250,247,242,.18);padding-top:16px;
+    font-size:.82rem;color:rgba(250,247,242,.75);
+  }
+  .fbf-meta span{display:inline-flex;align-items:center;gap:7px}
+  .fbf-meta svg{width:14px;height:14px;color:var(--orange)}
+  .fb-side{display:flex;flex-direction:column}
+  .fb-item{
+    display:flex;gap:16px;align-items:center;text-decoration:none;color:inherit;
+    background:#FFFFFF;border:1px solid rgba(22,22,22,.07);border-radius:16px;padding:16px 18px;
+    box-shadow:0 4px 14px rgba(11,31,58,.06);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .fb-item:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(11,31,58,.12)}
+  .fb-item:hover b{color:var(--orange-deep)}
+  .fb-thumb{
+    flex:none;width:62px;height:62px;border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;
+  }
+  .fb-item b{font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.3;display:block;letter-spacing:-.01em;transition:color .2s}
+  .fb-item small{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:6px}
+  .fb-explore{
+    display:flex;align-items:center;justify-content:center;gap:9px;margin-top:auto;
+    border:2px dashed rgba(11,31,58,.3);border-radius:16px;padding:17px;
+    text-decoration:none;font-weight:600;font-size:.92rem;color:var(--navy);
+    transition:border-color .25s,background .25s,color .25s;
+  }
+  .fb-explore:hover{border-color:var(--orange);background:var(--orange-soft);color:var(--orange-deep)}
+
+  /* ---------- colleges snapshot ---------- */
+  body .colleges{background:#FAF7F2;padding:80px 0 72px}
+  .col-head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .col-head h2{margin-bottom:8px}
+  .col-head .fb-sub{margin:0 auto}
+  .col-car{position:relative}
+  .col-row{
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 4px 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .col-row::-webkit-scrollbar{display:none}
+  .col-card{
+    flex:0 0 280px;scroll-snap-align:start;
+    background:#FFFFFF;border-radius:18px;padding:24px;
+    box-shadow:0 8px 26px rgba(11,31,58,.09);
+    display:flex;flex-direction:column;gap:16px;
+    transition:transform .22s,box-shadow .22s;
+  }
+  .col-card:hover{transform:translateY(-5px);box-shadow:0 16px 38px rgba(11,31,58,.16)}
+  .col-top{display:flex;gap:14px;align-items:center}
+  .col-icon{
+    flex:none;width:52px;height:52px;border-radius:14px;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .col-icon svg{width:24px;height:24px}
+  .col-top b{font-family:var(--display);font-weight:700;font-size:1.02rem;line-height:1.25;display:block;letter-spacing:-.01em}
+  .col-loc{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;color:var(--ink-soft);margin-top:4px}
+  .col-loc svg{width:12px;height:12px;color:var(--orange)}
+  .col-stats{
+    display:grid;grid-template-columns:1fr 1fr;background:#F4F6FA;border-radius:12px;padding:14px 0;
+  }
+  .col-stat{text-align:center;padding:0 12px}
+  .col-stat + .col-stat{border-left:1.5px solid rgba(11,31,58,.12)}
+  .col-stat small{display:block;font-size:.7rem;font-weight:600;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:5px}
+  .col-stat b{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--navy)}
+  .col-stat.hi b{color:var(--orange)}
+  .col-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--orange);color:#fff;text-decoration:none;
+    font-weight:600;font-size:.9rem;border-radius:12px;padding:13px;min-height:46px;
+    transition:background .2s,gap .2s;
+  }
+  .col-btn:hover{background:var(--orange-deep);gap:14px}
+  .col-note{text-align:center;font-size:.78rem;color:var(--ink-soft);margin-top:16px}
+  body .bloghl{background:#FFFFFF}
+  body .final-home{background:#FAF7F2}
+  @media (max-width:960px){
+    .fb-grid{grid-template-columns:1fr}
+    .fb-feature{min-height:340px;padding:32px 26px 24px}
+    .fbf-badge{left:26px}
+    .col-card{flex-basis:250px}
+  }
 </style>
 </head>
 <body>
@@ -1119,20 +1249,43 @@
   </div>
 </section>
 
-<section class="bloghl" aria-label="From the blog">
+<section class="bloghl" aria-label="Featured blogs">
   <svg class="dotwave light" viewBox="0 0 1300 240" preserveAspectRatio="none" aria-hidden="true">
     <defs><pattern id="dotsw2" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.3" fill="rgba(22,22,22,.14)"/></pattern></defs>
     <path d="M-60 170 C 240 60, 480 230, 780 130 S 1130 20, 1380 100" fill="none" stroke="url(#dotsw2)" stroke-width="70"/>
   </svg>
   <div class="wrap">
-    <div class="sec-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:none">
+    <div class="fb-head reveal">
       <div>
-        <p class="eyebrow">From The eMBArk Times</p>
-        <h2 style="margin-bottom:0">Fresh off the press.</h2>
+        <span class="spot-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Expert content</span>
+        <h2>Featured Blogs</h2>
+        <p class="fb-sub">Exam strategy, placement decoding and career guidance — written plainly for MBA aspirants</p>
       </div>
-      <a class="btn btn-ghost btn-sm" href="blog.html">Read all articles</a>
+      <a class="btn btn-ghost btn-sm" href="blog.html">All blogs →</a>
     </div>
-    <div class="bh-grid" id="bh-grid"></div>
+    <div class="fb-grid">
+      <a class="fb-feature reveal" id="fb-feature" href="blog.html"></a>
+      <div class="fb-side reveal">
+        <div id="fb-list"></div>
+        <a class="fb-explore" href="blog.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Explore all articles</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="colleges" aria-label="Top MBA colleges snapshot">
+  <div class="wrap">
+    <div class="col-head reveal">
+      <span class="spot-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20V12l4-3 4 4 6-6v13"/></svg>College spotlight</span>
+      <h2>Top MBA Colleges Snapshot</h2>
+      <p class="fb-sub">Placement numbers at a glance — the colleges our readers track most</p>
+    </div>
+    <div class="col-car">
+      <button class="po-arrow prev" id="col-prev" aria-label="Scroll colleges left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="po-arrow next" id="col-next" aria-label="Scroll colleges right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="col-row" id="col-row"></div>
+    </div>
+    <p class="col-note reveal">Indicative figures in ₹ LPA from the latest published placement reports — always verify with official college reports.</p>
   </div>
 </section>
 
@@ -1222,19 +1375,61 @@
     else window.addEventListener('load', check);
   })();
 
-  // ----- blog highlights: latest 3 posts -----
+  // ----- featured blogs -----
   (() => {
-    const grid = document.getElementById('bh-grid');
-    if (!grid || typeof POSTS === 'undefined') return;
+    if (typeof POSTS === 'undefined') return;
     const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-    const latest = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
-    grid.innerHTML = latest.map(p => `
-      <a class="bh-card reveal" href="blog-post.html?p=${p.slug}">
-        <span class="bh-cat">${p.category}</span>
-        <span class="bh-title">${p.title}</span>
-        <span class="bh-ex">${p.excerpt.length > 130 ? p.excerpt.slice(0, 127) + '…' : p.excerpt}</span>
-        <span class="bh-meta"><b>${p.author}</b> · ${fmt(p.date)} · ${p.readMins} min read</span>
+    const THUMBS = ['#0B1F3A', '#FB4D0A', '#16345C', '#C93A05'];
+    const sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
+    const f = sorted[0];
+    const feat = document.getElementById('fb-feature');
+    feat.href = 'blog-post.html?p=' + f.slug;
+    feat.innerHTML = `
+      <span class="fbf-ghost" aria-hidden="true">${f.category.slice(0,2).toUpperCase()}</span>
+      <span class="fbf-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:12px;height:12px"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Featured</span>
+      <div class="fbf-mast">The e<b>MBA</b>rk Times</div>
+      <h3>${f.title}</h3>
+      <p>${f.excerpt}</p>
+      <div class="fbf-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>${fmt(f.date)}</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${f.readMins} min read</span>
+        <span>${f.category}</span>
+      </div>`;
+    document.getElementById('fb-list').innerHTML = sorted.slice(1, 4).map((p, i) => `
+      <a class="fb-item" href="blog-post.html?p=${p.slug}" style="margin-bottom:14px">
+        <span class="fb-thumb" style="background:${THUMBS[i % THUMBS.length]}" aria-hidden="true">${p.category.slice(0,2).toUpperCase()}</span>
+        <span><b>${p.title}</b><small>${fmt(p.date)} · ${p.readMins} min read</small></span>
       </a>`).join('');
+  })();
+
+  // ----- colleges snapshot -----
+  (() => {
+    const COLLEGES = [
+      { name: 'IMT Ghaziabad', loc: 'Delhi NCR', avg: '17.3', hi: '64' },
+      { name: 'Great Lakes Institute', loc: 'Chennai', avg: '14.6', hi: '42' },
+      { name: 'XIM University', loc: 'Bhubaneswar', avg: '17.5', hi: '71' },
+      { name: 'Welingkar (WeSchool)', loc: 'Mumbai', avg: '11.7', hi: '40' },
+      { name: 'K J Somaiya', loc: 'Mumbai', avg: '13.3', hi: '33' },
+      { name: 'TAPMI', loc: 'Manipal', avg: '13.5', hi: '32' },
+      { name: 'FORE School', loc: 'New Delhi', avg: '16.0', hi: '45' },
+      { name: 'GIM', loc: 'Goa', avg: '14.8', hi: '39' }
+    ];
+    const row = document.getElementById('col-row');
+    if (!row) return;
+    row.innerHTML = COLLEGES.map(c => `
+      <div class="col-card">
+        <div class="col-top">
+          <span class="col-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6M12 9h.01"/></svg></span>
+          <span><b>${c.name}</b><span class="col-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>${c.loc}</span></span>
+        </div>
+        <div class="col-stats">
+          <div class="col-stat"><small>Avg package</small><b>${c.avg}</b></div>
+          <div class="col-stat hi"><small>Highest</small><b>${c.hi}</b></div>
+        </div>
+        <a class="col-btn" href="blog.html">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>`).join('');
+    document.getElementById('col-prev').addEventListener('click', () => row.scrollBy({ left: -320, behavior: 'smooth' }));
+    document.getElementById('col-next').addEventListener('click', () => row.scrollBy({ left: 320, behavior: 'smooth' }));
   })();
 
   // ----- partners marquee: duplicate content for seamless loop -----
