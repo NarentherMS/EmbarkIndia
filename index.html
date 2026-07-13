@@ -149,28 +149,73 @@
   .feed-item .fdot{width:10px;height:10px;border-radius:50%;flex:none}
   .feed-item small{margin-left:auto;font-size:.68rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
 
-  /* ---------- competition posters carousel ---------- */
-  .posters{padding:88px 0 24px}
-  .poster-view{
-    overflow:hidden;border-radius:26px;
-    box-shadow:0 18px 44px rgba(22,22,22,.18);
+  /* ---------- competition posters carousel (center + peeks) ---------- */
+  .posters{padding:72px 0 16px}
+  .poster-car{position:relative}
+  .poster-view{overflow:hidden;padding:8px 0 18px}
+  .poster-track{display:flex;gap:22px;transition:transform .6s cubic-bezier(.25,.8,.3,1)}
+  .poster-card{
+    flex:0 0 74%;display:block;position:relative;overflow:hidden;border-radius:20px;
+    box-shadow:0 12px 30px rgba(22,22,22,.16);
+    opacity:.5;transition:opacity .45s;
   }
-  .poster-track{display:flex;transition:transform .65s cubic-bezier(.25,.8,.3,1)}
-  .poster-card{flex:0 0 100%;display:block;position:relative;overflow:hidden}
+  .poster-card.active{opacity:1;box-shadow:0 16px 40px rgba(22,22,22,.22)}
   .poster-card img{display:block;width:100%;height:auto}
   .poster-shine{
     position:absolute;top:-20%;bottom:-20%;left:-30%;width:36%;
     background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);
     transform:skewX(-18deg) translateX(-140%);pointer-events:none;
   }
-  .poster-card:hover .poster-shine{
+  .poster-card.active:hover .poster-shine{
     transform:skewX(-18deg) translateX(560%);
     transition:transform .9s ease;
   }
-  .poster-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px}
+  .po-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+    width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+    background:#fff;color:var(--charcoal);
+    box-shadow:0 6px 20px rgba(22,22,22,.22);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .2s,background .2s;
+  }
+  .po-arrow:hover{background:var(--charcoal);color:#fff;transform:translateY(-50%) scale(1.06)}
+  .po-arrow svg{width:20px;height:20px}
+  .po-arrow.prev{left:2%}
+  .po-arrow.next{right:2%}
+  .poster-nav{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+  .po-dash{
+    width:26px;height:3.5px;border-radius:99px;background:rgba(22,22,22,.18);
+    border:none;cursor:pointer;padding:0;transition:background .25s,width .25s;
+  }
+  .po-dash[aria-current="true"]{background:var(--charcoal);width:38px}
+  @media (max-width:760px){
+    .poster-card{flex-basis:88%}
+    .po-arrow{width:42px;height:42px}
+  }
   @media (prefers-reduced-motion:reduce){
-    .poster-track,.poster-shine{transition:none}
-    .poster-card:hover .poster-shine{transform:skewX(-18deg) translateX(-140%)}
+    .poster-track,.poster-shine,.poster-card{transition:none}
+    .poster-card.active:hover .poster-shine{transform:skewX(-18deg) translateX(-140%)}
+  }
+
+  /* ---------- partners strip ---------- */
+  .partners{background:#FFFFFF;padding:64px 0 68px}
+  .partners h2{
+    text-align:center;font-size:clamp(1.4rem,2.8vw,1.9rem);margin-bottom:44px;
+  }
+  .partners h2 em{font-style:italic;color:var(--orange)}
+  .partner-row{
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+    gap:26px 44px;
+  }
+  .partner{
+    display:inline-flex;align-items:center;gap:9px;
+    filter:grayscale(1);opacity:.72;
+    transition:filter .3s,opacity .3s,transform .2s;
+  }
+  .partner:hover{filter:none;opacity:1;transform:translateY(-2px)}
+  .partner img{width:26px;height:26px;object-fit:contain}
+  .partner b{
+    font-family:var(--body);font-weight:600;font-size:.88rem;color:#3D3B36;white-space:nowrap;
   }
 
   /* ---------- reality grid ---------- */
@@ -750,11 +795,31 @@
           </a>
         </div>
       </div>
-      <div class="poster-nav">
-        <button class="car-btn" id="po-prev" aria-label="Previous poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <div class="car-dots" id="po-dots" role="tablist" aria-label="Posters"></div>
-        <button class="car-btn" id="po-next" aria-label="Next poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
+      <button class="po-arrow prev" id="po-prev" aria-label="Previous poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="po-arrow next" id="po-next" aria-label="Next poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="poster-nav" id="po-dots" role="tablist" aria-label="Posters"></div>
+    </div>
+  </div>
+</section>
+
+<section class="partners" aria-label="Companies associated with us">
+  <div class="wrap">
+    <h2>Companies <em>associated</em> with us</h2>
+    <div class="partner-row">
+      <span class="partner"><img src="assets/logos/sunpharma.png" alt="" onerror="this.remove()"><b>Sun Pharma</b></span>
+      <span class="partner"><img src="assets/logos/idfcfirst.png" alt="" onerror="this.remove()"><b>IDFC First Bank</b></span>
+      <span class="partner"><img src="assets/logos/marutisuzuki.png" alt="" onerror="this.remove()"><b>Maruti Suzuki</b></span>
+      <span class="partner"><img src="assets/logos/tata.png" alt="" onerror="this.remove()"><b>Tata Group</b></span>
+      <span class="partner"><img src="assets/logos/cocacola.png" alt="" onerror="this.remove()"><b>Coca-Cola</b></span>
+      <span class="partner"><img src="assets/logos/ultratech.png" alt="" onerror="this.remove()"><b>UltraTech</b></span>
+      <span class="partner"><img src="assets/logos/cipla.png" alt="" onerror="this.remove()"><b>Cipla</b></span>
+      <span class="partner"><img src="assets/logos/capgemini.png" alt="" onerror="this.remove()"><b>Capgemini</b></span>
+      <span class="partner"><img src="assets/logos/itc.png" alt="" onerror="this.remove()"><b>ITC</b></span>
+      <span class="partner"><img src="assets/logos/hul.png" alt="" onerror="this.remove()"><b>Hindustan Unilever</b></span>
+      <span class="partner"><img src="assets/logos/mckinsey.png" alt="" onerror="this.remove()"><b>McKinsey</b></span>
+      <span class="partner"><img src="assets/logos/amazon.png" alt="" onerror="this.remove()"><b>Amazon</b></span>
+      <span class="partner"><img src="assets/logos/razorpay.png" alt="" onerror="this.remove()"><b>Razorpay</b></span>
+      <span class="partner"><img src="assets/logos/swiggy.png" alt="" onerror="this.remove()"><b>Swiggy</b></span>
     </div>
   </div>
 </section>
@@ -1023,12 +1088,14 @@
       </a>`).join('');
   })();
 
-  // ----- posters carousel -----
+  // ----- posters carousel (center slide with side peeks) -----
   (() => {
     const reducedP2 = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const track = document.getElementById('poster-track');
+    const view = track.parentElement;
     const dotsWrap = document.getElementById('po-dots');
     const car = document.getElementById('poster-car');
+    const GAP = 22;
     let idx = 0, timer = null;
 
     // drop slides whose image is missing; hide section if none remain
@@ -1036,8 +1103,8 @@
       const img = c.querySelector('img');
       const drop = () => {
         c.remove();
-        if (!track.children.length) document.getElementById('posters').style.display = 'none';
-        buildDots(); go(0);
+        if (!track.children.length) { document.getElementById('posters').style.display = 'none'; return; }
+        buildDots(); go(Math.min(idx, track.children.length - 1));
       };
       if (img.complete && img.naturalWidth === 0) drop();
       else img.addEventListener('error', drop);
@@ -1046,19 +1113,23 @@
     const slides = () => [...track.children];
     const buildDots = () => {
       dotsWrap.innerHTML = slides().map((_, i) =>
-        `<button class="car-dot" role="tab" aria-label="Poster ${i + 1}" aria-current="${i === idx}"></button>`).join('');
+        `<button class="po-dash" role="tab" aria-label="Poster ${i + 1}" aria-current="${i === idx}"></button>`).join('');
       [...dotsWrap.children].forEach((d, i) => d.addEventListener('click', () => { go(i); restart(); }));
     };
     const go = i => {
-      const n = slides().length;
+      const list = slides();
+      const n = list.length;
       if (!n) return;
       idx = (i + n) % n;
-      track.style.transform = `translateX(-${idx * 100}%)`;
+      const slideW = list[0].getBoundingClientRect().width;
+      const offset = (view.clientWidth - slideW) / 2 - idx * (slideW + GAP);
+      track.style.transform = `translateX(${offset}px)`;
+      list.forEach((s, j) => s.classList.toggle('active', j === idx));
       [...dotsWrap.children].forEach((d, j) => d.setAttribute('aria-current', j === idx));
     };
     document.getElementById('po-prev').addEventListener('click', () => { go(idx - 1); restart(); });
     document.getElementById('po-next').addEventListener('click', () => { go(idx + 1); restart(); });
-    const restart = () => { if (reducedP2) return; clearInterval(timer); timer = setInterval(() => go(idx + 1), 5000); };
+    const restart = () => { if (reducedP2) return; clearInterval(timer); timer = setInterval(() => go(idx + 1), 6000); };
     car.addEventListener('mouseenter', () => clearInterval(timer));
     car.addEventListener('mouseleave', restart);
     let px = null;
@@ -1069,6 +1140,9 @@
       if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1));
       px = null; restart();
     }, { passive: true });
+    addEventListener('resize', () => go(idx));
+    // recenter once images have real dimensions
+    window.addEventListener('load', () => go(idx));
     buildDots(); go(0); restart();
   })();
 
