@@ -513,6 +513,28 @@
   .c-dark .svc-go{color:var(--charcoal)}
   .svc-go svg{width:18px;height:18px;transition:transform .2s}
 
+  /* ---------- blog highlights ---------- */
+  .bloghl{padding:88px 0 24px}
+  .bh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:34px}
+  .bh-card{
+    display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;
+    background:#FFFFFF;border-radius:20px;padding:30px 30px 26px;
+    box-shadow:var(--shadow-card);transition:transform .22s,box-shadow .22s;
+  }
+  .bh-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(22,22,22,.14)}
+  .bh-card:hover .bh-title{color:var(--orange-deep)}
+  .bh-cat{
+    align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--orange-deep);background:var(--orange-soft);border-radius:999px;padding:5px 12px;
+  }
+  .bh-title{
+    font-family:var(--display);font-weight:700;font-size:1.22rem;line-height:1.28;
+    letter-spacing:-.01em;transition:color .2s;
+  }
+  .bh-ex{font-size:.9rem;color:var(--ink-soft)}
+  .bh-meta{margin-top:auto;font-size:.8rem;color:var(--ink-soft);padding-top:12px;border-top:1px dashed rgba(22,22,22,.14)}
+  .bh-meta b{color:var(--charcoal);font-weight:600}
+
   /* ---------- pastel service strip ---------- */
   .pstrip-sec{padding:88px 0;background:var(--white);overflow:hidden}
   .pstrip-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
@@ -946,72 +968,6 @@
   </div>
 </section>
 
-<section class="svc" style="padding-bottom:0">
-  <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:26px">
-      <p class="eyebrow">Happening now</p>
-      <h2>Live competitions.</h2>
-    </div>
-    <div id="home-live-comps" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px"></div>
-  </div>
-</section>
-
-<section class="svc">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Live today</p>
-      <h2>Five services. Zero brochure-speak.</h2>
-    </div>
-    <div class="svc-grid">
-      <a class="svc-card c-green reveal" href="mentorship.html">
-        <span class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M15.5 4.13a3.5 3.5 0 0 1 0 6.75"/></svg>
-        </span>
-        <h3>Mentorship <span style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-deep);vertical-align:middle;background:var(--orange-soft);border-radius:999px;padding:3px 9px;margin-left:6px">Flagship</span></h3>
-        <p>End-to-end, CAT result to final offer — one journey, five phases, mentors who've made the climb.</p>
-        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free intro call</span>
-        <span class="svc-go">Start the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="svc-card c-dark reveal" href="competitions.html">
-        <span class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4h3v3a5 5 0 0 1-5 5M7 4H4v3a5 5 0 0 0 5 5"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg>
-        </span>
-        <h3>Case competitions</h3>
-        <p>PPO-oriented competitions with timed rounds and certificates worth posting — built for Tier 2 talent.</p>
-        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Live competitions open now</span>
-        <span class="svc-go">Compete <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="svc-card c-orange reveal" href="guest-lectures.html">
-        <span class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 8-4 8 4-8 4-8-4z"/><path d="M4 6v6c0 2 3.6 4 8 4s8-2 8-4V6"/><path d="M20 6v8"/></svg>
-        </span>
-        <h3>Guest lectures</h3>
-        <p>Verified industry practitioners for your classroom — lectures, workshops and curriculum partnerships.</p>
-        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Shortlist in 48 hours</span>
-        <span class="svc-go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="svc-card c-green reveal" href="blog.html">
-        <span class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v13.5"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5Z"/><path d="M9 8h7M9 11.5h5"/></svg>
-        </span>
-        <h3>The eMBArk Times</h3>
-        <p>Placements decoded, cutoffs explained, colleges compared — filterable by the college you care about.</p>
-        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Written for aspirants, not algorithms</span>
-        <span class="svc-go">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="svc-card c-dark reveal" href="playbooks.html">
-        <span class="svc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5-2.5v-13L9 7l6-2.5L20.5 7v13L15 17.5 9 20z"/><path d="M9 7v13M15 4.5v13"/></svg>
-        </span>
-        <h3>Stream playbooks</h3>
-        <p>One book per specialisation — roles, recruiters, a term-by-term gameplan and a checklist that tracks you.</p>
-        <span class="svc-outcome"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free, no signup wall</span>
-        <span class="svc-go">Pick your book <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <section class="pstrip-sec" id="services">
   <div class="wrap">
     <div class="pstrip-head reveal">
@@ -1025,6 +981,19 @@
       </div>
     </div>
     <div class="pstrip" id="pstrip"></div>
+  </div>
+</section>
+
+<section class="bloghl" aria-label="From the blog">
+  <div class="wrap">
+    <div class="sec-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:none">
+      <div>
+        <p class="eyebrow">From The eMBArk Times</p>
+        <h2 style="margin-bottom:0">Fresh off the press.</h2>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="blog.html">Read all articles</a>
+    </div>
+    <div class="bh-grid" id="bh-grid"></div>
   </div>
 </section>
 
@@ -1078,28 +1047,8 @@
   </div>
 </footer>
 
-<script src="competitions.js"></script>
+<script src="posts.js"></script>
 <script>
-  // ----- live competitions on home (spec 5.2: automatic display by date) -----
-  (() => {
-    const live = allComps(false).filter(c => compStatus(c) === 'live');
-    const wrap = document.getElementById('home-live-comps');
-    if (!live.length) {
-      wrap.closest('section').style.display = 'none';
-      return;
-    }
-    wrap.innerHTML = live.map(c => `
-      <a href="competition.html?c=${c.id}" style="display:flex;flex-direction:column;gap:9px;background:var(--white);border-radius:20px;padding:24px 26px;text-decoration:none;color:inherit;box-shadow:var(--shadow-card)">
-        <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <span style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#FEE4E2;color:#B42318;border-radius:999px;padding:4px 11px">● Live</span>
-          ${c.ppo ? '<span style="font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--charcoal);color:var(--orange);border-radius:999px;padding:4px 11px">PPO track</span>' : ''}
-        </span>
-        <b style="font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:-.01em">${c.title}</b>
-        <span style="font-size:.82rem;color:var(--ink-soft)">${c.host} · ${c.fee ? '₹' + c.fee + '/team' : 'Free'} · ${totalRegs(c)} registered</span>
-        <span style="font-size:.85rem;font-weight:600;color:var(--orange-deep)">View & register →</span>
-      </a>`).join('');
-  })();
-
   // ----- posters carousel (center slide with side peeks) -----
   (() => {
     const reducedP2 = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1158,6 +1107,21 @@
     // start on the middle poster so both sides peek
     idx = Math.floor((slides().length - 1) / 2) || 0;
     buildDots(); go(idx); restart();
+  })();
+
+  // ----- blog highlights: latest 3 posts -----
+  (() => {
+    const grid = document.getElementById('bh-grid');
+    if (!grid || typeof POSTS === 'undefined') return;
+    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const latest = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+    grid.innerHTML = latest.map(p => `
+      <a class="bh-card reveal" href="blog-post.html?p=${p.slug}">
+        <span class="bh-cat">${p.category}</span>
+        <span class="bh-title">${p.title}</span>
+        <span class="bh-ex">${p.excerpt.length > 130 ? p.excerpt.slice(0, 127) + '…' : p.excerpt}</span>
+        <span class="bh-meta"><b>${p.author}</b> · ${fmt(p.date)} · ${p.readMins} min read</span>
+      </a>`).join('');
   })();
 
   // ----- partners marquee: duplicate content for seamless loop -----
