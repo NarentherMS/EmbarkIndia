@@ -297,6 +297,126 @@
     .ng-stat{padding:0;border-left:none !important}
   }
 
+  /* ============================================================
+     ELECTRIC POP — professional colorful skin (home-page test)
+     White canvas + black ink; one accent color per service:
+     violet=mentorship  pink=competitions  amber=guest lectures
+     green=blog  cyan=playbooks
+     ============================================================ */
+  :root{
+    --cream:#FFFFFF;
+    --cream-deep:#EFEDE7;
+    --white:#F7F6F1;
+    --charcoal:#111110;
+    --ink-soft:#5F5C55;
+    --v:#6D4AEF; --v-soft:#EEE9FF; --v-deep:#5233C4;
+    --pk:#E0447C; --pk-soft:#FDE7F0; --pk-deep:#B82C60;
+    --am:#F59E0B; --am-soft:#FEF1DC; --am-deep:#B4740A;
+    --gn:#2F9E52; --gn-soft:#E3F4E8; --gn-deep:#1F7A3C;
+    --cy:#0E9BB5; --cy-soft:#E0F5FA; --cy-deep:#0A7186;
+  }
+  body{background:#fff}
+  .btn-primary{background:#111110;box-shadow:0 6px 18px rgba(17,17,16,.22)}
+  .btn-primary:hover{background:#2B2A27}
+  .nav{background:rgba(255,255,255,.88)}
+
+  /* hero: accents + per-slide blob colors */
+  .hs-copy h1 .accent,.hcar .eyebrow{
+    background:linear-gradient(92deg,var(--v),var(--pk));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hcar .eyebrow::before{border-color:var(--v)}
+  .hslide:nth-child(1) .hero-blob path{fill:var(--v)}
+  .hslide:nth-child(2) .hero-blob path{fill:var(--v)}
+  .hslide:nth-child(3) .hero-blob path{fill:var(--pk)}
+  .hslide:nth-child(4) .hero-blob path{fill:var(--am)}
+  .hslide .hero-blob{opacity:.22 !important}
+  .rm-path{stroke:var(--v)}
+  .rm-chip:nth-of-type(1) .dot{background:var(--v)}
+  .rm-chip:nth-of-type(2) .dot{background:var(--pk)}
+  .rm-chip:nth-of-type(3) .dot{background:var(--am)}
+  .rm-chip:nth-of-type(4) .dot{background:var(--gn)}
+  .rm-chip:nth-of-type(5) .dot{background:var(--cy)}
+  .rm-chip.final{background:#111110}
+  .rm-chip.final .dot{background:var(--gn)}
+  .di-o{background:var(--v-soft);color:var(--v-deep)}
+  .di-g{background:var(--pk-soft);color:var(--pk-deep)}
+  .dash-item .tickmark{color:var(--v-deep)}
+  .dash-live{color:var(--v-deep);background:var(--v-soft)}
+  .pf-comp{background:linear-gradient(150deg,#F163A0,var(--pk))}
+  .pf-deck .bar:nth-child(4){background:var(--pk)}
+  .pf-cert{border-color:var(--am)}
+  .pf-cert .seal{background:var(--am)}
+  .pf-badge{background:var(--v)}
+
+  /* reality grid: multi-color hover dots + stats */
+  .rcell::before{background-image:radial-gradient(rgba(109,74,239,.3) 1.2px,transparent 1.7px)}
+  .rcell:nth-child(2)::before,.rcell:nth-child(7)::before,.rcell:nth-child(12)::before{background-image:radial-gradient(rgba(224,68,124,.3) 1.2px,transparent 1.7px)}
+  .rcell:nth-child(3)::before,.rcell:nth-child(9)::before,.rcell:nth-child(13)::before{background-image:radial-gradient(rgba(14,155,181,.32) 1.2px,transparent 1.7px)}
+  .rcell:nth-child(4)::before,.rcell:nth-child(10)::before,.rcell:nth-child(14)::before{background-image:radial-gradient(rgba(47,158,82,.32) 1.2px,transparent 1.7px)}
+  .rcell:nth-child(5)::before,.rcell:nth-child(11)::before{background-image:radial-gradient(rgba(245,158,11,.35) 1.2px,transparent 1.7px)}
+  .rcell{background:#FCFBF8}
+  .rcell:hover{background:#fff}
+  .rcell:nth-child(1):hover .rc-num{color:var(--v-deep)}
+  .rcell:nth-child(2):hover .rc-num{color:var(--pk-deep)}
+  .rcell:nth-child(3):hover .rc-num{color:var(--cy-deep)}
+  .rcenter{background:#F7F6F1}
+  .rcenter h2 em{
+    background:linear-gradient(92deg,var(--v),var(--pk));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .rcenter .rpill{color:var(--v-deep);border-color:var(--v)}
+  .rc-funnel path{stroke:var(--v)}
+  .rc-funnel .fdrop{fill:var(--pk)}
+  .rbrand .rb-mark .mba{color:var(--pk)}
+  .rbrand .rb-go{color:var(--pk)}
+  .rbrand::before{background-image:radial-gradient(rgba(224,68,124,.5) 1.2px,transparent 1.7px)}
+
+  /* statement band */
+  .nextgen{background:#fff}
+  .ng-top h2 em{
+    background:linear-gradient(92deg,var(--v),var(--pk));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .ng-num.acc{color:var(--pk)}
+
+  /* service cards: one color per service */
+  .svc-grid .svc-card:nth-child(1) .svc-icon{background:var(--v-soft);color:var(--v-deep)}
+  .svc-grid .svc-card:nth-child(1) .svc-outcome{background:var(--v-soft);color:var(--v-deep)}
+  .svc-grid .svc-card:nth-child(1) .svc-go{color:var(--v-deep)}
+  .svc-grid .svc-card:nth-child(1):hover{box-shadow:0 18px 40px rgba(109,74,239,.24)}
+  .svc-grid .svc-card:nth-child(1) h3 span{background:var(--v-soft) !important;color:var(--v-deep) !important}
+  .svc-grid .svc-card:nth-child(2) .svc-icon{background:var(--pk-soft);color:var(--pk-deep)}
+  .svc-grid .svc-card:nth-child(2) .svc-outcome{background:var(--pk-soft);color:var(--pk-deep)}
+  .svc-grid .svc-card:nth-child(2) .svc-go{color:var(--pk-deep)}
+  .svc-grid .svc-card:nth-child(2):hover{box-shadow:0 18px 40px rgba(224,68,124,.24)}
+  .svc-grid .svc-card:nth-child(3) .svc-icon{background:var(--am-soft);color:var(--am-deep)}
+  .svc-grid .svc-card:nth-child(3) .svc-outcome{background:var(--am-soft);color:var(--am-deep)}
+  .svc-grid .svc-card:nth-child(3) .svc-go{color:var(--am-deep)}
+  .svc-grid .svc-card:nth-child(3):hover{box-shadow:0 18px 40px rgba(245,158,11,.26)}
+  .svc-grid .svc-card:nth-child(4) .svc-icon{background:var(--gn-soft);color:var(--gn-deep)}
+  .svc-grid .svc-card:nth-child(4) .svc-outcome{background:var(--gn-soft);color:var(--gn-deep)}
+  .svc-grid .svc-card:nth-child(4) .svc-go{color:var(--gn-deep)}
+  .svc-grid .svc-card:nth-child(4):hover{box-shadow:0 18px 40px rgba(47,158,82,.24)}
+  .svc-grid .svc-card:nth-child(5) .svc-icon{background:var(--cy-soft);color:var(--cy-deep)}
+  .svc-grid .svc-card:nth-child(5) .svc-outcome{background:var(--cy-soft);color:var(--cy-deep)}
+  .svc-grid .svc-card:nth-child(5) .svc-go{color:var(--cy-deep)}
+  .svc-grid .svc-card:nth-child(5):hover{box-shadow:0 18px 40px rgba(14,155,181,.24)}
+  .svc-card{background:#FCFBF8}
+
+  /* live comps + sections on white */
+  .svc{background:#fff}
+  .soon-sec,.pstrip-sec{background:#F7F6F1}
+
+  /* final CTA card */
+  .fh-card{background:#111110}
+  .fh-blob.l path{fill:var(--v)}
+  .fh-blob.r path{fill:var(--pk)}
+  .fh-card h2 .accent{
+    background:linear-gradient(92deg,#9F85FF,#FF7EAE);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
   /* ---------- service cards ---------- */
   .svc{padding:88px 0}
   .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
