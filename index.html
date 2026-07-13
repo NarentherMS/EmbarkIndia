@@ -734,6 +734,42 @@
     .hslide.anim .rm-path{animation:none}
     .svc-card,.soon-tile{transition:none}
   }
+
+  /* ---------- EXL-style impact band + dotted waves ---------- */
+  body .nextgen{background:#0B1F3A;padding:96px 0 100px;position:relative;overflow:hidden}
+  .nextgen .wrap{position:relative;z-index:1}
+  body .ng-top{grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start;margin-bottom:70px}
+  .ng-kicker{
+    font-size:.92rem;font-weight:600;color:#FFFFFF;margin-bottom:14px;
+  }
+  .ng-kicker::after{content:"";display:block;width:74px;border-top:3px solid var(--orange);margin-top:12px}
+  body .ng-top h2{color:#FFFFFF;font-size:clamp(1.9rem,3.8vw,2.9rem)}
+  body .ng-top h2 em{color:var(--orange)}
+  body .ng-right p{color:rgba(250,247,242,.75)}
+  body .ng-cta{background:var(--orange)}
+  body .ng-cta:hover{background:var(--orange-deep)}
+  body .ng-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  body .ng-stat{
+    background:#FFFFFF;border-radius:8px;padding:30px 28px 32px;
+    border-left:none !important;box-shadow:0 10px 30px rgba(0,0,0,.25);
+    transition:transform .25s;
+  }
+  body .ng-stat:hover{transform:translateY(-6px)}
+  body .ng-num,body .ng-num.acc{color:var(--orange);font-size:clamp(1.9rem,3vw,2.5rem)}
+  body .ng-stat p{color:#3D3B36;margin-top:12px;max-width:none}
+  .dotwave{position:absolute;left:0;right:0;pointer-events:none;width:100%}
+  .dotwave.dark{bottom:-40px;height:280px;opacity:.65}
+  .dotwave.light{bottom:-30px;height:240px;opacity:.5}
+  @media (max-width:960px){
+    body .ng-top{grid-template-columns:1fr;gap:28px;margin-bottom:48px}
+    body .ng-stats{grid-template-columns:1fr 1fr;gap:16px}
+  }
+  @media (max-width:540px){
+    body .ng-stats{grid-template-columns:1fr}
+  }
+  /* light wave section */
+  body .bloghl{position:relative;overflow:hidden}
+  .bloghl .wrap{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -1009,9 +1045,16 @@
 </section>
 
 <section class="nextgen" aria-label="Built for the next generation">
+  <svg class="dotwave dark" viewBox="0 0 1300 280" preserveAspectRatio="none" aria-hidden="true">
+    <defs><pattern id="dotsw1" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.4" fill="rgba(255,255,255,.28)"/></pattern></defs>
+    <path d="M-60 200 C 220 90, 460 270, 760 160 S 1120 30, 1380 120" fill="none" stroke="url(#dotsw1)" stroke-width="86"/>
+  </svg>
   <div class="wrap">
     <div class="ng-top">
-      <h2 class="reveal">Built to support the <em>next generation</em> of MBA talent</h2>
+      <div class="reveal">
+        <p class="ng-kicker">Embark impact</p>
+        <h2>Built to support the <em>next generation</em> of MBA talent</h2>
+      </div>
       <div class="ng-right reveal">
         <p>Embark India helps tier-2 MBA students prepare, compete, and get placed — with mentors who've made the climb, competitions that build proof, and playbooks that map every stream.</p>
         <a class="ng-cta" href="mentorship.html">Start your journey
@@ -1057,6 +1100,10 @@
 </section>
 
 <section class="bloghl" aria-label="From the blog">
+  <svg class="dotwave light" viewBox="0 0 1300 240" preserveAspectRatio="none" aria-hidden="true">
+    <defs><pattern id="dotsw2" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.3" fill="rgba(22,22,22,.14)"/></pattern></defs>
+    <path d="M-60 170 C 240 60, 480 230, 780 130 S 1130 20, 1380 100" fill="none" stroke="url(#dotsw2)" stroke-width="70"/>
+  </svg>
   <div class="wrap">
     <div class="sec-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:none">
       <div>
