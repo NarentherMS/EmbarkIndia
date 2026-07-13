@@ -475,6 +475,75 @@
   .bh-card{border:1px solid rgba(22,22,22,.07)}
   body .final-home{background:#FAF7F2;padding:72px 0 84px}
 
+  /* ---------- creative floating nav ---------- */
+  body .nav{
+    position:sticky;top:12px;z-index:100;
+    background:transparent;border-bottom:none;backdrop-filter:none;
+    padding:0 16px;
+  }
+  body .nav-inner{
+    background:rgba(250,247,242,.82);backdrop-filter:blur(16px);
+    border:1px solid rgba(22,22,22,.08);border-radius:999px;
+    box-shadow:0 6px 24px rgba(11,31,58,.07);
+    padding:9px 10px 9px 26px;max-width:1080px;
+    transition:box-shadow .3s,background .3s;
+  }
+  .nav.scrolled .nav-inner{
+    background:rgba(250,247,242,.95);
+    box-shadow:0 12px 36px rgba(11,31,58,.14);
+  }
+  /* wordmark flag plant */
+  body .wordmark{position:relative;padding-right:14px}
+  .wm-flag{
+    position:absolute;top:-7px;right:0;width:13px;height:15px;
+    opacity:0;transform:translateY(7px) rotate(-18deg);transform-origin:bottom center;
+    transition:opacity .3s,transform .45s cubic-bezier(.2,.9,.3,1.6);
+  }
+  .wordmark:hover .wm-flag{opacity:1;transform:translateY(0) rotate(0deg)}
+  /* dashed draw-in underline */
+  body .nav-links a{position:relative;padding-bottom:2px}
+  body .nav-links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:-7px;height:3px;
+    background:repeating-linear-gradient(90deg,var(--orange) 0 7px,transparent 7px 13px);
+    transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
+    border-radius:2px;
+  }
+  body .nav-links a:hover{color:var(--navy)}
+  body .nav-links a:hover::after{transform:scaleX(1)}
+  /* CTA arrow slide-in */
+  body .nav .btn-sm::after{
+    content:"92";display:inline-block;max-width:0;overflow:hidden;
+    opacity:0;transition:max-width .3s ease,opacity .25s ease,margin-left .3s ease;
+    margin-left:0;
+  }
+  body .nav .btn-sm:hover::after{max-width:20px;opacity:1;margin-left:8px}
+  /* mobile menu */
+  .nav-burger{
+    display:none;background:none;border:none;cursor:pointer;padding:10px;
+    color:var(--charcoal);min-height:44px;
+  }
+  .nav-burger svg{width:22px;height:22px}
+  .mob-menu{
+    display:none;max-width:1080px;margin:8px auto 0;
+    background:rgba(250,247,242,.97);backdrop-filter:blur(16px);
+    border:1px solid rgba(22,22,22,.08);border-radius:22px;
+    box-shadow:0 14px 40px rgba(11,31,58,.16);padding:12px;
+  }
+  .mob-menu.open{display:block}
+  .mob-menu a{
+    display:block;text-decoration:none;color:var(--charcoal);font-weight:600;
+    font-size:1rem;padding:13px 18px;border-radius:14px;
+  }
+  .mob-menu a:hover{background:rgba(251,77,10,.08);color:var(--orange-deep)}
+  @media (max-width:860px){
+    .nav-burger{display:flex;align-items:center}
+    body .nav-inner{padding:7px 8px 7px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .wm-flag,.nav-links a::after,.nav .btn-sm::after{transition:none}
+  }
+
+
 
   /* ---------- service cards ---------- */
   .svc{padding:88px 0}
@@ -668,9 +737,9 @@
 </head>
 <body>
 
-<nav class="nav" aria-label="Main">
+<nav class="nav" id="site-nav" aria-label="Main">
   <div class="nav-inner">
-    <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk</a>
+    <a class="wordmark" href="index.html" aria-label="Embark India home">e<span class="mba">MBA</span>rk<svg class="wm-flag" viewBox="0 0 13 15" aria-hidden="true"><path d="M1.5 15V1" stroke="#161616" stroke-width="1.6" stroke-linecap="round"/><path d="M1.5 1.2h9.5l-2.8 3 2.8 3H1.5z" fill="#FB4D0A"/></svg></a>
     <ul class="nav-links">
       <li><a href="mentorship.html">Mentorship</a></li>
       <li><a href="competitions.html">Competitions</a></li>
@@ -679,6 +748,16 @@
       <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
     <a class="btn btn-primary btn-sm" href="#start">Get started</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="mob-menu" id="mob-menu">
+    <a href="mentorship.html">Mentorship</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="guest-lectures.html">Guest lectures</a>
+    <a href="blog.html">Blog</a>
+    <a href="playbooks.html">Playbooks</a>
   </div>
 </nav>
 
@@ -1042,6 +1121,19 @@
 
 <script src="posts.js"></script>
 <script>
+  // ----- creative nav: scroll state + mobile menu -----
+  (() => {
+    const nav = document.getElementById('site-nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
+    const burger = document.getElementById('nav-burger');
+    const menu = document.getElementById('mob-menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+    });
+    menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+  })();
+
   // ----- posters: continuous marquee -----
   (() => {
     const track = document.getElementById('poster-track');
