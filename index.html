@@ -150,7 +150,9 @@
   .feed-item small{margin-left:auto;font-size:.68rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
 
   /* ---------- competition posters carousel (center + peeks) ---------- */
-  .posters{padding:72px 0 16px}
+  .posters{padding:56px 0 40px;background:var(--navy)}
+  .posters .po-dash{background:rgba(250,247,242,.28)}
+  .posters .po-dash[aria-current="true"]{background:var(--orange)}
   .poster-car{position:relative}
   .poster-view{overflow:hidden;padding:8px 0 18px}
   .poster-track{display:flex;gap:22px;transition:transform .6s cubic-bezier(.25,.8,.3,1)}
@@ -806,10 +808,6 @@
 
 <section class="posters" id="posters" aria-label="Upcoming competitions">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:34px">
-      <p class="eyebrow">Coming soon to the competition floor</p>
-      <h2>Three arenas. Pick your fight.</h2>
-    </div>
     <div class="poster-car reveal" id="poster-car">
       <div class="poster-view">
         <div class="poster-track" id="poster-track">
