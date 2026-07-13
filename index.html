@@ -149,6 +149,31 @@
   .feed-item .fdot{width:10px;height:10px;border-radius:50%;flex:none}
   .feed-item small{margin-left:auto;font-size:.68rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
 
+  /* ---------- competition posters ---------- */
+  .posters{padding:88px 0 24px}
+  .poster-stack{display:grid;gap:26px}
+  .poster-card{
+    display:block;position:relative;border-radius:26px;overflow:hidden;
+    box-shadow:0 14px 36px rgba(22,22,22,.16);
+    transition:transform .35s cubic-bezier(.2,.8,.3,1.1),box-shadow .35s;
+  }
+  .poster-card:hover{transform:translateY(-8px) scale(1.012);box-shadow:0 26px 56px rgba(22,22,22,.24)}
+  .poster-card img{display:block;width:100%;height:auto}
+  .poster-shine{
+    position:absolute;top:-20%;bottom:-20%;left:-30%;width:36%;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);
+    transform:skewX(-18deg) translateX(-140%);pointer-events:none;
+  }
+  .poster-card:hover .poster-shine{
+    transform:skewX(-18deg) translateX(560%);
+    transition:transform .9s ease;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .poster-card,.poster-shine{transition:none}
+    .poster-card:hover{transform:none}
+    .poster-card:hover .poster-shine{transform:skewX(-18deg) translateX(-140%)}
+  }
+
   /* ---------- reality grid ---------- */
   .reality{padding:88px 0;background:var(--white)}
   .rgrid{
@@ -703,6 +728,29 @@
   </div>
 </header>
 
+<section class="posters" id="posters" aria-label="Upcoming competitions">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:34px">
+      <p class="eyebrow">Coming soon to the competition floor</p>
+      <h2>Three arenas. Pick your fight.</h2>
+    </div>
+    <div class="poster-stack">
+      <a class="poster-card reveal" href="competitions.html">
+        <img src="assets/posters/finance.png" alt="Embark India Finance Competition — coming soon">
+        <span class="poster-shine" aria-hidden="true"></span>
+      </a>
+      <a class="poster-card reveal" href="competitions.html">
+        <img src="assets/posters/quiz.png" alt="Embark India All India Quiz — coming soon">
+        <span class="poster-shine" aria-hidden="true"></span>
+      </a>
+      <a class="poster-card reveal" href="competitions.html">
+        <img src="assets/posters/marketing.png" alt="Embark India Marketing Maverick — coming soon">
+        <span class="poster-shine" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="reality" aria-label="The MBA reality">
   <div class="wrap">
     <div class="rgrid">
@@ -965,6 +1013,18 @@
         <span style="font-size:.82rem;color:var(--ink-soft)">${c.host} · ${c.fee ? '₹' + c.fee + '/team' : 'Free'} · ${totalRegs(c)} registered</span>
         <span style="font-size:.85rem;font-weight:600;color:var(--orange-deep)">View & register →</span>
       </a>`).join('');
+  })();
+
+  // ----- posters: hide cards whose image is missing; hide section if all missing -----
+  (() => {
+    const cards = [...document.querySelectorAll('.poster-card')];
+    let gone = 0;
+    cards.forEach(c => {
+      const img = c.querySelector('img');
+      const drop = () => { c.style.display = 'none'; if (++gone === cards.length) document.getElementById('posters').style.display = 'none'; };
+      if (img.complete && img.naturalWidth === 0) drop();
+      else img.addEventListener('error', drop);
+    });
   })();
 
   // ----- next-gen band: numbers run up every time the row enters view -----
