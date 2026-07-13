@@ -868,50 +868,47 @@
   }
   .fb-explore:hover{border-color:var(--orange);background:var(--orange-soft);color:var(--orange-deep)}
 
-  /* ---------- colleges snapshot ---------- */
-  body .colleges{background:#FAF7F2;padding:80px 0 72px}
-  .col-head{text-align:center;max-width:640px;margin:0 auto 40px}
-  .col-head h2{margin-bottom:8px}
-  .col-head .fb-sub{margin:0 auto}
-  .col-car{position:relative}
-  .col-row{
-    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
-    padding:8px 4px 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  /* ---------- colleges spotlight marquee ---------- */
+  body .colleges{background:#FAF7F2;padding:44px 0 48px}
+  .col-marquee{
+    overflow:hidden;margin-top:26px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
   }
-  .col-row::-webkit-scrollbar{display:none}
+  .col-row{display:flex;width:max-content;animation:colslide 40s linear infinite;padding:6px 0 10px}
+  .col-marquee:hover .col-row{animation-play-state:paused}
+  @keyframes colslide{to{transform:translateX(-50%)}}
   .col-card{
-    flex:0 0 280px;scroll-snap-align:start;
-    background:#FFFFFF;border-radius:18px;padding:24px;
-    box-shadow:0 8px 26px rgba(11,31,58,.09);
-    display:flex;flex-direction:column;gap:16px;
+    flex:0 0 auto;width:250px;margin-right:18px;
+    background:#FFFFFF;border-radius:16px;padding:18px;
+    box-shadow:0 6px 20px rgba(11,31,58,.08);
+    display:flex;flex-direction:column;gap:12px;
     transition:transform .22s,box-shadow .22s;
   }
-  .col-card:hover{transform:translateY(-5px);box-shadow:0 16px 38px rgba(11,31,58,.16)}
-  .col-top{display:flex;gap:14px;align-items:center}
+  .col-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(11,31,58,.14)}
+  .col-top{display:flex;gap:11px;align-items:center}
   .col-icon{
-    flex:none;width:52px;height:52px;border-radius:14px;background:var(--navy);color:#fff;
+    flex:none;width:42px;height:42px;border-radius:12px;background:var(--navy);color:#fff;
     display:flex;align-items:center;justify-content:center;
   }
-  .col-icon svg{width:24px;height:24px}
-  .col-top b{font-family:var(--display);font-weight:700;font-size:1.02rem;line-height:1.25;display:block;letter-spacing:-.01em}
-  .col-loc{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;color:var(--ink-soft);margin-top:4px}
-  .col-loc svg{width:12px;height:12px;color:var(--orange)}
-  .col-stats{
-    display:grid;grid-template-columns:1fr 1fr;background:#F4F6FA;border-radius:12px;padding:14px 0;
-  }
-  .col-stat{text-align:center;padding:0 12px}
+  .col-icon svg{width:20px;height:20px}
+  .col-top b{font-family:var(--display);font-weight:700;font-size:.92rem;line-height:1.22;display:block;letter-spacing:-.01em}
+  .col-loc{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;color:var(--ink-soft);margin-top:3px}
+  .col-loc svg{width:11px;height:11px;color:var(--orange)}
+  .col-stats{display:grid;grid-template-columns:1fr 1fr;background:#F4F6FA;border-radius:10px;padding:10px 0}
+  .col-stat{text-align:center;padding:0 8px}
   .col-stat + .col-stat{border-left:1.5px solid rgba(11,31,58,.12)}
-  .col-stat small{display:block;font-size:.7rem;font-weight:600;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:5px}
-  .col-stat b{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--navy)}
+  .col-stat small{display:block;font-size:.64rem;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:3px}
+  .col-stat b{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--navy)}
   .col-stat.hi b{color:var(--orange)}
   .col-btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
+    display:flex;align-items:center;justify-content:center;gap:7px;
     background:var(--orange);color:#fff;text-decoration:none;
-    font-weight:600;font-size:.9rem;border-radius:12px;padding:13px;min-height:46px;
+    font-weight:600;font-size:.82rem;border-radius:10px;padding:10px;min-height:40px;
     transition:background .2s,gap .2s;
   }
-  .col-btn:hover{background:var(--orange-deep);gap:14px}
-  .col-note{text-align:center;font-size:.78rem;color:var(--ink-soft);margin-top:16px}
+  .col-btn:hover{background:var(--orange-deep);gap:12px}
+  @media (prefers-reduced-motion:reduce){.col-row{animation:none}}
   body .bloghl{background:#FFFFFF}
   body .final-home{background:#FAF7F2}
   @media (max-width:960px){
@@ -1194,6 +1191,15 @@
   </div>
 </section>
 
+<section class="colleges" aria-label="College spotlight">
+  <div class="wrap" style="text-align:center">
+    <span class="spot-pill" style="margin-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20V12l4-3 4 4 6-6v13"/></svg>College spotlight</span>
+  </div>
+  <div class="col-marquee" aria-hidden="false">
+    <div class="col-row" id="col-row"></div>
+  </div>
+</section>
+
 <section class="nextgen" aria-label="Built for the next generation">
   <svg class="dotwave dark" viewBox="0 0 1300 280" preserveAspectRatio="none" aria-hidden="true">
     <defs><pattern id="dotsw1" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.4" fill="rgba(255,255,255,.28)"/></pattern></defs>
@@ -1270,22 +1276,6 @@
         <a class="fb-explore" href="blog.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Explore all articles</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="colleges" aria-label="Top MBA colleges snapshot">
-  <div class="wrap">
-    <div class="col-head reveal">
-      <span class="spot-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20V12l4-3 4 4 6-6v13"/></svg>College spotlight</span>
-      <h2>Top MBA Colleges Snapshot</h2>
-      <p class="fb-sub">Placement numbers at a glance — the colleges our readers track most</p>
-    </div>
-    <div class="col-car">
-      <button class="po-arrow prev" id="col-prev" aria-label="Scroll colleges left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <button class="po-arrow next" id="col-next" aria-label="Scroll colleges right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-      <div class="col-row" id="col-row"></div>
-    </div>
-    <p class="col-note reveal">Indicative figures in ₹ LPA from the latest published placement reports — always verify with official college reports.</p>
   </div>
 </section>
 
@@ -1428,8 +1418,7 @@
         </div>
         <a class="col-btn" href="blog.html">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>`).join('');
-    document.getElementById('col-prev').addEventListener('click', () => row.scrollBy({ left: -320, behavior: 'smooth' }));
-    document.getElementById('col-next').addEventListener('click', () => row.scrollBy({ left: 320, behavior: 'smooth' }));
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) row.innerHTML += row.innerHTML;
   })();
 
   // ----- partners marquee: duplicate content for seamless loop -----
