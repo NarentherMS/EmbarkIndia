@@ -462,6 +462,20 @@
   .final-home .fh-card h2 .accent{color:var(--orange)}
   .final-home .btn-light{background:#FAF7F2;color:var(--navy)}
 
+  /* ---------- section rhythm: alternating bands + tighter spacing ---------- */
+  .posters{background:#F1F1F1}
+  .partners{background:#FFFFFF;padding:56px 0 60px}
+  .reality{background:#FAF7F2;padding:76px 0}
+  .rcell{background:#FFFFFF}
+  .rcenter{background:#F6F2EA}
+  .nextgen{background:#FFFFFF;padding:80px 0 72px}
+  .ng-top{margin-bottom:64px}
+  body .pstrip-sec{background:#F1F1F1;padding:72px 0}
+  body .bloghl{background:#FFFFFF;padding:76px 0 80px}
+  .bh-card{border:1px solid rgba(22,22,22,.07)}
+  body .final-home{background:#FAF7F2;padding:72px 0 84px}
+
+
   /* ---------- service cards ---------- */
   .svc{padding:88px 0}
   .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
@@ -1043,6 +1057,21 @@
     };
     if (document.readyState === 'complete') check();
     else window.addEventListener('load', check);
+  })();
+
+  // ----- blog highlights: latest 3 posts -----
+  (() => {
+    const grid = document.getElementById('bh-grid');
+    if (!grid || typeof POSTS === 'undefined') return;
+    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const latest = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+    grid.innerHTML = latest.map(p => `
+      <a class="bh-card reveal" href="blog-post.html?p=${p.slug}">
+        <span class="bh-cat">${p.category}</span>
+        <span class="bh-title">${p.title}</span>
+        <span class="bh-ex">${p.excerpt.length > 130 ? p.excerpt.slice(0, 127) + '…' : p.excerpt}</span>
+        <span class="bh-meta"><b>${p.author}</b> · ${fmt(p.date)} · ${p.readMins} min read</span>
+      </a>`).join('');
   })();
 
   // ----- partners marquee: duplicate content for seamless loop -----
