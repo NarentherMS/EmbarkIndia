@@ -544,14 +544,6 @@ footer .wordmark{color:var(--cream)}
 }
 .foot-base a{color:rgba(250,247,242,.7)}
 .foot-base a:hover{color:var(--orange)}
-.foot-ghost{
-  position:relative;z-index:1;text-align:center;pointer-events:none;user-select:none;
-  font-family:var(--display);font-weight:800;line-height:.72;
-  font-size:clamp(5rem,17vw,15rem);letter-spacing:-.02em;
-  color:transparent;-webkit-text-stroke:1.5px rgba(250,247,242,.1);
-  margin:34px 0 -0.34em;
-}
-.foot-ghost i{font-style:normal;-webkit-text-stroke:1.5px rgba(251,77,10,.32)}
 @media (prefers-reduced-motion:reduce){.fp-line{animation:none}}
 @media (max-width:700px){.foot-path{height:56px}}
 
