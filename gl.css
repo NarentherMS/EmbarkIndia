@@ -493,21 +493,24 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .aside-card.green .aside-check li{color:rgba(250,247,242,.85)}
 .aside-check svg{width:18px;height:18px;flex:none;color:var(--orange);margin-top:3px}
 
-/* ---------- footer ---------- */
-footer{background:var(--cream);padding:52px 0 36px;border-top:1px solid rgba(22,22,22,.08)}
+/* ---------- footer (black across all pages) ---------- */
+footer{background:#101010;color:rgba(250,247,242,.85);padding:52px 0 36px;border-top:none}
+footer .wordmark{color:var(--cream)}
 .foot-grid{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
-.wordmark-tag{display:block;font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--ink-soft);margin-top:5px}
+.wordmark-tag{display:block;font-size:.68rem;font-weight:500;letter-spacing:.04em;color:rgba(250,247,242,.55);margin-top:5px}
 .foot-links{display:flex;gap:44px;flex-wrap:wrap}
-.foot-links h4{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:13px}
+.foot-links h4{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,247,242,.5);margin-bottom:13px}
 .foot-links ul{list-style:none}
 .foot-links li{margin-bottom:9px}
-.foot-links a{text-decoration:none;font-size:.93rem;color:var(--charcoal)}
-.foot-links a:hover{color:var(--orange-deep)}
+.foot-links a{text-decoration:none;font-size:.93rem;color:rgba(250,247,242,.88)}
+.foot-links a:hover{color:var(--orange)}
 .foot-base{
-  margin-top:40px;padding-top:22px;border-top:1px dashed rgba(22,22,22,.18);
+  margin-top:40px;padding-top:22px;border-top:1px dashed rgba(250,247,242,.22);
   display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
-  font-size:.83rem;color:var(--ink-soft);
+  font-size:.83rem;color:rgba(250,247,242,.55);
 }
+.foot-base a{color:rgba(250,247,242,.7)}
+.foot-base a:hover{color:var(--orange)}
 
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
