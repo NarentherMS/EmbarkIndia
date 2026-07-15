@@ -97,41 +97,55 @@
   .my-strip a{font-size:.85rem;font-weight:600;color:var(--green);text-decoration:none;border:1.5px solid rgba(11,31,58,.4);border-radius:999px;padding:6px 14px}
   .my-strip a:hover{background:var(--green);color:#fff}
 
-  /* ---------- why compete ---------- */
-  .why-sec{padding:84px 0}
-  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  /* ---------- why compete (dark panel) ---------- */
+  .why-sec{
+    background:linear-gradient(180deg,#0B1F3A,#08172B);
+    padding:96px 0;position:relative;overflow:hidden;
+  }
+  .why-sec::after{
+    content:"";position:absolute;left:-10%;right:-10%;bottom:-120px;height:220px;
+    border-radius:50% 50% 0 0/100% 100% 0 0;
+    border-top:1.5px solid rgba(91,141,239,.35);pointer-events:none;
+  }
+  .why-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center;position:relative;z-index:1}
+  .why-left .eyebrow{color:#8FB0FF}
+  .why-left .eyebrow::before{border-color:#5B8DEF}
+  .why-left h2{color:#fff;font-size:clamp(1.9rem,4vw,3rem);margin-bottom:20px}
+  .why-left p{color:rgba(250,247,242,.68);font-size:1.05rem;max-width:420px;margin-bottom:32px}
+  .why-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:.95rem;font-weight:600;color:#fff;
+    border:1.5px solid rgba(91,141,239,.55);border-radius:999px;padding:13px 24px;
+    transition:border-color .25s,background .25s;
+  }
+  .why-badge:hover{border-color:#8FB0FF;background:rgba(91,141,239,.1)}
+  .why-badge svg{width:19px;height:19px;color:var(--orange)}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .why-card{
-    background:var(--white);border-radius:22px;box-shadow:var(--shadow-card);padding:30px 28px;
-    transition:transform .22s,box-shadow .22s;
+    --wc:91,141,239;
+    background:linear-gradient(160deg,rgba(var(--wc),.14),rgba(var(--wc),.03));
+    border:1px solid rgba(var(--wc),.38);border-radius:20px;padding:28px 26px;
+    transition:transform .25s,box-shadow .25s,border-color .25s;
   }
-  .why-card:hover{transform:translateY(-6px)}
+  .why-card:hover{transform:translateY(-5px);border-color:rgba(var(--wc),.7);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+  .wc-green{--wc:52,211,153}
+  .wc-purple{--wc:167,139,250}
+  .wc-orange{--wc:251,146,60}
   .why-ico{
-    width:48px;height:48px;border-radius:14px;background:var(--navy-soft,#E7EDF6);color:var(--navy);
-    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
-    transition:background .25s,color .25s;
+    width:48px;height:48px;border-radius:14px;
+    background:rgba(var(--wc),.16);border:1px solid rgba(var(--wc),.4);color:rgb(var(--wc));
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+    transition:transform .25s;
   }
-  .why-card:hover .why-ico{background:var(--navy);color:#fff}
+  .why-card:hover .why-ico{transform:scale(1.08) rotate(-4deg)}
   .why-ico svg{width:22px;height:22px}
-  .why-card h3{font-size:1.08rem;font-weight:700;margin-bottom:8px}
-  .why-card p{font-size:.9rem;color:var(--ink-soft)}
-  @media (max-width:980px){.why-grid{grid-template-columns:1fr 1fr}}
-  @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
-
-  /* ---------- how it works ---------- */
-  .how-sec{background:var(--white);padding:84px 0}
-  .how-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;position:relative}
-  .how-step{position:relative;padding:26px 22px 24px;background:var(--cream);border-radius:20px;overflow:hidden;transition:transform .22s}
-  .how-step:hover{transform:translateY(-5px)}
-  .how-step .num{
-    position:absolute;top:-14px;right:2px;font-family:var(--display);font-weight:800;
-    font-size:4.6rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(11,31,58,.18);
-    transition:-webkit-text-stroke .25s;
+  .why-card h3{font-size:1.12rem;font-weight:700;color:#fff;margin-bottom:8px}
+  .why-card p{font-size:.9rem;color:rgba(250,247,242,.62)}
+  @media (max-width:980px){
+    .why-wrap{grid-template-columns:1fr;gap:44px}
+    .why-left p{max-width:none}
   }
-  .how-step:hover .num{-webkit-text-stroke:1.5px var(--orange)}
-  .how-step h3{font-size:1rem;font-weight:700;margin-bottom:7px;position:relative;max-width:82%}
-  .how-step p{font-size:.85rem;color:var(--ink-soft);position:relative}
-  @media (max-width:980px){.how-rail{grid-template-columns:1fr 1fr}}
-  @media (max-width:560px){.how-rail{grid-template-columns:1fr}}
+  @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
 
   /* ---------- categories ---------- */
   .cat-sec{padding:84px 0}
@@ -264,49 +278,34 @@
 
 <!-- 3. WHY COMPETE -->
 <section class="why-sec">
-  <div class="wrap">
-    <div class="sec-head">
+  <div class="wrap why-wrap">
+    <div class="why-left">
       <p class="eyebrow">Why here</p>
       <h2>Why compete on Embark India</h2>
+      <p>Built for MBA students who want practical challenges, sharper preparation, and stronger career visibility.</p>
+      <span class="why-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Built for real outcomes</span>
     </div>
     <div class="why-grid">
       <div class="why-card reveal">
         <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
         <h3>Built for MBA students</h3>
-        <p>Competitions focused on real business problems across marketing, finance, strategy, analytics, and management.</p>
+        <p>Real business challenges across major MBA domains.</p>
       </div>
-      <div class="why-card reveal">
+      <div class="why-card wc-green reveal">
         <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
         <h3>Designed for tier-2 talent</h3>
-        <p>A platform built for students who want to build proof beyond their college brand.</p>
+        <p>A platform for students who want proof beyond brand.</p>
       </div>
-      <div class="why-card reveal">
-        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <div class="why-card wc-purple reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m19 14 1 1.6 1.8.3-1.3 1.3.3 1.8-1.8-.9-1.8.9.3-1.8-1.3-1.3 1.8-.3z"/></svg></span>
         <h3>Guidance available</h3>
-        <p>Access coaching, playbooks, and mentor support to improve your submissions at every round.</p>
+        <p>Coaching, playbooks, and mentor support to improve submissions.</p>
       </div>
-      <div class="why-card reveal">
-        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg></span>
+      <div class="why-card wc-orange reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <h3>Career-oriented challenges</h3>
-        <p>Competitions designed around skills useful for internships, PPOs, and final placements.</p>
+        <p>Designed around internships, PPOs, and placements.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. HOW IT WORKS -->
-<section class="how-sec">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">The process</p>
-      <h2>How it works</h2>
-    </div>
-    <div class="how-rail">
-      <div class="how-step reveal"><span class="num">1</span><h3>Choose a competition</h3><p>Browse live and upcoming challenges.</p></div>
-      <div class="how-step reveal"><span class="num">2</span><h3>Register solo or as a team</h3><p>Join individually or add teammates.</p></div>
-      <div class="how-step reveal"><span class="num">3</span><h3>Solve the case</h3><p>Review instructions, timelines, and deliverables.</p></div>
-      <div class="how-step reveal"><span class="num">4</span><h3>Submit before deadline</h3><p>Upload your deck, file, or link within the round window.</p></div>
-      <div class="how-step reveal"><span class="num">5</span><h3>Track your progress</h3><p>See round status, advancement, and results.</p></div>
     </div>
   </div>
 </section>
