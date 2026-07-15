@@ -91,6 +91,7 @@ const COMP_SEED = [
       ['Top 10', 'Winner-track certificates']
     ],
     ppo: false,
+    beginner: true,
     regOpen: _d(6), regClose: _d(14), start: _d(15), end: _d(30), result: _d(33),
     rounds: [
       { name: 'Round 1 — Concept note', brief: 'Pick a category, define the wedge, three slides.', opens: _d(15), closes: _d(20) },

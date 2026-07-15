@@ -4,34 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Case Competitions — Embark India</title>
-<meta name="description" content="PPO-oriented case competitions built for Tier 2 talent. Register solo or as a team, submit within timed rounds, earn shareable certificates.">
+<meta name="description" content="Live and upcoming MBA case competitions built for real career outcomes. Register solo or as a team, submit within timed rounds, track results — with coaching to help you win.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css?v=2">
 <style>
-  .cc-hero{position:relative;padding:72px 0 48px;overflow:hidden}
-  .cc-hero .wrap{position:relative;z-index:1;max-width:780px;text-align:center;margin:0 auto}
-  .cc-hero h1{font-size:clamp(2.2rem,5.2vw,3.7rem);margin-bottom:16px}
+  /* ---------- hero ---------- */
+  .cc-hero{position:relative;padding:72px 0 56px;overflow:hidden}
+  .cc-hero .wrap{position:relative;z-index:1;max-width:840px;text-align:center;margin:0 auto}
+  .cc-hero h1{font-size:clamp(2.1rem,5vw,3.5rem);margin-bottom:16px}
   .cc-hero h1 .accent{color:var(--orange)}
-  .cc-hero .lead{font-size:1.08rem;color:var(--ink-soft);max-width:560px;margin:0 auto}
-  .cc-wedge{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:26px}
-  .cc-wedge span{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:500;color:var(--ink-soft)}
-  .cc-wedge svg{width:15px;height:15px;color:var(--green);flex:none}
+  .cc-hero .lead{font-size:1.08rem;color:var(--ink-soft);max-width:620px;margin:0 auto 30px}
+  .cc-hero .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
-  .cc-section{padding:44px 0}
-  .cc-section h2{font-size:clamp(1.4rem,2.8vw,1.9rem);margin-bottom:22px;display:flex;align-items:center;gap:12px}
-  .live-dot{width:11px;height:11px;border-radius:50%;background:#D92D20;animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,45,32,.4)}50%{box-shadow:0 0 0 7px rgba(217,45,32,0)}}
+  /* journey flow animation */
+  .flow{max-width:720px;margin:52px auto 0;position:relative}
+  .flow-steps{display:flex;justify-content:space-between;position:relative}
+  .flow-track{
+    position:absolute;top:23px;left:36px;right:36px;height:3px;border-radius:2px;
+    background:repeating-linear-gradient(90deg,rgba(22,22,22,.18) 0 7px,transparent 7px 13px);
+  }
+  .flow-fill{
+    position:absolute;top:0;left:0;height:100%;width:0;border-radius:2px;
+    background:repeating-linear-gradient(90deg,var(--orange) 0 7px,transparent 7px 13px);
+    transition:width .55s cubic-bezier(.4,0,.2,1);
+  }
+  .flow-step{display:flex;flex-direction:column;align-items:center;gap:9px;position:relative;z-index:1;flex:1}
+  .fs-dot{
+    width:46px;height:46px;border-radius:50%;background:var(--white);
+    border:2px dashed rgba(22,22,22,.25);color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .35s;box-shadow:0 0 0 6px var(--cream);
+  }
+  .fs-dot svg{width:19px;height:19px}
+  .flow-step small{font-size:.78rem;font-weight:600;color:var(--ink-soft);transition:color .3s;white-space:nowrap}
+  .flow-step.done .fs-dot{border:2px solid var(--orange);color:var(--orange-deep);background:#fff}
+  .flow-step.on .fs-dot{
+    background:var(--navy);border:2px solid var(--navy);color:#fff;
+    transform:scale(1.12);box-shadow:0 0 0 6px var(--cream),0 10px 22px rgba(11,31,58,.3);
+  }
+  .flow-step.on small{color:var(--navy)}
+  @media (max-width:620px){
+    .flow-step small{font-size:.62rem}
+    .fs-dot{width:38px;height:38px}
+    .fs-dot svg{width:16px;height:16px}
+    .flow-track{top:19px;left:26px;right:26px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .flow-step .fs-dot{border:2px solid var(--orange);color:var(--orange-deep);background:#fff;transform:none}
+    .flow-fill{width:100%!important;transition:none}
+  }
+
+  /* ---------- live & upcoming (tabs) ---------- */
+  .comps-sec{background:var(--white);padding:76px 0 84px}
+  .cc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+  .cc-tab{
+    font-family:var(--body);font-weight:600;font-size:.92rem;color:var(--ink-soft);
+    background:var(--cream);border:1.5px solid transparent;border-radius:999px;
+    padding:11px 22px;cursor:pointer;min-height:46px;display:inline-flex;align-items:center;gap:9px;
+    transition:all .18s;
+  }
+  .cc-tab:hover{border-color:rgba(22,22,22,.25)}
+  .cc-tab[aria-selected="true"]{background:var(--navy);color:#fff}
+  .cc-tab .live-dot{width:9px;height:9px;border-radius:50%;background:#D92D20;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,45,32,.4)}50%{box-shadow:0 0 0 6px rgba(217,45,32,0)}}
+  .cc-tab .cnt{
+    font-size:.72rem;background:rgba(22,22,22,.08);border-radius:999px;padding:2px 8px;
+  }
+  .cc-tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.18)}
   .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+  [role="tabpanel"][hidden]{display:none}
 
   .cc-card{
-    background:var(--white);border-radius:22px;overflow:hidden;text-decoration:none;color:inherit;
-    box-shadow:var(--shadow-card);display:flex;flex-direction:column;
+    background:var(--white);border:1px solid rgba(22,22,22,.08);border-radius:22px;overflow:hidden;
+    text-decoration:none;color:inherit;box-shadow:var(--shadow-card);display:flex;flex-direction:column;
     transition:transform .22s,box-shadow .22s;
   }
   .cc-card:hover{transform:translateY(-6px)}
-  .cc-banner{height:104px;position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;overflow:hidden}
+  .cc-banner{height:104px;position:relative;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;padding:14px 16px;overflow:hidden}
   .cc-banner .ghost{
     position:absolute;right:-6px;bottom:-34px;font-family:var(--display);font-weight:800;
     font-size:6.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.3);pointer-events:none;
@@ -48,39 +99,115 @@
   .st-live::before{content:"●";margin-right:5px;color:#D92D20}
   .st-upcoming{background:rgba(255,255,255,.9);color:var(--charcoal)}
   .st-closed{background:rgba(0,0,0,.4);color:rgba(255,255,255,.85)}
-  .ppo-chip{
-    font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    background:var(--charcoal);color:var(--orange);border-radius:999px;padding:5px 11px;
-  }
+  .st-closing{background:#B42318;color:#fff}
+
   .cc-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:11px;flex:1}
   .cc-host{font-size:.78rem;font-weight:600;color:var(--ink-soft)}
   .cc-title{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.25;letter-spacing:-.01em}
   .cc-card:hover .cc-title{color:var(--orange-deep)}
   .cc-tags{display:flex;flex-wrap:wrap;gap:6px}
   .cc-tags span{font-size:.7rem;font-weight:600;background:var(--cream);border-radius:999px;padding:4px 10px;color:var(--ink-soft)}
-  .cc-meta{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:.8rem;color:var(--ink-soft);margin-top:2px}
-  .cc-meta b{color:var(--charcoal);font-weight:600}
+  .cc-tags .tg-ppo{background:var(--charcoal);color:var(--orange)}
+  .cc-tags .tg-free{background:var(--green-soft);color:var(--green)}
+  .cc-tags .tg-beg{background:var(--orange-soft);color:var(--orange-deep)}
+  .cc-facts{display:grid;gap:7px;font-size:.83rem;color:var(--ink-soft);margin-top:2px}
+  .cc-facts div{display:flex;justify-content:space-between;gap:12px}
+  .cc-facts b{color:var(--charcoal);font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62%}
   .cc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px dashed rgba(22,22,22,.15)}
-  .cc-count{
-    display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;
-  }
+  .cc-count{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600}
   .cc-count svg{width:14px;height:14px;flex:none}
   .cd-warn{color:#B42318}
   .cd-ok{color:var(--green)}
   .cc-go{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.88rem;color:var(--orange-deep)}
-  .cc-go svg{width:16px;height:16px}
-  .cc-empty{color:var(--ink-soft);font-size:.95rem;padding:8px 0 20px}
+  .cc-go svg{width:16px;height:16px;transition:transform .2s}
+  .cc-card:hover .cc-go svg{transform:translateX(4px)}
+  .cc-empty{color:var(--ink-soft);font-size:.95rem;padding:8px 0 4px}
 
-  .my-strip{background:var(--green-soft);border-radius:18px;padding:18px 24px;margin-bottom:34px;display:none}
+  .my-strip{background:var(--green-soft);border-radius:18px;padding:18px 24px;margin-bottom:30px;display:none}
   .my-strip.show{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .my-strip b{color:var(--green)}
   .my-strip .links{display:flex;flex-wrap:wrap;gap:8px}
   .my-strip a{font-size:.85rem;font-weight:600;color:var(--green);text-decoration:none;border:1.5px solid rgba(11,31,58,.4);border-radius:999px;padding:6px 14px}
   .my-strip a:hover{background:var(--green);color:#fff}
 
-  .cc-cross{background:var(--charcoal);color:var(--cream);border-radius:26px;padding:44px 46px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-  .cc-cross h2{color:#fff;font-size:1.5rem;margin:0 0 8px}
-  .cc-cross p{color:rgba(250,247,242,.7);font-size:.95rem;max-width:520px}
+  /* ---------- why compete ---------- */
+  .why-sec{padding:84px 0}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .why-card{
+    background:var(--white);border-radius:22px;box-shadow:var(--shadow-card);padding:30px 28px;
+    transition:transform .22s,box-shadow .22s;
+  }
+  .why-card:hover{transform:translateY(-6px)}
+  .why-ico{
+    width:48px;height:48px;border-radius:14px;background:var(--navy-soft,#E7EDF6);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+    transition:background .25s,color .25s;
+  }
+  .why-card:hover .why-ico{background:var(--navy);color:#fff}
+  .why-ico svg{width:22px;height:22px}
+  .why-card h3{font-size:1.08rem;font-weight:700;margin-bottom:8px}
+  .why-card p{font-size:.9rem;color:var(--ink-soft)}
+  @media (max-width:980px){.why-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
+
+  /* ---------- how it works ---------- */
+  .how-sec{background:var(--white);padding:84px 0}
+  .how-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;position:relative}
+  .how-step{position:relative;padding:26px 22px 24px;background:var(--cream);border-radius:20px;overflow:hidden;transition:transform .22s}
+  .how-step:hover{transform:translateY(-5px)}
+  .how-step .num{
+    position:absolute;top:-14px;right:2px;font-family:var(--display);font-weight:800;
+    font-size:4.6rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(11,31,58,.18);
+    transition:-webkit-text-stroke .25s;
+  }
+  .how-step:hover .num{-webkit-text-stroke:1.5px var(--orange)}
+  .how-step h3{font-size:1rem;font-weight:700;margin-bottom:7px;position:relative;max-width:82%}
+  .how-step p{font-size:.85rem;color:var(--ink-soft);position:relative}
+  @media (max-width:980px){.how-rail{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.how-rail{grid-template-columns:1fr}}
+
+  /* ---------- categories ---------- */
+  .cat-sec{padding:84px 0}
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
+  .cat-card{
+    background:var(--white);border:1px solid rgba(22,22,22,.08);border-radius:18px;padding:22px 20px;
+    transition:transform .2s,border-color .2s,box-shadow .2s;
+  }
+  .cat-card:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:var(--shadow-card)}
+  .cat-mono{
+    display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;
+    font-family:var(--display);font-weight:800;font-size:.85rem;letter-spacing:.02em;
+    background:var(--navy);color:#fff;margin-bottom:14px;transition:background .25s;
+  }
+  .cat-card:hover .cat-mono{background:var(--orange)}
+  .cat-card h3{font-size:.98rem;font-weight:700;margin-bottom:6px}
+  .cat-card p{font-size:.83rem;color:var(--ink-soft)}
+
+  /* ---------- coaching (navy band) ---------- */
+  .coach-sec{background:var(--navy);color:var(--cream);padding:92px 0}
+  .coach-sec .eyebrow{color:rgba(250,247,242,.75)}
+  .coach-sec .eyebrow::before{border-color:var(--orange)}
+  .coach-sec h2{color:#fff}
+  .coach-sec .sec-head p{color:rgba(250,247,242,.7)}
+  .coach-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:40px}
+  .coach-card{
+    background:rgba(250,247,242,.06);border:1px solid rgba(250,247,242,.16);
+    border-radius:18px;padding:24px 20px;transition:background .25s,transform .25s;
+  }
+  .coach-card:hover{background:rgba(250,247,242,.12);transform:translateY(-5px)}
+  .coach-card .ci{font-family:var(--display);font-weight:800;font-size:.8rem;color:var(--orange);letter-spacing:.1em;margin-bottom:12px;display:block}
+  .coach-card h3{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:7px}
+  .coach-card p{font-size:.8rem;color:rgba(250,247,242,.62)}
+  .coach-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-ghost-w{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--body);font-weight:600;font-size:1rem;padding:14px 26px;min-height:48px;
+    border-radius:999px;text-decoration:none;color:#fff;border:1.5px solid rgba(250,247,242,.45);
+    transition:border-color .2s,background .2s;
+  }
+  .btn-ghost-w:hover{border-color:#fff;background:rgba(250,247,242,.08)}
+  @media (max-width:980px){.coach-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.coach-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -98,7 +225,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
-    <a class="btn btn-primary btn-sm" href="#live">See live competitions</a>
+    <a class="btn btn-primary btn-sm" href="#competitions">Explore competitions</a>
     <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -109,65 +236,180 @@
     <a href="guest-lectures.html">Guest lectures</a>
     <a href="blog.html">Blog</a>
     <a href="playbooks.html">Playbooks</a>
-    <a href="#live" style="color:var(--orange-deep)">See live competitions</a>
+    <a href="#competitions" style="color:var(--orange-deep)">Explore competitions</a>
   </div>
 </nav>
 
+<!-- 1. HERO -->
 <header class="cc-hero">
   <svg class="hero-blob" style="position:absolute;top:-130px;right:-140px;width:320px;opacity:.9" viewBox="0 0 330 300" aria-hidden="true">
     <path fill="#FB4D0A" d="M236 20c46 25 86 70 82 114-4 44-52 88-106 102-53 14-110-4-142-42C38 156 32 98 58 60 84 21 142 3 182 6c20 2 38 7 54 14Z"/>
   </svg>
   <div class="wrap">
     <p class="eyebrow" style="justify-content:center">Case competitions</p>
-    <h1>Your college brand won't open doors.<br><span class="accent">A podium will</span>.</h1>
-    <p class="lead">PPO-oriented case competitions where a strong team from any campus can beat a brand-name college on the merits. Register, submit within timed rounds, earn certificates worth posting.</p>
-    <div class="cc-wedge">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Built for Tier 2 talent</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>PPO &amp; PPI-track prizes</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Shareable certificates</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Coaching to win, built in</span>
+    <h1>Compete in MBA case challenges built for <span class="accent">real career outcomes</span></h1>
+    <p class="lead">Explore live and upcoming case competitions designed for MBA students to solve business problems, sharpen thinking, and strengthen placement readiness.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#competitions">Explore competitions</a>
+      <a class="btn btn-ghost" href="#coaching">Get case comp coaching</a>
+    </div>
+
+    <div class="flow" aria-hidden="true">
+      <div class="flow-steps" id="flow-steps">
+        <div class="flow-track"><i class="flow-fill" id="flow-fill"></i></div>
+        <div class="flow-step"><span class="fs-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span><small>Register</small></div>
+        <div class="flow-step"><span class="fs-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg></span><small>Solve case</small></div>
+        <div class="flow-step"><span class="fs-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></span><small>Submit deck</small></div>
+        <div class="flow-step"><span class="fs-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span><small>Advance</small></div>
+        <div class="flow-step"><span class="fs-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><small>Results</small></div>
+      </div>
     </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="my-strip" id="my-strip">
-    <span><b>My competitions:</b> you're registered — jump back in.</span>
-    <span class="links" id="my-links"></span>
-  </div>
-</div>
-
-<section class="cc-section" id="live">
+<!-- 2. LIVE & UPCOMING -->
+<section class="comps-sec" id="competitions">
   <div class="wrap">
-    <h2><span class="live-dot" aria-hidden="true"></span>Live now</h2>
-    <div class="cc-grid" id="grid-live"></div>
-    <p class="cc-empty" id="empty-live" hidden>Nothing live at this moment — check the upcoming list below.</p>
+    <div class="my-strip" id="my-strip">
+      <span><b>My competitions:</b> you're registered — jump back in.</span>
+      <span class="links" id="my-links"></span>
+    </div>
+
+    <div class="sec-head">
+      <p class="eyebrow">The arena</p>
+      <h2>Live &amp; upcoming competitions</h2>
+      <p>Statuses update automatically from competition dates — what's live now, what's opening next, and how past editions played out.</p>
+    </div>
+
+    <div class="cc-tabs" role="tablist" aria-label="Competition status">
+      <button class="cc-tab" role="tab" aria-selected="true" data-t="live"><span class="live-dot" aria-hidden="true"></span>Live <span class="cnt" id="cnt-live">0</span></button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-t="upcoming">Upcoming <span class="cnt" id="cnt-upcoming">0</span></button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-t="closed">Closed <span class="cnt" id="cnt-closed">0</span></button>
+    </div>
+
+    <div id="panel-live" role="tabpanel">
+      <div class="cc-grid" id="grid-live"></div>
+      <p class="cc-empty" id="empty-live" hidden>Nothing live at this moment — check the upcoming tab.</p>
+    </div>
+    <div id="panel-upcoming" role="tabpanel" hidden>
+      <div class="cc-grid" id="grid-upcoming"></div>
+      <p class="cc-empty" id="empty-upcoming" hidden>New competitions are announced here first.</p>
+    </div>
+    <div id="panel-closed" role="tabpanel" hidden>
+      <div class="cc-grid" id="grid-closed"></div>
+      <p class="cc-empty" id="empty-closed" hidden>Past competitions will be archived here.</p>
+    </div>
   </div>
 </section>
 
-<section class="cc-section">
+<!-- 3. WHY COMPETE -->
+<section class="why-sec">
   <div class="wrap">
-    <h2>Upcoming</h2>
-    <div class="cc-grid" id="grid-upcoming"></div>
-    <p class="cc-empty" id="empty-upcoming" hidden>New competitions are announced here first.</p>
-  </div>
-</section>
-
-<section class="cc-section">
-  <div class="wrap">
-    <h2>Past competitions</h2>
-    <div class="cc-grid" id="grid-closed"></div>
-  </div>
-</section>
-
-<section class="cc-section" style="padding-bottom:96px">
-  <div class="wrap">
-    <div class="cc-cross reveal">
-      <div>
-        <h2>Want to actually win one?</h2>
-        <p>Stage-by-stage case-competition coaching — deck reviews, finals rehearsals, judges'-eye feedback — is Phase 4 of the mentorship journey.</p>
+    <div class="sec-head">
+      <p class="eyebrow">Why here</p>
+      <h2>Why compete on Embark India</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+        <h3>Built for MBA students</h3>
+        <p>Competitions focused on real business problems across marketing, finance, strategy, analytics, and management.</p>
       </div>
-      <a class="btn btn-primary" href="mentorship.html#phase-4">Get coached to win</a>
+      <div class="why-card reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+        <h3>Designed for tier-2 talent</h3>
+        <p>A platform built for students who want to build proof beyond their college brand.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <h3>Guidance available</h3>
+        <p>Access coaching, playbooks, and mentor support to improve your submissions at every round.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg></span>
+        <h3>Career-oriented challenges</h3>
+        <p>Competitions designed around skills useful for internships, PPOs, and final placements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. HOW IT WORKS -->
+<section class="how-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The process</p>
+      <h2>How it works</h2>
+    </div>
+    <div class="how-rail">
+      <div class="how-step reveal"><span class="num">1</span><h3>Choose a competition</h3><p>Browse live and upcoming challenges.</p></div>
+      <div class="how-step reveal"><span class="num">2</span><h3>Register solo or as a team</h3><p>Join individually or add teammates.</p></div>
+      <div class="how-step reveal"><span class="num">3</span><h3>Solve the case</h3><p>Review instructions, timelines, and deliverables.</p></div>
+      <div class="how-step reveal"><span class="num">4</span><h3>Submit before deadline</h3><p>Upload your deck, file, or link within the round window.</p></div>
+      <div class="how-step reveal"><span class="num">5</span><h3>Track your progress</h3><p>See round status, advancement, and results.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CATEGORIES -->
+<section class="cat-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Every stream</p>
+      <h2>Competition categories</h2>
+      <p>Challenges across every MBA specialisation — pick the arena that matches where you want to be placed.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal"><span class="cat-mono">MS</span><h3>Marketing Strategy</h3><p>Solve brand, growth, consumer, and go-to-market challenges.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">FV</span><h3>Finance &amp; Valuation</h3><p>Work on business finance, investment, valuation, and market cases.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">CS</span><h3>Consulting &amp; Case Solving</h3><p>Structure ambiguous business problems and present recommendations.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">PM</span><h3>Product Management</h3><p>Crack product sense, prioritisation, roadmap, and metrics challenges.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">AI</span><h3>Analytics &amp; AI</h3><p>Turn data into decisions with analytics and AI-driven business cases.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">GM</span><h3>General Management</h3><p>Take cross-functional business calls the way a P&amp;L owner would.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">EN</span><h3>Entrepreneurship</h3><p>Build business models, pitches, and zero-to-one problem solving.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">OP</span><h3>Operations &amp; Supply Chain</h3><p>Optimise processes, logistics, and efficiency under constraints.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">HR</span><h3>HR Strategy</h3><p>Solve talent, org design, and people-strategy cases.</p></div>
+      <div class="cat-card reveal"><span class="cat-mono">BQ</span><h3>Business Quiz</h3><p>Fast-paced quizzes on brands, business news, and strategy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. COACHING -->
+<section class="coach-sec" id="coaching">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Win, not just participate</p>
+      <h2>Need help building a stronger case submission?</h2>
+      <p>Get mentor-led support for problem structuring, research, slide design, storytelling, and presentation readiness.</p>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card reveal"><span class="ci">01</span><h3>Case understanding session</h3><p>Break down the problem statement, judging criteria, and what winners actually do.</p></div>
+      <div class="coach-card reveal"><span class="ci">02</span><h3>Research &amp; framework guidance</h3><p>Pick the right data, sources, and structure before you build a single slide.</p></div>
+      <div class="coach-card reveal"><span class="ci">03</span><h3>Deck structure review</h3><p>Get your storyline and flow reviewed by mentors who have judged competitions.</p></div>
+      <div class="coach-card reveal"><span class="ci">04</span><h3>Storyline &amp; slide feedback</h3><p>Slide-by-slide feedback on clarity, design, and the strength of your argument.</p></div>
+      <div class="coach-card reveal"><span class="ci">05</span><h3>Final presentation practice</h3><p>Mock Q&amp;A and delivery rehearsal before you face the judges.</p></div>
+    </div>
+    <div class="coach-ctas">
+      <a class="btn btn-primary" href="mentorship.html#phase-4">Get case comp coaching</a>
+      <a class="btn-ghost-w" href="playbooks.html">Explore case playbooks</a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FAQ -->
+<section class="faq" style="padding:84px 0 96px">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Good to know</p>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item"><summary>Can I participate alone?</summary><p class="faq-body">Yes, some competitions allow solo participation. Others may require teams depending on the rules — the team size is shown on every competition card.</p></details>
+      <details class="faq-item"><summary>Can I register as a team?</summary><p class="faq-body">Yes, the team lead can register and add teammates during registration.</p></details>
+      <details class="faq-item"><summary>Are competitions free or paid?</summary><p class="faq-body">Some competitions are free, while others may require a small registration fee. The fee is always shown upfront on the card and the details page.</p></details>
+      <details class="faq-item"><summary>How do submissions work?</summary><p class="faq-body">Each round has a deadline. Teams upload their submission before the round closes — the details page shows every round's window and status.</p></details>
+      <details class="faq-item"><summary>How are results decided?</summary><p class="faq-body">Judging happens offline. The platform shows round status, advancement, and final results once updated.</p></details>
+      <details class="faq-item"><summary>Can I get help preparing my submission?</summary><p class="faq-body">Yes — Embark India offers case competition coaching and playbooks to help you prepare a stronger submission.</p></details>
     </div>
   </div>
 </section>
@@ -181,19 +423,24 @@
   </div>
 </footer>
 
-<script src="competitions.js?v=2"></script>
+<script src="competitions.js?v=3"></script>
 <script>
-  const tickers = [];
+  // ----- card renderer -----
+  const teamText = c => c.teamMin === 1 && c.teamMax === 1 ? 'Solo'
+    : c.teamMin === 1 ? `Solo or team up to ${c.teamMax}`
+    : `Team of ${c.teamMin}–${c.teamMax}`;
+
   const card = c => {
     const st = compStatus(c);
     const rw = regWindow(c);
+    const closingSoon = rw === 'open' && (new Date(c.regClose) - new Date()) < 4 * 864e5;
     const stChip = st === 'live' ? '<span class="st-chip st-live">Live</span>'
-      : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
+      : st === 'upcoming' ? '<span class="st-chip st-upcoming">Coming soon</span>'
       : '<span class="st-chip st-closed">Closed</span>';
+    const prize = (c.prizes && c.prizes[0] && c.prizes[0][1]) || '—';
     let foot;
     if (st === 'closed') {
-      const w = (c.seedWinners && c.seedWinners[0]) || null;
-      foot = `<span class="cc-count cd-ok">${w ? '🏆'.replace('🏆','') + 'Winners declared' : 'Completed'}</span>`;
+      foot = `<span class="cc-count cd-ok">Winners declared</span>`;
     } else if (rw === 'open') {
       foot = `<span class="cc-count cd-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Reg closes in <span data-count="${c.regClose}">${countdown(c.regClose) || '—'}</span></span>`;
     } else if (rw === 'not-open') {
@@ -206,36 +453,51 @@
       <div class="cc-banner bn-${c.banner}">
         <span class="ghost" aria-hidden="true">${c.category.slice(0,2).toUpperCase()}</span>
         ${stChip}
-        ${c.ppo ? '<span class="ppo-chip">PPO track</span>' : ''}
+        ${closingSoon ? '<span class="st-chip st-closing">Reg closing soon</span>' : ''}
       </div>
       <div class="cc-body">
         <span class="cc-host">${c.host}</span>
         <span class="cc-title">${c.title}</span>
-        <div class="cc-tags"><span>${c.category}</span><span>${c.fee ? '₹' + c.fee + ' / team' : 'Free'}</span><span>Team ${c.teamMin}–${c.teamMax}</span></div>
-        <div class="cc-meta">
-          <span><b>${totalRegs(c).toLocaleString('en-IN')}</b> registered</span>
-          <span><b>${c.rounds.length}</b> rounds</span>
-          <span>${fmtDate(c.start)} – ${fmtDate(c.end)}</span>
+        <div class="cc-tags">
+          <span>${c.category}</span>
+          <span class="${c.fee ? '' : 'tg-free'}">${c.fee ? '₹' + c.fee + ' / team' : 'Free'}</span>
+          ${c.ppo ? '<span class="tg-ppo">PPO opportunity</span>' : ''}
+          ${c.beginner ? '<span class="tg-beg">Beginner friendly</span>' : ''}
+        </div>
+        <div class="cc-facts">
+          <div><span>Registration deadline</span><b>${fmtDate(c.regClose)}</b></div>
+          <div><span>Team size</span><b>${teamText(c)}</b></div>
+          <div><span>Top prize</span><b>${prize}</b></div>
+          <div><span>Registered</span><b>${totalRegs(c).toLocaleString('en-IN')} · ${c.rounds.length} rounds</b></div>
         </div>
         <div class="cc-foot">
           ${foot}
-          <span class="cc-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="cc-go">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </div>
     </a>`;
   };
 
+  // ----- render into tabs -----
   const comps = allComps(false);
   const groups = { live: [], upcoming: [], closed: [] };
   comps.forEach(c => groups[compStatus(c)].push(c));
   ['live','upcoming','closed'].forEach(g => {
-    const grid = document.getElementById('grid-' + g);
-    grid.innerHTML = groups[g].map(card).join('');
-    const empty = document.getElementById('empty-' + g);
-    if (empty) empty.hidden = groups[g].length > 0;
+    document.getElementById('grid-' + g).innerHTML = groups[g].map(card).join('');
+    document.getElementById('cnt-' + g).textContent = groups[g].length;
+    document.getElementById('empty-' + g).hidden = groups[g].length > 0;
   });
 
-  // My competitions strip (6.2)
+  const tabs = document.querySelectorAll('.cc-tab');
+  const showTab = t => {
+    tabs.forEach(b => b.setAttribute('aria-selected', String(b.dataset.t === t)));
+    ['live','upcoming','closed'].forEach(g =>
+      document.getElementById('panel-' + g).hidden = g !== t);
+  };
+  tabs.forEach(b => b.addEventListener('click', () => showTab(b.dataset.t)));
+  if (!groups.live.length) showTab(groups.upcoming.length ? 'upcoming' : 'closed');
+
+  // ----- my competitions strip -----
   const mine = comps.filter(c => myReg(c.id));
   if (mine.length) {
     document.getElementById('my-strip').classList.add('show');
@@ -243,12 +505,37 @@
       `<a href="competition.html?c=${c.id}">${c.title.split(':')[0]} · ${compStatus(c)}</a>`).join('');
   }
 
-  // live countdowns
+  // ----- live countdowns -----
   setInterval(() => {
     document.querySelectorAll('[data-count]').forEach(el => {
       el.textContent = countdown(el.dataset.count) || 'closed';
     });
   }, 1000);
+
+  // ----- hero flow animation -----
+  (() => {
+    const steps = [...document.querySelectorAll('.flow-step')];
+    const fill = document.getElementById('flow-fill');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let i = -1;
+    const tick = () => {
+      i = (i + 1) % (steps.length + 2); // pause of 2 beats at the end
+      const idx = Math.min(i, steps.length - 1);
+      steps.forEach((s, k) => {
+        s.classList.toggle('done', k < idx || i >= steps.length);
+        s.classList.toggle('on', k === idx && i < steps.length);
+      });
+      fill.style.width = (i >= steps.length ? 100 : (idx / (steps.length - 1)) * 100) + '%';
+    };
+    tick();
+    setInterval(tick, 1300);
+  })();
+
+  // ----- reveal on scroll -----
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 <script src="nav.js?v=2" defer></script>
 </body>
