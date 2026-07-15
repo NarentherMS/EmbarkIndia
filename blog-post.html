@@ -23,7 +23,7 @@
   .article-colleges{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 22px}
   .article-colleges a{
     font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    border:1px solid rgba(32,28,21,.4);padding:4px 10px;text-decoration:none;color:inherit;
+    border:1px solid rgba(22,22,22,.4);padding:4px 10px;text-decoration:none;color:inherit;
     transition:background .18s;
   }
   .article-colleges a:hover{background:var(--orange-soft)}
@@ -128,7 +128,7 @@
   document.getElementById('share-x').href = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(url);
   document.getElementById('share-copy').addEventListener('click', async e => {
     try { await navigator.clipboard.writeText(url); } catch {}
-    e.currentTarget.style.background = '#1E4034';
+    e.currentTarget.style.background = '#0B1F3A';
     e.currentTarget.style.color = '#fff';
     setTimeout(() => { e.currentTarget && (e.currentTarget.style.background = '', e.currentTarget.style.color = ''); }, 1200);
   });

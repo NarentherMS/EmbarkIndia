@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="gl.css">
 <style>
   .d-banner{position:relative;padding:64px 0 56px;color:#fff;overflow:hidden}
-  .bn-orange{background:linear-gradient(135deg,#FF8A33,#F97316 55%,#DE5F04)}
-  .bn-green{background:linear-gradient(135deg,#2A5A46,#1E4034 60%,#152E25)}
-  .bn-dark{background:linear-gradient(135deg,#332C20,#201C15 60%,#14110C)}
-  .bn-charcoal{background-image:radial-gradient(rgba(249,115,22,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#14110C}
+  .bn-orange{background:linear-gradient(135deg,#FF7038,#FB4D0A 55%,#C93A05)}
+  .bn-green{background:linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)}
+  .bn-dark{background:linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)}
+  .bn-charcoal{background-image:radial-gradient(rgba(251,77,10,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#101010}
   .d-banner .ghost{
     position:absolute;right:-10px;bottom:-60px;font-family:var(--display);font-weight:800;
     font-size:13rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;
@@ -39,14 +39,14 @@
   .d-list{list-style:none;display:grid;gap:10px}
   .d-list li{display:flex;gap:10px;font-size:.93rem;color:#3A352C;align-items:flex-start}
   .d-list svg{width:16px;height:16px;flex:none;color:var(--orange);margin-top:3px}
-  .prize-row{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(32,28,21,.15);font-size:.94rem}
+  .prize-row{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(22,22,22,.15);font-size:.94rem}
   .prize-row:last-child{border-bottom:none}
   .prize-row b{font-weight:600}
   .prize-row span{color:var(--ink-soft);text-align:right}
 
   /* rounds timeline */
   .round{
-    position:relative;padding:20px 22px;border:1.5px solid rgba(32,28,21,.12);
+    position:relative;padding:20px 22px;border:1.5px solid rgba(22,22,22,.12);
     border-radius:16px;margin-bottom:14px;
   }
   .round.open{border-color:var(--orange);background:var(--orange-soft)}
@@ -81,7 +81,7 @@
   .member-row{display:flex;gap:8px;margin-bottom:8px}
   .member-row input{flex:1}
   .add-member{
-    background:none;border:1.5px dashed rgba(32,28,21,.3);border-radius:12px;
+    background:none;border:1.5px dashed rgba(22,22,22,.3);border-radius:12px;
     font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink-soft);
     padding:10px;cursor:pointer;width:100%;min-height:44px;
   }
@@ -101,7 +101,7 @@
   .adv-yes{background:var(--green-soft);color:var(--green)}
   .adv-no{background:var(--cream-deep);color:var(--ink-soft)}
   .adv-wait{background:var(--orange-soft);color:var(--orange-deep)}
-  .win-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(32,28,21,.15)}
+  .win-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(22,22,22,.15)}
   .win-row:last-child{border-bottom:none}
   .win-rank{
     flex:none;width:36px;height:36px;border-radius:50%;font-family:var(--display);font-weight:800;
@@ -196,7 +196,7 @@
     <div class="side-card" id="action-card"></div>
     <div class="side-card" style="background:var(--green);color:var(--cream)">
       <h3 style="color:#fff">Get help to win</h3>
-      <p style="font-size:.9rem;color:rgba(244,240,230,.75);margin-bottom:16px">Deck reviews, stage-wise strategy and finals rehearsal with mentors who judge these competitions — Phase 4 of the mentorship journey.</p>
+      <p style="font-size:.9rem;color:rgba(250,247,242,.75);margin-bottom:16px">Deck reviews, stage-wise strategy and finals rehearsal with mentors who judge these competitions — Phase 4 of the mentorship journey.</p>
       <a class="btn btn-primary btn-sm" href="mentorship.html#phase-4">Explore coaching</a>
     </div>
     <div class="side-card">
@@ -500,7 +500,7 @@
       certHtml += `<button class="btn btn-ghost btn-sm" id="cert-part">Download participation certificate</button>`;
     }
     const certBlock = certHtml
-      ? `<div style="margin-top:20px;padding-top:18px;border-top:1px dashed rgba(32,28,21,.2)"><h3 style="font-size:1rem">Your certificates</h3><div class="cert-actions">${certHtml}</div><p class="side-note" style="margin-top:10px">Real PNG, brand-designed — post it on LinkedIn.</p></div>`
+      ? `<div style="margin-top:20px;padding-top:18px;border-top:1px dashed rgba(22,22,22,.2)"><h3 style="font-size:1rem">Your certificates</h3><div class="cert-actions">${certHtml}</div><p class="side-note" style="margin-top:10px">Real PNG, brand-designed — post it on LinkedIn.</p></div>`
       : '';
 
     action.innerHTML = `
@@ -536,38 +536,38 @@
     const cv = document.createElement('canvas');
     cv.width = 1400; cv.height = 990;
     const x = cv.getContext('2d');
-    x.fillStyle = '#F4F0E6'; x.fillRect(0, 0, 1400, 990);
-    x.strokeStyle = '#F97316'; x.lineWidth = 5; x.setLineDash([16, 12]);
+    x.fillStyle = '#FAF7F2'; x.fillRect(0, 0, 1400, 990);
+    x.strokeStyle = '#FB4D0A'; x.lineWidth = 5; x.setLineDash([16, 12]);
     x.strokeRect(45, 45, 1310, 900);
     x.setLineDash([]);
-    x.fillStyle = '#201C15';
+    x.fillStyle = '#161616';
     x.font = '800 54px "Bricolage Grotesque", sans-serif';
     x.textAlign = 'center';
     x.fillText('e', 640, 140); // wordmark
-    x.fillStyle = '#F97316'; x.fillText('MBA', 700, 140);
-    x.fillStyle = '#201C15'; x.fillText('rk', 768, 140);
-    x.font = '500 22px Inter, sans-serif'; x.fillStyle = '#5C554A';
+    x.fillStyle = '#FB4D0A'; x.fillText('MBA', 700, 140);
+    x.fillStyle = '#161616'; x.fillText('rk', 768, 140);
+    x.font = '500 22px Inter, sans-serif'; x.fillStyle = '#6B7280';
     x.fillText('E M B A R K   I N D I A   ·   C A S E   C O M P E T I T I O N S', 700, 185);
-    x.font = '400 34px Inter, sans-serif'; x.fillStyle = '#5C554A';
+    x.font = '400 34px Inter, sans-serif'; x.fillStyle = '#6B7280';
     x.fillText(kind === 'winner' ? 'CERTIFICATE OF ACHIEVEMENT' : 'CERTIFICATE OF PARTICIPATION', 700, 300);
-    x.font = '800 72px "Bricolage Grotesque", sans-serif'; x.fillStyle = '#201C15';
+    x.font = '800 72px "Bricolage Grotesque", sans-serif'; x.fillStyle = '#161616';
     x.fillText(name, 700, 420);
-    x.font = '400 30px Inter, sans-serif'; x.fillStyle = '#5C554A';
+    x.font = '400 30px Inter, sans-serif'; x.fillStyle = '#6B7280';
     x.fillText(kind === 'winner' ? ('secured rank ' + rank + ' in') : 'participated in', 700, 490);
-    x.font = '700 40px "Bricolage Grotesque", sans-serif'; x.fillStyle = '#1E4034';
+    x.font = '700 40px "Bricolage Grotesque", sans-serif'; x.fillStyle = '#0B1F3A';
     const words = compTitle.split(' ');
     let line = '', lines = [];
     words.forEach(w => { if ((line + w).length > 42) { lines.push(line.trim()); line = ''; } line += w + ' '; });
     lines.push(line.trim());
     lines.forEach((l, i) => x.fillText(l, 700, 560 + i * 52));
     const y0 = 560 + lines.length * 52 + 60;
-    x.font = '400 24px Inter, sans-serif'; x.fillStyle = '#5C554A';
+    x.font = '400 24px Inter, sans-serif'; x.fillStyle = '#6B7280';
     x.fillText(new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }), 700, y0);
     x.font = '500 18px Inter, sans-serif';
     x.fillText('Certificate ID: EMB-' + Math.random().toString(36).slice(2, 10).toUpperCase() + '  ·  verify at embarkindia.in', 700, 905);
     if (kind === 'winner') {
       x.beginPath(); x.arc(1180, 780, 70, 0, Math.PI * 2);
-      x.fillStyle = '#F97316'; x.fill();
+      x.fillStyle = '#FB4D0A'; x.fill();
       x.fillStyle = '#fff'; x.font = '800 56px "Bricolage Grotesque", sans-serif';
       x.fillText('#' + rank, 1180, 800);
     }
