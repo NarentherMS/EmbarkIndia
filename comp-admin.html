@@ -145,6 +145,17 @@
         <div class="field full"><label>Prizes (one per line: Label | Prize)</label><textarea id="cf-prizes" placeholder="Winner | ₹30,000 + PPI interviews&#10;Runner-up | ₹15,000"></textarea></div>
         <div class="field"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="cf-ppo" style="width:18px;height:18px;accent-color:#FB4D0A">PPO / PPI track</label></div>
         <div class="field"></div>
+        <div class="field"><label>Host logo (square image)</label><input id="cf-logo" type="file" accept="image/*"><small id="cf-logo-now" style="font-size:.75rem;color:var(--ink-soft)"></small></div>
+        <div class="field"><label>Banner images (up to 3, wide)</label><input id="cf-banners" type="file" accept="image/*" multiple><small id="cf-banners-now" style="font-size:.75rem;color:var(--ink-soft)"></small></div>
+        <div class="field"><label>Starting views boost (optional)</label><input id="cf-vboost" type="number" min="0" value="0"></div>
+        <div class="field"><label>Starting registrations boost (optional)</label><input id="cf-rboost" type="number" min="0" value="0"></div>
+        <div class="field full"><label>Eligibility criteria (one per line)</label><textarea id="cf-eligcrit" placeholder="The participant must be a 1st or 2nd year full-time MBA student&#10;Participants must register with their institute email id"></textarea></div>
+        <div class="field full"><label>Team structure (one per line)</label><textarea id="cf-teamstruct" placeholder="Each team must consist of 4 members&#10;One person can only be part of one team"></textarea></div>
+        <div class="field full"><label>Eligible institutes (one per line — if filled, ONLY these can register)</label><textarea id="cf-institutes" placeholder="IIM Ahmedabad&#10;FMS Delhi&#10;Leave empty to keep the competition open to all"></textarea></div>
+        <div class="field full"><label>Competition structure (one per line)</label><textarea id="cf-structure" placeholder="Round 1: online submission&#10;Finals: in-person pitch"></textarea></div>
+        <div class="field full"><label>Submission guidelines (one per line)</label><textarea id="cf-guidelines" placeholder="Decks in PDF, max 12 slides&#10;Name your file Team_Round1.pdf"></textarea></div>
+        <div class="field full"><label>Contacts (one per line: Name | Role | Email | Phone)</label><textarea id="cf-contacts" placeholder="Narenther | Organiser | hello@embarkindia.in | +91-9XXXXXXXXX"></textarea></div>
+        <div class="field full"><label>About the host</label><textarea id="cf-abouthost" placeholder="A short paragraph about the hosting brand or Embark India."></textarea></div>
         <div class="field"><label>Registration opens <span class="req">*</span></label><input id="cf-regopen" type="datetime-local" required></div>
         <div class="field"><label>Registration closes <span class="req">*</span></label><input id="cf-regclose" type="datetime-local" required></div>
         <div class="field"><label>Competition starts <span class="req">*</span></label><input id="cf-start" type="datetime-local" required></div>
@@ -158,7 +169,7 @@
           <small>Draft = hidden from students. Published competitions surface automatically by date.</small>
           <span style="display:flex;gap:10px;align-items:center">
             <button class="btn btn-ghost" type="button" id="save-draft">Save as draft</button>
-            <button class="btn btn-primary" type="submit">Publish</button>
+            <button class="btn btn-primary" type="submit">Go live 🚀</button>
             <span class="save-ok" id="save-ok">Saved ✓</span>
           </span>
         </div>
@@ -262,7 +273,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=2"></script>
+<script src="db.js?v=3"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
@@ -353,7 +364,9 @@
       <div class="field"><label>Opens</label><input type="datetime-local" class="rd-open" value="${r.opens ? toLocal(r.opens) : ''}"></div>
       <div class="field"><label>Closes (deadline)</label><input type="datetime-local" class="rd-close" value="${r.closes ? toLocal(r.closes) : ''}"></div>
       <button type="button" class="mini-btn danger rd-del" style="height:44px">Remove</button>
-      <div class="field" style="grid-column:1/-1"><label>Instructions</label><input type="text" class="rd-brief" value="${esc(r.brief || '')}" placeholder="What must teams submit in this round?"></div>`;
+      <div class="field"><label>Type</label><select class="rd-type"><option value="submission" ${r.type !== 'event' ? 'selected' : ''}>Submission (upload + deadline)</option><option value="event" ${r.type === 'event' ? 'selected' : ''}>Event (webinar / session)</option></select></div>
+      <div class="field" style="grid-column:2/-1"><label>Event link (optional — YouTube/Zoom, for Event rounds)</label><input type="url" class="rd-link" value="${esc(r.link || '')}" placeholder="https://…"></div>
+      <div class="field" style="grid-column:1/-1"><label>Instructions</label><input type="text" class="rd-brief" value="${esc(r.brief || '')}" placeholder="What must teams submit — or what happens — in this round?"></div>`;
     div.querySelector('.rd-del').addEventListener('click', () => div.remove());
     $('rounds-editor').appendChild(div);
   };
@@ -376,6 +389,17 @@
     $('cf-rules').value = c.rules.join('\n');
     $('cf-prizes').value = c.prizes.map(p => p.join(' | ')).join('\n');
     $('cf-ppo').checked = !!c.ppo;
+    $('cf-eligcrit').value = (c.eligibilityCriteria || []).join('\n');
+    $('cf-teamstruct').value = (c.teamStructure || []).join('\n');
+    $('cf-institutes').value = (c.institutes || []).join('\n');
+    $('cf-structure').value = (c.compStructure || []).join('\n');
+    $('cf-guidelines').value = (c.submissionGuidelines || []).join('\n');
+    $('cf-contacts').value = (c.contacts || []).map(x => [x.name, x.role, x.email, x.phone].map(v => v || '').join(' | ')).join('\n');
+    $('cf-abouthost').value = c.aboutHost || '';
+    $('cf-vboost').value = c.viewBoost || 0;
+    $('cf-rboost').value = c.seedRegs || 0;
+    $('cf-logo-now').textContent = c.logoUrl ? 'Current logo kept unless you choose a new file.' : '';
+    $('cf-banners-now').textContent = (c.banners || []).length ? (c.banners.length + ' banner(s) kept unless you choose new files.') : '';
     $('cf-regopen').value = toLocal(c.regOpen); $('cf-regclose').value = toLocal(c.regClose);
     $('cf-start').value = toLocal(c.start); $('cf-end').value = toLocal(c.end);
     $('cf-result').value = c.result ? toLocal(c.result) : '';
@@ -390,6 +414,8 @@
     const rounds = [...document.querySelectorAll('.round-editor')].map(re => ({
       name: re.querySelector('.rd-name').value.trim() || 'Round',
       brief: re.querySelector('.rd-brief').value.trim(),
+      type: re.querySelector('.rd-type').value,
+      link: re.querySelector('.rd-link').value.trim() || null,
       opens: re.querySelector('.rd-open').value ? toISO(re.querySelector('.rd-open').value) : new Date().toISOString(),
       closes: re.querySelector('.rd-close').value ? toISO(re.querySelector('.rd-close').value) : new Date().toISOString()
     }));
@@ -413,12 +439,44 @@
       start_at: toISO($('cf-start').value),
       end_at: toISO($('cf-end').value),
       result_at: $('cf-result').value ? toISO($('cf-result').value) : toISO($('cf-end').value),
-      rounds, draft
+      rounds, draft,
+      eligibility_criteria: lines('cf-eligcrit'),
+      team_structure: lines('cf-teamstruct'),
+      institutes: lines('cf-institutes'),
+      comp_structure: lines('cf-structure'),
+      submission_guidelines: lines('cf-guidelines'),
+      contacts: lines('cf-contacts').map(l => {
+        const p = l.split('|').map(x => x.trim());
+        return { name: p[0] || '', role: p[1] || '', email: p[2] || '', phone: p[3] || '' };
+      }),
+      about_host: $('cf-abouthost').value.trim(),
+      view_boost: +$('cf-vboost').value || 0,
+      seed_regs: +$('cf-rboost').value || 0
     };
   };
+  const lines = id => $(id).value.split('\n').map(x => x.trim()).filter(Boolean);
   const saveComp = async draft => {
     const row = collectForm(draft);
     if (!row) return;
+    const existing = comp(editingId);
+    // logo upload (keep existing if no new file chosen)
+    const logoFile = $('cf-logo').files[0];
+    if (logoFile) {
+      const up = await dbUploadPublic(logoFile, 'logos');
+      if (up.error) { alert('Logo upload failed: ' + up.error.message); return; }
+      row.logo_url = up.url;
+    } else if (existing && existing.logoUrl) row.logo_url = existing.logoUrl;
+    // banner uploads (replace all if new files chosen)
+    const bFiles = [...$('cf-banners').files].slice(0, 3);
+    if (bFiles.length) {
+      const urls = [];
+      for (const f of bFiles) {
+        const up = await dbUploadPublic(f, 'banners');
+        if (up.error) { alert('Banner upload failed: ' + up.error.message); return; }
+        urls.push(up.url);
+      }
+      row.banners = urls;
+    } else if (existing && existing.banners) row.banners = existing.banners;
     const { error } = await dbSaveComp(row);
     if (error) { alert(error.message); return; }
     editingId = row.id;

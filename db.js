@@ -46,8 +46,35 @@ function rowToComp(r) {
     ppo: r.ppo, beginner: r.beginner, draft: r.draft,
     regOpen: r.reg_open, regClose: r.reg_close,
     start: r.start_at, end: r.end_at, result: r.result_at,
-    rounds: r.rounds || [], seedRegs: r.seed_regs
+    rounds: r.rounds || [], seedRegs: r.seed_regs,
+    logoUrl: r.logo_url || null,
+    banners: r.banners || [],
+    eligibilityCriteria: r.eligibility_criteria || [],
+    teamStructure: r.team_structure || [],
+    institutes: r.institutes || [],
+    compStructure: r.comp_structure || [],
+    submissionGuidelines: r.submission_guidelines || [],
+    contacts: r.contacts || [],
+    aboutHost: r.about_host || '',
+    views: r.views || 0,
+    viewBoost: r.view_boost || 0
   };
+}
+async function dbBumpViews(compId) {
+  try { await sb.rpc('bump_views', { cid: compId }); } catch (e) {}
+}
+async function dbRegCount(compId) {
+  try {
+    const { data, error } = await sb.rpc('reg_count', { cid: compId });
+    return error ? 0 : (data || 0);
+  } catch (e) { return 0; }
+}
+async function dbUploadPublic(file, prefix) {
+  const path = prefix + '/' + Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+  const { error } = await sb.storage.from('public-assets').upload(path, file);
+  if (error) return { error };
+  const { data } = sb.storage.from('public-assets').getPublicUrl(path);
+  return { url: data.publicUrl };
 }
 async function dbComps(includeDrafts = false) {
   let q = sb.from('competitions').select('*').order('start_at', { ascending: true });

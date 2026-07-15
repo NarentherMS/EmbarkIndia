@@ -1392,7 +1392,7 @@
   (() => {
     const U = 'https://ibxyrmzyrqggfeuxzzze.supabase.co';
     const K = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlieHlybXp5cnFnZ2ZldXh6enplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTU0MjIsImV4cCI6MjA5OTY3MTQyMn0.Asxt-bHTsP2E9HR37lCYNopj7kZ2V_pCvD_KmuxliTQ';
-    fetch(U + '/rest/v1/competitions?select=id,title,category,banner,fee,reg_close,start_at,end_at&draft=eq.false', {
+    fetch(U + '/rest/v1/competitions?select=id,title,category,banner,fee,reg_close,start_at,end_at,banners&draft=eq.false', {
       headers: { apikey: K, Authorization: 'Bearer ' + K }
     }).then(r => r.json()).then(rows => {
       const now = new Date();
@@ -1401,7 +1401,9 @@
       const fd = iso => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       document.getElementById('lc-row').innerHTML = live.map(c => `
         <a class="lc-card" href="competition.html?c=${c.id}">
-          <span class="lc-bar lb-${c.banner}" aria-hidden="true"></span>
+          ${c.banners && c.banners.length
+            ? `<img src="${c.banners[0]}" alt="" style="flex:none;width:72px;height:48px;object-fit:cover;border-radius:8px">`
+            : `<span class="lc-bar lb-${c.banner}" aria-hidden="true"></span>`}
           <span><b>${c.title.replace(/</g, '&lt;')}</b>
           <small>${c.category} · ${c.fee ? '₹' + c.fee : 'Free'} · reg closes ${fd(c.reg_close)}</small></span>
           <span class="lc-go">Enter →</span>

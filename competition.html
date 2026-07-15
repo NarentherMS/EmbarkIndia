@@ -10,66 +10,142 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css?v=4">
 <style>
-  .d-banner{position:relative;padding:64px 0 56px;color:#fff;overflow:hidden}
+  /* ---------- dark header card ---------- */
+  .hd-sec{padding:20px 0 0}
+  .hd-card{
+    background:linear-gradient(135deg,#1A1A1A,#101010 65%);color:#fff;
+    border-radius:26px;padding:38px 40px 34px;position:relative;overflow:hidden;
+  }
+  .hd-card::after{
+    content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle,rgba(251,77,10,.22),transparent 65%);pointer-events:none;
+  }
+  .hd-top{display:flex;gap:24px;align-items:flex-start;position:relative;z-index:1}
+  .hd-logo{
+    flex:none;width:96px;height:96px;border-radius:18px;background:#fff;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hd-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
+  .hd-logo b{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--navy)}
+  .hd-main h1{color:#fff;font-size:clamp(1.5rem,3.6vw,2.4rem);margin-bottom:12px;line-height:1.15}
+  .hd-meta{display:flex;flex-wrap:wrap;gap:6px 0;font-size:.88rem;color:rgba(255,255,255,.82)}
+  .hd-meta span{display:inline-flex;align-items:center}
+  .hd-meta b{color:#fff;font-weight:600;margin-left:5px}
+  .hd-meta .sep{margin:0 14px;color:rgba(255,255,255,.3)}
+  .hd-chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .st-chip{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 13px}
+  .st-live{background:#fff;color:#B42318}
+  .st-live::before{content:"●";margin-right:5px;color:#D92D20}
+  .st-upcoming{background:#fff;color:var(--charcoal)}
+  .st-closed{background:rgba(255,255,255,.18);color:rgba(255,255,255,.9)}
+  .ppo-chip{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,77,10,.2);color:#FFB894;border-radius:999px;padding:5px 13px}
+
+  .hd-stats{
+    display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 0;position:relative;z-index:1;
+    background:#fff;color:var(--charcoal);border-radius:14px;padding:12px 20px;margin-top:24px;
+    font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  }
+  .hd-stats span{display:inline-flex;align-items:center;gap:8px;font-weight:500}
+  .hd-stats b{font-weight:700}
+  .hd-stats .sep{margin:0 16px;color:rgba(22,22,22,.2)}
+  .hd-stats svg{width:16px;height:16px;color:var(--orange-deep);flex:none}
+  .hd-cta{margin-top:20px;position:relative;z-index:1}
+
+  /* ---------- banner carousel ---------- */
+  .bnr-sec{padding:26px 0 8px}
+  .bnr-view{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
+  .bnr-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+  .bnr-track > *{flex:0 0 100%}
+  .bnr-track img{display:block;width:100%;height:auto}
+  .bnr-fallback{height:230px;position:relative;display:flex;align-items:center;padding:0 46px;overflow:hidden}
+  .bnr-fallback .ghost{
+    position:absolute;right:-10px;bottom:-70px;font-family:var(--display);font-weight:800;
+    font-size:13rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;
+  }
+  .bnr-fallback h2{color:#fff;font-size:clamp(1.3rem,3vw,2rem);max-width:60%;margin:0}
   .bn-orange{background:linear-gradient(135deg,#FF7038,#FB4D0A 55%,#C93A05)}
   .bn-green{background:linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)}
   .bn-dark{background:linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)}
   .bn-charcoal{background-image:radial-gradient(rgba(251,77,10,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#101010}
-  .d-banner .ghost{
-    position:absolute;right:-10px;bottom:-60px;font-family:var(--display);font-weight:800;
-    font-size:13rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;
-  }
-  .d-banner .wrap{position:relative;z-index:1}
-  .d-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-  .st-chip{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 13px}
-  .st-live{background:#fff;color:#B42318}
-  .st-live::before{content:"●";margin-right:5px;color:#D92D20}
-  .st-upcoming{background:#fff;color:var(--charcoal)}
-  .st-closed{background:rgba(0,0,0,.45);color:rgba(255,255,255,.9)}
-  .ppo-chip{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.4);color:#FDBA74;border-radius:999px;padding:5px 13px}
-  .d-banner h1{color:#fff;font-size:clamp(1.8rem,4.4vw,3rem);max-width:760px;margin-bottom:10px}
-  .d-host{font-size:.95rem;color:rgba(255,255,255,.85)}
-  .d-meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:22px;font-size:.9rem;color:rgba(255,255,255,.85)}
-  .d-meta b{color:#fff}
+  .bnr-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
+  .bnr-nav button{background:none;border:none;cursor:pointer;color:var(--charcoal);padding:8px;min-height:40px}
+  .bnr-nav button svg{width:20px;height:20px}
+  .bnr-dash{width:26px;height:3px;border-radius:2px;background:rgba(22,22,22,.2);transition:background .25s}
+  .bnr-dash.on{background:var(--charcoal)}
 
-  .d-layout{display:grid;grid-template-columns:1.3fr .8fr;gap:40px;align-items:start;padding:52px 0 90px}
-  .d-block{background:var(--white);border-radius:24px;box-shadow:var(--shadow-card);padding:34px 36px;margin-bottom:24px}
-  .d-block h2{font-size:1.3rem;margin-bottom:16px}
-  .d-block p{color:#3A352C;font-size:.97rem}
+  /* ---------- section tab pills ---------- */
+  .tabbar-wrap{position:sticky;top:86px;z-index:50;padding:14px 0;display:flex;justify-content:center}
+  .tabbar{
+    display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(22,22,22,.1);
+    border-radius:999px;padding:6px;box-shadow:0 8px 26px rgba(11,31,58,.1);
+    overflow-x:auto;max-width:100%;
+  }
+  .tabbar a{
+    text-decoration:none;font-weight:600;font-size:.88rem;color:var(--ink-soft);
+    border-radius:999px;padding:9px 20px;white-space:nowrap;transition:all .2s;
+  }
+  .tabbar a.on{background:var(--orange-deep);color:#fff}
+  .tabbar a:hover:not(.on){color:var(--charcoal)}
+
+  /* ---------- layout & blocks ---------- */
+  .d-layout{display:grid;grid-template-columns:1.35fr .75fr;gap:36px;align-items:start;padding:28px 0 90px}
+  .d-block{background:var(--white);border-radius:24px;box-shadow:var(--shadow-card);padding:34px 36px;margin-bottom:24px;scroll-margin-top:170px}
+  .d-block h2{font-size:1.45rem;margin-bottom:18px}
+  .d-block h3.sub{font-size:1.02rem;font-weight:700;margin:26px 0 12px}
+  .d-block p{color:#3A352C;font-size:.96rem;margin-bottom:12px}
   .d-list{list-style:none;display:grid;gap:10px}
   .d-list li{display:flex;gap:10px;font-size:.93rem;color:#3A352C;align-items:flex-start}
   .d-list svg{width:16px;height:16px;flex:none;color:var(--orange);margin-top:3px}
+  .inst-grid{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px}
+  .inst-grid li{display:flex;gap:9px;font-size:.9rem;color:#3A352C;align-items:flex-start}
+  .inst-grid svg{width:15px;height:15px;flex:none;color:var(--navy);margin-top:3px}
   .prize-row{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(22,22,22,.15);font-size:.94rem}
   .prize-row:last-child{border-bottom:none}
   .prize-row b{font-weight:600}
   .prize-row span{color:var(--ink-soft);text-align:right}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .contact-card{background:var(--cream);border-radius:16px;padding:18px 20px}
+  .contact-card b{display:block;font-family:var(--display);font-weight:700;font-size:1rem}
+  .contact-card small{display:block;color:var(--ink-soft);font-size:.8rem;margin-bottom:8px}
+  .contact-card a{display:block;font-size:.85rem;color:var(--orange-deep);text-decoration:none;margin-top:3px}
 
-  /* rounds timeline */
+  /* ---------- rounds ---------- */
   .round{
-    position:relative;padding:20px 22px;border:1.5px solid rgba(22,22,22,.12);
-    border-radius:16px;margin-bottom:14px;
+    position:relative;padding:24px 26px;background:var(--cream);
+    border-radius:18px;margin-bottom:16px;overflow:hidden;border:1.5px solid transparent;
   }
   .round.open{border-color:var(--orange);background:var(--orange-soft)}
-  .round.done{opacity:.75}
-  .round-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
-  .round-head b{font-family:var(--display);font-weight:700;font-size:1.02rem}
-  .round-when{font-size:.8rem;color:var(--ink-soft)}
-  .round p{font-size:.9rem;color:var(--ink-soft);margin-top:6px}
+  .round.done{opacity:.72}
+  .round .rnum{
+    position:absolute;top:-18px;right:4px;font-family:var(--display);font-weight:800;
+    font-size:5rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(11,31,58,.14);pointer-events:none;
+  }
+  .round-head{display:flex;gap:10px;flex-wrap:wrap;align-items:center;position:relative}
+  .round-head .rn{
+    flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;
+    font-family:var(--display);font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;
+  }
+  .round-head b{font-family:var(--display);font-weight:700;font-size:1.05rem}
+  .rd-live{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#D92D20;color:#fff;border-radius:999px;padding:4px 11px}
+  .rd-live::before{content:"●";margin-right:4px}
+  .rd-event{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--navy-soft);color:var(--navy);border-radius:999px;padding:4px 11px}
+  .round p{font-size:.9rem;color:#4A5568;margin:8px 0 0;position:relative;max-width:92%}
+  .round-when{display:flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;color:var(--charcoal);margin-top:12px;position:relative}
+  .round-when svg{width:15px;height:15px;flex:none;color:var(--ink-soft)}
   .round-status{
     display:inline-flex;align-items:center;gap:7px;margin-top:12px;
-    font-size:.8rem;font-weight:600;border-radius:999px;padding:5px 13px;
+    font-size:.8rem;font-weight:600;border-radius:999px;padding:5px 13px;position:relative;
   }
   .rs-open{background:#fff;color:#B42318}
-  .rs-not{background:var(--cream);color:var(--ink-soft)}
+  .rs-not{background:#fff;color:var(--ink-soft)}
   .rs-closed{background:var(--cream-deep);color:var(--ink-soft)}
+  .rd-link{display:inline-flex;align-items:center;gap:7px;margin-top:12px;margin-left:8px;font-size:.8rem;font-weight:600;color:var(--orange-deep);text-decoration:none;position:relative}
 
-  /* side panel */
-  .side-card{background:var(--white);border-radius:24px;box-shadow:var(--shadow-card);padding:32px;margin-bottom:20px}
+  /* ---------- side panel ---------- */
+  .side-card{background:var(--white);border-radius:24px;box-shadow:var(--shadow-card);padding:32px;margin-bottom:20px;scroll-margin-top:170px}
   .side-card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
   .side-note{font-size:.83rem;color:var(--ink-soft)}
-  .cd-big{
-    font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--orange-deep);
-  }
+  .cd-big{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--orange-deep)}
   .cd-label{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
   .seg{display:flex;gap:8px;margin:14px 0}
   .seg button{
@@ -86,14 +162,9 @@
     padding:10px;cursor:pointer;width:100%;min-height:44px;
   }
   .side-card form{grid-template-columns:1fr;display:grid;gap:12px}
-  .upload-box{
-    border:2px dashed var(--orange);border-radius:14px;padding:18px;text-align:center;
-    background:#fff;
-  }
+  .upload-box{border:2px dashed var(--orange);border-radius:14px;padding:18px;text-align:center;background:#fff}
   .upload-box input[type=file]{width:100%;font-size:.85rem}
-  .sub-done{
-    background:var(--green-soft);border-radius:14px;padding:16px 18px;font-size:.9rem;color:var(--green);
-  }
+  .sub-done{background:var(--green-soft);border-radius:14px;padding:16px 18px;font-size:.9rem;color:var(--green)}
   .adv-badge{
     display:flex;align-items:center;gap:10px;border-radius:14px;padding:14px 18px;
     font-size:.92rem;font-weight:600;margin-top:10px;
@@ -112,31 +183,17 @@
   .wr-3{background:var(--green);color:#fff}
   .win-row b{display:block;font-size:.95rem}
   .win-row small{color:var(--ink-soft);font-size:.8rem}
-
-  /* payment sheet (simulated Razorpay) */
-  .pay-overlay{
-    position:fixed;inset:0;background:rgba(20,17,12,.6);z-index:200;
-    display:none;align-items:center;justify-content:center;padding:20px;
-  }
-  .pay-overlay.show{display:flex}
-  .pay-sheet{background:#fff;border-radius:20px;max-width:400px;width:100%;padding:30px;position:relative}
-  .pay-sheet h3{font-size:1.15rem;margin-bottom:4px}
-  .pay-amount{font-family:var(--display);font-weight:800;font-size:2rem;margin:8px 0 4px}
-  .pay-sim{font-size:.75rem;font-weight:600;color:#B42318;background:#FEE4E2;border-radius:8px;padding:8px 12px;margin:12px 0}
-  .pay-tabs{display:flex;gap:6px;margin:14px 0}
-  .pay-tabs button{
-    flex:1;font-family:var(--body);font-weight:600;font-size:.85rem;background:var(--cream);
-    border:1.5px solid transparent;border-radius:10px;padding:10px;cursor:pointer;min-height:42px;
-  }
-  .pay-tabs button[aria-selected="true"]{border-color:var(--charcoal)}
-  .pay-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--ink-soft)}
-
   .cert-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-  .demo-note{font-size:.76rem;color:var(--ink-soft);background:var(--cream);border-radius:10px;padding:10px 14px;margin-top:14px}
+  .acct-msg{font-size:.88rem;border-radius:12px;padding:12px 15px;margin-top:12px;display:none}
 
   @media (max-width:900px){
     .d-layout{grid-template-columns:1fr}
     .d-block,.side-card{padding:26px 22px}
+    .hd-card{padding:28px 24px}
+    .hd-top{flex-direction:column}
+    .hd-stats .sep{margin:0 10px}
+    .contact-grid,.inst-grid{grid-template-columns:1fr}
+    .tabbar-wrap{top:76px}
   }
 </style>
 </head>
@@ -170,44 +227,92 @@
   </div>
 </nav>
 
-<header class="d-banner" id="d-banner">
-  <span class="ghost" id="d-ghost" aria-hidden="true"></span>
+<!-- dark header card -->
+<section class="hd-sec">
   <div class="wrap">
-    <div class="d-chips" id="d-chips"></div>
-    <h1 id="d-title"></h1>
-    <p class="d-host" id="d-host"></p>
-    <div class="d-meta" id="d-meta"></div>
+    <div class="hd-card">
+      <div class="hd-top">
+        <div class="hd-logo" id="hd-logo"><b>e</b></div>
+        <div class="hd-main">
+          <div class="hd-chiprow" id="d-chips"></div>
+          <h1 id="d-title">Loading…</h1>
+          <div class="hd-meta" id="hd-meta1"></div>
+          <div class="hd-meta" id="hd-meta2" style="margin-top:6px"></div>
+        </div>
+      </div>
+      <div class="hd-stats" id="hd-stats" hidden></div>
+      <div class="hd-cta"><a class="btn btn-primary" id="hd-register" href="#action-card">Register now →</a></div>
+    </div>
   </div>
-</header>
+</section>
+
+<!-- banner carousel -->
+<section class="bnr-sec">
+  <div class="wrap">
+    <div class="bnr-view"><div class="bnr-track" id="bnr-track"></div></div>
+    <div class="bnr-nav" id="bnr-nav" hidden>
+      <button id="bnr-prev" aria-label="Previous banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+      <span id="bnr-dashes" style="display:flex;gap:8px"></span>
+      <button id="bnr-next" aria-label="Next banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- section pills -->
+<div class="tabbar-wrap">
+  <nav class="tabbar" id="tabbar" aria-label="Sections">
+    <a href="#rounds" class="on">Rounds</a>
+    <a href="#details">Details</a>
+    <a href="#contacts" id="tab-contacts">Contacts</a>
+    <a href="#rewards">Rewards</a>
+    <a href="#host" id="tab-host">About host</a>
+  </nav>
+</div>
 
 <div class="wrap d-layout">
   <div>
-    <div class="d-block">
-      <h2>About this competition</h2>
-      <p id="d-about"></p>
-    </div>
-    <div class="d-block">
-      <h2>Rounds &amp; timeline</h2>
-      <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:18px">Each round has a timed window. Uploads are only possible while a round is open — when the timer ends, the round closes automatically.</p>
+    <div class="d-block" id="rounds">
+      <h2>Rounds</h2>
+      <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:18px">Submission rounds have timed windows — uploads close automatically at the deadline, enforced on the server.</p>
       <div id="d-rounds"></div>
     </div>
-    <div class="d-block">
-      <h2>Prizes</h2>
-      <div id="d-prizes"></div>
-    </div>
-    <div class="d-block">
-      <h2>Rules &amp; eligibility</h2>
-      <p style="margin-bottom:14px"><b style="font-weight:600">Eligibility:</b> <span id="d-elig"></span></p>
-      <ul class="d-list" id="d-rules"></ul>
-    </div>
+
     <div class="d-block" id="winners-block" hidden>
       <h2>Winners</h2>
       <div id="d-winners"></div>
     </div>
+
+    <div class="d-block" id="details">
+      <h2>Details</h2>
+      <div id="d-about"></div>
+      <div id="d-eligcrit" hidden><h3 class="sub">Eligibility criteria</h3><ul class="d-list" id="l-eligcrit"></ul></div>
+      <div id="d-teamstruct" hidden><h3 class="sub">Team structure</h3><ul class="d-list" id="l-teamstruct"></ul></div>
+      <div id="d-institutes" hidden><h3 class="sub">Eligible institutes</h3><ul class="inst-grid" id="l-institutes"></ul></div>
+      <div id="d-structure" hidden><h3 class="sub">Competition structure</h3><ul class="d-list" id="l-structure"></ul></div>
+      <div id="d-guidelines" hidden><h3 class="sub">Submission guidelines</h3><ul class="d-list" id="l-guidelines"></ul></div>
+      <div id="d-ruleswrap" hidden><h3 class="sub">Rules</h3><ul class="d-list" id="d-rules"></ul></div>
+    </div>
+
+    <div class="d-block" id="contacts" hidden>
+      <h2>Contacts</h2>
+      <p style="font-size:.9rem">Questions about this competition? Reach the organising team directly.</p>
+      <div class="contact-grid" id="d-contacts"></div>
+    </div>
+
+    <div class="d-block" id="rewards">
+      <h2>Rewards &amp; prizes</h2>
+      <div id="d-prizes"></div>
+    </div>
+
+    <div class="d-block" id="host" hidden>
+      <h2>About the host</h2>
+      <p style="font-weight:600" id="host-name"></p>
+      <p id="host-about"></p>
+    </div>
   </div>
 
   <aside>
-    <div class="side-card" id="action-card"></div>
+    <div class="side-card" id="action-card"><h3>Loading…</h3></div>
     <div class="side-card" style="background:var(--green);color:var(--cream)">
       <h3 style="color:#fff">Get help to win</h3>
       <p style="font-size:.9rem;color:rgba(250,247,242,.75);margin-bottom:16px">Deck reviews, stage-wise strategy and finals rehearsal with mentors who judge these competitions — Phase 4 of the mentorship journey.</p>
@@ -215,8 +320,7 @@
     </div>
     <div class="side-card">
       <h3>No team yet?</h3>
-      <p class="side-note" style="margin-bottom:14px">The find-a-teammate community is coming soon. Until then, solo registration is open on most competitions.</p>
-      <span class="ph-link soon" style="display:inline-block">Find teammates — coming soon</span>
+      <p class="side-note">The find-a-teammate community is coming soon. Until then, solo registration is open on most competitions.</p>
     </div>
   </aside>
 </div>
@@ -279,11 +383,12 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=2"></script>
+<script src="db.js?v=3"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
   const tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const dot = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"/></svg>';
   const qid = new URLSearchParams(location.search).get('c');
 
   let c = null;
@@ -296,16 +401,136 @@
   }
 
   document.title = c.title + ' — Embark India';
-  $('d-banner').classList.add('bn-' + c.banner);
-  $('d-ghost').textContent = c.category.slice(0, 2).toUpperCase();
-  $('d-title').textContent = c.title;
-  $('d-host').textContent = 'Hosted by ' + c.host;
-  $('d-about').textContent = c.about;
-  $('d-elig').textContent = c.eligibility;
-  $('d-rules').innerHTML = c.rules.map(r => `<li>${tick}${esc(r)}</li>`).join('');
-  $('d-prizes').innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
+  dbBumpViews(c.id); // real view counting
 
-  /* ---------- state from the database ---------- */
+  /* ---------- header card ---------- */
+  $('d-title').textContent = c.title;
+  if (c.logoUrl) $('hd-logo').innerHTML = `<img src="${esc(c.logoUrl)}" alt="${esc(c.host)} logo">`;
+  else $('hd-logo').innerHTML = `<b>${esc(c.category.slice(0, 1))}</b>`;
+  $('hd-meta1').innerHTML = `
+    <span>Timelines:<b>${fmtDate(c.start)} – ${fmtDate(c.end)}</b></span><span class="sep">|</span>
+    <span>Registration deadline:<b>${fmtDateTime(c.regClose)} IST</b></span><span class="sep">|</span>
+    <span>Participation:<b>${c.teamMin === c.teamMax ? c.teamMax + ' member' + (c.teamMax > 1 ? 's' : '') : c.teamMin + '–' + c.teamMax + ' members'}</b></span>`;
+  $('hd-meta2').innerHTML = `
+    <span>Hosted by:<b>${esc(c.host)}</b></span><span class="sep">|</span>
+    <span>Eligibility:<b>${esc((c.eligibility || 'Open to all MBA students').split('.')[0])}</b></span>
+    <span class="sep">|</span><span>Fee:<b>${c.fee ? '₹' + c.fee + ' per team' : 'Free'}</b></span>`;
+
+  const renderChips = () => {
+    const st = compStatus(c);
+    $('d-chips').innerHTML =
+      (st === 'live' ? '<span class="st-chip st-live">Live</span>'
+        : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
+        : '<span class="st-chip st-closed">Closed</span>')
+      + (c.ppo ? '<span class="ppo-chip">PPO opportunity</span>' : '')
+      + (c.draft ? '<span class="st-chip st-closed">Draft — not public</span>' : '');
+  };
+  renderChips();
+
+  /* stats bar: real views + real registrations (+ boosts) */
+  (async () => {
+    const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    const pen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+    const cal = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+    const regs = (await dbRegCount(c.id)) + (c.seedRegs || 0);
+    const views = (c.views || 0) + (c.viewBoost || 0) + 1;
+    const daysLeft = Math.ceil((new Date(c.regClose) - new Date()) / 864e5);
+    const dl = compStatus(c) === 'closed' ? 'Completed'
+      : daysLeft > 0 ? daysLeft + ' day' + (daysLeft > 1 ? 's' : '') + ' left'
+      : 'Registration closed';
+    $('hd-stats').innerHTML = `
+      <span>${eye} Views: <b>${views.toLocaleString('en-IN')}</b></span><span class="sep">|</span>
+      <span>${pen} Registrations: <b>${regs.toLocaleString('en-IN')}</b></span><span class="sep">|</span>
+      <span>${cal} Deadline: <b>${dl}</b></span>`;
+    $('hd-stats').hidden = false;
+  })();
+
+  /* ---------- banner carousel ---------- */
+  (() => {
+    const track = $('bnr-track');
+    const banners = c.banners || [];
+    if (!banners.length) {
+      track.innerHTML = `<div class="bnr-fallback bn-${c.banner}"><span class="ghost" aria-hidden="true">${esc(c.category.slice(0, 2).toUpperCase())}</span><h2>${esc(c.title)}</h2></div>`;
+      return;
+    }
+    track.innerHTML = banners.map(b => `<img src="${esc(b)}" alt="${esc(c.title)} banner">`).join('');
+    if (banners.length < 2) return;
+    $('bnr-nav').hidden = false;
+    $('bnr-dashes').innerHTML = banners.map((_, i) => `<span class="bnr-dash ${i === 0 ? 'on' : ''}"></span>`).join('');
+    let idx = 0;
+    const go = d => {
+      idx = (idx + d + banners.length) % banners.length;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      document.querySelectorAll('.bnr-dash').forEach((el, i) => el.classList.toggle('on', i === idx));
+    };
+    $('bnr-prev').addEventListener('click', () => go(-1));
+    $('bnr-next').addEventListener('click', () => go(1));
+    setInterval(() => { if (!document.hidden) go(1); }, 6000);
+  })();
+
+  /* ---------- tab pills ---------- */
+  document.querySelectorAll('.tabbar a').forEach(a => a.addEventListener('click', () => {
+    document.querySelectorAll('.tabbar a').forEach(x => x.classList.toggle('on', x === a));
+  }));
+
+  /* ---------- details sections ---------- */
+  $('d-about').innerHTML = c.about.split('\n').filter(Boolean).map(p => `<p>${esc(p)}</p>`).join('');
+  const fillList = (wrapId, listId, items, icon) => {
+    if (!items || !items.length) return;
+    $(wrapId).hidden = false;
+    $(listId).innerHTML = items.map(x => `<li>${icon}${esc(x)}</li>`).join('');
+  };
+  fillList('d-eligcrit', 'l-eligcrit', c.eligibilityCriteria, tick);
+  fillList('d-teamstruct', 'l-teamstruct', c.teamStructure, tick);
+  fillList('d-institutes', 'l-institutes', c.institutes, dot);
+  fillList('d-structure', 'l-structure', c.compStructure, tick);
+  fillList('d-guidelines', 'l-guidelines', c.submissionGuidelines, tick);
+  if (c.rules && c.rules.length) { $('d-ruleswrap').hidden = false; $('d-rules').innerHTML = c.rules.map(r => `<li>${tick}${esc(r)}</li>`).join(''); }
+
+  if (c.contacts && c.contacts.length) {
+    $('contacts').hidden = false;
+    $('d-contacts').innerHTML = c.contacts.map(ct => `
+      <div class="contact-card">
+        <b>${esc(ct.name)}</b><small>${esc(ct.role || 'Organising team')}</small>
+        ${ct.email ? `<a href="mailto:${esc(ct.email)}">✉ ${esc(ct.email)}</a>` : ''}
+        ${ct.phone ? `<a href="tel:${esc(ct.phone)}">📞 ${esc(ct.phone)}</a>` : ''}
+      </div>`).join('');
+  } else { $('tab-contacts').style.display = 'none'; }
+
+  $('d-prizes').innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('')
+    || '<p style="color:var(--ink-soft)">Prizes will be announced soon.</p>';
+
+  if (c.aboutHost) {
+    $('host').hidden = false;
+    $('host-name').textContent = c.host;
+    $('host-about').textContent = c.aboutHost;
+  } else { $('tab-host').style.display = 'none'; }
+
+  /* ---------- rounds ---------- */
+  const renderRounds = () => {
+    $('d-rounds').innerHTML = c.rounds.map((r, i) => {
+      const isEvent = r.type === 'event';
+      const w = roundWindow(r);
+      const cls = w === 'open' ? 'open' : w === 'closed' ? 'done' : '';
+      const num = String(i + 1).padStart(2, '0');
+      const badge = w === 'open' ? '<span class="rd-live">Live</span>' : isEvent ? '<span class="rd-event">Event</span>' : '';
+      const status = isEvent ? '' : w === 'open'
+        ? `<span class="round-status rs-open">● Submissions open — closes in <span data-count="${r.closes}">${countdown(r.closes) || ''}</span></span>`
+        : w === 'not-open'
+        ? `<span class="round-status rs-not">Opens ${fmtDateTime(r.opens)}</span>`
+        : `<span class="round-status rs-closed">Closed ${fmtDateTime(r.closes)}</span>`;
+      const link = isEvent && r.link ? `<a class="rd-link" href="${esc(r.link)}" target="_blank" rel="noopener">Join / watch ↗</a>` : '';
+      return `<div class="round ${cls}">
+        <span class="rnum" aria-hidden="true">${num}</span>
+        <div class="round-head"><span class="rn">${num}</span><b>${esc(r.name)}</b>${badge}</div>
+        <p>${esc(r.brief)}</p>
+        <div class="round-when"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${fmtDateTime(r.opens)} — ${fmtDateTime(r.closes)} (IST)</div>
+        ${status}${link}
+      </div>`;
+    }).join('');
+  };
+
+  /* ---------- state ---------- */
   let user = null, profile = null, mine = null, subsByRound = {}, advRows = [], winners = [];
   async function loadState() {
     try { user = await sbUser(); } catch (e) { user = null; }
@@ -318,40 +543,6 @@
     }
     winners = await dbWinners(c.id);
   }
-
-  const renderChips = () => {
-    const st = compStatus(c);
-    $('d-chips').innerHTML =
-      (st === 'live' ? '<span class="st-chip st-live">Live</span>'
-        : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
-        : '<span class="st-chip st-closed">Closed</span>')
-      + (c.ppo ? '<span class="ppo-chip">PPO track</span>' : '')
-      + (c.draft ? '<span class="st-chip st-closed">Draft — not public</span>' : '');
-    const regCount = (c.seedRegs || 0) + (mine ? 1 : 0);
-    $('d-meta').innerHTML = `
-      <span><b>${c.fee ? '₹' + c.fee : 'Free'}</b> ${c.fee ? 'per team' : 'registration'}</span>
-      <span>Team <b>${c.teamMin}–${c.teamMax}</b></span>
-      ${regCount ? `<span><b>${regCount.toLocaleString('en-IN')}</b> registered</span>` : ''}
-      <span>Runs <b>${fmtDate(c.start)} – ${fmtDate(c.end)}</b></span>
-      <span>Results <b>${fmtDate(c.result)}</b></span>`;
-  };
-
-  const renderRounds = () => {
-    $('d-rounds').innerHTML = c.rounds.map((r, i) => {
-      const w = roundWindow(r);
-      const cls = w === 'open' ? 'open' : w === 'closed' ? 'done' : '';
-      const status = w === 'open'
-        ? `<span class="round-status rs-open">● Open — closes in <span data-count="${r.closes}">${countdown(r.closes) || ''}</span></span>`
-        : w === 'not-open'
-        ? `<span class="round-status rs-not">Opens ${fmtDateTime(r.opens)}</span>`
-        : `<span class="round-status rs-closed">Closed ${fmtDateTime(r.closes)}</span>`;
-      return `<div class="round ${cls}">
-        <div class="round-head"><b>${esc(r.name)}</b><span class="round-when">${fmtDateTime(r.opens)} → ${fmtDateTime(r.closes)}</span></div>
-        <p>${esc(r.brief)}</p>
-        ${status}
-      </div>`;
-    }).join('');
-  };
 
   const renderWinners = () => {
     if (!winners.length) { $('winners-block').hidden = true; return; }
@@ -367,11 +558,24 @@
   const action = $('action-card');
   let regMode = 'solo', memberCount = 0;
 
+  const collegeField = () => {
+    if (c.institutes && c.institutes.length) {
+      return `<div class="field"><label>Your institute <span class="req">*</span></label>
+        <select id="r-college" required>
+          <option value="">Select your institute…</option>
+          ${c.institutes.map(i => `<option ${profile && profile.college === i ? 'selected' : ''}>${esc(i)}</option>`).join('')}
+        </select>
+        <small style="font-size:.75rem;color:var(--ink-soft)">This competition is open to the listed institutes only.</small></div>`;
+    }
+    return `<div class="field"><label>College <span class="req">*</span></label><input id="r-college" type="text" required value="${esc(profile && profile.college || '')}"></div>`;
+  };
+
   const renderAction = () => {
     const st = compStatus(c), rw = regWindow(c);
-    if (mine) return renderMyPanel();
+    if (mine) { $('hd-register').textContent = 'My competition ↓'; return renderMyPanel(); }
 
     if (st === 'closed') {
+      $('hd-register').style.display = 'none';
       action.innerHTML = `<h3>Competition completed</h3>
         <p class="side-note">This one has ended — results are on this page. See what's live now.</p>
         <div class="cert-actions"><a class="btn btn-primary btn-sm" href="competitions.html">Live competitions</a></div>`;
@@ -385,6 +589,7 @@
       return;
     }
     if (rw === 'closed') {
+      $('hd-register').style.display = 'none';
       action.innerHTML = `<h3>Registration closed</h3>
         <p class="side-note">The registration window has passed. Rounds continue for registered teams.</p>`;
       return;
@@ -415,7 +620,7 @@
       <form id="reg-form" novalidate>
         <div class="field" id="f-teamname" hidden><label>Team name <span class="req">*</span></label><input id="r-team" type="text" placeholder="Team Vector"></div>
         <div class="field"><label>Your name (lead) <span class="req">*</span></label><input id="r-name" type="text" required value="${esc(profile && profile.name || '')}"></div>
-        <div class="field"><label>College <span class="req">*</span></label><input id="r-college" type="text" required value="${esc(profile && profile.college || '')}"></div>
+        ${collegeField()}
         <div id="members-wrap" hidden>
           <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:8px">Teammates (${c.teamMin > 1 ? 'min ' + (c.teamMin - 1) + ', ' : ''}max ${c.teamMax - 1})</label>
           <div id="members"></div>
@@ -424,7 +629,7 @@
         <button class="btn btn-primary" type="submit" id="reg-btn" style="width:100%">Register</button>
         <p class="side-note" style="text-align:center">Registering as ${esc(user.email)} · shows in <a href="account.html">My competitions</a> instantly.</p>
       </form>
-      <p class="acct-msg" id="reg-msg" style="font-size:.88rem;border-radius:12px;padding:12px 15px;margin-top:12px;display:none"></p>`;
+      <p class="acct-msg" id="reg-msg"></p>`;
 
     if (c.teamMin > 1) { regMode = 'team'; toggleMode('team'); }
     const soloBtn = $('seg-solo');
@@ -465,6 +670,9 @@
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const name = $('r-name').value.trim();
     const college = $('r-college').value.trim();
+    if (c.institutes && c.institutes.length && !c.institutes.includes(college)) {
+      regFail('Please select your institute from the eligible list.'); return;
+    }
     const mates = [...document.querySelectorAll('.mm-name')].map(i => i.value.trim()).filter(Boolean);
     let teamName;
     if (regMode === 'team') {
@@ -481,16 +689,16 @@
     btn.disabled = false; btn.textContent = 'Register';
     if (error) {
       if ((error.code || '') === '23505' || /duplicate/i.test(error.message)) regFail('You are already registered for this competition.');
-      else if (/security|policy/i.test(error.message)) regFail('Registration was rejected — the window may have closed or the team size is outside the rules.');
+      else if (/security|policy/i.test(error.message)) regFail('Registration was rejected — check the eligible institutes, team size, and that the window is still open.');
       else regFail(error.message);
       return;
     }
-    sbSaveProfile(name, college); // best effort — keeps certificates accurate
+    sbSaveProfile(name, college);
     await loadState();
-    renderChips(); renderAction();
+    renderAction();
   }
 
-  /* ---------- my panel: rounds, uploads, advancement, certificates ---------- */
+  /* ---------- my panel ---------- */
   function renderMyPanel() {
     const st = compStatus(c);
     const advSet = new Set(advRows.filter(a => a.reg_id === mine.id).map(a => a.round_idx));
@@ -499,11 +707,15 @@
 
     let roundsHtml = '';
     c.rounds.forEach((r, i) => {
+      const isEvent = r.type === 'event';
       const inRound = i === 0 || advSet.has(i - 1);
       const w = roundWindow(r);
       const mySub = subsByRound[i];
       let body = '';
-      if (!inRound) {
+      if (isEvent) {
+        body = `<span class="round-status ${w === 'open' ? 'rs-open' : w === 'closed' ? 'rs-closed' : 'rs-not'}">${w === 'open' ? '● Happening now' : w === 'closed' ? 'Completed' : 'Scheduled'} · ${fmtDateTime(r.opens)}</span>
+          ${r.link ? `<a class="rd-link" href="${esc(r.link)}" target="_blank" rel="noopener">Join / watch ↗</a>` : ''}`;
+      } else if (!inRound) {
         body = `<span class="round-status rs-closed">Did not advance to this round</span>`;
       } else if (mySub && w !== 'open') {
         body = `<div class="sub-done">✓ Submitted: <b>${esc(mySub.file_path ? mySub.file_path.split('/').pop().replace(/^\d+-/, '') : mySub.link)}</b> · ${fmtDateTime(mySub.updated_at || mySub.created_at)}</div>`;
@@ -515,7 +727,7 @@
             <input type="file" id="up-${i}" accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.zip" aria-label="Upload for ${esc(r.name)}">
             <p style="font-size:.75rem;color:var(--ink-soft);margin:8px 0">or</p>
             <input type="url" id="uplink-${i}" placeholder="Paste a drive link" style="width:100%;font-family:var(--body);font-size:.88rem;background:var(--cream);border:none;border-radius:10px;padding:10px 12px">
-            <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px" data-up="${i}">Submit for ${esc(r.name.split('—')[0].trim())}</button>
+            <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px" data-up="${i}">Submit for ${esc(r.name.split('—')[0].split('(')[0].trim())}</button>
           </div>
           <p style="font-size:.76rem;color:var(--ink-soft);margin-top:8px">Window closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b>. The cutoff is enforced on the server — late submissions are rejected automatically.</p>`;
       } else if (w === 'not-open') {
@@ -524,11 +736,11 @@
         body = `<span class="round-status rs-closed">Window closed — no submission received</span>`;
       }
       let advBadge = '';
-      if (inRound && declared(i)) {
+      if (!isEvent && inRound && declared(i)) {
         advBadge = advSet.has(i)
-          ? `<div class="adv-badge adv-yes">${tick} Advanced past ${esc(r.name.split('—')[0].trim())}!</div>`
-          : `<div class="adv-badge adv-no">Not advanced past ${esc(r.name.split('—')[0].trim())} — participation certificate unlocked below.</div>`;
-      } else if (inRound && mySub && w === 'closed') {
+          ? `<div class="adv-badge adv-yes">${tick} Advanced past ${esc(r.name.split('—')[0].split('(')[0].trim())}!</div>`
+          : `<div class="adv-badge adv-no">Not advanced past ${esc(r.name.split('—')[0].split('(')[0].trim())} — participation certificate unlocked below.</div>`;
+      } else if (!isEvent && inRound && mySub && w === 'closed') {
         advBadge = `<div class="adv-badge adv-wait">Judging in progress (offline) — advancement will appear here.</div>`;
       }
       roundsHtml += `<div style="margin-bottom:18px"><b style="font-family:var(--display);font-size:.95rem">${esc(r.name)}</b><div style="margin-top:8px">${body}</div>${advBadge}</div>`;
@@ -621,7 +833,7 @@
     a.click();
   }
 
-  /* ---------- live countdowns: re-render when a window crosses zero ---------- */
+  /* ---------- countdowns ---------- */
   setInterval(() => {
     document.querySelectorAll('[data-count]').forEach(el => {
       const left = countdown(el.dataset.count);
@@ -633,7 +845,7 @@
   }, 1000);
 
   await loadState();
-  renderChips(); renderRounds(); renderWinners(); renderAction();
+  renderRounds(); renderWinners(); renderAction();
 })();
 </script>
 <script src="nav.js?v=2" defer></script>
