@@ -80,24 +80,14 @@
     <!-- signed out: email + code -->
     <div class="acct-card" id="signin-card" hidden>
       <h1>Sign in</h1>
-      <p class="sub">Enter your email and we'll send you a 6-digit code. No password to remember.</p>
+      <p class="sub">Enter your email and we'll send you a sign-in link. No password to remember.</p>
       <form id="email-form" novalidate>
         <div class="field full">
           <label for="si-email">Email <span class="req">*</span></label>
           <input id="si-email" type="email" autocomplete="email" placeholder="you@college.edu" required>
         </div>
         <div class="form-foot" style="justify-content:flex-start">
-          <button class="btn btn-primary" type="submit" id="send-btn">Send code</button>
-        </div>
-      </form>
-      <form id="code-form" hidden novalidate>
-        <div class="field full">
-          <label for="si-code">Enter the 6-digit code sent to <b id="sent-to"></b></label>
-          <input id="si-code" class="code-input" type="text" inputmode="numeric" maxlength="6" placeholder="••••••" required>
-        </div>
-        <div class="form-foot" style="justify-content:flex-start;gap:10px">
-          <button class="btn btn-primary" type="submit" id="verify-btn">Verify &amp; sign in</button>
-          <button class="btn btn-ghost btn-sm" type="button" id="back-btn">Change email</button>
+          <button class="btn btn-primary" type="submit" id="send-btn">Send sign-in link</button>
         </div>
       </form>
       <p class="acct-msg" id="si-msg"></p>
@@ -247,30 +237,14 @@
     const email = $('si-email').value.trim();
     if (!email) return;
     $('send-btn').disabled = true; $('send-btn').textContent = 'Sending…';
-    const { error } = await sbSendCode(email);
-    $('send-btn').disabled = false; $('send-btn').textContent = 'Send code';
+    const { error } = await sbSendLink(email);
+    $('send-btn').disabled = false; $('send-btn').textContent = 'Send sign-in link';
     if (error) { msg($('si-msg'), error.message, 'err'); return; }
-    $('email-form').hidden = true; $('code-form').hidden = false;
-    $('sent-to').textContent = email;
-    msg($('si-msg'), 'Code sent — check your inbox (and spam folder).', 'ok');
-    $('si-code').focus();
+    msg($('si-msg'), 'Link sent to ' + email + ' — open your inbox (check spam too) and click "Sign in". You\'ll land back here, signed in.', 'ok');
   });
 
-  $('code-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const email = $('si-email').value.trim();
-    const code = $('si-code').value.trim();
-    $('verify-btn').disabled = true; $('verify-btn').textContent = 'Verifying…';
-    const { error } = await sbVerifyCode(email, code);
-    $('verify-btn').disabled = false; $('verify-btn').textContent = 'Verify & sign in';
-    if (error) { msg($('si-msg'), 'That code didn\'t work — check it and try again.', 'err'); return; }
-    render();
-  });
-
-  $('back-btn').addEventListener('click', () => {
-    $('code-form').hidden = true; $('email-form').hidden = false;
-    $('si-msg').className = 'acct-msg';
-  });
+  // when the user arrives back from the email link, sign-in completes automatically
+  sbOnAuthChange((event) => { if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') render(); });
 
   $('signout-btn').addEventListener('click', async () => { await sbSignOut(); render(); });
 

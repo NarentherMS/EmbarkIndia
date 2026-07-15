@@ -12,12 +12,16 @@ async function sbUser() {
   const { data } = await sb.auth.getUser();
   return data.user || null;
 }
-async function sbSendCode(email) {
-  return sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+async function sbSendLink(email) {
+  return sb.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: true,
+      emailRedirectTo: location.origin + location.pathname
+    }
+  });
 }
-async function sbVerifyCode(email, code) {
-  return sb.auth.verifyOtp({ email, token: code, type: 'email' });
-}
+function sbOnAuthChange(cb) { sb.auth.onAuthStateChange(cb); }
 async function sbSignOut() { await sb.auth.signOut(); }
 
 async function sbProfile() {
