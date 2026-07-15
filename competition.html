@@ -221,22 +221,6 @@
   </aside>
 </div>
 
-<div class="pay-overlay" id="pay-overlay" role="dialog" aria-modal="true" aria-label="Payment">
-  <div class="pay-sheet">
-    <button class="pay-close" id="pay-close" aria-label="Close payment">✕</button>
-    <h3>Embark India</h3>
-    <span style="font-size:.8rem;color:var(--ink-soft)" id="pay-for"></span>
-    <div class="pay-amount" id="pay-amt"></div>
-    <div class="pay-sim">Simulated payment — this is a prototype. No money moves. The real portal uses Razorpay (UPI, cards, net banking).</div>
-    <div class="pay-tabs">
-      <button aria-selected="true">UPI</button>
-      <button aria-selected="false">Card</button>
-      <button aria-selected="false">Net banking</button>
-    </div>
-    <button class="btn btn-primary" id="pay-btn" style="width:100%">Pay now</button>
-  </div>
-</div>
-
 <footer>
   <svg class="foot-path" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
     <path class="fp-line" d="M-20 70 C 180 20, 360 85, 560 48 S 920 12, 1128 44" fill="none"/>
@@ -294,42 +278,66 @@
   <div class="foot-ghost" aria-hidden="true">e<i>MBA</i>rk</div>
 </footer>
 
-<script src="competitions.js?v=3"></script>
+<script src="assets/vendor/supabase.js"></script>
+<script src="db.js?v=2"></script>
 <script>
-  const c = getComp(new URLSearchParams(location.search).get('c'), true) || allComps()[0];
+(async () => {
+  const $ = id => document.getElementById(id);
   const tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const qid = new URLSearchParams(location.search).get('c');
+
+  let c = null;
+  try { c = await dbComp(qid); } catch (e) {}
+  if (!c) {
+    $('d-title').textContent = 'Competition not found';
+    document.querySelector('.d-layout').innerHTML =
+      '<div class="d-block"><h2>Competition not found</h2><p>It may be unpublished or removed. <a href="competitions.html">Back to all competitions →</a></p></div>';
+    return;
+  }
 
   document.title = c.title + ' — Embark India';
-  const banner = document.getElementById('d-banner');
-  banner.classList.add('bn-' + c.banner);
-  document.getElementById('d-ghost').textContent = c.category.slice(0,2).toUpperCase();
-  document.getElementById('d-title').textContent = c.title;
-  document.getElementById('d-host').textContent = 'Hosted by ' + c.host;
-  document.getElementById('d-about').textContent = c.about;
-  document.getElementById('d-elig').textContent = c.eligibility;
-  document.getElementById('d-rules').innerHTML = c.rules.map(r => `<li>${tick}${r}</li>`).join('');
-  document.getElementById('d-prizes').innerHTML = c.prizes.map(([k,v]) => `<div class="prize-row"><b>${k}</b><span>${v}</span></div>`).join('');
+  $('d-banner').classList.add('bn-' + c.banner);
+  $('d-ghost').textContent = c.category.slice(0, 2).toUpperCase();
+  $('d-title').textContent = c.title;
+  $('d-host').textContent = 'Hosted by ' + c.host;
+  $('d-about').textContent = c.about;
+  $('d-elig').textContent = c.eligibility;
+  $('d-rules').innerHTML = c.rules.map(r => `<li>${tick}${esc(r)}</li>`).join('');
+  $('d-prizes').innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
+
+  /* ---------- state from the database ---------- */
+  let user = null, profile = null, mine = null, subsByRound = {}, advRows = [], winners = [];
+  async function loadState() {
+    try { user = await sbUser(); } catch (e) { user = null; }
+    profile = user ? await sbProfile() : null;
+    mine = user ? await dbMyReg(c.id) : null;
+    subsByRound = {}; advRows = [];
+    if (mine) {
+      (await dbMySubs(c.id)).forEach(x => subsByRound[x.round_idx] = x);
+      advRows = await dbCompAdvRows(c.id);
+    }
+    winners = await dbWinners(c.id);
+  }
 
   const renderChips = () => {
     const st = compStatus(c);
-    document.getElementById('d-chips').innerHTML =
+    $('d-chips').innerHTML =
       (st === 'live' ? '<span class="st-chip st-live">Live</span>'
         : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
         : '<span class="st-chip st-closed">Closed</span>')
       + (c.ppo ? '<span class="ppo-chip">PPO track</span>' : '')
       + (c.draft ? '<span class="st-chip st-closed">Draft — not public</span>' : '');
-    document.getElementById('d-meta').innerHTML = `
+    const regCount = (c.seedRegs || 0) + (mine ? 1 : 0);
+    $('d-meta').innerHTML = `
       <span><b>${c.fee ? '₹' + c.fee : 'Free'}</b> ${c.fee ? 'per team' : 'registration'}</span>
       <span>Team <b>${c.teamMin}–${c.teamMax}</b></span>
-      <span><b>${totalRegs(c).toLocaleString('en-IN')}</b> registered</span>
+      ${regCount ? `<span><b>${regCount.toLocaleString('en-IN')}</b> registered</span>` : ''}
       <span>Runs <b>${fmtDate(c.start)} – ${fmtDate(c.end)}</b></span>
       <span>Results <b>${fmtDate(c.result)}</b></span>`;
   };
-  renderChips();
 
-  /* ---------- rounds timeline ---------- */
   const renderRounds = () => {
-    document.getElementById('d-rounds').innerHTML = c.rounds.map((r, i) => {
+    $('d-rounds').innerHTML = c.rounds.map((r, i) => {
       const w = roundWindow(r);
       const cls = w === 'open' ? 'open' : w === 'closed' ? 'done' : '';
       const status = w === 'open'
@@ -338,56 +346,35 @@
         ? `<span class="round-status rs-not">Opens ${fmtDateTime(r.opens)}</span>`
         : `<span class="round-status rs-closed">Closed ${fmtDateTime(r.closes)}</span>`;
       return `<div class="round ${cls}">
-        <div class="round-head"><b>${r.name}</b><span class="round-when">${fmtDateTime(r.opens)} → ${fmtDateTime(r.closes)}</span></div>
-        <p>${r.brief}</p>
+        <div class="round-head"><b>${esc(r.name)}</b><span class="round-when">${fmtDateTime(r.opens)} → ${fmtDateTime(r.closes)}</span></div>
+        <p>${esc(r.brief)}</p>
         ${status}
       </div>`;
     }).join('');
   };
-  renderRounds();
 
-  /* ---------- winners (6.4/5.5) ---------- */
   const renderWinners = () => {
-    const flagged = winnersFor(c.id);
-    const regs = regsFor(c.id);
-    let rows = [];
-    if (flagged.length) {
-      rows = flagged.map(w => {
-        const t = regs.find(r => r.id === w.teamId);
-        return t ? { rank: w.rank, team: t.teamName, college: t.solo ? 'Solo' : (t.members.length + 1) + ' members' } : null;
-      }).filter(Boolean);
-    } else if (c.seedWinners) rows = c.seedWinners;
-    if (rows.length) {
-      document.getElementById('winners-block').hidden = false;
-      document.getElementById('d-winners').innerHTML = rows.sort((a,b) => a.rank - b.rank).map(w => `
-        <div class="win-row">
-          <span class="win-rank wr-${w.rank}">${w.rank}</span>
-          <span><b>${w.team}</b><small>${w.college}</small></span>
-        </div>`).join('');
-    }
+    if (!winners.length) { $('winners-block').hidden = true; return; }
+    $('winners-block').hidden = false;
+    $('d-winners').innerHTML = winners.map(w => `
+      <div class="win-row">
+        <span class="win-rank wr-${w.rank}">${w.rank}</span>
+        <span><b>${esc(w.team_name)}</b><small>Rank ${w.rank}</small></span>
+      </div>`).join('');
   };
-  renderWinners();
 
-  /* ---------- action card: register / my panel (6.2–6.4) ---------- */
-  const action = document.getElementById('action-card');
+  /* ---------- action card ---------- */
+  const action = $('action-card');
   let regMode = 'solo', memberCount = 0;
 
   const renderAction = () => {
-    const st = compStatus(c);
-    const rw = regWindow(c);
-    const mine = myReg(c.id);
-
-    if (mine) return renderMyPanel(mine);
+    const st = compStatus(c), rw = regWindow(c);
+    if (mine) return renderMyPanel();
 
     if (st === 'closed') {
       action.innerHTML = `<h3>Competition completed</h3>
-        <p class="side-note">This one has ended — results are on this page. See what's live now, or preview the certificate students earned.</p>
-        <div class="cert-actions">
-          <a class="btn btn-primary btn-sm" href="competitions.html">Live competitions</a>
-          <button class="btn btn-ghost btn-sm" id="cert-sample">Preview a certificate</button>
-        </div>`;
-      document.getElementById('cert-sample').addEventListener('click', () =>
-        makeCertificate('Your Name Here', c.title, 'participation'));
+        <p class="side-note">This one has ended — results are on this page. See what's live now.</p>
+        <div class="cert-actions"><a class="btn btn-primary btn-sm" href="competitions.html">Live competitions</a></div>`;
       return;
     }
     if (rw === 'not-open') {
@@ -399,47 +386,61 @@
     }
     if (rw === 'closed') {
       action.innerHTML = `<h3>Registration closed</h3>
-        <p class="side-note">The registration window for this competition has passed. Rounds continue for registered teams.</p>`;
+        <p class="side-note">The registration window has passed. Rounds continue for registered teams.</p>`;
+      return;
+    }
+    if (!user) {
+      action.innerHTML = `
+        <div class="cd-label">Registration closes in</div>
+        <div class="cd-big"><span data-count="${c.regClose}">${countdown(c.regClose) || ''}</span></div>
+        <h3 style="margin-top:18px">Sign in to register</h3>
+        <p class="side-note" style="margin:8px 0 16px">Registration is ${c.fee ? '₹' + c.fee + ' per team' : 'free'}. Sign in with your email — takes under a minute — and you'll be back here to finish.</p>
+        <a class="btn btn-primary" style="width:100%" href="account.html">Sign in / create account</a>`;
+      return;
+    }
+    if (c.fee > 0) {
+      action.innerHTML = `<h3>Paid competition</h3>
+        <p class="side-note">Online payments are launching on the portal soon. Write to <a href="mailto:hello@embarkindia.in">hello@embarkindia.in</a> to reserve your team's seat for ₹${c.fee}.</p>`;
       return;
     }
 
-    // registration open — the form (6.2)
     action.innerHTML = `
       <div class="cd-label">Registration closes in</div>
       <div class="cd-big"><span data-count="${c.regClose}">${countdown(c.regClose) || ''}</span></div>
-      <h3 style="margin-top:18px">Register — ${c.fee ? '₹' + c.fee + ' per team' : 'free'}</h3>
+      <h3 style="margin-top:18px">Register — free</h3>
       <div class="seg" role="tablist">
         <button id="seg-solo" aria-selected="true" ${c.teamMin > 1 ? 'disabled style="opacity:.4"' : ''}>Solo</button>
         <button id="seg-team" aria-selected="false">Team</button>
       </div>
       <form id="reg-form" novalidate>
         <div class="field" id="f-teamname" hidden><label>Team name <span class="req">*</span></label><input id="r-team" type="text" placeholder="Team Vector"></div>
-        <div class="field"><label>Your name (lead) <span class="req">*</span></label><input id="r-name" type="text" required></div>
-        <div class="field"><label>Email <span class="req">*</span></label><input id="r-email" type="email" required></div>
-        <div class="field"><label>College <span class="req">*</span></label><input id="r-college" type="text" required></div>
+        <div class="field"><label>Your name (lead) <span class="req">*</span></label><input id="r-name" type="text" required value="${esc(profile && profile.name || '')}"></div>
+        <div class="field"><label>College <span class="req">*</span></label><input id="r-college" type="text" required value="${esc(profile && profile.college || '')}"></div>
         <div id="members-wrap" hidden>
-          <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:8px">Teammates (${c.teamMin > 1 ? 'min ' + (c.teamMin-1) + ', ' : ''}max ${c.teamMax - 1})</label>
+          <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:8px">Teammates (${c.teamMin > 1 ? 'min ' + (c.teamMin - 1) + ', ' : ''}max ${c.teamMax - 1})</label>
           <div id="members"></div>
           <button type="button" class="add-member" id="add-member">+ Add teammate</button>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%">${c.fee ? 'Pay & register' : 'Register'}</button>
-        <p class="side-note" style="text-align:center">Confirmation lands on email &amp; WhatsApp${c.fee ? ' with your receipt' : ''}.</p>
-      </form>`;
+        <button class="btn btn-primary" type="submit" id="reg-btn" style="width:100%">Register</button>
+        <p class="side-note" style="text-align:center">Registering as ${esc(user.email)} · shows in <a href="account.html">My competitions</a> instantly.</p>
+      </form>
+      <p class="acct-msg" id="reg-msg" style="font-size:.88rem;border-radius:12px;padding:12px 15px;margin-top:12px;display:none"></p>`;
 
     if (c.teamMin > 1) { regMode = 'team'; toggleMode('team'); }
-    document.getElementById('seg-solo') && document.getElementById('seg-solo').addEventListener('click', () => toggleMode('solo'));
-    document.getElementById('seg-team').addEventListener('click', () => toggleMode('team'));
-    document.getElementById('add-member').addEventListener('click', addMemberRow);
-    document.getElementById('reg-form').addEventListener('submit', submitReg);
+    const soloBtn = $('seg-solo');
+    if (soloBtn) soloBtn.addEventListener('click', () => toggleMode('solo'));
+    $('seg-team').addEventListener('click', () => toggleMode('team'));
+    $('add-member').addEventListener('click', addMemberRow);
+    $('reg-form').addEventListener('submit', submitReg);
   };
 
   const toggleMode = mode => {
     regMode = mode;
-    const solo = document.getElementById('seg-solo');
+    const solo = $('seg-solo');
     if (solo) solo.setAttribute('aria-selected', mode === 'solo');
-    document.getElementById('seg-team').setAttribute('aria-selected', mode === 'team');
-    document.getElementById('f-teamname').hidden = mode !== 'team';
-    document.getElementById('members-wrap').hidden = mode !== 'team';
+    $('seg-team').setAttribute('aria-selected', mode === 'team');
+    $('f-teamname').hidden = mode !== 'team';
+    $('members-wrap').hidden = mode !== 'team';
     if (mode === 'team' && memberCount === 0) addMemberRow();
   };
   const addMemberRow = () => {
@@ -448,152 +449,133 @@
     const div = document.createElement('div');
     div.className = 'member-row';
     div.innerHTML = `<input type="text" placeholder="Teammate ${memberCount} name" class="mm-name" style="font-family:var(--body);font-size:.95rem;background:var(--cream);border:1.5px solid transparent;border-radius:12px;padding:12px 15px;min-height:46px">`;
-    document.getElementById('members').appendChild(div);
-    if (memberCount >= c.teamMax - 1) document.getElementById('add-member').style.display = 'none';
+    $('members').appendChild(div);
+    if (memberCount >= c.teamMax - 1) $('add-member').style.display = 'none';
   };
 
-  const submitReg = e => {
+  const regFail = t => {
+    const m = $('reg-msg');
+    m.textContent = t; m.style.display = 'block';
+    m.style.background = '#FEE4E2'; m.style.color = '#B42318';
+  };
+
+  async function submitReg(e) {
     e.preventDefault();
     const form = e.target;
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    const members = [...document.querySelectorAll('.mm-name')].map(i => i.value.trim()).filter(Boolean);
+    const name = $('r-name').value.trim();
+    const college = $('r-college').value.trim();
+    const mates = [...document.querySelectorAll('.mm-name')].map(i => i.value.trim()).filter(Boolean);
+    let teamName;
     if (regMode === 'team') {
-      if (!document.getElementById('r-team').value.trim()) { alert('Team name required'); return; }
-      if (members.length < c.teamMin - 1) { alert('This competition needs at least ' + c.teamMin + ' members (you + ' + (c.teamMin - 1) + ')'); return; }
+      teamName = $('r-team').value.trim();
+      if (!teamName) { regFail('Team name required.'); return; }
+      if (mates.length < c.teamMin - 1) { regFail('This competition needs at least ' + c.teamMin + ' members (you + ' + (c.teamMin - 1) + ' teammates).'); return; }
+    } else {
+      teamName = name;
     }
-    const reg = {
-      id: 'team-' + Math.random().toString(36).slice(2, 8),
-      compId: c.id,
-      solo: regMode === 'solo',
-      teamName: regMode === 'solo' ? document.getElementById('r-name').value.trim() : document.getElementById('r-team').value.trim(),
-      lead: { name: document.getElementById('r-name').value.trim(), email: document.getElementById('r-email').value.trim().toLowerCase(), college: document.getElementById('r-college').value.trim() },
-      members: members.map(n => ({ name: n })),
-      paid: false, ts: new Date().toISOString()
-    };
-    ccpSet('me', { name: reg.lead.name, email: reg.lead.email, college: reg.lead.college });
-    if (c.fee > 0) openPayment(reg);
-    else finishReg(reg);
-  };
+    const members = [{ name, email: user.email, college }, ...mates.map(n => ({ name: n }))];
+    const btn = $('reg-btn');
+    btn.disabled = true; btn.textContent = 'Registering…';
+    const { error } = await dbRegister(c.id, teamName, members);
+    btn.disabled = false; btn.textContent = 'Register';
+    if (error) {
+      if ((error.code || '') === '23505' || /duplicate/i.test(error.message)) regFail('You are already registered for this competition.');
+      else if (/security|policy/i.test(error.message)) regFail('Registration was rejected — the window may have closed or the team size is outside the rules.');
+      else regFail(error.message);
+      return;
+    }
+    sbSaveProfile(name, college); // best effort — keeps certificates accurate
+    await loadState();
+    renderChips(); renderAction();
+  }
 
-  /* simulated Razorpay (spec 8) */
-  let pendingReg = null;
-  const openPayment = reg => {
-    pendingReg = reg;
-    document.getElementById('pay-for').textContent = c.title;
-    document.getElementById('pay-amt').textContent = '₹' + c.fee.toLocaleString('en-IN');
-    document.getElementById('pay-overlay').classList.add('show');
-  };
-  document.getElementById('pay-close').addEventListener('click', () => document.getElementById('pay-overlay').classList.remove('show'));
-  document.querySelectorAll('.pay-tabs button').forEach(b => b.addEventListener('click', () => {
-    document.querySelectorAll('.pay-tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
-  }));
-  document.getElementById('pay-btn').addEventListener('click', () => {
-    const btn = document.getElementById('pay-btn');
-    btn.textContent = 'Processing…'; btn.disabled = true;
-    setTimeout(() => {
-      pendingReg.paid = true;
-      pendingReg.receipt = 'rcpt_' + Math.random().toString(36).slice(2, 10);
-      document.getElementById('pay-overlay').classList.remove('show');
-      btn.textContent = 'Pay now'; btn.disabled = false;
-      finishReg(pendingReg);
-    }, 1200);
-  });
-
-  const finishReg = reg => {
-    addReg(c.id, reg);
-    renderChips();
-    renderAction();
-  };
-
-  /* ---------- my panel: submissions, advancement, results, certificates ---------- */
-  const renderMyPanel = mine => {
+  /* ---------- my panel: rounds, uploads, advancement, certificates ---------- */
+  function renderMyPanel() {
     const st = compStatus(c);
-    const subs = subsFor(c.id);
-    const adv = advFor(c.id);
-    const flagged = winnersFor(c.id);
-    const myWin = flagged.find(w => w.teamId === mine.id);
+    const advSet = new Set(advRows.filter(a => a.reg_id === mine.id).map(a => a.round_idx));
+    const declared = i => advRows.some(a => a.round_idx === i);
+    const myWin = winners.find(w => w.reg_id === mine.id);
 
     let roundsHtml = '';
     c.rounds.forEach((r, i) => {
-      // team is in round i if i==0 or advanced through i-1 (spec 7)
-      const inRound = i === 0 || (adv[i-1] || []).includes(mine.id);
+      const inRound = i === 0 || advSet.has(i - 1);
       const w = roundWindow(r);
-      const mySub = (subs[i] || {})[mine.id];
+      const mySub = subsByRound[i];
       let body = '';
       if (!inRound) {
         body = `<span class="round-status rs-closed">Did not advance to this round</span>`;
-      } else if (mySub) {
-        body = `<div class="sub-done">✓ Submitted: <b>${mySub.name}</b> · ${fmtDateTime(mySub.ts)}</div>`;
+      } else if (mySub && w !== 'open') {
+        body = `<div class="sub-done">✓ Submitted: <b>${esc(mySub.file_path ? mySub.file_path.split('/').pop().replace(/^\d+-/, '') : mySub.link)}</b> · ${fmtDateTime(mySub.updated_at || mySub.created_at)}</div>`;
       } else if (w === 'open') {
-        body = `
+        const done = mySub ? `<div class="sub-done" style="margin-bottom:10px">✓ Submitted · ${fmtDateTime(mySub.updated_at || mySub.created_at)} — you can replace it until the window closes.</div>` : '';
+        body = `${done}
           <div class="upload-box">
-            <p style="font-size:.85rem;margin-bottom:10px;color:var(--charcoal)">Upload your submission (PDF/PPT/link)</p>
-            <input type="file" id="up-${i}" aria-label="Upload for ${r.name}">
+            <p style="font-size:.85rem;margin-bottom:10px;color:var(--charcoal)">${mySub ? 'Replace your submission' : 'Upload your submission'} (PDF/PPT, max 20MB)</p>
+            <input type="file" id="up-${i}" accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.zip" aria-label="Upload for ${esc(r.name)}">
             <p style="font-size:.75rem;color:var(--ink-soft);margin:8px 0">or</p>
             <input type="url" id="uplink-${i}" placeholder="Paste a drive link" style="width:100%;font-family:var(--body);font-size:.88rem;background:var(--cream);border:none;border-radius:10px;padding:10px 12px">
-            <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px" data-up="${i}">Submit for ${r.name.split('—')[0].trim()}</button>
+            <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px" data-up="${i}">Submit for ${esc(r.name.split('—')[0].trim())}</button>
           </div>
-          <p style="font-size:.76rem;color:var(--ink-soft);margin-top:8px">Window closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b>. In the live portal this cutoff is enforced on the server — it cannot be bypassed from the browser.</p>`;
+          <p style="font-size:.76rem;color:var(--ink-soft);margin-top:8px">Window closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b>. The cutoff is enforced on the server — late submissions are rejected automatically.</p>`;
       } else if (w === 'not-open') {
         body = `<span class="round-status rs-not">Upload opens ${fmtDateTime(r.opens)}</span>`;
       } else {
         body = `<span class="round-status rs-closed">Window closed — no submission received</span>`;
       }
-      // advancement badge after this round (6.4)
       let advBadge = '';
-      if (inRound && adv[i] !== undefined) {
-        advBadge = (adv[i] || []).includes(mine.id)
-          ? `<div class="adv-badge adv-yes">${tick} Advanced past ${r.name.split('—')[0].trim()}!</div>`
-          : `<div class="adv-badge adv-no">Not advanced past ${r.name.split('—')[0].trim()} — participation certificate unlocked below.</div>`;
+      if (inRound && declared(i)) {
+        advBadge = advSet.has(i)
+          ? `<div class="adv-badge adv-yes">${tick} Advanced past ${esc(r.name.split('—')[0].trim())}!</div>`
+          : `<div class="adv-badge adv-no">Not advanced past ${esc(r.name.split('—')[0].trim())} — participation certificate unlocked below.</div>`;
       } else if (inRound && mySub && w === 'closed') {
         advBadge = `<div class="adv-badge adv-wait">Judging in progress (offline) — advancement will appear here.</div>`;
       }
-      roundsHtml += `<div style="margin-bottom:18px"><b style="font-family:var(--display);font-size:.95rem">${r.name}</b><div style="margin-top:8px">${body}</div>${advBadge}</div>`;
+      roundsHtml += `<div style="margin-bottom:18px"><b style="font-family:var(--display);font-size:.95rem">${esc(r.name)}</b><div style="margin-top:8px">${body}</div>${advBadge}</div>`;
     });
 
-    // certificates (5.5/6.4)
     let certHtml = '';
-    const submittedAny = Object.values(subs).some(round => round[mine.id]);
-    if (myWin) {
-      certHtml = `<button class="btn btn-primary btn-sm" id="cert-win">Download winner certificate (rank ${myWin.rank})</button>`;
-    }
-    const lastAdvIdx = Object.keys(adv).map(Number).sort((a,b)=>b-a).find(i => (adv[i]||[]).includes(mine.id));
-    if (st === 'closed' || (submittedAny && Object.keys(adv).length)) {
+    const submittedAny = Object.keys(subsByRound).length > 0;
+    if (myWin) certHtml = `<button class="btn btn-primary btn-sm" id="cert-win">Download winner certificate (rank ${myWin.rank})</button>`;
+    if (st === 'closed' || (submittedAny && advRows.length)) {
       certHtml += `<button class="btn btn-ghost btn-sm" id="cert-part">Download participation certificate</button>`;
     }
     const certBlock = certHtml
       ? `<div style="margin-top:20px;padding-top:18px;border-top:1px dashed rgba(22,22,22,.2)"><h3 style="font-size:1rem">Your certificates</h3><div class="cert-actions">${certHtml}</div><p class="side-note" style="margin-top:10px">Real PNG, brand-designed — post it on LinkedIn.</p></div>`
       : '';
 
+    const mates = (mine.members || []).slice(1);
     action.innerHTML = `
       <h3>My competition</h3>
       <p class="side-note" style="margin-bottom:14px">
-        <b style="color:var(--charcoal)">${mine.teamName}</b> ${mine.solo ? '(solo)' : '· ' + (mine.members.length + 1) + ' members'}
-        · registered ${fmtDate(mine.ts)}${mine.paid ? ' · paid ✓ (' + mine.receipt + ')' : ''}
+        <b style="color:var(--charcoal)">${esc(mine.team_name)}</b> ${mates.length ? '· ' + (mates.length + 1) + ' members' : '(solo)'}
+        · registered ${fmtDate(mine.created_at)}
       </p>
       ${roundsHtml}
-      ${certBlock}
-      <p class="demo-note">Prototype: registrations, uploads and progression live in this browser. Notifications (email/WhatsApp) are simulated. The production portal stores all of this server-side.</p>`;
+      ${certBlock}`;
 
-    action.querySelectorAll('[data-up]').forEach(btn => btn.addEventListener('click', () => {
+    action.querySelectorAll('[data-up]').forEach(btn => btn.addEventListener('click', async () => {
       const i = +btn.dataset.up;
-      const r = c.rounds[i];
-      if (roundWindow(r) !== 'open') { alert('This round\'s window has closed.'); renderMyPanel(mine); return; }
-      const file = document.getElementById('up-' + i).files[0];
-      const link = document.getElementById('uplink-' + i).value.trim();
+      if (roundWindow(c.rounds[i]) !== 'open') { alert("This round's window has closed."); await loadState(); renderMyPanel(); return; }
+      const file = $('up-' + i).files[0];
+      const link = $('uplink-' + i).value.trim();
       if (!file && !link) { alert('Choose a file or paste a link.'); return; }
-      addSub(c.id, i, mine.id, { name: file ? file.name : link, kind: file ? 'file' : 'link', ts: new Date().toISOString() });
-      renderMyPanel(mine);
+      if (file && file.size > 20 * 1024 * 1024) { alert('File is over 20MB — upload a smaller file or paste a drive link.'); return; }
+      btn.disabled = true; btn.textContent = 'Uploading…';
+      const { error } = await dbSubmit(c.id, mine.id, i, file, link, '');
+      btn.disabled = false;
+      if (error) {
+        alert(/security|policy/i.test(error.message) ? 'The server rejected this — the round window has closed.' : error.message);
+      }
+      await loadState(); renderMyPanel();
     }));
-    const cw = document.getElementById('cert-win');
-    if (cw) cw.addEventListener('click', () => makeCertificate(mine.teamName, c.title, 'winner', myWin.rank));
-    const cp = document.getElementById('cert-part');
-    if (cp) cp.addEventListener('click', () => makeCertificate(mine.teamName, c.title, 'participation'));
-  };
+    const cw = $('cert-win');
+    if (cw) cw.addEventListener('click', () => makeCertificate(mine.team_name, c.title, 'winner', myWin.rank));
+    const cp = $('cert-part');
+    if (cp) cp.addEventListener('click', () => makeCertificate(mine.team_name, c.title, 'participation'));
+  }
 
-  renderAction();
-
-  /* ---------- certificate generator (5.5) — real, downloadable ---------- */
+  /* ---------- certificate generator ---------- */
   function makeCertificate(name, compTitle, kind, rank) {
     const cv = document.createElement('canvas');
     cv.width = 1400; cv.height = 990;
@@ -605,7 +587,7 @@
     x.fillStyle = '#161616';
     x.font = '800 54px "Bricolage Grotesque", sans-serif';
     x.textAlign = 'center';
-    x.fillText('e', 640, 140); // wordmark
+    x.fillText('e', 640, 140);
     x.fillStyle = '#FB4D0A'; x.fillText('MBA', 700, 140);
     x.fillStyle = '#161616'; x.fillText('rk', 768, 140);
     x.font = '500 22px Inter, sans-serif'; x.fillStyle = '#6B7280';
@@ -639,17 +621,20 @@
     a.click();
   }
 
-  /* live countdowns — re-render windows when a timer crosses zero (spec 6.3) */
+  /* ---------- live countdowns: re-render when a window crosses zero ---------- */
   setInterval(() => {
     document.querySelectorAll('[data-count]').forEach(el => {
       const left = countdown(el.dataset.count);
       if (left === null && el.textContent !== 'closed') {
         el.textContent = 'closed';
-        renderRounds();
-        renderAction();
+        renderRounds(); renderAction();
       } else if (left) el.textContent = left;
     });
   }, 1000);
+
+  await loadState();
+  renderChips(); renderRounds(); renderWinners(); renderAction();
+})();
 </script>
 <script src="nav.js?v=2" defer></script>
 </body>

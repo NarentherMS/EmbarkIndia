@@ -156,3 +156,45 @@ async function dbFileUrl(path) {
   const { data } = await sb.storage.from('submissions').createSignedUrl(path, 3600);
   return data ? data.signedUrl : null;
 }
+async function dbAllRegs() { // admin: every registration across comps
+  const { data } = await sb.from('registrations').select('id,comp_id');
+  return data || [];
+}
+async function dbCompAdvRows(compId) { // participants see their comp's advancing list
+  const { data } = await sb.from('advancements').select('*').eq('comp_id', compId);
+  return data || [];
+}
+
+/* ---------------- status helpers (computed from dates, spec 5.2/7) ---------------- */
+function compStatus(c) {
+  const now = new Date();
+  if (now > new Date(c.end)) return 'closed';
+  if (now >= new Date(c.start)) return 'live';
+  return 'upcoming';
+}
+function regWindow(c) {
+  const now = new Date();
+  if (now < new Date(c.regOpen)) return 'not-open';
+  if (now > new Date(c.regClose)) return 'closed';
+  return 'open';
+}
+function roundWindow(r) {
+  const now = new Date();
+  if (now < new Date(r.opens)) return 'not-open';
+  if (now > new Date(r.closes)) return 'closed';
+  return 'open';
+}
+function fmtDate(iso) {
+  return iso ? new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '—';
+}
+function fmtDateTime(iso) {
+  return iso ? new Date(iso).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }) : '—';
+}
+function countdown(iso) {
+  const ms = new Date(iso) - new Date();
+  if (ms <= 0) return null;
+  const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1e3);
+  return d > 0 ? `${d}d ${h}h ${m}m` : h > 0 ? `${h}h ${m}m ${s}s` : `${m}m ${s}s`;
+}
+function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60); }
+function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }

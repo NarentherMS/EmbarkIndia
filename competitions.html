@@ -448,7 +448,8 @@
   <div class="foot-ghost" aria-hidden="true">e<i>MBA</i>rk</div>
 </footer>
 
-<script src="competitions.js?v=3"></script>
+<script src="assets/vendor/supabase.js"></script>
+<script src="db.js?v=2"></script>
 <script>
   // ----- posters: continuous marquee (same as home) -----
   (() => {
@@ -466,14 +467,21 @@
     else window.addEventListener('load', check);
   })();
 
-  // ----- my competitions strip -----
-  const comps = allComps(false);
-  const mine = comps.filter(c => myReg(c.id));
-  if (mine.length) {
-    document.getElementById('my-strip').classList.add('show');
-    document.getElementById('my-links').innerHTML = mine.map(c =>
-      `<a href="competition.html?c=${c.id}">${c.title.split(':')[0]} · ${compStatus(c)}</a>`).join('');
-  }
+  // ----- my competitions strip (from the database) -----
+  (async () => {
+    try {
+      const regs = await dbMyRegs();
+      if (!regs.length) return;
+      const comps = await dbComps(true);
+      const links = regs.map(r => {
+        const c = comps.find(x => x.id === r.comp_id);
+        return c ? `<a href="competition.html?c=${c.id}">${esc(c.title.split(':')[0])} · ${compStatus(c)}</a>` : '';
+      }).join('');
+      if (!links) return;
+      document.getElementById('my-strip').classList.add('show');
+      document.getElementById('my-links').innerHTML = links;
+    } catch (e) {}
+  })();
 
   // ----- hero flow animation -----
   (() => {
