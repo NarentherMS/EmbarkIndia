@@ -147,22 +147,59 @@
   }
   @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
 
-  /* ---------- categories ---------- */
-  .cat-sec{padding:84px 0}
-  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
-  .cat-card{
-    background:var(--white);border:1px solid rgba(22,22,22,.08);border-radius:18px;padding:22px 20px;
-    transition:transform .2s,border-color .2s,box-shadow .2s;
+  /* ---------- categories: shuffle grid ---------- */
+  .cat-sec{padding:96px 0;overflow:hidden}
+  .cat-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
+  .cat-left h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:18px}
+  .cat-left p{color:var(--ink-soft);font-size:1.05rem;max-width:400px;margin-bottom:30px}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .cat-tile{
+    position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;cursor:default;
+    display:flex;flex-direction:column;justify-content:space-between;padding:14px 15px;
+    transition:box-shadow .25s;will-change:transform;
   }
-  .cat-card:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:var(--shadow-card)}
-  .cat-mono{
-    display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;
-    font-family:var(--display);font-weight:800;font-size:.85rem;letter-spacing:.02em;
-    background:var(--navy);color:#fff;margin-bottom:14px;transition:background .25s;
+  .cat-tile:hover{box-shadow:0 14px 30px rgba(11,31,58,.22);z-index:2}
+  .cat-tile .mono{
+    font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,2.6vw,2rem);
+    letter-spacing:-.02em;line-height:1;
   }
-  .cat-card:hover .cat-mono{background:var(--orange)}
-  .cat-card h3{font-size:.98rem;font-weight:700;margin-bottom:6px}
-  .cat-card p{font-size:.83rem;color:var(--ink-soft)}
+  .cat-tile .name{font-weight:600;font-size:clamp(.68rem,1vw,.8rem);line-height:1.3}
+  .cat-tile .blurb{
+    position:absolute;inset:0;padding:14px 15px;display:flex;align-items:center;
+    font-size:clamp(.68rem,.95vw,.78rem);line-height:1.45;font-weight:500;
+    opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;
+  }
+  .cat-tile:hover .blurb{opacity:1;transform:none}
+  .cat-tile:hover .mono,.cat-tile:hover .name{opacity:0}
+  .cat-tile .mono,.cat-tile .name{transition:opacity .2s}
+  /* tile treatments */
+  .ct-navy{background:var(--navy);color:#fff}
+  .ct-navy .blurb{background:var(--navy);color:rgba(250,247,242,.85)}
+  .ct-orange{background:var(--orange);color:#fff}
+  .ct-orange .blurb{background:var(--orange);color:#fff}
+  .ct-ivory{background:var(--cream);color:var(--charcoal);border:1px solid rgba(22,22,22,.1)}
+  .ct-ivory .blurb{background:var(--cream);color:var(--ink-soft)}
+  .ct-ivory .mono{color:var(--orange-deep)}
+  .ct-dash{background:var(--white);color:var(--charcoal);border:1.5px dashed rgba(22,22,22,.3)}
+  .ct-dash .blurb{background:var(--white);color:var(--ink-soft)}
+  .ct-dash .mono{color:var(--navy)}
+  .ct-dots{
+    background-color:var(--navy);color:#fff;
+    background-image:radial-gradient(rgba(251,77,10,.4) 1.3px,transparent 1.7px);
+    background-size:12px 12px;
+  }
+  .ct-dots .blurb{background:var(--navy);color:rgba(250,247,242,.85)}
+  .cat-tile.static{
+    background:var(--white);border:1px solid rgba(22,22,22,.08);
+    align-items:flex-start;justify-content:center;gap:6px;cursor:auto;
+  }
+  .cat-tile.static b{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,2.2vw,1.7rem);color:var(--orange-deep)}
+  .cat-tile.static span{font-size:clamp(.66rem,.95vw,.78rem);color:var(--ink-soft);font-weight:500;line-height:1.35}
+  @media (max-width:980px){
+    .cat-wrap{grid-template-columns:1fr;gap:40px}
+    .cat-left p{max-width:none}
+  }
+  @media (max-width:560px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
 
   /* ---------- coaching (navy band) ---------- */
   .coach-sec{background:var(--navy);color:var(--cream);padding:92px 0}
@@ -310,25 +347,28 @@
   </div>
 </section>
 
-<!-- 5. CATEGORIES -->
+<!-- 5. CATEGORIES: shuffle grid -->
 <section class="cat-sec">
-  <div class="wrap">
-    <div class="sec-head">
+  <div class="wrap cat-wrap">
+    <div class="cat-left">
       <p class="eyebrow">Every stream</p>
       <h2>Competition categories</h2>
-      <p>Challenges across every MBA specialisation — pick the arena that matches where you want to be placed.</p>
+      <p>Ten arenas across every MBA specialisation — the deck reshuffles, your stream is always in play. Hover any tile to see what you'd solve.</p>
+      <a class="btn btn-primary" href="#competitions">Explore competitions</a>
     </div>
-    <div class="cat-grid">
-      <div class="cat-card reveal"><span class="cat-mono">MS</span><h3>Marketing Strategy</h3><p>Solve brand, growth, consumer, and go-to-market challenges.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">FV</span><h3>Finance &amp; Valuation</h3><p>Work on business finance, investment, valuation, and market cases.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">CS</span><h3>Consulting &amp; Case Solving</h3><p>Structure ambiguous business problems and present recommendations.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">PM</span><h3>Product Management</h3><p>Crack product sense, prioritisation, roadmap, and metrics challenges.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">AI</span><h3>Analytics &amp; AI</h3><p>Turn data into decisions with analytics and AI-driven business cases.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">GM</span><h3>General Management</h3><p>Take cross-functional business calls the way a P&amp;L owner would.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">EN</span><h3>Entrepreneurship</h3><p>Build business models, pitches, and zero-to-one problem solving.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">OP</span><h3>Operations &amp; Supply Chain</h3><p>Optimise processes, logistics, and efficiency under constraints.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">HR</span><h3>HR Strategy</h3><p>Solve talent, org design, and people-strategy cases.</p></div>
-      <div class="cat-card reveal"><span class="cat-mono">BQ</span><h3>Business Quiz</h3><p>Fast-paced quizzes on brands, business news, and strategy.</p></div>
+    <div class="cat-grid" id="cat-grid" aria-label="Competition categories">
+      <div class="cat-tile ct-navy"><span class="mono">MS</span><span class="name">Marketing Strategy</span><span class="blurb">Brand, growth, consumer, and go-to-market challenges.</span></div>
+      <div class="cat-tile ct-ivory"><span class="mono">FV</span><span class="name">Finance &amp; Valuation</span><span class="blurb">Business finance, investment, valuation, and market cases.</span></div>
+      <div class="cat-tile ct-orange"><span class="mono">CS</span><span class="name">Consulting &amp; Case Solving</span><span class="blurb">Structure ambiguous problems and present recommendations.</span></div>
+      <div class="cat-tile ct-dash"><span class="mono">PM</span><span class="name">Product Management</span><span class="blurb">Product sense, prioritisation, roadmap, and metrics.</span></div>
+      <div class="cat-tile ct-dots"><span class="mono">AI</span><span class="name">Analytics &amp; AI</span><span class="blurb">Turn data into decisions with analytics and AI cases.</span></div>
+      <div class="cat-tile ct-ivory"><span class="mono">GM</span><span class="name">General Management</span><span class="blurb">Cross-functional calls the way a P&amp;L owner makes them.</span></div>
+      <div class="cat-tile ct-navy"><span class="mono">EN</span><span class="name">Entrepreneurship</span><span class="blurb">Business models, pitches, and zero-to-one problem solving.</span></div>
+      <div class="cat-tile ct-dash"><span class="mono">OP</span><span class="name">Operations &amp; Supply Chain</span><span class="blurb">Processes, logistics, and efficiency under constraints.</span></div>
+      <div class="cat-tile ct-ivory"><span class="mono">HR</span><span class="name">HR Strategy</span><span class="blurb">Talent, org design, and people-strategy cases.</span></div>
+      <div class="cat-tile ct-navy"><span class="mono">BQ</span><span class="name">Business Quiz</span><span class="blurb">Fast-paced quizzes on brands, business news, and strategy.</span></div>
+      <div class="cat-tile static"><b>10</b><span>arenas, one leaderboard</span></div>
+      <div class="cat-tile static"><b>1st</b><span>win worth more than a brand name</span></div>
     </div>
   </div>
 </section>
@@ -426,6 +466,37 @@
     };
     tick();
     setInterval(tick, 1300);
+  })();
+
+  // ----- category shuffle grid (FLIP swaps) -----
+  (() => {
+    const grid = document.getElementById('cat-grid');
+    if (!grid || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let paused = false;
+    grid.addEventListener('mouseenter', () => paused = true);
+    grid.addEventListener('mouseleave', () => paused = false);
+    const shuffle = () => {
+      if (paused || document.hidden) return;
+      const tiles = [...grid.children];
+      // pick two distinct tiles to swap
+      const a = tiles[Math.floor(Math.random() * tiles.length)];
+      let b = tiles[Math.floor(Math.random() * tiles.length)];
+      if (a === b) b = tiles[(tiles.indexOf(a) + 5) % tiles.length];
+      const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+      // swap in DOM
+      const marker = document.createComment('');
+      a.replaceWith(marker); b.replaceWith(a); marker.replaceWith(b);
+      // FLIP: invert then play
+      const na = a.getBoundingClientRect(), nb = b.getBoundingClientRect();
+      [[a, ra, na], [b, rb, nb]].forEach(([el, from, to]) => {
+        el.style.transition = 'none';
+        el.style.transform = `translate(${from.left - to.left}px,${from.top - to.top}px)`;
+        el.getBoundingClientRect();
+        el.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
+        el.style.transform = '';
+      });
+    };
+    setInterval(shuffle, 2600);
   })();
 
   // ----- reveal on scroll -----
