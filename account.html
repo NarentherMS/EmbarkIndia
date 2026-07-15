@@ -21,7 +21,13 @@
   .acct-msg{font-size:.88rem;border-radius:12px;padding:12px 15px;margin-top:14px;display:none}
   .acct-msg.ok{display:block;background:var(--green-soft);color:var(--green)}
   .acct-msg.err{display:block;background:#FEE4E2;color:#B42318}
-  .code-input{letter-spacing:.5em;text-align:center;font-size:1.3rem;font-weight:600}
+  .authseg{display:flex;gap:8px;margin-bottom:22px}
+  .authseg button{
+    flex:1;font-family:var(--body);font-weight:600;font-size:.9rem;
+    background:var(--cream);border:1.5px solid transparent;border-radius:12px;
+    padding:11px;cursor:pointer;min-height:44px;transition:all .18s;color:var(--ink-soft);
+  }
+  .authseg button[aria-selected="true"]{background:var(--charcoal);color:var(--cream)}
 
   .me-wrap{max-width:820px;margin:0 auto}
   .me-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}
@@ -77,20 +83,49 @@
 <section class="acct-sec">
   <div class="wrap">
 
-    <!-- signed out: email + code -->
+    <!-- signed out: email + password -->
     <div class="acct-card" id="signin-card" hidden>
-      <h1>Sign in</h1>
-      <p class="sub">Enter your email and we'll send you a sign-in link. No password to remember.</p>
-      <form id="email-form" novalidate>
-        <div class="field full">
-          <label for="si-email">Email <span class="req">*</span></label>
-          <input id="si-email" type="email" autocomplete="email" placeholder="you@college.edu" required>
+      <div class="authseg" role="tablist">
+        <button type="button" id="mode-in" aria-selected="true">Sign in</button>
+        <button type="button" id="mode-up" aria-selected="false">Create account</button>
+      </div>
+      <h1 id="si-title">Sign in</h1>
+      <p class="sub" id="si-sub">Welcome back — enter your email and password.</p>
+      <form id="auth-form" novalidate>
+        <div class="field full" id="f-name" hidden>
+          <label for="au-name">Full name <span class="req">*</span></label>
+          <input id="au-name" type="text" autocomplete="name" placeholder="Your name">
         </div>
-        <div class="form-foot" style="justify-content:flex-start">
-          <button class="btn btn-primary" type="submit" id="send-btn">Send sign-in link</button>
+        <div class="field full">
+          <label for="au-email">Email <span class="req">*</span></label>
+          <input id="au-email" type="email" autocomplete="email" placeholder="you@college.edu" required>
+        </div>
+        <div class="field full">
+          <label for="au-pass">Password <span class="req">*</span></label>
+          <input id="au-pass" type="password" autocomplete="current-password" minlength="6" placeholder="••••••••" required>
+        </div>
+        <div class="form-foot" style="justify-content:space-between;align-items:center">
+          <button class="btn btn-primary" type="submit" id="auth-btn">Sign in</button>
+          <a href="#" id="forgot" style="font-size:.85rem;color:var(--ink-soft)">Forgot password?</a>
         </div>
       </form>
       <p class="acct-msg" id="si-msg"></p>
+    </div>
+
+    <!-- arrived from a password-reset email -->
+    <div class="acct-card" id="recover-card" hidden>
+      <h1>Set a new password</h1>
+      <p class="sub">Choose a new password for your account.</p>
+      <form id="recover-form" novalidate>
+        <div class="field full">
+          <label for="rc-pass">New password <span class="req">*</span></label>
+          <input id="rc-pass" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required>
+        </div>
+        <div class="form-foot" style="justify-content:flex-start">
+          <button class="btn btn-primary" type="submit">Save password &amp; sign in</button>
+        </div>
+      </form>
+      <p class="acct-msg" id="rc-msg"></p>
     </div>
 
     <!-- signed in: profile + my competitions -->
@@ -119,6 +154,15 @@
           </div>
         </form>
         <p class="acct-msg" id="pf-msg"></p>
+      </div>
+
+      <div class="me-card">
+        <h2>Password</h2>
+        <form id="pass-form" novalidate style="grid-template-columns:1fr auto;align-items:end">
+          <div class="field"><label for="np-pass">Set / change password</label><input id="np-pass" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required></div>
+          <button class="btn btn-primary btn-sm" type="submit" style="margin-bottom:2px">Save password</button>
+        </form>
+        <p class="acct-msg" id="np-msg"></p>
       </div>
     </div>
 
@@ -181,7 +225,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=3"></script>
+<script src="db.js?v=4"></script>
 <script>
   const $ = id => document.getElementById(id);
   const msg = (el, text, kind) => { el.textContent = text; el.className = 'acct-msg ' + kind; };
@@ -231,21 +275,98 @@
     }
   }
 
-  $('email-form').addEventListener('submit', async e => {
+  // ----- sign in / create account (email + password) -----
+  let authMode = 'in';
+  const setMode = m => {
+    authMode = m;
+    $('mode-in').setAttribute('aria-selected', m === 'in');
+    $('mode-up').setAttribute('aria-selected', m === 'up');
+    $('f-name').hidden = m === 'in';
+    $('au-name').required = m === 'up';
+    $('si-title').textContent = m === 'in' ? 'Sign in' : 'Create your account';
+    $('si-sub').textContent = m === 'in'
+      ? 'Welcome back — enter your email and password.'
+      : 'One account for registrations, submissions, and certificates.';
+    $('auth-btn').textContent = m === 'in' ? 'Sign in' : 'Create account';
+    $('au-pass').autocomplete = m === 'in' ? 'current-password' : 'new-password';
+    $('forgot').style.display = m === 'in' ? '' : 'none';
+    $('si-msg').className = 'acct-msg';
+  };
+  $('mode-in').addEventListener('click', () => setMode('in'));
+  $('mode-up').addEventListener('click', () => setMode('up'));
+
+  $('auth-form').addEventListener('submit', async e => {
     e.preventDefault();
-    const email = $('si-email').value.trim();
-    if (!email) return;
-    $('send-btn').disabled = true; $('send-btn').textContent = 'Sending…';
-    const { error } = await sbSendLink(email);
-    $('send-btn').disabled = false; $('send-btn').textContent = 'Send sign-in link';
-    if (error) { msg($('si-msg'), error.message, 'err'); return; }
-    msg($('si-msg'), 'Link sent to ' + email + ' — open your inbox (check spam too) and click "Sign in". You\'ll land back here, signed in.', 'ok');
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const email = $('au-email').value.trim();
+    const pass = $('au-pass').value;
+    const btn = $('auth-btn');
+    btn.disabled = true; btn.textContent = authMode === 'in' ? 'Signing in…' : 'Creating…';
+    if (authMode === 'in') {
+      const { error } = await sbSignIn(email, pass);
+      btn.disabled = false; btn.textContent = 'Sign in';
+      if (error) {
+        msg($('si-msg'), /invalid/i.test(error.message)
+          ? 'Wrong email or password. If you signed up earlier without a password, use "Forgot password?" to set one.'
+          : error.message, 'err');
+        return;
+      }
+      render();
+    } else {
+      const name = $('au-name').value.trim();
+      const { data, error } = await sbSignUp(email, pass, name);
+      btn.disabled = false; btn.textContent = 'Create account';
+      if (error) {
+        msg($('si-msg'), /already registered/i.test(error.message)
+          ? 'This email already has an account — switch to Sign in (or use "Forgot password?").'
+          : error.message, 'err');
+        return;
+      }
+      if (data && data.session) { render(); return; }
+      msg($('si-msg'), 'Account created! Check your inbox for a confirmation email, click the link, then sign in here.', 'ok');
+      setMode('in');
+    }
   });
 
-  // when the user arrives back from the email link, sign-in completes automatically
-  sbOnAuthChange((event) => { if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') render(); });
+  $('forgot').addEventListener('click', async e => {
+    e.preventDefault();
+    const email = $('au-email').value.trim();
+    if (!email) { msg($('si-msg'), 'Type your email above first, then click "Forgot password?".', 'err'); return; }
+    const { error } = await sbResetPassword(email);
+    msg($('si-msg'), error ? error.message :
+      'Password reset link sent to ' + email + ' — click it and you\'ll be back here to set a new password.', error ? 'err' : 'ok');
+  });
+
+  // ----- arriving from a password-reset email -----
+  $('recover-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const { error } = await sbUpdatePassword($('rc-pass').value);
+    if (error) { msg($('rc-msg'), error.message, 'err'); return; }
+    $('recover-card').hidden = true;
+    render();
+  });
+
+  sbOnAuthChange((event) => {
+    if (event === 'PASSWORD_RECOVERY') {
+      $('signin-card').hidden = true;
+      $('me').hidden = true;
+      $('recover-card').hidden = false;
+      return;
+    }
+    if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') render();
+  });
 
   $('signout-btn').addEventListener('click', async () => { await sbSignOut(); render(); });
+
+  $('pass-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const { error } = await sbUpdatePassword($('np-pass').value);
+    msg($('np-msg'), error ? error.message : 'Password saved — from now on you can sign in with email + password.', error ? 'err' : 'ok');
+    if (!error) $('np-pass').value = '';
+  });
 
   $('profile-form').addEventListener('submit', async e => {
     e.preventDefault();

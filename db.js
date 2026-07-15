@@ -12,14 +12,20 @@ async function sbUser() {
   const { data } = await sb.auth.getUser();
   return data.user || null;
 }
-async function sbSendLink(email) {
-  return sb.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: true,
-      emailRedirectTo: location.origin + location.pathname
-    }
+async function sbSignIn(email, password) {
+  return sb.auth.signInWithPassword({ email, password });
+}
+async function sbSignUp(email, password, name) {
+  return sb.auth.signUp({
+    email, password,
+    options: { data: { name }, emailRedirectTo: location.origin + location.pathname }
   });
+}
+async function sbResetPassword(email) {
+  return sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+}
+async function sbUpdatePassword(password) {
+  return sb.auth.updateUser({ password });
 }
 function sbOnAuthChange(cb) { sb.auth.onAuthStateChange(cb); }
 async function sbSignOut() { await sb.auth.signOut(); }
