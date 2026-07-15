@@ -56,74 +56,41 @@
     .flow-fill{width:100%!important;transition:none}
   }
 
-  /* ---------- live & upcoming (tabs) ---------- */
-  .comps-sec{background:var(--white);padding:76px 0 84px}
-  .cc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
-  .cc-tab{
-    font-family:var(--body);font-weight:600;font-size:.92rem;color:var(--ink-soft);
-    background:var(--cream);border:1.5px solid transparent;border-radius:999px;
-    padding:11px 22px;cursor:pointer;min-height:46px;display:inline-flex;align-items:center;gap:9px;
-    transition:all .18s;
+  /* ---------- live & upcoming: poster marquee (same as home) ---------- */
+  .posters{padding:56px 0;background:#F1F1F1;overflow:hidden}
+  .poster-view{overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
   }
-  .cc-tab:hover{border-color:rgba(22,22,22,.25)}
-  .cc-tab[aria-selected="true"]{background:var(--navy);color:#fff}
-  .cc-tab .live-dot{width:9px;height:9px;border-radius:50%;background:#D92D20;animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,45,32,.4)}50%{box-shadow:0 0 0 6px rgba(217,45,32,0)}}
-  .cc-tab .cnt{
-    font-size:.72rem;background:rgba(22,22,22,.08);border-radius:999px;padding:2px 8px;
+  .poster-track{display:flex;width:max-content;animation:postslide 36s linear infinite}
+  .poster-track:hover{animation-play-state:paused}
+  @keyframes postslide{to{transform:translateX(-50%)}}
+  .poster-card{
+    flex:0 0 auto;width:min(52vw,640px);margin-right:28px;
+    display:block;position:relative;overflow:hidden;border-radius:18px;
+    box-shadow:0 10px 26px rgba(22,22,22,.14);
+    transition:box-shadow .3s;
   }
-  .cc-tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.18)}
-  .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
-  [role="tabpanel"][hidden]{display:none}
+  .poster-card:hover{box-shadow:0 16px 38px rgba(22,22,22,.22)}
+  .poster-card img{display:block;width:100%;height:auto}
+  .poster-shine{
+    position:absolute;top:-20%;bottom:-20%;left:-30%;width:36%;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);
+    transform:skewX(-18deg) translateX(-140%);pointer-events:none;
+  }
+  .poster-card:hover .poster-shine{
+    transform:skewX(-18deg) translateX(560%);
+    transition:transform .9s ease;
+  }
+  @media (max-width:760px){
+    .poster-card{width:82vw;margin-right:18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .poster-track{animation:none}
+    .poster-card:hover .poster-shine{transform:skewX(-18deg) translateX(-140%)}
+  }
 
-  .cc-card{
-    background:var(--white);border:1px solid rgba(22,22,22,.08);border-radius:22px;overflow:hidden;
-    text-decoration:none;color:inherit;box-shadow:var(--shadow-card);display:flex;flex-direction:column;
-    transition:transform .22s,box-shadow .22s;
-  }
-  .cc-card:hover{transform:translateY(-6px)}
-  .cc-banner{height:104px;position:relative;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;padding:14px 16px;overflow:hidden}
-  .cc-banner .ghost{
-    position:absolute;right:-6px;bottom:-34px;font-family:var(--display);font-weight:800;
-    font-size:6.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.3);pointer-events:none;
-  }
-  .bn-orange{background:linear-gradient(135deg,#FF7038,#FB4D0A 55%,#C93A05)}
-  .bn-green{background:linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)}
-  .bn-dark{background:linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)}
-  .bn-charcoal{background:linear-gradient(135deg,#161616,#0f0d0a);background-image:radial-gradient(rgba(251,77,10,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#101010}
-  .st-chip{
-    font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-    border-radius:999px;padding:5px 12px;backdrop-filter:blur(4px);
-  }
-  .st-live{background:rgba(255,255,255,.92);color:#B42318}
-  .st-live::before{content:"●";margin-right:5px;color:#D92D20}
-  .st-upcoming{background:rgba(255,255,255,.9);color:var(--charcoal)}
-  .st-closed{background:rgba(0,0,0,.4);color:rgba(255,255,255,.85)}
-  .st-closing{background:#B42318;color:#fff}
-
-  .cc-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:11px;flex:1}
-  .cc-host{font-size:.78rem;font-weight:600;color:var(--ink-soft)}
-  .cc-title{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.25;letter-spacing:-.01em}
-  .cc-card:hover .cc-title{color:var(--orange-deep)}
-  .cc-tags{display:flex;flex-wrap:wrap;gap:6px}
-  .cc-tags span{font-size:.7rem;font-weight:600;background:var(--cream);border-radius:999px;padding:4px 10px;color:var(--ink-soft)}
-  .cc-tags .tg-ppo{background:var(--charcoal);color:var(--orange)}
-  .cc-tags .tg-free{background:var(--green-soft);color:var(--green)}
-  .cc-tags .tg-beg{background:var(--orange-soft);color:var(--orange-deep)}
-  .cc-facts{display:grid;gap:7px;font-size:.83rem;color:var(--ink-soft);margin-top:2px}
-  .cc-facts div{display:flex;justify-content:space-between;gap:12px}
-  .cc-facts b{color:var(--charcoal);font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62%}
-  .cc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px dashed rgba(22,22,22,.15)}
-  .cc-count{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600}
-  .cc-count svg{width:14px;height:14px;flex:none}
-  .cd-warn{color:#B42318}
-  .cd-ok{color:var(--green)}
-  .cc-go{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.88rem;color:var(--orange-deep)}
-  .cc-go svg{width:16px;height:16px;transition:transform .2s}
-  .cc-card:hover .cc-go svg{transform:translateX(4px)}
-  .cc-empty{color:var(--ink-soft);font-size:.95rem;padding:8px 0 4px}
-
-  .my-strip{background:var(--green-soft);border-radius:18px;padding:18px 24px;margin-bottom:30px;display:none}
+  .my-strip{background:var(--white);border-radius:18px;padding:18px 24px;margin-bottom:30px;display:none}
   .my-strip.show{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .my-strip b{color:var(--green)}
   .my-strip .links{display:flex;flex-wrap:wrap;gap:8px}
@@ -267,37 +234,30 @@
   </div>
 </header>
 
-<!-- 2. LIVE & UPCOMING -->
-<section class="comps-sec" id="competitions">
+<!-- 2. LIVE & UPCOMING — poster carousel (same as home) -->
+<section class="posters" id="competitions" aria-label="Live and upcoming competitions">
   <div class="wrap">
     <div class="my-strip" id="my-strip">
       <span><b>My competitions:</b> you're registered — jump back in.</span>
       <span class="links" id="my-links"></span>
     </div>
-
-    <div class="sec-head">
-      <p class="eyebrow">The arena</p>
-      <h2>Live &amp; upcoming competitions</h2>
-      <p>Statuses update automatically from competition dates — what's live now, what's opening next, and how past editions played out.</p>
-    </div>
-
-    <div class="cc-tabs" role="tablist" aria-label="Competition status">
-      <button class="cc-tab" role="tab" aria-selected="true" data-t="live"><span class="live-dot" aria-hidden="true"></span>Live <span class="cnt" id="cnt-live">0</span></button>
-      <button class="cc-tab" role="tab" aria-selected="false" data-t="upcoming">Upcoming <span class="cnt" id="cnt-upcoming">0</span></button>
-      <button class="cc-tab" role="tab" aria-selected="false" data-t="closed">Closed <span class="cnt" id="cnt-closed">0</span></button>
-    </div>
-
-    <div id="panel-live" role="tabpanel">
-      <div class="cc-grid" id="grid-live"></div>
-      <p class="cc-empty" id="empty-live" hidden>Nothing live at this moment — check the upcoming tab.</p>
-    </div>
-    <div id="panel-upcoming" role="tabpanel" hidden>
-      <div class="cc-grid" id="grid-upcoming"></div>
-      <p class="cc-empty" id="empty-upcoming" hidden>New competitions are announced here first.</p>
-    </div>
-    <div id="panel-closed" role="tabpanel" hidden>
-      <div class="cc-grid" id="grid-closed"></div>
-      <p class="cc-empty" id="empty-closed" hidden>Past competitions will be archived here.</p>
+    <div class="poster-car">
+      <div class="poster-view">
+        <div class="poster-track" id="poster-track">
+          <a class="poster-card" href="competition.html?c=analytics-case-cup">
+            <img src="assets/posters/finance.png" alt="Embark India Finance Competition">
+            <span class="poster-shine" aria-hidden="true"></span>
+          </a>
+          <a class="poster-card" href="competition.html?c=quickcommerce-ops-clash">
+            <img src="assets/posters/quiz.png" alt="Embark India All India Quiz">
+            <span class="poster-shine" aria-hidden="true"></span>
+          </a>
+          <a class="poster-card" href="competition.html?c=fmcg-growth-sprint">
+            <img src="assets/posters/marketing.png" alt="Embark India Marketing Maverick">
+            <span class="poster-shine" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -425,92 +385,30 @@
 
 <script src="competitions.js?v=3"></script>
 <script>
-  // ----- card renderer -----
-  const teamText = c => c.teamMin === 1 && c.teamMax === 1 ? 'Solo'
-    : c.teamMin === 1 ? `Solo or team up to ${c.teamMax}`
-    : `Team of ${c.teamMin}–${c.teamMax}`;
-
-  const card = c => {
-    const st = compStatus(c);
-    const rw = regWindow(c);
-    const closingSoon = rw === 'open' && (new Date(c.regClose) - new Date()) < 4 * 864e5;
-    const stChip = st === 'live' ? '<span class="st-chip st-live">Live</span>'
-      : st === 'upcoming' ? '<span class="st-chip st-upcoming">Coming soon</span>'
-      : '<span class="st-chip st-closed">Closed</span>';
-    const prize = (c.prizes && c.prizes[0] && c.prizes[0][1]) || '—';
-    let foot;
-    if (st === 'closed') {
-      foot = `<span class="cc-count cd-ok">Winners declared</span>`;
-    } else if (rw === 'open') {
-      foot = `<span class="cc-count cd-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Reg closes in <span data-count="${c.regClose}">${countdown(c.regClose) || '—'}</span></span>`;
-    } else if (rw === 'not-open') {
-      foot = `<span class="cc-count cd-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Reg opens ${fmtDate(c.regOpen)}</span>`;
-    } else {
-      foot = `<span class="cc-count" style="color:var(--ink-soft)">Registration closed</span>`;
-    }
-    return `
-    <a class="cc-card" href="competition.html?c=${c.id}">
-      <div class="cc-banner bn-${c.banner}">
-        <span class="ghost" aria-hidden="true">${c.category.slice(0,2).toUpperCase()}</span>
-        ${stChip}
-        ${closingSoon ? '<span class="st-chip st-closing">Reg closing soon</span>' : ''}
-      </div>
-      <div class="cc-body">
-        <span class="cc-host">${c.host}</span>
-        <span class="cc-title">${c.title}</span>
-        <div class="cc-tags">
-          <span>${c.category}</span>
-          <span class="${c.fee ? '' : 'tg-free'}">${c.fee ? '₹' + c.fee + ' / team' : 'Free'}</span>
-          ${c.ppo ? '<span class="tg-ppo">PPO opportunity</span>' : ''}
-          ${c.beginner ? '<span class="tg-beg">Beginner friendly</span>' : ''}
-        </div>
-        <div class="cc-facts">
-          <div><span>Registration deadline</span><b>${fmtDate(c.regClose)}</b></div>
-          <div><span>Team size</span><b>${teamText(c)}</b></div>
-          <div><span>Top prize</span><b>${prize}</b></div>
-          <div><span>Registered</span><b>${totalRegs(c).toLocaleString('en-IN')} · ${c.rounds.length} rounds</b></div>
-        </div>
-        <div class="cc-foot">
-          ${foot}
-          <span class="cc-go">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
-      </div>
-    </a>`;
-  };
-
-  // ----- render into tabs -----
-  const comps = allComps(false);
-  const groups = { live: [], upcoming: [], closed: [] };
-  comps.forEach(c => groups[compStatus(c)].push(c));
-  ['live','upcoming','closed'].forEach(g => {
-    document.getElementById('grid-' + g).innerHTML = groups[g].map(card).join('');
-    document.getElementById('cnt-' + g).textContent = groups[g].length;
-    document.getElementById('empty-' + g).hidden = groups[g].length > 0;
-  });
-
-  const tabs = document.querySelectorAll('.cc-tab');
-  const showTab = t => {
-    tabs.forEach(b => b.setAttribute('aria-selected', String(b.dataset.t === t)));
-    ['live','upcoming','closed'].forEach(g =>
-      document.getElementById('panel-' + g).hidden = g !== t);
-  };
-  tabs.forEach(b => b.addEventListener('click', () => showTab(b.dataset.t)));
-  if (!groups.live.length) showTab(groups.upcoming.length ? 'upcoming' : 'closed');
+  // ----- posters: continuous marquee (same as home) -----
+  (() => {
+    const track = document.getElementById('poster-track');
+    if (!track) return;
+    const check = () => {
+      [...track.children].forEach(c => {
+        const img = c.querySelector('img');
+        if (img && img.complete && img.naturalWidth === 0) c.remove();
+      });
+      if (!track.children.length) { document.getElementById('competitions').style.display = 'none'; return; }
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) track.innerHTML += track.innerHTML;
+    };
+    if (document.readyState === 'complete') check();
+    else window.addEventListener('load', check);
+  })();
 
   // ----- my competitions strip -----
+  const comps = allComps(false);
   const mine = comps.filter(c => myReg(c.id));
   if (mine.length) {
     document.getElementById('my-strip').classList.add('show');
     document.getElementById('my-links').innerHTML = mine.map(c =>
       `<a href="competition.html?c=${c.id}">${c.title.split(':')[0]} · ${compStatus(c)}</a>`).join('');
   }
-
-  // ----- live countdowns -----
-  setInterval(() => {
-    document.querySelectorAll('[data-count]').forEach(el => {
-      el.textContent = countdown(el.dataset.count) || 'closed';
-    });
-  }, 1000);
 
   // ----- hero flow animation -----
   (() => {
