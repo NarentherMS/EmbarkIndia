@@ -166,21 +166,15 @@
   .cat-tile:hover img{transform:scale(1.07)}
   .cat-tile::after{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(8,23,43,0) 42%,rgba(8,23,43,.88));
-    pointer-events:none;
+    background:linear-gradient(180deg,rgba(8,23,43,.34),rgba(8,23,43,.72));
+    pointer-events:none;transition:background .3s;
   }
+  .cat-tile:hover::after{background:linear-gradient(180deg,rgba(8,23,43,.18),rgba(8,23,43,.6))}
   .cat-tile .name{
-    position:relative;z-index:1;color:#fff;font-weight:600;
-    font-size:clamp(.7rem,1vw,.84rem);line-height:1.3;
+    position:relative;z-index:1;color:#fff;font-weight:700;
+    font-size:clamp(.76rem,1.1vw,.92rem);line-height:1.3;
+    text-shadow:0 1px 8px rgba(8,23,43,.5);
   }
-  .cat-tile.static{
-    background:var(--white);border:1px solid rgba(22,22,22,.08);
-    flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;cursor:auto;
-    padding:14px 15px;
-  }
-  .cat-tile.static::after{display:none}
-  .cat-tile.static b{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,2.2vw,1.7rem);color:var(--orange-deep)}
-  .cat-tile.static span{font-size:clamp(.66rem,.95vw,.78rem);color:var(--ink-soft);font-weight:500;line-height:1.35}
   @media (max-width:980px){
     .cat-wrap{grid-template-columns:1fr;gap:40px}
     .cat-left p{max-width:none}
@@ -353,8 +347,6 @@
       <div class="cat-tile"><img src="assets/categories/operations.jpg" alt="Warehouse with stacked inventory" loading="lazy"><span class="name">Operations &amp; Supply Chain</span></div>
       <div class="cat-tile"><img src="assets/categories/hr.jpg" alt="Team collaborating around a table" loading="lazy"><span class="name">HR Strategy</span></div>
       <div class="cat-tile"><img src="assets/categories/quiz.jpg" alt="Student writing answers on paper" loading="lazy"><span class="name">Business Quiz</span></div>
-      <div class="cat-tile static"><b>10</b><span>arenas, one leaderboard</span></div>
-      <div class="cat-tile static"><b>1st</b><span>win worth more than a brand name</span></div>
     </div>
   </div>
 </section>
