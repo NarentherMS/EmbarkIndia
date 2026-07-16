@@ -295,43 +295,6 @@
   </div>
 </section>
 
-<!-- Auto widgets: every published competition, straight from the database -->
-<section class="allc-sec" id="all-comps" hidden>
-  <style>
-    .allc-sec{background:var(--white);padding:72px 0}
-    .allc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
-    .allc-card{
-      background:var(--white);border:1px solid rgba(22,22,22,.08);border-radius:20px;overflow:hidden;
-      text-decoration:none;color:inherit;box-shadow:var(--shadow-card);display:flex;flex-direction:column;
-      transition:transform .22s,box-shadow .22s;
-    }
-    .allc-card:hover{transform:translateY(-6px)}
-    .allc-bnr{height:150px;position:relative;overflow:hidden;display:flex;align-items:flex-start;padding:12px 14px;gap:8px}
-    .allc-bnr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .allc-bnr .st-chip{position:relative;z-index:1}
-    .st-chip{font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 12px}
-    .st-live{background:#fff;color:#B42318}
-    .st-live::before{content:"●";margin-right:5px;color:#D92D20}
-    .st-upcoming{background:#fff;color:var(--charcoal)}
-    .st-closed{background:rgba(0,0,0,.45);color:rgba(255,255,255,.9)}
-    .allc-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .allc-body b{font-family:var(--display);font-weight:700;font-size:1.08rem;line-height:1.3}
-    .allc-card:hover .allc-body b{color:var(--orange-deep)}
-    .allc-meta{font-size:.8rem;color:var(--ink-soft)}
-    .allc-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px dashed rgba(22,22,22,.14);font-size:.83rem;font-weight:600}
-    .allc-foot .dl{color:#B42318}
-    .allc-foot .go{color:var(--orange-deep)}
-  </style>
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">The arena</p>
-      <h2>All competitions</h2>
-      <p>Live and upcoming challenges — statuses update automatically from competition dates.</p>
-    </div>
-    <div class="allc-grid" id="allc-grid"></div>
-  </div>
-</section>
-
 <!-- 3. WHY COMPETE -->
 <section class="why-sec">
   <div class="wrap why-wrap">
@@ -503,36 +466,6 @@
     };
     if (document.readyState === 'complete') check();
     else window.addEventListener('load', check);
-  })();
-
-  // ----- all-competition widgets (auto from the database) -----
-  (async () => {
-    try {
-      const comps = (await dbComps(false)).filter(x => compStatus(x) !== 'closed');
-      if (!comps.length) return;
-      comps.sort((a, b) => (compStatus(a) === 'live' ? 0 : 1) - (compStatus(b) === 'live' ? 0 : 1));
-      const bnGrad = { orange: 'linear-gradient(135deg,#FF7038,#FB4D0A 55%,#C93A05)', green: 'linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)', dark: 'linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)', charcoal: 'linear-gradient(135deg,#161616,#101010)' };
-      document.getElementById('allc-grid').innerHTML = comps.map(x => {
-        const st = compStatus(x);
-        const chip = st === 'live' ? '<span class="st-chip st-live">Live</span>' : '<span class="st-chip st-upcoming">Upcoming</span>';
-        const bnr = x.banners && x.banners.length
-          ? `<img src="${esc(x.banners[0])}" alt="" loading="lazy">`
-          : '';
-        const bg = bnr ? '' : `style="background:${bnGrad[x.banner] || bnGrad.orange}"`;
-        return `<a class="allc-card" href="competition.html?c=${x.id}">
-          <div class="allc-bnr" ${bg}>${bnr}${chip}</div>
-          <div class="allc-body">
-            <b>${esc(x.title)}</b>
-            <span class="allc-meta">${esc(x.category)} · ${x.fee ? '₹' + x.fee : 'Free'} · Team ${x.teamMin}–${x.teamMax}${x.ppo ? ' · PPO' : ''}</span>
-            <div class="allc-foot">
-              <span class="dl">Reg closes ${fmtDate(x.regClose)}</span>
-              <span class="go">View details →</span>
-            </div>
-          </div>
-        </a>`;
-      }).join('');
-      document.getElementById('all-comps').hidden = false;
-    } catch (e) {}
   })();
 
   // ----- my competitions strip (from the database) -----
