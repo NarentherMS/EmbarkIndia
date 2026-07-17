@@ -253,23 +253,70 @@
   .tl-card small{display:block;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
   .tl-card b{display:block;font-family:var(--display);font-weight:700;font-size:.9rem;line-height:1.3}
 
-  /* ---------- rewards v2: trophy cards + perks ---------- */
-  .rwd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
-  .rwd-card{border-radius:18px;padding:24px 22px;color:#fff;position:relative;overflow:hidden;min-height:118px}
-  .rwd-card .tr{position:absolute;right:-14px;bottom:-18px;width:110px;height:110px;opacity:.22}
-  .rwd-gold{background:linear-gradient(135deg,#F7B733,#ED8F03)}
-  .rwd-silver{background:linear-gradient(135deg,#5B8DEF,#0B1F3A)}
-  .rwd-bronze{background:linear-gradient(135deg,#D98E4A,#8C4F1D)}
-  .rwd-card small{display:block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.9;margin-bottom:6px}
-  .rwd-card .lbl{font-size:.8rem;opacity:.88}
-  .rwd-card .amt{font-family:var(--display);font-weight:800;font-size:1.65rem;line-height:1.2}
-  .rwd-card p{font-size:.8rem;opacity:.85;margin:8px 0 0;position:relative}
-  .rwd-perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:16px}
-  .perk{background:#fff;border:1px solid rgba(22,22,22,.08);border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow-card)}
-  .perk-ico{flex:none;width:46px;height:46px;border-radius:50%;background:var(--navy-soft);color:var(--navy);display:flex;align-items:center;justify-content:center}
+  /* ---------- rewards v3: podium cards with medals ---------- */
+  .rwd-grid{display:flex;gap:18px;align-items:stretch;justify-content:center;flex-wrap:wrap;padding-top:34px}
+  .rwd-card{
+    flex:1;min-width:200px;max-width:280px;border-radius:22px;padding:0 22px 28px;
+    color:#fff;position:relative;text-align:center;
+    transition:transform .25s;
+  }
+  .rwd-card:hover{transform:translateY(-8px)}
+  .rwd-card::before{
+    content:"";position:absolute;inset:0;border-radius:22px;
+    background:radial-gradient(140px 70px at 50% 0%,rgba(255,255,255,.38),transparent 70%);
+    pointer-events:none;
+  }
+  .rwd-card::after{
+    content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.35) 1px,transparent 1.4px);
+    background-size:26px 26px;opacity:.25;
+  }
+  .rw-medal{
+    width:76px;height:76px;border-radius:50%;margin:-34px auto 14px;position:relative;z-index:1;
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid rgba(255,255,255,.9);
+    box-shadow:0 12px 26px rgba(0,0,0,.3),inset 0 3px 8px rgba(255,255,255,.5);
+  }
+  .rw-medal svg{width:34px;height:34px;color:#fff;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+  .rwd-card small{display:block;font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+  .rwd-card .lbl{font-size:.82rem;opacity:.88;display:block}
+  .rwd-card .amt{font-family:var(--display);font-weight:800;font-size:2.05rem;line-height:1.15;text-shadow:0 3px 12px rgba(0,0,0,.28)}
+  .rwd-card p{font-size:.83rem;opacity:.92;margin:10px 0 0;position:relative}
+  .rwd-gold{
+    order:2;background:linear-gradient(165deg,#FFC94D 0%,#F59E0B 48%,#C97207 100%);
+    box-shadow:0 22px 48px rgba(217,144,12,.42);
+    margin-top:-16px;padding-bottom:40px;
+  }
+  .rwd-gold .rw-medal{background:linear-gradient(145deg,#FFE08A,#E8930C)}
+  .rwd-silver{
+    order:1;background:linear-gradient(165deg,#9DB0CC 0%,#54657F 50%,#2E3A4F 100%);
+    box-shadow:0 16px 36px rgba(46,58,79,.35);
+  }
+  .rwd-silver .rw-medal{background:linear-gradient(145deg,#EDF2F9,#93A6C0)}
+  .rwd-bronze{
+    order:3;background:linear-gradient(165deg,#E09A5C 0%,#B26430 50%,#7C3F16 100%);
+    box-shadow:0 16px 36px rgba(124,63,22,.35);
+  }
+  .rwd-bronze .rw-medal{background:linear-gradient(145deg,#F3C08E,#A9612B)}
+  @media (max-width:720px){
+    .rwd-grid{flex-direction:column;align-items:stretch}
+    .rwd-card{max-width:none}
+    .rwd-gold{order:0;margin-top:0;padding-bottom:28px}
+  }
+  .rwd-perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-top:22px}
+  .perk{
+    background:#fff;border:1px solid rgba(22,22,22,.08);border-radius:16px;padding:18px 20px;
+    display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow-card);
+    transition:transform .22s;
+  }
+  .perk:hover{transform:translateY(-4px)}
+  .perk-ico{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .perk:nth-child(3n+1) .perk-ico{background:var(--orange-soft);color:var(--orange-deep)}
+  .perk:nth-child(3n+2) .perk-ico{background:var(--navy-soft);color:var(--navy)}
+  .perk:nth-child(3n) .perk-ico{background:var(--green-soft);color:var(--green)}
   .perk-ico svg{width:21px;height:21px}
-  .perk b{display:block;font-size:.82rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
-  .perk div span{display:flex;gap:7px;font-size:.83rem;color:#4A5568;align-items:flex-start;margin-bottom:4px}
+  .perk b{display:block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+  .perk div span{display:flex;gap:7px;font-size:.84rem;color:#4A5568;align-items:flex-start;margin-bottom:4px;text-align:left}
   .perk div span::before{content:"\2713";color:var(--green);font-weight:700}
 
   /* ---------- contacts v2: icon tile cards ---------- */
@@ -767,12 +814,12 @@
       el.innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
       return;
     }
-    const TROPHY = '<svg class="tr" viewBox="0 0 24 24" fill="currentColor"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6zm12 0h1.5a2.5 2.5 0 0 0 0-5H18zM6 2h12v7a6 6 0 0 1-12 0zM10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22h10c0-1.76-.85-3.25-2.03-3.79-.5-.23-.97-.66-.97-1.21v-2.34zM4 22h16"/></svg>';
+    const TROPHY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>';
     const RANKS = { winner: ['rwd-gold', 'Winner'], runner: ['rwd-silver', 'First runner-up'], second: ['rwd-bronze', 'Second runner-up'] };
     const cards = c.prizes.map(p => {
       const [cls, title] = RANKS[p.key] || ['rwd-gold', p.key];
       return `<div class="rwd-card ${cls}">
-        ${TROPHY}
+        <span class="rw-medal">${TROPHY}</span>
         <small>${esc(title)}</small>
         ${p.cash ? `<span class="lbl">Cash prize of</span><div class="amt">${esc(p.cash)}</div>` : (p.desc ? `<div class="amt" style="font-size:1.1rem">${esc(p.desc)}</div>` : '')}
         ${p.cash && p.desc ? `<p>${esc(p.desc)}</p>` : ''}
