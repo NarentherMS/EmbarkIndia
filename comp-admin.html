@@ -131,6 +131,7 @@
       <form id="comp-form" novalidate>
         <div class="field"><label>Title <span class="req">*</span></label><input id="cf-title" type="text" required></div>
         <div class="field"><label>Host / brand <span class="req">*</span></label><input id="cf-host" type="text" placeholder="Embark India × Sponsor" required></div>
+        <div class="field full"><label>Tagline (one line shown under the title)</label><input id="cf-tagline" type="text" placeholder="A leadership platform empowering the next generation of…"></div>
         <div class="field"><label>Category / stream</label>
           <select id="cf-cat"><option>Marketing</option><option>Finance</option><option>Operations</option><option>Analytics</option><option>Human Resources</option><option>Strategy</option><option>General Management</option></select>
         </div>
@@ -274,7 +275,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=4"></script>
+<script src="db.js?v=5"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
@@ -384,6 +385,7 @@
     editingId = id; roundCount = 0;
     $('create-title').textContent = 'Edit: ' + c.title;
     $('cf-title').value = c.title; $('cf-host').value = c.host;
+    $('cf-tagline').value = c.tagline || '';
     $('cf-cat').value = c.category; $('cf-banner').value = c.banner;
     $('cf-fee').value = c.fee; $('cf-tmin').value = c.teamMin; $('cf-tmax').value = c.teamMax;
     $('cf-about').value = c.about; $('cf-elig').value = c.eligibility;
@@ -425,6 +427,7 @@
       id: editingId || (slugify($('cf-title').value) + '-' + Math.random().toString(36).slice(2, 5)),
       title: $('cf-title').value.trim(),
       host: $('cf-host').value.trim(),
+      tagline: $('cf-tagline').value.trim(),
       category: $('cf-cat').value,
       banner: $('cf-banner').value,
       fee: +$('cf-fee').value || 0,

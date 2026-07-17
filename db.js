@@ -53,6 +53,7 @@ function rowToComp(r) {
     regOpen: r.reg_open, regClose: r.reg_close,
     start: r.start_at, end: r.end_at, result: r.result_at,
     rounds: r.rounds || [], seedRegs: r.seed_regs,
+    tagline: r.tagline || '',
     logoUrl: r.logo_url || null,
     banners: r.banners || [],
     eligibilityCriteria: r.eligibility_criteria || [],

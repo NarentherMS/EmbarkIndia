@@ -10,50 +10,85 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css?v=5">
 <style>
-  /* ---------- dark header card ---------- */
-  .hd-sec{padding:20px 0 0}
-  .hd-card{
-    background:linear-gradient(135deg,#1A1A1A,#101010 65%);color:#fff;
-    border-radius:26px;padding:38px 40px 34px;position:relative;overflow:hidden;
+  /* ---------- standard competition header (dark canvas) ---------- */
+  .hd-sec{
+    background:linear-gradient(150deg,#0C1626,#070E1A 70%);color:#fff;
+    padding:56px 0 44px;position:relative;overflow:hidden;
   }
-  .hd-card::after{
-    content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;
-    background:radial-gradient(circle,rgba(251,77,10,.22),transparent 65%);pointer-events:none;
+  .hd-sec::before{
+    content:"";position:absolute;top:-90px;right:6%;width:360px;height:360px;
+    border:1.5px solid rgba(251,77,10,.35);transform:rotate(45deg);border-radius:36px;pointer-events:none;
   }
-  .hd-top{display:flex;gap:24px;align-items:flex-start;position:relative;z-index:1}
+  .hd-sec::after{
+    content:"";position:absolute;bottom:-80px;left:-60px;width:280px;height:280px;
+    border:1.5px solid rgba(255,255,255,.07);transform:rotate(45deg);border-radius:30px;pointer-events:none;
+  }
+  .hd-sec .wrap{position:relative;z-index:1}
+  .hd-top{display:flex;gap:28px;align-items:flex-start}
   .hd-logo{
-    flex:none;width:96px;height:96px;border-radius:18px;background:#fff;overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
+    flex:none;width:112px;height:112px;border-radius:20px;background:#fff;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.4);
   }
-  .hd-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
-  .hd-logo b{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--navy)}
-  .hd-main h1{color:#fff;font-size:clamp(1.5rem,3.6vw,2.4rem);margin-bottom:12px;line-height:1.15}
-  .hd-meta{display:flex;flex-wrap:wrap;gap:6px 0;font-size:.88rem;color:rgba(255,255,255,.82)}
-  .hd-meta span{display:inline-flex;align-items:center}
-  .hd-meta b{color:#fff;font-weight:600;margin-left:5px}
-  .hd-meta .sep{margin:0 14px;color:rgba(255,255,255,.3)}
-  .hd-chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-  .st-chip{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 13px}
+  .hd-logo img{width:100%;height:100%;object-fit:contain;padding:10px}
+  .hd-logo b{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--navy)}
+  .hd-main h1{color:#fff;font-size:clamp(1.7rem,4vw,2.9rem);line-height:1.12;margin:2px 0 0}
+  .hd-tagline{color:rgba(255,255,255,.72);font-size:1.02rem;margin-top:8px;max-width:640px}
+  .hd-chiprow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .comp-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:#FF8A5C;border:1px solid rgba(251,77,10,.6);border-radius:999px;padding:6px 16px;
+  }
+  .comp-chip svg{width:14px;height:14px}
+  .st-chip{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:6px 14px}
   .st-live{background:#fff;color:#B42318}
-  .st-live::before{content:"●";margin-right:5px;color:#D92D20}
+  .st-live::before{content:"\25CF";margin-right:5px;color:#D92D20}
   .st-upcoming{background:#fff;color:var(--charcoal)}
-  .st-closed{background:rgba(255,255,255,.18);color:rgba(255,255,255,.9)}
-  .ppo-chip{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,77,10,.2);color:#FFB894;border-radius:999px;padding:5px 13px}
+  .st-closed{background:rgba(255,255,255,.16);color:rgba(255,255,255,.9)}
+  .ppo-chip{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,77,10,.18);color:#FFB894;border-radius:999px;padding:6px 14px}
 
-  .hd-stats{
-    display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 0;position:relative;z-index:1;
-    background:#fff;color:var(--charcoal);border-radius:14px;padding:12px 20px;margin-top:24px;
-    font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  /* icon fact columns */
+  .hd-facts{display:flex;flex-wrap:wrap;gap:16px 0;margin-top:32px}
+  .hd-fact{display:flex;gap:12px;align-items:flex-start;padding:0 28px;border-left:1px solid rgba(255,255,255,.14)}
+  .hd-fact:first-child{border-left:none;padding-left:0}
+  .hd-fact svg{width:20px;height:20px;color:#FF8A5C;flex:none;margin-top:3px}
+  .hd-fact small{display:block;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px}
+  .hd-fact b{font-size:.94rem;font-weight:600;color:#fff}
+  .hd-divider{border-top:1px solid rgba(255,255,255,.12);margin:28px 0 24px}
+
+  /* stat tiles + institutes + action */
+  .hd-statrow{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
+  .stat-tile{
+    display:flex;align-items:center;gap:14px;text-align:left;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+    border-radius:14px;padding:13px 22px;
   }
-  .hd-stats span{display:inline-flex;align-items:center;gap:8px;font-weight:500}
-  .hd-stats b{font-weight:700}
-  .hd-stats .sep{margin:0 16px;color:rgba(22,22,22,.2)}
-  .hd-stats svg{width:16px;height:16px;color:var(--orange-deep);flex:none}
-  .hd-cta{margin-top:20px;position:relative;z-index:1}
+  .stat-tile > svg{width:22px;height:22px;color:var(--orange);flex:none}
+  .stat-tile small{display:block;font-size:.64rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .stat-tile b{font-family:var(--display);font-size:1.2rem;font-weight:800;color:#fff;line-height:1.2}
+  .inst-dd{position:relative}
+  .inst-btn{cursor:pointer;font-family:var(--body);width:100%;height:100%}
+  .inst-btn .chev{width:15px;height:15px;display:inline-block;vertical-align:-2px;margin-left:7px;transition:transform .2s;color:rgba(255,255,255,.7)}
+  .inst-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .inst-panel{
+    position:absolute;top:calc(100% + 10px);left:0;z-index:40;min-width:320px;max-width:80vw;
+    max-height:280px;overflow:auto;background:#0F1C31;border:1px solid rgba(255,255,255,.16);
+    border-radius:14px;padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.55);
+  }
+  .inst-panel span{display:block;font-size:.86rem;color:rgba(255,255,255,.88);padding:8px 12px;border-radius:8px}
+  .inst-panel span:hover{background:rgba(255,255,255,.07)}
+  .hd-action{margin-left:auto;display:flex;align-items:center}
+  .reg-closed{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(135deg,#E0352B,#B42318);color:#fff;
+    font-weight:600;font-size:.98rem;border-radius:14px;padding:15px 26px;
+    box-shadow:0 10px 26px rgba(180,35,24,.35);
+  }
+  .reg-closed svg{width:19px;height:19px;flex:none}
 
-  /* ---------- banner carousel ---------- */
-  .bnr-sec{padding:26px 0 8px}
-  .bnr-view{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
+  /* banner inside the dark canvas */
+  .bnr-wrap{margin-top:28px}
+  .bnr-view{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
   .bnr-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
   .bnr-track > *{flex:0 0 100%}
   .bnr-track img{display:block;width:100%;height:auto}
@@ -67,11 +102,20 @@
   .bn-green{background:linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)}
   .bn-dark{background:linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)}
   .bn-charcoal{background-image:radial-gradient(rgba(251,77,10,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#101010}
-  .bnr-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
-  .bnr-nav button{background:none;border:none;cursor:pointer;color:var(--charcoal);padding:8px;min-height:40px}
+  .bnr-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
+  .bnr-nav button{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);padding:8px;min-height:40px}
   .bnr-nav button svg{width:20px;height:20px}
-  .bnr-dash{width:26px;height:3px;border-radius:2px;background:rgba(22,22,22,.2);transition:background .25s}
-  .bnr-dash.on{background:var(--charcoal)}
+  .bnr-dash{width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.25);transition:background .25s}
+  .bnr-dash.on{background:#fff}
+
+  @media (max-width:860px){
+    .hd-top{flex-direction:column;gap:18px}
+    .hd-logo{width:88px;height:88px}
+    .hd-fact{border-left:none;padding:0;flex-basis:46%}
+    .hd-facts{gap:18px 4%}
+    .hd-action{margin-left:0;width:100%}
+    .hd-action .btn,.hd-action .reg-closed{width:100%;justify-content:center}
+  }
 
   /* ---------- section tab pills ---------- */
   .tabbar-wrap{position:sticky;top:86px;z-index:50;padding:14px 0;display:flex;justify-content:center}
@@ -229,33 +273,41 @@
   </div>
 </nav>
 
-<!-- dark header card -->
+<!-- standard competition header -->
 <section class="hd-sec">
   <div class="wrap">
-    <div class="hd-card">
-      <div class="hd-top">
-        <div class="hd-logo" id="hd-logo"><b>e</b></div>
-        <div class="hd-main">
-          <div class="hd-chiprow" id="d-chips"></div>
-          <h1 id="d-title">Loading…</h1>
-          <div class="hd-meta" id="hd-meta1"></div>
-          <div class="hd-meta" id="hd-meta2" style="margin-top:6px"></div>
-        </div>
+    <div class="hd-top">
+      <div class="hd-logo" id="hd-logo"><b>e</b></div>
+      <div class="hd-main">
+        <div class="hd-chiprow" id="d-chips"></div>
+        <h1 id="d-title">Loading…</h1>
+        <p class="hd-tagline" id="hd-tagline" hidden></p>
       </div>
-      <div class="hd-stats" id="hd-stats" hidden></div>
-      <div class="hd-cta"><a class="btn btn-primary" id="hd-register" href="#action-card">Register now →</a></div>
     </div>
-  </div>
-</section>
 
-<!-- banner carousel -->
-<section class="bnr-sec">
-  <div class="wrap">
-    <div class="bnr-view"><div class="bnr-track" id="bnr-track"></div></div>
-    <div class="bnr-nav" id="bnr-nav" hidden>
-      <button id="bnr-prev" aria-label="Previous banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
-      <span id="bnr-dashes" style="display:flex;gap:8px"></span>
-      <button id="bnr-next" aria-label="Next banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <div class="hd-facts" id="hd-facts"></div>
+    <div class="hd-divider"></div>
+
+    <div class="hd-statrow">
+      <div class="stat-tile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span><small>Views</small><b id="stat-views">—</b></span>
+      </div>
+      <div class="stat-tile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span><small>Registrations</small><b id="stat-regs">—</b></span>
+      </div>
+      <div class="inst-dd" id="inst-dd"></div>
+      <div class="hd-action" id="hd-action"></div>
+    </div>
+
+    <div class="bnr-wrap">
+      <div class="bnr-view"><div class="bnr-track" id="bnr-track"></div></div>
+      <div class="bnr-nav" id="bnr-nav" hidden>
+        <button id="bnr-prev" aria-label="Previous banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+        <span id="bnr-dashes" style="display:flex;gap:8px"></span>
+        <button id="bnr-next" aria-label="Next banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -384,7 +436,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=4"></script>
+<script src="db.js?v=5"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
@@ -404,23 +456,36 @@
   document.title = c.title + ' — Embark India';
   dbBumpViews(c.id); // real view counting
 
-  /* ---------- header card ---------- */
+  /* ---------- standard header (all fields from the database) ---------- */
   $('d-title').textContent = c.title;
+  if (c.tagline) { $('hd-tagline').textContent = c.tagline; $('hd-tagline').hidden = false; }
   if (c.logoUrl) $('hd-logo').innerHTML = `<img src="${esc(c.logoUrl)}" alt="${esc(c.host)} logo">`;
   else $('hd-logo').innerHTML = `<b>${esc(c.category.slice(0, 1))}</b>`;
-  $('hd-meta1').innerHTML = `
-    <span>Timelines:<b>${fmtDate(c.start)} – ${fmtDate(c.end)}</b></span><span class="sep">|</span>
-    <span>Registration deadline:<b>${fmtDateTime(c.regClose)} IST</b></span><span class="sep">|</span>
-    <span>Participation:<b>${c.teamMin === c.teamMax ? c.teamMax + ' member' + (c.teamMax > 1 ? 's' : '') : c.teamMin + '–' + c.teamMax + ' members'}</b></span>`;
-  $('hd-meta2').innerHTML = `
-    <span>Hosted by:<b>${esc(c.host)}</b></span><span class="sep">|</span>
-    <span>Eligibility:<b>${esc((c.eligibility || 'Open to all MBA students').split('.')[0])}</b></span>
-    <span class="sep">|</span><span>Fee:<b>${c.fee ? '₹' + c.fee + ' per team' : 'Free'}</b></span>`;
+
+  const ICO = {
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+    team: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    host: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01M10 21v-4h4v4"/></svg>',
+    elig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>',
+    fee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h12M6 8h12M6 13l6 8M6 13c6 0 8-2.5 8-5"/></svg>',
+    trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>'
+  };
+
+  const teamTxt = c.teamMin === c.teamMax
+    ? c.teamMax + ' member' + (c.teamMax > 1 ? 's' : '')
+    : c.teamMin + '–' + c.teamMax + ' members';
+  $('hd-facts').innerHTML = `
+    <div class="hd-fact">${ICO.cal}<span><small>Registration deadline</small><b>${fmtDateTime(c.regClose)} (IST)</b></span></div>
+    <div class="hd-fact">${ICO.team}<span><small>Team size</small><b>${teamTxt}</b></span></div>
+    <div class="hd-fact">${ICO.host}<span><small>Hosted by</small><b>${esc(c.host)}</b></span></div>
+    <div class="hd-fact">${ICO.elig}<span><small>Eligibility</small><b>${esc((c.eligibility || 'Open to all MBA students').split('.')[0])}</b></span></div>
+    <div class="hd-fact">${ICO.fee}<span><small>Fee</small><b>${c.fee ? '₹' + c.fee + ' per team' : 'Free'}</b></span></div>`;
 
   const renderChips = () => {
     const st = compStatus(c);
     $('d-chips').innerHTML =
-      (st === 'live' ? '<span class="st-chip st-live">Live</span>'
+      `<span class="comp-chip">${ICO.trophy}Competition</span>`
+      + (st === 'live' ? '<span class="st-chip st-live">Live</span>'
         : st === 'upcoming' ? '<span class="st-chip st-upcoming">Upcoming</span>'
         : '<span class="st-chip st-closed">Closed</span>')
       + (c.ppo ? '<span class="ppo-chip">PPO opportunity</span>' : '')
@@ -428,25 +493,40 @@
   };
   renderChips();
 
-  /* stats bar: real views + real registrations (+ boosts) */
+  /* stat tiles: real views + real registrations (+ boosts) */
   (async () => {
-    const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-    const pen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
-    const cal = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
     const regs = (await dbRegCount(c.id)) + (c.seedRegs || 0);
     const views = (c.views || 0) + (c.viewBoost || 0) + 1;
-    const daysLeft = Math.ceil((new Date(c.regClose) - new Date()) / 864e5);
-    const dl = compStatus(c) === 'closed' ? 'Completed'
-      : daysLeft > 0 ? daysLeft + ' day' + (daysLeft > 1 ? 's' : '') + ' left'
-      : 'Registration closed';
-    $('hd-stats').innerHTML = `
-      <span>${eye} Views: <b>${views.toLocaleString('en-IN')}</b></span><span class="sep">|</span>
-      <span>${pen} Registrations: <b>${regs.toLocaleString('en-IN')}</b></span><span class="sep">|</span>
-      <span>${cal} Deadline: <b>${dl}</b></span>`;
-    $('hd-stats').hidden = false;
+    $('stat-views').textContent = views.toLocaleString('en-IN');
+    $('stat-regs').textContent = regs.toLocaleString('en-IN');
   })();
 
-  /* ---------- banner carousel ---------- */
+  /* eligible institutes dropdown */
+  (() => {
+    const dd = $('inst-dd');
+    const chev = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    if (c.institutes && c.institutes.length) {
+      dd.innerHTML = `
+        <button class="stat-tile inst-btn" id="inst-btn" aria-expanded="false" type="button">
+          ${ICO.elig}
+          <span><small>Eligible institutes</small><b>${c.institutes.length} institute${c.institutes.length > 1 ? 's' : ''}${chev}</b></span>
+        </button>
+        <div class="inst-panel" id="inst-panel" hidden>${c.institutes.map(i => `<span>${esc(i)}</span>`).join('')}</div>`;
+      const btn = $('inst-btn'), panel = $('inst-panel');
+      btn.addEventListener('click', () => {
+        const open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', e => {
+        if (!dd.contains(e.target)) { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      });
+    } else {
+      dd.innerHTML = `<div class="stat-tile">${ICO.elig}<span><small>Eligible institutes</small><b>All institutes welcome</b></span></div>`;
+    }
+  })();
+
+  /* ---------- banner carousel (inside the dark canvas) ---------- */
   (() => {
     const track = $('bnr-track');
     const banners = c.banners || [];
@@ -573,10 +653,14 @@
 
   const renderAction = () => {
     const st = compStatus(c), rw = regWindow(c);
-    if (mine) { $('hd-register').textContent = 'My competition ↓'; return renderMyPanel(); }
+    const hdA = $('hd-action');
+    if (mine) hdA.innerHTML = '<a class="btn btn-primary" href="#action-card">My competition ↓</a>';
+    else if (st === 'closed' || rw === 'closed') hdA.innerHTML = '<span class="reg-closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Registration closed</span>';
+    else if (rw === 'not-open') hdA.innerHTML = `<div class="stat-tile"><span><small>Registration opens</small><b>${fmtDate(c.regOpen)}</b></span></div>`;
+    else hdA.innerHTML = '<a class="btn btn-primary" href="#action-card">Register now →</a>';
+    if (mine) return renderMyPanel();
 
     if (st === 'closed') {
-      $('hd-register').style.display = 'none';
       action.innerHTML = `<h3>Competition completed</h3>
         <p class="side-note">This one has ended — results are on this page. See what's live now.</p>
         <div class="cert-actions"><a class="btn btn-primary btn-sm" href="competitions.html">Live competitions</a></div>`;
@@ -590,7 +674,6 @@
       return;
     }
     if (rw === 'closed') {
-      $('hd-register').style.display = 'none';
       action.innerHTML = `<h3>Registration closed</h3>
         <p class="side-note">The registration window has passed. Rounds continue for registered teams.</p>`;
       return;
