@@ -789,9 +789,22 @@
   (() => {
     const el = $('d-prizes');
     if (!c.prizes || !c.prizes.length) { el.innerHTML = '<p style="color:var(--ink-soft)">Prizes will be announced soon.</p>'; return; }
-    if (Array.isArray(c.prizes[0])) { // legacy label|value format
-      el.innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
-      return;
+    // normalise: legacy [label, value] pairs also become trophy cards + extra perks
+    let ranks = [], extras = [];
+    if (Array.isArray(c.prizes[0])) {
+      const KEYS = ['winner', 'runner', 'second'];
+      let ri = 0;
+      c.prizes.forEach(pair => {
+        const label = pair[0] || '', val = pair[1] || '';
+        const m = val.match(/^₹\s?[\d,]+/);
+        if (ri < 3 && (m || /winner|runner/i.test(label))) {
+          ranks.push({ key: KEYS[ri++], title: label, cash: m ? m[0] : '', desc: m ? '' : val, benefits: m ? val.slice(m[0].length).replace(/^\s*\+\s*/, '') : '' });
+        } else {
+          extras.push({ title: label, line: val });
+        }
+      });
+    } else {
+      ranks = c.prizes;
     }
     const trophySvg = (uid, s1, s2, s3) => `
       <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -813,8 +826,9 @@
       runner: ['rwd-silver', 'First Runner-up', ['#F4F7FB', '#C3CFDD', '#7E90A9']],
       second: ['rwd-bronze', 'Second Runner-up', ['#FFD9AC', '#D98E4A', '#7C4A1E']]
     };
-    const cards = c.prizes.map(p => {
-      const [cls, title, stops] = RANKS[p.key] || RANKS.winner;
+    const cards = ranks.map(p => {
+      const [cls, defTitle, stops] = RANKS[p.key] || RANKS.winner;
+      const title = p.title || defTitle;
       return `<div class="rwd-card ${cls}">
         <span class="rw-trophy">${trophySvg(p.key, stops[0], stops[1], stops[2])}</span>
         <div class="rw-info">
@@ -826,11 +840,12 @@
     }).join('');
     const CERTI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>';
     const GIFT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
-    const perkCards = c.prizes.filter(p => p.benefits).map((p, i) => {
-      const title = (RANKS[p.key] || ['', p.key])[1] + ' extras';
+    const perkCards = ranks.filter(p => p.benefits).map(p => {
+      const title = (p.title || (RANKS[p.key] || ['', p.key])[1]) + ' extras';
       const lines = p.benefits.split(/[;,]/).map(x => x.trim()).filter(Boolean);
       return `<div class="perk"><span class="perk-ico">${GIFT}</span><div><b>${esc(title)}</b>${lines.map(l => `<span>${esc(l)}</span>`).join('')}</div></div>`;
     }).join('')
+    + extras.map(e => `<div class="perk"><span class="perk-ico">${GIFT}</span><div><b>${esc(e.title)}</b><span>${esc(e.line)}</span></div></div>`).join('')
     + `<div class="perk"><span class="perk-ico">${CERTI}</span><div><b>Participation certificate</b><span>All participants who submit receive a shareable certificate</span></div></div>`;
     el.innerHTML = `<div class="rwd-grid">${cards}</div><div class="rwd-perks">${perkCards}</div>`;
   })();
