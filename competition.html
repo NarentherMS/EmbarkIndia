@@ -122,12 +122,14 @@
   /* ---------- section tabs: light, pinned on scroll ---------- */
   .tabbar-wrap{position:relative;z-index:60;padding:14px 0;display:flex;justify-content:center}
   .tabbar-wrap.pinned{
-    position:fixed;top:0;left:0;right:0;padding:90px 0 10px;
+    position:fixed;top:0;left:0;right:0;padding:12px 0;
     background:rgba(255,255,255,.97);backdrop-filter:blur(10px);
     border-bottom:1px solid rgba(22,22,22,.08);
     box-shadow:0 10px 26px rgba(11,31,58,.08);
-    z-index:60;
+    z-index:110;
   }
+  #site-nav{transition:transform .25s ease,opacity .25s ease}
+  body.tabs-pinned #site-nav{transform:translateY(-130%);opacity:0;pointer-events:none}
   .tabbar{
     display:inline-flex;align-items:center;gap:10px;
     background:#fff;
@@ -993,13 +995,15 @@
     const update = () => {
       const anchor = ph.style.display === 'none' ? wrap : ph;
       const top = anchor.getBoundingClientRect().top;
-      if (top <= 90 && !wrap.classList.contains('pinned')) {
+      if (top <= 80 && !wrap.classList.contains('pinned')) {
         ph.style.height = wrap.offsetHeight + 'px';
         ph.style.display = 'block';
         wrap.classList.add('pinned');
-      } else if (wrap.classList.contains('pinned') && ph.getBoundingClientRect().top > 90) {
+        document.body.classList.add('tabs-pinned');
+      } else if (wrap.classList.contains('pinned') && ph.getBoundingClientRect().top > 80) {
         wrap.classList.remove('pinned');
         ph.style.display = 'none';
+        document.body.classList.remove('tabs-pinned');
       }
     };
     addEventListener('scroll', update, { passive: true });
