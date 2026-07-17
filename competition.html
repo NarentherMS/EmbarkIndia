@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="gl.css?v=5">
 <style>
   [hidden]{display:none!important}
+  body{background:#FFFFFF}
+  .d-block,.side-card{border:1px solid rgba(22,22,22,.06)}
   /* ---------- standard competition header (dark canvas) ---------- */
   .hd-sec{
     background:linear-gradient(150deg,#0C1626,#070E1A 70%);color:#fff;
@@ -48,13 +50,13 @@
   .st-closed{background:rgba(255,255,255,.16);color:rgba(255,255,255,.9)}
   .ppo-chip{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,77,10,.18);color:#FFB894;border-radius:999px;padding:6px 14px}
 
-  /* icon fact columns */
-  .hd-facts{display:flex;flex-wrap:wrap;gap:12px 0;margin-top:22px}
-  .hd-fact{display:flex;gap:12px;align-items:flex-start;padding:0 28px;border-left:1px solid rgba(255,255,255,.14)}
+  /* icon fact columns — one line on desktop */
+  .hd-facts{display:flex;flex-wrap:nowrap;gap:12px 0;margin-top:22px}
+  .hd-fact{display:flex;gap:10px;align-items:flex-start;padding:0 18px;border-left:1px solid rgba(255,255,255,.14);min-width:0}
   .hd-fact:first-child{border-left:none;padding-left:0}
-  .hd-fact svg{width:20px;height:20px;color:#FF8A5C;flex:none;margin-top:3px}
-  .hd-fact small{display:block;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px}
-  .hd-fact b{font-size:.94rem;font-weight:600;color:#fff}
+  .hd-fact svg{width:18px;height:18px;color:#FF8A5C;flex:none;margin-top:3px}
+  .hd-fact small{display:block;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;white-space:nowrap}
+  .hd-fact b{display:block;font-size:.88rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
   .hd-divider{border-top:1px solid rgba(255,255,255,.12);margin:20px 0 18px}
 
   /* stat tiles + institutes + action */
@@ -111,7 +113,8 @@
     .hd-top{flex-direction:column;gap:18px}
     .hd-logo{width:88px;height:88px}
     .hd-fact{border-left:none;padding:0;flex-basis:46%}
-    .hd-facts{gap:18px 4%}
+    .hd-facts{flex-wrap:wrap;gap:18px 4%}
+    .hd-fact b{white-space:normal;max-width:none}
     .hd-action{margin-left:0;width:100%}
     .hd-action .btn,.hd-action .reg-closed{width:100%;justify-content:center}
   }
