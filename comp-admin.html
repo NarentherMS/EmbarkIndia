@@ -59,6 +59,19 @@
   .check-team input{width:19px;height:19px;accent-color:#FB4D0A}
   .check-team b{font-size:.92rem}
   .check-team small{color:var(--ink-soft);font-size:.78rem}
+  .adm-sect{
+    grid-column:1/-1;font-family:var(--display);font-weight:700;font-size:1.02rem;
+    padding:16px 0 2px;margin-top:10px;border-top:1.5px dashed rgba(22,22,22,.18);
+  }
+  .adm-sect small{display:block;font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft)}
+  .adm-sect:first-of-type{border-top:none;margin-top:0;padding-top:0}
+  .inst-opts{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;
+    max-height:230px;overflow:auto;border:1.5px dashed rgba(22,22,22,.22);border-radius:12px;padding:12px;
+  }
+  .inst-opt{display:flex;gap:9px;align-items:center;font-size:.85rem;cursor:pointer;padding:4px 6px;border-radius:8px}
+  .inst-opt:hover{background:var(--cream)}
+  .inst-opt input{width:17px;height:17px;accent-color:#FB4D0A;flex:none}
   .adm-note{font-size:.82rem;color:var(--ink-soft);background:var(--cream);border-radius:10px;padding:11px 14px;margin-top:14px}
   .save-ok{display:none;color:var(--green);font-weight:600;font-size:.88rem;margin-left:12px}
   .save-ok.show{display:inline}
@@ -129,6 +142,7 @@
     <div class="adm-card">
       <h2 id="create-title">Create competition</h2>
       <form id="comp-form" novalidate>
+        <div class="adm-sect">Header section<small>Everything here builds the top of the competition page — logo, title, tagline, deadline, team size, eligibility, and banners.</small></div>
         <div class="field"><label>Title <span class="req">*</span></label><input id="cf-title" type="text" required></div>
         <div class="field"><label>Host / brand <span class="req">*</span></label><input id="cf-host" type="text" placeholder="Embark India × Sponsor" required></div>
         <div class="field full"><label>Tagline (one line shown under the title)</label><input id="cf-tagline" type="text" placeholder="A leadership platform empowering the next generation of…"></div>
@@ -152,9 +166,16 @@
         <div class="field"><label>Banner images (up to 3, wide)</label><input id="cf-banners" type="file" accept="image/*" multiple><small id="cf-banners-now" style="font-size:.75rem;color:var(--ink-soft)"></small></div>
         <div class="field"><label>Starting views boost (optional)</label><input id="cf-vboost" type="number" min="0" value="0"></div>
         <div class="field"><label>Starting registrations boost (optional)</label><input id="cf-rboost" type="number" min="0" value="0"></div>
+        <div class="adm-sect">Details sections<small>These fill the Details, Contacts, Rewards and About-host areas of the page. Leave any empty and its section hides automatically.</small></div>
         <div class="field full"><label>Eligibility criteria (one per line)</label><textarea id="cf-eligcrit" placeholder="The participant must be a 1st or 2nd year full-time MBA student&#10;Participants must register with their institute email id"></textarea></div>
         <div class="field full"><label>Team structure (one per line)</label><textarea id="cf-teamstruct" placeholder="Each team must consist of 4 members&#10;One person can only be part of one team"></textarea></div>
-        <div class="field full"><label>Eligible institutes (one per line — if filled, ONLY these can register)</label><textarea id="cf-institutes" placeholder="IIM Ahmedabad&#10;FMS Delhi&#10;Leave empty to keep the competition open to all"></textarea></div>
+        <div class="field full"><label>Eligible institutes — tick who can register. Leave all unticked = open to every institute.</label>
+          <div class="inst-opts" id="inst-opts"></div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <input id="inst-add" type="text" placeholder="College not in the list? Type it here…" style="flex:1">
+            <button type="button" class="mini-btn" id="inst-add-btn" style="min-height:44px">+ Add college</button>
+          </div>
+        </div>
         <div class="field full"><label>Competition structure (one per line)</label><textarea id="cf-structure" placeholder="Round 1: online submission&#10;Finals: in-person pitch"></textarea></div>
         <div class="field full"><label>Submission guidelines (one per line)</label><textarea id="cf-guidelines" placeholder="Decks in PDF, max 12 slides&#10;Name your file Team_Round1.pdf"></textarea></div>
         <div class="field full"><label>Contacts (one per line: Name | Role | Email | Phone)</label><textarea id="cf-contacts" placeholder="Narenther | Organiser | hello@embarkindia.in | +91-9XXXXXXXXX"></textarea></div>
@@ -165,6 +186,7 @@
         <div class="field"><label>Competition ends <span class="req">*</span></label><input id="cf-end" type="datetime-local" required></div>
         <div class="field"><label>Result date</label><input id="cf-result" type="datetime-local"></div>
         <div class="field"></div>
+        <div class="adm-sect">Rounds<small>Submission rounds get an upload box with a server-enforced deadline; Event rounds show timing and a join link.</small></div>
         <div class="field full"><label style="font-weight:600">Rounds — each with its own window <span class="req">*</span></label><div id="rounds-editor"></div>
           <button type="button" class="add-member" id="add-round" style="margin-top:10px">+ Add round</button>
         </div>
@@ -377,8 +399,43 @@
     $('create-title').textContent = 'Create competition';
     $('comp-form').reset();
     $('rounds-editor').innerHTML = '';
+    setInstitutes([]);
     addRoundRow();
   };
+
+  /* ---------- eligible institutes picker (presets + custom) ---------- */
+  const PRESET_INSTITUTES = [
+    'IIM Ahmedabad','IIM Bangalore','IIM Calcutta','IIM Lucknow','IIM Kozhikode','IIM Indore',
+    'IIM Mumbai','IIM Shillong','IIM Rohtak','IIM Ranchi','IIM Raipur','IIM Trichy','IIM Udaipur',
+    'IIM Kashipur','IIM Nagpur','IIM Amritsar','IIM Bodh Gaya','IIM Sambalpur','IIM Sirmaur',
+    'IIM Visakhapatnam','IIM Jammu','FMS Delhi','IIFT Delhi & Kolkata','ISB Hyderabad','JBIMS Mumbai',
+    'IMT Ghaziabad','XLRI Jamshedpur','SPJIMR Mumbai','MDI Gurgaon','NMIMS Mumbai','SIBM Pune'
+  ];
+  const instRow = (name, checked) => {
+    const l = document.createElement('label');
+    l.className = 'inst-opt';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.value = name; cb.checked = checked;
+    l.appendChild(cb); l.appendChild(document.createTextNode(name));
+    return l;
+  };
+  const setInstitutes = list => {
+    const box = $('inst-opts');
+    box.innerHTML = '';
+    PRESET_INSTITUTES.forEach(n => box.appendChild(instRow(n, list.includes(n))));
+    list.filter(n => !PRESET_INSTITUTES.includes(n)).forEach(n => box.appendChild(instRow(n, true)));
+  };
+  const pickedInstitutes = () =>
+    [...$('inst-opts').querySelectorAll('input:checked')].map(i => i.value);
+  $('inst-add-btn').addEventListener('click', () => {
+    const v = $('inst-add').value.trim();
+    if (!v) return;
+    const existing = [...$('inst-opts').querySelectorAll('input')].find(i => i.value.toLowerCase() === v.toLowerCase());
+    if (existing) existing.checked = true;
+    else $('inst-opts').appendChild(instRow(v, true));
+    $('inst-add').value = '';
+    $('inst-opts').scrollTop = $('inst-opts').scrollHeight;
+  });
   const loadForm = id => {
     const c = comp(id);
     if (!c) return;
@@ -394,7 +451,7 @@
     $('cf-ppo').checked = !!c.ppo;
     $('cf-eligcrit').value = (c.eligibilityCriteria || []).join('\n');
     $('cf-teamstruct').value = (c.teamStructure || []).join('\n');
-    $('cf-institutes').value = (c.institutes || []).join('\n');
+    setInstitutes(c.institutes || []);
     $('cf-structure').value = (c.compStructure || []).join('\n');
     $('cf-guidelines').value = (c.submissionGuidelines || []).join('\n');
     $('cf-contacts').value = (c.contacts || []).map(x => [x.name, x.role, x.email, x.phone].map(v => v || '').join(' | ')).join('\n');
@@ -446,7 +503,7 @@
       rounds, draft,
       eligibility_criteria: lines('cf-eligcrit'),
       team_structure: lines('cf-teamstruct'),
-      institutes: lines('cf-institutes'),
+      institutes: pickedInstitutes(),
       comp_structure: lines('cf-structure'),
       submission_guidelines: lines('cf-guidelines'),
       contacts: lines('cf-contacts').map(l => {

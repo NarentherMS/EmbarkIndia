@@ -10,10 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="gl.css?v=5">
 <style>
+  [hidden]{display:none!important}
   /* ---------- standard competition header (dark canvas) ---------- */
   .hd-sec{
     background:linear-gradient(150deg,#0C1626,#070E1A 70%);color:#fff;
-    padding:56px 0 44px;position:relative;overflow:hidden;
+    padding:36px 0 30px;position:relative;overflow:hidden;
   }
   .hd-sec::before{
     content:"";position:absolute;top:-90px;right:6%;width:360px;height:360px;
@@ -26,12 +27,12 @@
   .hd-sec .wrap{position:relative;z-index:1}
   .hd-top{display:flex;gap:28px;align-items:flex-start}
   .hd-logo{
-    flex:none;width:112px;height:112px;border-radius:20px;background:#fff;overflow:hidden;
+    flex:none;width:92px;height:92px;border-radius:18px;background:#fff;overflow:hidden;
     display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.4);
   }
   .hd-logo img{width:100%;height:100%;object-fit:contain;padding:10px}
-  .hd-logo b{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--navy)}
-  .hd-main h1{color:#fff;font-size:clamp(1.7rem,4vw,2.9rem);line-height:1.12;margin:2px 0 0}
+  .hd-logo b{font-family:var(--display);font-weight:800;font-size:1.7rem;color:var(--navy)}
+  .hd-main h1{color:#fff;font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.12;margin:2px 0 0}
   .hd-tagline{color:rgba(255,255,255,.72);font-size:1.02rem;margin-top:8px;max-width:640px}
   .hd-chiprow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
   .comp-chip{
@@ -48,20 +49,20 @@
   .ppo-chip{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,77,10,.18);color:#FFB894;border-radius:999px;padding:6px 14px}
 
   /* icon fact columns */
-  .hd-facts{display:flex;flex-wrap:wrap;gap:16px 0;margin-top:32px}
+  .hd-facts{display:flex;flex-wrap:wrap;gap:12px 0;margin-top:22px}
   .hd-fact{display:flex;gap:12px;align-items:flex-start;padding:0 28px;border-left:1px solid rgba(255,255,255,.14)}
   .hd-fact:first-child{border-left:none;padding-left:0}
   .hd-fact svg{width:20px;height:20px;color:#FF8A5C;flex:none;margin-top:3px}
   .hd-fact small{display:block;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px}
   .hd-fact b{font-size:.94rem;font-weight:600;color:#fff}
-  .hd-divider{border-top:1px solid rgba(255,255,255,.12);margin:28px 0 24px}
+  .hd-divider{border-top:1px solid rgba(255,255,255,.12);margin:20px 0 18px}
 
   /* stat tiles + institutes + action */
   .hd-statrow{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
   .stat-tile{
     display:flex;align-items:center;gap:14px;text-align:left;
     background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
-    border-radius:14px;padding:13px 22px;
+    border-radius:14px;padding:11px 20px;
   }
   .stat-tile > svg{width:22px;height:22px;color:var(--orange);flex:none}
   .stat-tile small{display:block;font-size:.64rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
@@ -87,25 +88,23 @@
   .reg-closed svg{width:19px;height:19px;flex:none}
 
   /* banner inside the dark canvas */
-  .bnr-wrap{margin-top:28px}
+  .bnr-wrap{margin-top:20px}
   .bnr-view{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
   .bnr-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
   .bnr-track > *{flex:0 0 100%}
-  .bnr-track img{display:block;width:100%;height:auto}
-  .bnr-fallback{height:230px;position:relative;display:flex;align-items:center;padding:0 46px;overflow:hidden}
+  .bnr-track img{display:block;width:100%;height:auto;max-height:36vh;object-fit:cover}
+  .bnr-fallback{height:min(190px,24vh);position:relative;display:flex;align-items:center;padding:0 42px;overflow:hidden}
   .bnr-fallback .ghost{
     position:absolute;right:-10px;bottom:-70px;font-family:var(--display);font-weight:800;
-    font-size:13rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;
+    font-size:10rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;
   }
   .bnr-fallback h2{color:#fff;font-size:clamp(1.3rem,3vw,2rem);max-width:60%;margin:0}
   .bn-orange{background:linear-gradient(135deg,#FF7038,#FB4D0A 55%,#C93A05)}
   .bn-green{background:linear-gradient(135deg,#16345C,#0B1F3A 60%,#08172B)}
   .bn-dark{background:linear-gradient(135deg,#2A2A2A,#161616 60%,#101010)}
   .bn-charcoal{background-image:radial-gradient(rgba(251,77,10,.25) 1.5px,transparent 1.9px);background-size:13px 13px;background-color:#101010}
-  .bnr-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
-  .bnr-nav button{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);padding:8px;min-height:40px}
-  .bnr-nav button svg{width:20px;height:20px}
-  .bnr-dash{width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.25);transition:background .25s}
+  .bnr-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px}
+  .bnr-dash{width:30px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);transition:background .25s;border:none;cursor:pointer;padding:0}
   .bnr-dash.on{background:#fff}
 
   @media (max-width:860px){
@@ -304,9 +303,7 @@
     <div class="bnr-wrap">
       <div class="bnr-view"><div class="bnr-track" id="bnr-track"></div></div>
       <div class="bnr-nav" id="bnr-nav" hidden>
-        <button id="bnr-prev" aria-label="Previous banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
-        <span id="bnr-dashes" style="display:flex;gap:8px"></span>
-        <button id="bnr-next" aria-label="Next banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <span id="bnr-dashes" style="display:flex;gap:10px"></span>
       </div>
     </div>
   </div>
@@ -537,16 +534,16 @@
     track.innerHTML = banners.map(b => `<img src="${esc(b)}" alt="${esc(c.title)} banner">`).join('');
     if (banners.length < 2) return;
     $('bnr-nav').hidden = false;
-    $('bnr-dashes').innerHTML = banners.map((_, i) => `<span class="bnr-dash ${i === 0 ? 'on' : ''}"></span>`).join('');
+    $('bnr-dashes').innerHTML = banners.map((_, i) =>
+      `<button class="bnr-dash ${i === 0 ? 'on' : ''}" data-i="${i}" aria-label="Banner ${i + 1}"></button>`).join('');
     let idx = 0;
-    const go = d => {
-      idx = (idx + d + banners.length) % banners.length;
+    const show = n => {
+      idx = (n + banners.length) % banners.length;
       track.style.transform = `translateX(-${idx * 100}%)`;
       document.querySelectorAll('.bnr-dash').forEach((el, i) => el.classList.toggle('on', i === idx));
     };
-    $('bnr-prev').addEventListener('click', () => go(-1));
-    $('bnr-next').addEventListener('click', () => go(1));
-    setInterval(() => { if (!document.hidden) go(1); }, 6000);
+    document.querySelectorAll('.bnr-dash').forEach(d => d.addEventListener('click', () => show(+d.dataset.i)));
+    setInterval(() => { if (!document.hidden) show(idx + 1); }, 6000);
   })();
 
   /* ---------- tab pills ---------- */
@@ -655,9 +652,8 @@
     const st = compStatus(c), rw = regWindow(c);
     const hdA = $('hd-action');
     if (mine) hdA.innerHTML = '<a class="btn btn-primary" href="#action-card">My competition ↓</a>';
-    else if (st === 'closed' || rw === 'closed') hdA.innerHTML = '<span class="reg-closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Registration closed</span>';
-    else if (rw === 'not-open') hdA.innerHTML = `<div class="stat-tile"><span><small>Registration opens</small><b>${fmtDate(c.regOpen)}</b></span></div>`;
-    else hdA.innerHTML = '<a class="btn btn-primary" href="#action-card">Register now →</a>';
+    else if (rw === 'open') hdA.innerHTML = '<a class="btn btn-primary" href="#action-card">Register now →</a>';
+    else hdA.innerHTML = '<span class="reg-closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Registration closed</span>';
     if (mine) return renderMyPanel();
 
     if (st === 'closed') {
