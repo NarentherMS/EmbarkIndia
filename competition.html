@@ -176,12 +176,117 @@
   .reward-card p{font-size:.86rem;color:var(--ink-soft);margin:0}
   .reward-card small{font-size:.8rem;color:var(--green);font-weight:600}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .contact-card{background:var(--cream);border-radius:16px;padding:18px 20px}
-  .contact-card b{display:block;font-family:var(--display);font-weight:700;font-size:1rem}
-  .contact-card small{display:block;color:var(--ink-soft);font-size:.8rem;margin-bottom:8px}
-  .contact-card a{display:block;font-size:.85rem;color:var(--orange-deep);text-decoration:none;margin-top:3px}
+  .contact-card b{display:block;font-family:var(--display);font-weight:700;font-size:1.02rem}
+  .contact-card small{display:block;color:var(--ink-soft);font-size:.78rem;margin-bottom:6px}
+  .contact-card a{display:block;font-size:.86rem;color:var(--orange-deep);text-decoration:none;margin-top:3px}
 
-  /* ---------- rounds ---------- */
+  /* ---------- rounds v2: numbered cards with side panel ---------- */
+  .roundv2{
+    display:flex;gap:22px;background:#fff;border:1px solid rgba(22,22,22,.08);
+    border-radius:20px;box-shadow:var(--shadow-card);padding:26px;margin-bottom:16px;
+    position:relative;overflow:hidden;
+  }
+  .roundv2.live{border-left:5px solid var(--orange)}
+  .roundv2.done{opacity:.72}
+  .rv-num{
+    flex:none;width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:800;font-size:1.02rem;
+  }
+  .roundv2.live .rv-num{background:var(--orange)}
+  .rv-main{flex:1;min-width:0}
+  .rv-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .rv-head b{font-family:var(--display);font-weight:700;font-size:1.18rem}
+  .rd-live{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#D92D20;border:1.5px solid #D92D20;border-radius:999px;padding:4px 12px}
+  .rd-live::before{content:"\25CF";margin-right:5px}
+  .rv-main p{font-size:.93rem;color:#4A5568;margin:8px 0 0}
+  .rv-when{
+    display:inline-flex;gap:10px;align-items:center;background:var(--cream);
+    border-radius:10px;padding:11px 18px;font-weight:600;font-size:.87rem;margin-top:16px;
+  }
+  .rv-when svg{width:16px;height:16px;flex:none;color:var(--ink-soft)}
+  .rv-status{display:inline-flex;align-items:center;gap:7px;margin:14px 0 0 10px;font-size:.8rem;font-weight:600;border-radius:999px;padding:6px 14px}
+  .rvs-not{background:var(--navy-soft);color:var(--navy)}
+  .rvs-closed{background:var(--cream-deep);color:var(--ink-soft)}
+  .rv-side{flex:none;width:230px;display:flex;align-items:center;justify-content:center}
+  .ric{
+    width:112px;height:112px;background:var(--cream);border-radius:16px;
+    display:flex;align-items:center;justify-content:center;color:var(--navy);
+  }
+  .ric svg{width:46px;height:46px}
+  .rup{
+    border:2px dashed var(--orange);border-radius:16px;padding:18px 16px;text-align:center;
+    width:100%;background:#FFF9F5;display:flex;flex-direction:column;gap:8px;align-items:center;
+  }
+  .rup > svg{width:34px;height:34px;color:var(--orange-deep)}
+  .rup b{font-size:.95rem}
+  .rup small{font-size:.75rem;color:var(--ink-soft)}
+  .rup input[type=file]{width:100%;font-size:.78rem}
+  .rup input[type=url]{width:100%;font-family:var(--body);font-size:.82rem;background:var(--cream);border:none;border-radius:9px;padding:9px 11px}
+  .rup .btn{width:100%}
+  .rup-done{font-size:.78rem;font-weight:600;color:var(--green)}
+  @media (max-width:860px){
+    .roundv2{flex-direction:column}
+    .rv-side{width:100%}
+    .rv-num{width:44px;height:44px}
+  }
+
+  /* ---------- important dates: horizontal timeline ---------- */
+  .tl{display:flex;overflow-x:auto;padding:8px 0 10px}
+  .tl-item{flex:1;min-width:168px;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 8px}
+  .tl-item::before{content:"";position:absolute;top:26px;left:0;right:0;height:2px;background:rgba(11,31,58,.16)}
+  .tl-item:first-child::before{left:50%}
+  .tl-item:last-child::before{right:50%}
+  .tl-ico{
+    position:relative;z-index:1;width:52px;height:52px;border-radius:50%;
+    background:var(--navy-soft);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 5px #fff;
+  }
+  .tl-ico svg{width:22px;height:22px}
+  .tl-item.past .tl-ico{background:var(--navy);color:#fff}
+  .tl-item.next .tl-ico{background:var(--orange);color:#fff;box-shadow:0 0 0 5px #fff,0 8px 20px rgba(251,77,10,.4)}
+  .tl-card{
+    margin-top:16px;background:#fff;border:1px solid rgba(22,22,22,.08);border-radius:14px;
+    box-shadow:var(--shadow-card);padding:14px 12px;width:100%;
+  }
+  .tl-card small{display:block;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  .tl-card b{display:block;font-family:var(--display);font-weight:700;font-size:.9rem;line-height:1.3}
+
+  /* ---------- rewards v2: trophy cards + perks ---------- */
+  .rwd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
+  .rwd-card{border-radius:18px;padding:24px 22px;color:#fff;position:relative;overflow:hidden;min-height:118px}
+  .rwd-card .tr{position:absolute;right:-14px;bottom:-18px;width:110px;height:110px;opacity:.22}
+  .rwd-gold{background:linear-gradient(135deg,#F7B733,#ED8F03)}
+  .rwd-silver{background:linear-gradient(135deg,#5B8DEF,#0B1F3A)}
+  .rwd-bronze{background:linear-gradient(135deg,#D98E4A,#8C4F1D)}
+  .rwd-card small{display:block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.9;margin-bottom:6px}
+  .rwd-card .lbl{font-size:.8rem;opacity:.88}
+  .rwd-card .amt{font-family:var(--display);font-weight:800;font-size:1.65rem;line-height:1.2}
+  .rwd-card p{font-size:.8rem;opacity:.85;margin:8px 0 0;position:relative}
+  .rwd-perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:16px}
+  .perk{background:#fff;border:1px solid rgba(22,22,22,.08);border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow-card)}
+  .perk-ico{flex:none;width:46px;height:46px;border-radius:50%;background:var(--navy-soft);color:var(--navy);display:flex;align-items:center;justify-content:center}
+  .perk-ico svg{width:21px;height:21px}
+  .perk b{display:block;font-size:.82rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+  .perk div span{display:flex;gap:7px;font-size:.83rem;color:#4A5568;align-items:flex-start;margin-bottom:4px}
+  .perk div span::before{content:"\2713";color:var(--green);font-weight:700}
+
+  /* ---------- contacts v2: icon tile cards ---------- */
+  .contact-card{
+    display:flex;gap:18px;align-items:center;
+    background:#fff;border:1px solid rgba(22,22,22,.08);border-radius:18px;
+    padding:22px 24px;box-shadow:var(--shadow-card);
+  }
+  .cc-ico{
+    flex:none;width:64px;height:64px;border-radius:16px;
+    background:linear-gradient(135deg,#16345C,#0B1F3A);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 22px rgba(11,31,58,.3);
+  }
+  .cc-ico svg{width:28px;height:28px}
+
+  /* ---------- rounds (legacy shells kept for side panel bits) ---------- */
   .round{
     position:relative;padding:24px 26px;background:var(--cream);
     border-radius:18px;margin-bottom:16px;overflow:hidden;border:1.5px solid transparent;
@@ -610,26 +715,42 @@
 
   if (c.contacts && c.contacts.length) {
     $('contacts').hidden = false;
+    const CICO = {
+      company: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M15 9h.01M15 13h.01M10 21v-4h4v4"/></svg>',
+      person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+    };
     $('d-contacts').innerHTML = c.contacts.map(ct => `
       <div class="contact-card">
-        <b>${esc(ct.role || ct.name || 'Contact')}</b><small>${esc(ct.name && ct.role ? ct.name : (ct.role ? c.host : ''))}</small>
-        ${ct.email ? `<a href="mailto:${esc(ct.email)}">✉ ${esc(ct.email)}</a>` : ''}
-        ${ct.phone ? `<a href="tel:${esc(ct.phone)}">📞 ${esc(ct.phone)}</a>` : ''}
+        <span class="cc-ico">${/company/i.test(ct.role || '') ? CICO.company : CICO.person}</span>
+        <div>
+          <b>${esc(ct.role || ct.name || 'Contact')}</b><small>${esc(ct.name && ct.role ? ct.name : (ct.role ? c.host : ''))}</small>
+          ${ct.email ? `<a href="mailto:${esc(ct.email)}">✉ ${esc(ct.email)}</a>` : ''}
+          ${ct.phone ? `<a href="tel:${esc(ct.phone)}">📞 ${esc(ct.phone)}</a>` : ''}
+        </div>
       </div>`).join('');
   } else { $('tab-contacts').style.display = 'none'; }
 
-  /* important dates — built automatically from every deadline on this competition */
+  /* important dates — horizontal timeline, built from every deadline */
   (() => {
-    const rows = [
-      ['Registration opens', fmtDateTime(c.regOpen)],
-      ['Registration closes (deadline)', fmtDateTime(c.regClose) + ' IST'],
-      ['Competition starts', fmtDateTime(c.start)],
-      ...c.rounds.map((r, i) => [esc(r.name), fmtDateTime(r.opens) + ' → ' + fmtDateTime(r.closes)]),
-      ['Competition ends', fmtDateTime(c.end)],
-      ['Results announced', c.result ? fmtDate(c.result) : 'To be announced']
+    const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    const CALI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+    const items = [
+      { l: 'Registration opens', d: c.regOpen, v: fmtDateTime(c.regOpen) },
+      { l: 'Registration deadline', d: c.regClose, v: fmtDateTime(c.regClose) },
+      ...c.rounds.map(r => ({ l: r.name, d: r.closes, v: fmtDateTime(r.opens) + ' → ' + fmtDateTime(r.closes) })),
+      { l: 'Competition ends', d: c.end, v: fmtDateTime(c.end) },
+      { l: 'Results announced', d: c.result || c.end, v: c.result ? fmtDate(c.result) : 'To be announced' }
     ];
-    $('d-dates').innerHTML = rows.map(([k, v]) =>
-      `<div class="prize-row"><b>${k}</b><span>${v}</span></div>`).join('');
+    const now = new Date();
+    const nextIdx = items.findIndex(x => new Date(x.d) > now);
+    $('d-dates').innerHTML = '<div class="tl">' + items.map((x, i) => {
+      const past = new Date(x.d) <= now;
+      const cls = past ? 'past' : (i === nextIdx ? 'next' : '');
+      return `<div class="tl-item ${cls}">
+        <span class="tl-ico">${past ? CHECK : CALI}</span>
+        <div class="tl-card"><small>${esc(x.l)}</small><b>${x.v}</b></div>
+      </div>`;
+    }).join('') + '</div>';
   })();
 
   /* FAQs */
@@ -646,17 +767,26 @@
       el.innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
       return;
     }
-    const RANKS = { winner: [1, 'Winner'], runner: [2, 'Runner-up'], second: [3, 'Second runner-up'] };
-    el.innerHTML = '<div class="reward-grid">' + c.prizes.map(p => {
-      const [n, title] = RANKS[p.key] || [1, p.key];
-      return `<div class="reward-card">
-        <span class="win-rank wr-${n}">${n}</span>
-        <b>${esc(title)}</b>
-        ${p.cash ? `<span class="rw-cash">${esc(p.cash)}</span>` : ''}
-        ${p.desc ? `<p>${esc(p.desc)}</p>` : ''}
-        ${p.benefits ? `<small>+ ${esc(p.benefits)}</small>` : ''}
+    const TROPHY = '<svg class="tr" viewBox="0 0 24 24" fill="currentColor"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6zm12 0h1.5a2.5 2.5 0 0 0 0-5H18zM6 2h12v7a6 6 0 0 1-12 0zM10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22h10c0-1.76-.85-3.25-2.03-3.79-.5-.23-.97-.66-.97-1.21v-2.34zM4 22h16"/></svg>';
+    const RANKS = { winner: ['rwd-gold', 'Winner'], runner: ['rwd-silver', 'First runner-up'], second: ['rwd-bronze', 'Second runner-up'] };
+    const cards = c.prizes.map(p => {
+      const [cls, title] = RANKS[p.key] || ['rwd-gold', p.key];
+      return `<div class="rwd-card ${cls}">
+        ${TROPHY}
+        <small>${esc(title)}</small>
+        ${p.cash ? `<span class="lbl">Cash prize of</span><div class="amt">${esc(p.cash)}</div>` : (p.desc ? `<div class="amt" style="font-size:1.1rem">${esc(p.desc)}</div>` : '')}
+        ${p.cash && p.desc ? `<p>${esc(p.desc)}</p>` : ''}
       </div>`;
-    }).join('') + '</div>';
+    }).join('');
+    const CERTI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>';
+    const GIFT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
+    const perkCards = c.prizes.filter(p => p.benefits).map((p, i) => {
+      const title = (RANKS[p.key] || ['', p.key])[1] + ' extras';
+      const lines = p.benefits.split(/[;,]/).map(x => x.trim()).filter(Boolean);
+      return `<div class="perk"><span class="perk-ico">${GIFT}</span><div><b>${esc(title)}</b>${lines.map(l => `<span>${esc(l)}</span>`).join('')}</div></div>`;
+    }).join('')
+    + `<div class="perk"><span class="perk-ico">${CERTI}</span><div><b>Participation certificate</b><span>All participants who submit receive a shareable certificate</span></div></div>`;
+    el.innerHTML = `<div class="rwd-grid">${cards}</div><div class="rwd-perks">${perkCards}</div>`;
   })();
 
   if (c.aboutHost) {
@@ -665,28 +795,107 @@
     $('host-about').textContent = c.aboutHost;
   } else { $('tab-host').style.display = 'none'; }
 
-  /* ---------- rounds ---------- */
+  /* ---------- rounds: numbered cards, uploads embedded ---------- */
+  const RICONS = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M8 8h5M8 11h8"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V3M4 4h13l-3.5 4L17 12H4"/></svg>'
+  ];
+  const UPCLOUD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M12 12v9M16 16l-4-4-4 4"/></svg>';
+  const CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+
   const renderRounds = () => {
+    const advSet = mine ? new Set(advRows.filter(a => a.reg_id === mine.id).map(a => a.round_idx)) : new Set();
+    const declared = i => advRows.some(a => a.round_idx === i);
+
     $('d-rounds').innerHTML = c.rounds.map((r, i) => {
       const isEvent = r.type === 'event';
       const w = roundWindow(r);
-      const cls = w === 'open' ? 'open' : w === 'closed' ? 'done' : '';
+      const live = w === 'open';
       const num = String(i + 1).padStart(2, '0');
-      const badge = w === 'open' ? '<span class="rd-live">Live</span>' : isEvent ? '<span class="rd-event">Event</span>' : '';
-      const status = isEvent ? '' : w === 'open'
-        ? `<span class="round-status rs-open">● Submissions open — closes in <span data-count="${r.closes}">${countdown(r.closes) || ''}</span></span>`
-        : w === 'not-open'
-        ? `<span class="round-status rs-not">Opens ${fmtDateTime(r.opens)}</span>`
-        : `<span class="round-status rs-closed">Closed ${fmtDateTime(r.closes)}</span>`;
+      const inRound = mine && (i === 0 || advSet.has(i - 1));
+      const mySub = mine ? subsByRound[i] : null;
+
+      // right-side zone
+      let side;
+      if (!isEvent && live) {
+        if (mine && inRound) {
+          side = `<div class="rup">
+            ${UPCLOUD}
+            <b>${mySub ? 'Replace your submission' : 'Upload submission'}</b>
+            <small>PPT / PDF · max 20 MB</small>
+            <input type="file" id="up-${i}" accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.zip" aria-label="Upload for ${esc(r.name)}">
+            <input type="url" id="uplink-${i}" placeholder="or paste a drive link">
+            <button class="btn btn-primary btn-sm" data-up="${i}">Upload now</button>
+            ${mySub ? `<span class="rup-done">✓ Submitted ${fmtDateTime(mySub.updated_at || mySub.created_at)}</span>` : ''}
+            <small>Closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b></small>
+          </div>`;
+        } else if (mine && !inRound) {
+          side = `<div class="ric">${RICONS[i % 4]}</div>`;
+        } else {
+          side = `<div class="rup">
+            ${UPCLOUD}
+            <b>Submissions open</b>
+            <small>Closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b></small>
+            <a class="btn btn-primary btn-sm" href="${user ? '#action-card' : 'account.html'}">${user ? 'Register to upload' : 'Sign in to upload'}</a>
+          </div>`;
+        }
+      } else {
+        side = `<div class="ric">${RICONS[i % 4]}</div>`;
+      }
+
+      // body extras
+      let extra = '';
+      if (mine && !isEvent && !inRound) {
+        extra = `<span class="rv-status rvs-closed" style="margin-left:0">Did not advance to this round</span>`;
+      } else if (mySub && !live) {
+        extra = `<div class="sub-done" style="margin-top:12px">✓ Submitted: <b>${esc(mySub.file_path ? mySub.file_path.split('/').pop().replace(/^\d+-/, '') : mySub.link)}</b> · ${fmtDateTime(mySub.updated_at || mySub.created_at)}</div>`;
+      }
+      let advBadge = '';
+      if (mine && !isEvent && inRound && declared(i)) {
+        advBadge = advSet.has(i)
+          ? `<div class="adv-badge adv-yes" style="margin-top:12px">✓ Advanced past this round!</div>`
+          : `<div class="adv-badge adv-no" style="margin-top:12px">Not advanced past this round — participation certificate unlocked.</div>`;
+      } else if (mine && !isEvent && inRound && mySub && w === 'closed') {
+        advBadge = `<div class="adv-badge adv-wait" style="margin-top:12px">Judging in progress (offline) — advancement will appear here.</div>`;
+      }
+
+      const statusPill = live ? '' : w === 'not-open'
+        ? `<span class="rv-status rvs-not">Opens ${fmtDateTime(r.opens)}</span>`
+        : `<span class="rv-status rvs-closed">Closed ${fmtDateTime(r.closes)}</span>`;
       const link = isEvent && r.link ? `<a class="rd-link" href="${esc(r.link)}" target="_blank" rel="noopener">Join / watch ↗</a>` : '';
-      return `<div class="round ${cls}">
-        <span class="rnum" aria-hidden="true">${num}</span>
-        <div class="round-head"><span class="rn">${num}</span><b>${esc(r.name)}</b>${badge}</div>
-        <p>${esc(r.brief)}</p>
-        <div class="round-when"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${fmtDateTime(r.opens)} — ${fmtDateTime(r.closes)} (IST)</div>
-        ${status}${link}
+
+      return `<div class="roundv2 ${live ? 'live' : ''} ${w === 'closed' ? 'done' : ''}">
+        <span class="rv-num">${num}</span>
+        <div class="rv-main">
+          <div class="rv-head"><b>${esc(r.name)}</b>${live ? '<span class="rd-live">Live</span>' : ''}</div>
+          <p>${esc(r.brief)}</p>
+          ${extra}
+          <div style="display:flex;align-items:center;flex-wrap:wrap">
+            <div class="rv-when">${CAL}${fmtDateTime(r.opens)} &nbsp;—&nbsp; ${fmtDateTime(r.closes)} (IST)</div>
+            ${statusPill}
+          </div>
+          ${link}${advBadge}
+        </div>
+        <div class="rv-side">${side}</div>
       </div>`;
     }).join('');
+
+    // uploads (server rejects anything past the deadline regardless)
+    $('d-rounds').querySelectorAll('[data-up]').forEach(btn => btn.addEventListener('click', async () => {
+      const i = +btn.dataset.up;
+      if (roundWindow(c.rounds[i]) !== 'open') { alert("This round's window has closed."); await loadState(); renderRounds(); return; }
+      const file = $('up-' + i).files[0];
+      const link = $('uplink-' + i).value.trim();
+      if (!file && !link) { alert('Choose a file or paste a link.'); return; }
+      if (file && file.size > 20 * 1024 * 1024) { alert('File is over 20MB — upload a smaller file or paste a drive link.'); return; }
+      btn.disabled = true; btn.textContent = 'Uploading…';
+      const { error } = await dbSubmit(c.id, mine.id, i, file, link, '');
+      btn.disabled = false;
+      if (error) alert(/security|policy/i.test(error.message) ? 'The server rejected this — the round window has closed.' : error.message);
+      await loadState(); renderRounds(); renderAction();
+    }));
   };
 
   /* ---------- state ---------- */
@@ -851,53 +1060,27 @@
     renderAction();
   }
 
-  /* ---------- my panel ---------- */
+  /* ---------- my panel: team, status summary, certificates ---------- */
   function renderMyPanel() {
     const st = compStatus(c);
     const advSet = new Set(advRows.filter(a => a.reg_id === mine.id).map(a => a.round_idx));
     const declared = i => advRows.some(a => a.round_idx === i);
     const myWin = winners.find(w => w.reg_id === mine.id);
 
-    let roundsHtml = '';
-    c.rounds.forEach((r, i) => {
-      const isEvent = r.type === 'event';
+    const statusRows = c.rounds.map((r, i) => {
+      if (r.type === 'event') return '';
       const inRound = i === 0 || advSet.has(i - 1);
-      const w = roundWindow(r);
       const mySub = subsByRound[i];
-      let body = '';
-      if (isEvent) {
-        body = `<span class="round-status ${w === 'open' ? 'rs-open' : w === 'closed' ? 'rs-closed' : 'rs-not'}">${w === 'open' ? '● Happening now' : w === 'closed' ? 'Completed' : 'Scheduled'} · ${fmtDateTime(r.opens)}</span>
-          ${r.link ? `<a class="rd-link" href="${esc(r.link)}" target="_blank" rel="noopener">Join / watch ↗</a>` : ''}`;
-      } else if (!inRound) {
-        body = `<span class="round-status rs-closed">Did not advance to this round</span>`;
-      } else if (mySub && w !== 'open') {
-        body = `<div class="sub-done">✓ Submitted: <b>${esc(mySub.file_path ? mySub.file_path.split('/').pop().replace(/^\d+-/, '') : mySub.link)}</b> · ${fmtDateTime(mySub.updated_at || mySub.created_at)}</div>`;
-      } else if (w === 'open') {
-        const done = mySub ? `<div class="sub-done" style="margin-bottom:10px">✓ Submitted · ${fmtDateTime(mySub.updated_at || mySub.created_at)} — you can replace it until the window closes.</div>` : '';
-        body = `${done}
-          <div class="upload-box">
-            <p style="font-size:.85rem;margin-bottom:10px;color:var(--charcoal)">${mySub ? 'Replace your submission' : 'Upload your submission'} (PDF/PPT, max 20MB)</p>
-            <input type="file" id="up-${i}" accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.zip" aria-label="Upload for ${esc(r.name)}">
-            <p style="font-size:.75rem;color:var(--ink-soft);margin:8px 0">or</p>
-            <input type="url" id="uplink-${i}" placeholder="Paste a drive link" style="width:100%;font-family:var(--body);font-size:.88rem;background:var(--cream);border:none;border-radius:10px;padding:10px 12px">
-            <button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px" data-up="${i}">Submit for ${esc(r.name.split('—')[0].split('(')[0].trim())}</button>
-          </div>
-          <p style="font-size:.76rem;color:var(--ink-soft);margin-top:8px">Window closes in <b><span data-count="${r.closes}">${countdown(r.closes) || ''}</span></b>. The cutoff is enforced on the server — late submissions are rejected automatically.</p>`;
-      } else if (w === 'not-open') {
-        body = `<span class="round-status rs-not">Upload opens ${fmtDateTime(r.opens)}</span>`;
-      } else {
-        body = `<span class="round-status rs-closed">Window closed — no submission received</span>`;
-      }
-      let advBadge = '';
-      if (!isEvent && inRound && declared(i)) {
-        advBadge = advSet.has(i)
-          ? `<div class="adv-badge adv-yes">${tick} Advanced past ${esc(r.name.split('—')[0].split('(')[0].trim())}!</div>`
-          : `<div class="adv-badge adv-no">Not advanced past ${esc(r.name.split('—')[0].split('(')[0].trim())} — participation certificate unlocked below.</div>`;
-      } else if (!isEvent && inRound && mySub && w === 'closed') {
-        advBadge = `<div class="adv-badge adv-wait">Judging in progress (offline) — advancement will appear here.</div>`;
-      }
-      roundsHtml += `<div style="margin-bottom:18px"><b style="font-family:var(--display);font-size:.95rem">${esc(r.name)}</b><div style="margin-top:8px">${body}</div>${advBadge}</div>`;
-    });
+      const w = roundWindow(r);
+      let stx;
+      if (!inRound) stx = 'Did not advance';
+      else if (declared(i)) stx = advSet.has(i) ? 'Advanced ✓' : 'Not advanced';
+      else if (mySub) stx = 'Submitted ✓' + (w === 'closed' ? ' · judging' : '');
+      else if (w === 'open') stx = 'Upload open ←';
+      else if (w === 'not-open') stx = 'Opens ' + fmtDate(r.opens);
+      else stx = 'No submission';
+      return `<div class="prize-row" style="font-size:.86rem"><b>${esc(r.name.split('—')[0].split('(')[0].trim())}</b><span>${stx}</span></div>`;
+    }).join('');
 
     let certHtml = '';
     const submittedAny = Object.keys(subsByRound).length > 0;
@@ -906,34 +1089,20 @@
       certHtml += `<button class="btn btn-ghost btn-sm" id="cert-part">Download participation certificate</button>`;
     }
     const certBlock = certHtml
-      ? `<div style="margin-top:20px;padding-top:18px;border-top:1px dashed rgba(22,22,22,.2)"><h3 style="font-size:1rem">Your certificates</h3><div class="cert-actions">${certHtml}</div><p class="side-note" style="margin-top:10px">Real PNG, brand-designed — post it on LinkedIn.</p></div>`
+      ? `<div style="margin-top:18px;padding-top:16px;border-top:1px dashed rgba(22,22,22,.2)"><h3 style="font-size:1rem">Your certificates</h3><div class="cert-actions">${certHtml}</div></div>`
       : '';
 
     const mates = (mine.members || []).slice(1);
     action.innerHTML = `
       <h3>My competition</h3>
-      <p class="side-note" style="margin-bottom:14px">
+      <p class="side-note" style="margin-bottom:12px">
         <b style="color:var(--charcoal)">${esc(mine.team_name)}</b> ${mates.length ? '· ' + (mates.length + 1) + ' members' : '(solo)'}
         · registered ${fmtDate(mine.created_at)}
       </p>
-      ${roundsHtml}
+      ${statusRows}
+      <p class="side-note" style="margin-top:12px">Uploads happen inside each round card on the left.</p>
       ${certBlock}`;
 
-    action.querySelectorAll('[data-up]').forEach(btn => btn.addEventListener('click', async () => {
-      const i = +btn.dataset.up;
-      if (roundWindow(c.rounds[i]) !== 'open') { alert("This round's window has closed."); await loadState(); renderMyPanel(); return; }
-      const file = $('up-' + i).files[0];
-      const link = $('uplink-' + i).value.trim();
-      if (!file && !link) { alert('Choose a file or paste a link.'); return; }
-      if (file && file.size > 20 * 1024 * 1024) { alert('File is over 20MB — upload a smaller file or paste a drive link.'); return; }
-      btn.disabled = true; btn.textContent = 'Uploading…';
-      const { error } = await dbSubmit(c.id, mine.id, i, file, link, '');
-      btn.disabled = false;
-      if (error) {
-        alert(/security|policy/i.test(error.message) ? 'The server rejected this — the round window has closed.' : error.message);
-      }
-      await loadState(); renderMyPanel();
-    }));
     const cw = $('cert-win');
     if (cw) cw.addEventListener('click', () => makeCertificate(mine.team_name, c.title, 'winner', myWin.rank));
     const cp = $('cert-part');
