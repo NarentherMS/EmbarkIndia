@@ -163,6 +163,12 @@
   .prize-row:last-child{border-bottom:none}
   .prize-row b{font-weight:600}
   .prize-row span{color:var(--ink-soft);text-align:right}
+  .reward-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .reward-card{background:var(--cream);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+  .reward-card b{font-family:var(--display);font-weight:700;font-size:1.05rem}
+  .reward-card .rw-cash{font-family:var(--display);font-weight:800;font-size:1.45rem;color:var(--orange-deep)}
+  .reward-card p{font-size:.86rem;color:var(--ink-soft);margin:0}
+  .reward-card small{font-size:.8rem;color:var(--green);font-weight:600}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .contact-card{background:var(--cream);border-radius:16px;padding:18px 20px}
   .contact-card b{display:block;font-family:var(--display);font-weight:700;font-size:1rem}
@@ -331,6 +337,7 @@
   <nav class="tabbar" id="tabbar" aria-label="Sections">
     <a href="#rounds" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22V3"/><path d="M4 4h13l-3.5 4L17 12H4"/></svg>Rounds</a>
     <a href="#details"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Overview</a>
+    <a href="#dates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Dates</a>
     <a href="#rewards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>Prizes</a>
     <a href="#contacts" id="tab-contacts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Contacts</a>
     <a href="#host" id="tab-host"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2 3 7h18z"/></svg>Host</a>
@@ -361,6 +368,11 @@
       <div id="d-ruleswrap" hidden><h3 class="sub">Rules</h3><ul class="d-list" id="d-rules"></ul></div>
     </div>
 
+    <div class="d-block" id="dates">
+      <h2>Important dates</h2>
+      <div id="d-dates"></div>
+    </div>
+
     <div class="d-block" id="contacts" hidden>
       <h2>Contacts</h2>
       <p style="font-size:.9rem">Questions about this competition? Reach the organising team directly.</p>
@@ -373,9 +385,14 @@
     </div>
 
     <div class="d-block" id="host" hidden>
-      <h2>About the host</h2>
+      <h2>About the company</h2>
       <p style="font-weight:600" id="host-name"></p>
       <p id="host-about"></p>
+    </div>
+
+    <div class="d-block" id="faqsec" hidden>
+      <h2>FAQs</h2>
+      <div class="faq-list" id="d-faqs"></div>
     </div>
   </div>
 
@@ -450,7 +467,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=5"></script>
+<script src="db.js?v=6"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
@@ -586,14 +603,52 @@
     $('contacts').hidden = false;
     $('d-contacts').innerHTML = c.contacts.map(ct => `
       <div class="contact-card">
-        <b>${esc(ct.name)}</b><small>${esc(ct.role || 'Organising team')}</small>
+        <b>${esc(ct.role || ct.name || 'Contact')}</b><small>${esc(ct.name && ct.role ? ct.name : (ct.role ? c.host : ''))}</small>
         ${ct.email ? `<a href="mailto:${esc(ct.email)}">✉ ${esc(ct.email)}</a>` : ''}
         ${ct.phone ? `<a href="tel:${esc(ct.phone)}">📞 ${esc(ct.phone)}</a>` : ''}
       </div>`).join('');
   } else { $('tab-contacts').style.display = 'none'; }
 
-  $('d-prizes').innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('')
-    || '<p style="color:var(--ink-soft)">Prizes will be announced soon.</p>';
+  /* important dates — built automatically from every deadline on this competition */
+  (() => {
+    const rows = [
+      ['Registration opens', fmtDateTime(c.regOpen)],
+      ['Registration closes (deadline)', fmtDateTime(c.regClose) + ' IST'],
+      ['Competition starts', fmtDateTime(c.start)],
+      ...c.rounds.map((r, i) => [esc(r.name), fmtDateTime(r.opens) + ' → ' + fmtDateTime(r.closes)]),
+      ['Competition ends', fmtDateTime(c.end)],
+      ['Results announced', c.result ? fmtDate(c.result) : 'To be announced']
+    ];
+    $('d-dates').innerHTML = rows.map(([k, v]) =>
+      `<div class="prize-row"><b>${k}</b><span>${v}</span></div>`).join('');
+  })();
+
+  /* FAQs */
+  if (c.faqs && c.faqs.length) {
+    $('faqsec').hidden = false;
+    $('d-faqs').innerHTML = c.faqs.map(f => `
+      <details class="faq-item"><summary>${esc(f.q)}</summary><p class="faq-body">${esc(f.a)}</p></details>`).join('');
+  }
+
+  (() => {
+    const el = $('d-prizes');
+    if (!c.prizes || !c.prizes.length) { el.innerHTML = '<p style="color:var(--ink-soft)">Prizes will be announced soon.</p>'; return; }
+    if (Array.isArray(c.prizes[0])) { // legacy label|value format
+      el.innerHTML = c.prizes.map(p => `<div class="prize-row"><b>${esc(p[0])}</b><span>${esc(p[1] || '')}</span></div>`).join('');
+      return;
+    }
+    const RANKS = { winner: [1, 'Winner'], runner: [2, 'Runner-up'], second: [3, 'Second runner-up'] };
+    el.innerHTML = '<div class="reward-grid">' + c.prizes.map(p => {
+      const [n, title] = RANKS[p.key] || [1, p.key];
+      return `<div class="reward-card">
+        <span class="win-rank wr-${n}">${n}</span>
+        <b>${esc(title)}</b>
+        ${p.cash ? `<span class="rw-cash">${esc(p.cash)}</span>` : ''}
+        ${p.desc ? `<p>${esc(p.desc)}</p>` : ''}
+        ${p.benefits ? `<small>+ ${esc(p.benefits)}</small>` : ''}
+      </div>`;
+    }).join('') + '</div>';
+  })();
 
   if (c.aboutHost) {
     $('host').hidden = false;

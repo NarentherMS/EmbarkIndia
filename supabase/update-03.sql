@@ -28,9 +28,10 @@ alter table public.competitions
   add column if not exists views integer not null default 0,
   add column if not exists view_boost integer not null default 0;
 
--- ---------- NEW in update-03: tagline under the title ----------
+-- ---------- NEW in update-03: tagline under the title + FAQs ----------
 alter table public.competitions
-  add column if not exists tagline text not null default '';
+  add column if not exists tagline text not null default '',
+  add column if not exists faqs jsonb not null default '[]';
 
 -- ---------- real view counting ----------
 create or replace function public.bump_views(cid text)

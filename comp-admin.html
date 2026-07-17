@@ -159,7 +159,25 @@
         <div class="field full"><label>Description <span class="req">*</span></label><textarea id="cf-about" required></textarea></div>
         <div class="field full"><label>Eligibility</label><input id="cf-elig" type="text" placeholder="MBA/PGDM students of any year…"></div>
         <div class="field full"><label>Rules (one per line)</label><textarea id="cf-rules" placeholder="Teams of 1–4&#10;Decks in PDF, max 12 slides"></textarea></div>
-        <div class="field full"><label>Prizes (one per line: Label | Prize)</label><textarea id="cf-prizes" placeholder="Winner | ₹30,000 + PPI interviews&#10;Runner-up | ₹15,000"></textarea></div>
+        <div class="adm-sect">Rewards<small>Fill only the ranks you're offering — empty ranks don't appear on the page.</small></div>
+        <div class="field full round-editor" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="field" style="grid-column:1/-1"><b style="font-family:var(--display)">🥇 Winner</b></div>
+          <div class="field"><label>Cash prize</label><input id="rw-winner-cash" type="text" placeholder="₹30,000"></div>
+          <div class="field"><label>Description</label><input id="rw-winner-desc" type="text" placeholder="Champions of the challenge"></div>
+          <div class="field"><label>Other benefits</label><input id="rw-winner-ben" type="text" placeholder="PPI interviews + certificate"></div>
+        </div>
+        <div class="field full round-editor" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="field" style="grid-column:1/-1"><b style="font-family:var(--display)">🥈 Runner-up</b></div>
+          <div class="field"><label>Cash prize</label><input id="rw-runner-cash" type="text" placeholder="₹15,000"></div>
+          <div class="field"><label>Description</label><input id="rw-runner-desc" type="text"></div>
+          <div class="field"><label>Other benefits</label><input id="rw-runner-ben" type="text"></div>
+        </div>
+        <div class="field full round-editor" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="field" style="grid-column:1/-1"><b style="font-family:var(--display)">🥉 Second runner-up</b></div>
+          <div class="field"><label>Cash prize</label><input id="rw-second-cash" type="text" placeholder="₹5,000"></div>
+          <div class="field"><label>Description</label><input id="rw-second-desc" type="text"></div>
+          <div class="field"><label>Other benefits</label><input id="rw-second-ben" type="text"></div>
+        </div>
         <div class="field"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="cf-ppo" style="width:18px;height:18px;accent-color:#FB4D0A">PPO / PPI track</label></div>
         <div class="field"></div>
         <div class="field"><label>Host logo (square image)</label><input id="cf-logo" type="file" accept="image/*"><small id="cf-logo-now" style="font-size:.75rem;color:var(--ink-soft)"></small></div>
@@ -178,18 +196,24 @@
         </div>
         <div class="field full"><label>Competition structure (one per line)</label><textarea id="cf-structure" placeholder="Round 1: online submission&#10;Finals: in-person pitch"></textarea></div>
         <div class="field full"><label>Submission guidelines (one per line)</label><textarea id="cf-guidelines" placeholder="Decks in PDF, max 12 slides&#10;Name your file Team_Round1.pdf"></textarea></div>
-        <div class="field full"><label>Contacts (one per line: Name | Role | Email | Phone)</label><textarea id="cf-contacts" placeholder="Narenther | Organiser | hello@embarkindia.in | +91-9XXXXXXXXX"></textarea></div>
-        <div class="field full"><label>About the host</label><textarea id="cf-abouthost" placeholder="A short paragraph about the hosting brand or Embark India."></textarea></div>
+        <div class="adm-sect">Contacts<small>Two contact cards on the page — the company and the organiser. Leave all four empty to hide the section.</small></div>
+        <div class="field"><label>Company contact number</label><input id="cf-cph" type="tel" placeholder="+91-9XXXXXXXXX"></div>
+        <div class="field"><label>Company email</label><input id="cf-cem" type="email" placeholder="contact@company.com"></div>
+        <div class="field"><label>Organiser contact number</label><input id="cf-oph" type="tel" placeholder="+91-9XXXXXXXXX"></div>
+        <div class="field"><label>Organiser email</label><input id="cf-oem" type="email" placeholder="hello@embarkindia.in"></div>
+        <div class="adm-sect">About the company &amp; FAQ<small>Shown at the bottom of the page. Leave empty to hide.</small></div>
+        <div class="field full"><label>About the company</label><textarea id="cf-abouthost" placeholder="A paragraph about the hosting brand or Embark India."></textarea></div>
+        <div class="field full"><label>FAQs (one per line: Question | Answer)</label><textarea id="cf-faqs" placeholder="Can I participate alone? | Yes, if the team size allows solo entries.&#10;How are results decided? | Judging happens offline; results appear on this page."></textarea></div>
         <div class="field"><label>Registration opens <span class="req">*</span></label><input id="cf-regopen" type="datetime-local" required></div>
         <div class="field"><label>Registration closes <span class="req">*</span></label><input id="cf-regclose" type="datetime-local" required></div>
         <div class="field"><label>Competition starts <span class="req">*</span></label><input id="cf-start" type="datetime-local" required></div>
         <div class="field"><label>Competition ends <span class="req">*</span></label><input id="cf-end" type="datetime-local" required></div>
         <div class="field"><label>Result date</label><input id="cf-result" type="datetime-local"></div>
         <div class="field"></div>
-        <div class="adm-sect">Rounds<small>Submission rounds get an upload box with a server-enforced deadline; Event rounds show timing and a join link.</small></div>
-        <div class="field full"><label style="font-weight:600">Rounds — each with its own window <span class="req">*</span></label><div id="rounds-editor"></div>
-          <button type="button" class="add-member" id="add-round" style="margin-top:10px">+ Add round</button>
-        </div>
+        <div class="adm-sect">Rounds<small>Pick how many rounds — an entry appears for each. Toggle "students upload" on rounds that take submissions; the timer closes them automatically.</small></div>
+        <div class="field"><label>Number of rounds <span class="req">*</span></label><input id="cf-nrounds" type="number" min="1" max="10" value="1"></div>
+        <div class="field"></div>
+        <div class="field full"><div id="rounds-editor"></div></div>
         <div class="form-foot">
           <small>Draft = hidden from students. Published competitions surface automatically by date.</small>
           <span style="display:flex;gap:10px;align-items:center">
@@ -297,7 +321,7 @@
 </footer>
 
 <script src="assets/vendor/supabase.js"></script>
-<script src="db.js?v=5"></script>
+<script src="db.js?v=6"></script>
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
@@ -384,14 +408,13 @@
     const div = document.createElement('div');
     div.className = 'round-editor';
     div.innerHTML = `
+      <div class="field" style="grid-column:1/-1"><b style="font-family:var(--display)">Round ${roundCount}</b></div>
       <div class="field"><label>Round name</label><input type="text" class="rd-name" value="${esc(r.name || 'Round ' + roundCount)}"></div>
       <div class="field"><label>Opens</label><input type="datetime-local" class="rd-open" value="${r.opens ? toLocal(r.opens) : ''}"></div>
-      <div class="field"><label>Closes (deadline)</label><input type="datetime-local" class="rd-close" value="${r.closes ? toLocal(r.closes) : ''}"></div>
-      <button type="button" class="mini-btn danger rd-del" style="height:44px">Remove</button>
-      <div class="field"><label>Type</label><select class="rd-type"><option value="submission" ${r.type !== 'event' ? 'selected' : ''}>Submission (upload + deadline)</option><option value="event" ${r.type === 'event' ? 'selected' : ''}>Event (webinar / session)</option></select></div>
-      <div class="field" style="grid-column:2/-1"><label>Event link (optional — YouTube/Zoom, for Event rounds)</label><input type="url" class="rd-link" value="${esc(r.link || '')}" placeholder="https://…"></div>
-      <div class="field" style="grid-column:1/-1"><label>Instructions</label><input type="text" class="rd-brief" value="${esc(r.brief || '')}" placeholder="What must teams submit — or what happens — in this round?"></div>`;
-    div.querySelector('.rd-del').addEventListener('click', () => div.remove());
+      <div class="field" style="grid-column:3/-1"><label>Closes — the round's timer <span class="req">*</span></label><input type="datetime-local" class="rd-close" value="${r.closes ? toLocal(r.closes) : ''}"></div>
+      <div class="field" style="grid-column:1/3"><label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:8px"><input type="checkbox" class="rd-upload" style="width:18px;height:18px;accent-color:#FB4D0A" ${r.type !== 'event' ? 'checked' : ''}>Students upload a submission in this round</label></div>
+      <div class="field" style="grid-column:3/-1"><label>Event / session link (for non-upload rounds)</label><input type="url" class="rd-link" value="${esc(r.link || '')}" placeholder="https://…"></div>
+      <div class="field" style="grid-column:1/-1"><label>Round description</label><input type="text" class="rd-brief" value="${esc(r.brief || '')}" placeholder="What must teams submit — or what happens — in this round?"></div>`;
     $('rounds-editor').appendChild(div);
   };
   const resetForm = () => {
@@ -400,6 +423,8 @@
     $('comp-form').reset();
     $('rounds-editor').innerHTML = '';
     setInstitutes([]);
+    $('cf-nrounds').value = 1;
+    roundCount = 0;
     addRoundRow();
   };
 
@@ -447,15 +472,26 @@
     $('cf-fee').value = c.fee; $('cf-tmin').value = c.teamMin; $('cf-tmax').value = c.teamMax;
     $('cf-about').value = c.about; $('cf-elig').value = c.eligibility;
     $('cf-rules').value = c.rules.join('\n');
-    $('cf-prizes').value = c.prizes.map(p => p.join(' | ')).join('\n');
+    ['winner','runner','second'].forEach(k => {
+      const p = (Array.isArray(c.prizes) && c.prizes.length && !Array.isArray(c.prizes[0]))
+        ? c.prizes.find(x => x.key === k) : null;
+      $('rw-' + k + '-cash').value = p ? (p.cash || '') : '';
+      $('rw-' + k + '-desc').value = p ? (p.desc || '') : '';
+      $('rw-' + k + '-ben').value = p ? (p.benefits || '') : '';
+    });
     $('cf-ppo').checked = !!c.ppo;
     $('cf-eligcrit').value = (c.eligibilityCriteria || []).join('\n');
     $('cf-teamstruct').value = (c.teamStructure || []).join('\n');
     setInstitutes(c.institutes || []);
     $('cf-structure').value = (c.compStructure || []).join('\n');
     $('cf-guidelines').value = (c.submissionGuidelines || []).join('\n');
-    $('cf-contacts').value = (c.contacts || []).map(x => [x.name, x.role, x.email, x.phone].map(v => v || '').join(' | ')).join('\n');
+    const cts = c.contacts || [];
+    const comp_ct = cts.find(x => /company/i.test(x.role || '')) || {};
+    const org_ct = cts.find(x => /organis/i.test(x.role || '')) || {};
+    $('cf-cph').value = comp_ct.phone || ''; $('cf-cem').value = comp_ct.email || '';
+    $('cf-oph').value = org_ct.phone || ''; $('cf-oem').value = org_ct.email || '';
     $('cf-abouthost').value = c.aboutHost || '';
+    $('cf-faqs').value = (c.faqs || []).map(f => f.q + ' | ' + f.a).join('\n');
     $('cf-vboost').value = c.viewBoost || 0;
     $('cf-rboost').value = c.seedRegs || 0;
     $('cf-logo-now').textContent = c.logoUrl ? 'Current logo kept unless you choose a new file.' : '';
@@ -464,9 +500,18 @@
     $('cf-start').value = toLocal(c.start); $('cf-end').value = toLocal(c.end);
     $('cf-result').value = c.result ? toLocal(c.result) : '';
     $('rounds-editor').innerHTML = '';
+    roundCount = 0;
+    $('cf-nrounds').value = c.rounds.length || 1;
     c.rounds.forEach(r => addRoundRow(r));
   };
-  $('add-round').addEventListener('click', () => addRoundRow());
+  const syncRounds = () => {
+    const want = Math.max(1, Math.min(10, +$('cf-nrounds').value || 1));
+    $('cf-nrounds').value = want;
+    const box = $('rounds-editor');
+    while (box.children.length > want) box.lastElementChild.remove();
+    while (box.children.length < want) addRoundRow();
+  };
+  $('cf-nrounds').addEventListener('change', syncRounds);
 
   const collectForm = draft => {
     const form = $('comp-form');
@@ -474,7 +519,7 @@
     const rounds = [...document.querySelectorAll('.round-editor')].map(re => ({
       name: re.querySelector('.rd-name').value.trim() || 'Round',
       brief: re.querySelector('.rd-brief').value.trim(),
-      type: re.querySelector('.rd-type').value,
+      type: re.querySelector('.rd-upload').checked ? 'submission' : 'event',
       link: re.querySelector('.rd-link').value.trim() || null,
       opens: re.querySelector('.rd-open').value ? toISO(re.querySelector('.rd-open').value) : new Date().toISOString(),
       closes: re.querySelector('.rd-close').value ? toISO(re.querySelector('.rd-close').value) : new Date().toISOString()
@@ -493,7 +538,12 @@
       about: $('cf-about').value.trim(),
       eligibility: $('cf-elig').value.trim() || 'Open to all MBA/PGDM students.',
       rules: $('cf-rules').value.split('\n').map(x => x.trim()).filter(Boolean),
-      prizes: $('cf-prizes').value.split('\n').map(x => x.trim()).filter(Boolean).map(l => l.split('|').map(x => x.trim())),
+      prizes: ['winner','runner','second'].map(k => ({
+        key: k,
+        cash: $('rw-' + k + '-cash').value.trim(),
+        desc: $('rw-' + k + '-desc').value.trim(),
+        benefits: $('rw-' + k + '-ben').value.trim()
+      })).filter(p => p.cash || p.desc || p.benefits),
       ppo: $('cf-ppo').checked,
       reg_open: toISO($('cf-regopen').value),
       reg_close: toISO($('cf-regclose').value),
@@ -506,11 +556,15 @@
       institutes: pickedInstitutes(),
       comp_structure: lines('cf-structure'),
       submission_guidelines: lines('cf-guidelines'),
-      contacts: lines('cf-contacts').map(l => {
-        const p = l.split('|').map(x => x.trim());
-        return { name: p[0] || '', role: p[1] || '', email: p[2] || '', phone: p[3] || '' };
-      }),
+      contacts: [
+        { role: 'Company contact', phone: $('cf-cph').value.trim(), email: $('cf-cem').value.trim() },
+        { role: 'Organiser contact', phone: $('cf-oph').value.trim(), email: $('cf-oem').value.trim() }
+      ].filter(x => x.phone || x.email),
       about_host: $('cf-abouthost').value.trim(),
+      faqs: lines('cf-faqs').map(l => {
+        const i = l.indexOf('|');
+        return i > -1 ? { q: l.slice(0, i).trim(), a: l.slice(i + 1).trim() } : { q: l.trim(), a: '' };
+      }),
       view_boost: +$('cf-vboost').value || 0,
       seed_regs: +$('cf-rboost').value || 0
     };

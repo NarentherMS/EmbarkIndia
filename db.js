@@ -62,6 +62,7 @@ function rowToComp(r) {
     compStructure: r.comp_structure || [],
     submissionGuidelines: r.submission_guidelines || [],
     contacts: r.contacts || [],
+    faqs: r.faqs || [],
     aboutHost: r.about_host || '',
     views: r.views || 0,
     viewBoost: r.view_boost || 0
