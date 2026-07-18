@@ -57,9 +57,13 @@ The real backend is **Supabase** (a hosted service that gives us a database, use
 - Pages that use the backend load `assets/vendor/supabase.js`, then `js/db.js`, then the page script.
 - Asset paths written *inside* JS strings (e.g. `assets/people/p1.jpg`) resolve relative to the HTML page, not the `.js` file — so JS files sit in `/js/` without breaking those paths.
 
-### Deployment
-- **Website is hosted on Hostinger** (shared hosting; there's an `.htaccess` file). Deploy = upload the changed files via Hostinger's File Manager / FTP. There is no build — what's in the repo is what goes live.
+### Deployment (Git-based)
+- **Version control:** this folder is a Git repo connected to GitHub — **`NarentherMS/EmbarkIndia`** (branch `main`). This folder is the source of truth; edit here, commit, push.
+- **Deploy flow:** `commit → push to GitHub → Hostinger's Git connector deploys to the live site`. Depending on the connector setup, deploy is either automatic on push or a one-click "Deploy" in Hostinger hPanel → Git. There is no build step — repo files go live as-is.
+- **`design-source/` is git-ignored** (large Word docs) — it stays local, never on GitHub, never deployed.
+- Internal `.md` files (CLAUDE.md, `memory/`) are in the repo for backup but blocked from public web view by `.htaccess`.
 - **Database stays on Supabase.** ⚠️ See §5: do NOT move the database to Hostinger.
+- ⚠️ Reminder: when you change a `.css`/`.js` file, still bump its `?v=` in the HTML (see §3.2) — Git deploy doesn't bust browser caches by itself.
 
 ---
 
