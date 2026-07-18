@@ -1,0 +1,9 @@
+# Design source material — large Word docs, NOT part of the website.
+# Kept locally on your computer; never pushed to GitHub or deployed to Hostinger.
+design-source/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*~

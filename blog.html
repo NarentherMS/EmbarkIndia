@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Anton&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="gl.css?v=5">
+<link rel="stylesheet" href="css/gl.css?v=5">
 <style>
   :root{
     --ink:#1B1710;
@@ -349,7 +349,7 @@
   </div>
 </footer>
 
-<script src="posts.js?v=2"></script>
+<script src="js/posts.js?v=2"></script>
 <script>
   const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
   const sorted = [...POSTS].sort((a,b) => b.date.localeCompare(a.date));
@@ -449,6 +449,6 @@
   }
   render();
 </script>
-<script src="nav.js?v=2" defer></script>
+<script src="js/nav.js?v=2" defer></script>
 </body>
 </html>

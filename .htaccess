@@ -3,3 +3,11 @@
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>
+
+# Keep internal working files (CLAUDE.md, memory notes) off the public web.
+# They travel with the repo for backup, but visitors can't view them.
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.md$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
