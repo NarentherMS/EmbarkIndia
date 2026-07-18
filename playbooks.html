@@ -151,137 +151,94 @@
     .mq-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto}
   }
 
-  /* ============ 3. categories catalogue ============ */
-  .cat-list{border-top:1.5px solid rgba(22,22,22,.2)}
-  .cat-row{
-    display:grid;grid-template-columns:74px 1fr auto 40px;gap:20px;align-items:center;
-    padding:28px 12px;border-bottom:1.5px solid rgba(22,22,22,.15);
-    text-decoration:none;color:inherit;transition:background .2s,padding .2s;
-  }
-  .cat-row:hover{background:rgba(22,22,22,.04);padding-left:22px}
-  .cat-row:hover .cat-arrow{color:var(--orange);transform:translateX(4px)}
-  .cat-num{font-family:"Gloock",serif;font-size:1.5rem;color:rgba(22,22,22,.3)}
-  .cat-name{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,2.5vw,1.7rem);letter-spacing:-.01em;color:var(--charcoal);display:block}
-  .cat-desc{font-family:"PT Serif",serif;font-style:italic;font-size:.9rem;color:var(--ink-soft);margin-top:4px;display:block}
-  .cat-meta{font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
-  .cat-arrow{color:rgba(22,22,22,.4);transition:color .2s,transform .2s}
-  .cat-arrow svg{width:22px;height:22px}
-  .cat-row.soon{opacity:.45;pointer-events:none}
+  /* ============ 3. playbook categories (dark) ============ */
+  .cats{background:linear-gradient(180deg,#0C1626 0%,#080F1B 100%);color:var(--cream);padding:88px 0;overflow:hidden}
+  .cats-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8FA1C9;font-family:var(--body);margin-bottom:14px}
+  .cats-h{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,3.4vw,2.85rem);line-height:1.09;letter-spacing:-.02em;color:#fff}
+  .cats-p{font-size:1rem;line-height:1.65;color:rgba(250,247,242,.68);max-width:420px;margin-top:18px}
 
-  /* ============ 4. featured ============ */
-  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .feat-card{
-    background:var(--cream);border-radius:24px;padding:32px;
-    display:flex;flex-direction:column;gap:20px;
-    transition:transform .22s,box-shadow .22s;
+  /* --- collapsed --- */
+  .cats-collapsed{display:grid;grid-template-columns:minmax(0,40%) 1fr;gap:44px;align-items:center}
+  .cats-controls{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}
+  .cats-controls .btn svg{width:17px;height:17px;margin-left:2px}
+  .cats-arrows{display:flex;gap:10px}
+  .cats-arrow{
+    width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(250,247,242,.24);
+    background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .2s,border-color .2s,transform .12s;
   }
-  .feat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card)}
-  .thumb-book{
-    position:relative;width:118px;height:176px;flex:none;
-    transform:rotate(-3deg);border-radius:3px 8px 8px 3px;
-    box-shadow:10px 12px 22px rgba(22,22,22,.3);
-  }
-  .thumb-book .bk-face{position:absolute;inset:0;transform:none;border-radius:3px 8px 8px 3px}
-  .thumb-book .bk-cover{padding:14px 13px}
-  .thumb-book .bk-title b{font-size:1.15rem !important}
-  .thumb-book .bk-title i{font-size:.62rem}
-  .thumb-book .bk-kicker{font-size:.48rem}
-  .thumb-book .bk-foot{font-size:.46rem}
-  .feat-card h3{font-family:var(--display);font-weight:700;font-size:1.4rem;color:var(--charcoal)}
-  .feat-card .feat-why{font-family:"PT Serif",serif;font-style:italic;font-size:.92rem;color:var(--ink-soft);margin-top:4px}
-  .feat-list{list-style:none;display:grid;gap:10px;margin:4px 0 6px}
-  .feat-list li{display:flex;gap:10px;font-size:.9rem;color:var(--ink-soft);align-items:flex-start}
-  .feat-list svg{width:16px;height:16px;flex:none;color:var(--orange);margin-top:3px}
-  .feat-card .btn{margin-top:auto;align-self:flex-start}
+  .cats-arrow:hover{background:rgba(250,247,242,.1);border-color:rgba(250,247,242,.55)}
+  .cats-arrow:active{transform:scale(.9)}
+  .cats-arrow svg{width:19px;height:19px}
 
-  /* ============ 5. why ============ */
-  .whydk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .whydk{
-    background:var(--white);border-radius:20px;padding:30px 26px;
-    box-shadow:var(--shadow-card);transition:transform .25s;
+  /* --- fanned stack (collapsed) --- */
+  .cats-stack{position:relative;height:412px;perspective:1500px}
+  .cats-stack .cat-card{
+    position:absolute;top:50%;left:0;width:214px;height:392px;transform-origin:center;
+    transition:transform .5s cubic-bezier(.33,.9,.4,1.02),filter .5s;will-change:transform;
   }
-  .whydk:hover{transform:translateY(-5px)}
-  .whydk-icon{
-    width:50px;height:50px;border-radius:50%;background:var(--orange);color:#fff;
-    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
-  }
-  .whydk-icon svg{width:23px;height:23px}
-  .whydk h3{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--charcoal);margin-bottom:8px}
-  .whydk p{font-size:.9rem;color:var(--ink-soft)}
+  .cats-stack .cat-explore{display:none}
 
-  /* ============ 6. how it works ============ */
-  .howdk{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative;padding-top:10px}
-  .howdk-line{position:absolute;top:36px;left:8%;right:8%;border-top:2.5px dashed var(--green);opacity:.5}
-  .howdk-step{position:relative;text-align:center;padding:0 12px}
-  .howdk-node{
-    width:56px;height:56px;border-radius:50%;background:var(--orange);color:#fff;
-    font-family:"Anton",sans-serif;font-size:1.15rem;
-    display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
-    box-shadow:0 0 0 8px var(--white),0 6px 16px rgba(251,77,10,.3);position:relative;z-index:1;
+  /* --- card (shared by stack + grid) --- */
+  .cat-card{
+    border-radius:18px;overflow:hidden;color:#fff;
+    background-color:#111;background-image:var(--img);background-size:cover;background-position:center;
+    box-shadow:0 26px 54px rgba(0,0,0,.5);
   }
-  .howdk-step h3{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--charcoal);margin-bottom:8px}
-  .howdk-step p{font-size:.92rem;color:var(--ink-soft)}
+  .cat-card::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:linear-gradient(180deg,var(--tintd) 0%,var(--tintd) 30%,rgba(0,0,0,0) 92%);
+  }
+  .cat-body{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:22px 20px}
+  .cat-ico{
+    width:44px;height:44px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);color:var(--acc);
+  }
+  .cat-ico svg{width:22px;height:22px}
+  .cat-title{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.14;letter-spacing:-.01em;margin-top:16px;text-shadow:0 1px 10px rgba(0,0,0,.55)}
+  .cat-rule{width:34px;height:3px;border-radius:2px;background:var(--acc);margin:11px 0 12px}
+  .cat-desc{font-size:.84rem;line-height:1.5;color:rgba(255,255,255,.86);text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  .cat-explore{
+    margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--body);font-weight:600;font-size:.82rem;color:var(--acc);text-decoration:none;
+    background:transparent;border:1.5px solid color-mix(in srgb,var(--acc) 55%,transparent);
+    border-radius:999px;padding:9px 17px;transition:background .2s,border-color .2s;
+  }
+  .cat-explore:hover{background:color-mix(in srgb,var(--acc) 16%,transparent);border-color:var(--acc)}
+  .cat-explore svg{width:15px;height:15px}
 
-  /* ============ 7. preview ============ */
-  .paper-wrap{display:flex;justify-content:center}
-  .paper{
-    background:var(--white);color:var(--charcoal);
-    border-radius:6px;padding:46px 50px 42px;max-width:720px;width:100%;
-    transform:rotate(-1deg);position:relative;
-    box-shadow:0 24px 50px rgba(22,22,22,.22),0 4px 14px rgba(22,22,22,.14);
+  /* --- expanded --- */
+  .cats-expanded{display:none}
+  .cats.open .cats-collapsed{display:none}
+  .cats.open .cats-expanded{display:block}
+  .cats-open-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:34px}
+  .cats-close{
+    flex:none;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(250,247,242,.24);
+    background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .25s,transform .25s;
   }
-  .paper::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange);border-radius:6px 6px 0 0}
-  .paper-kicker{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-deep);font-family:var(--body)}
-  .paper h3{font-family:"Gloock",serif;font-weight:400;font-size:1.7rem;margin:10px 0 24px;color:var(--charcoal)}
-  .paper-step{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed rgba(22,22,22,.22)}
-  .paper-step:last-of-type{border-bottom:none}
-  .paper-step .pn{
-    flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;
-    font-family:"Anton",sans-serif;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:2px;
-  }
-  .paper-step b{display:block;font-family:"PT Serif",serif;font-weight:700;font-size:1rem}
-  .paper-step p{font-family:"PT Serif",serif;font-size:.94rem;color:var(--ink-soft);margin-top:2px}
-  .paper-check{display:flex;gap:12px;align-items:center;font-family:"PT Serif",serif;font-size:.95rem;padding:9px 0;color:var(--charcoal)}
-  .paper-check .box{
-    width:19px;height:19px;border:2px solid var(--green);border-radius:5px;flex:none;
-    display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#fff;
-  }
-  .paper-check.done .box{background:var(--green)}
-  .paper-check.done span{text-decoration:line-through;opacity:.6}
-  .paper-more{margin-top:22px;font-family:"PT Serif",serif;font-style:italic;font-size:.88rem;color:var(--ink-soft)}
-  .preview-cta{text-align:center;margin-top:44px}
-
-  /* ============ 8. cross-sell ============ */
-  .cross-card{
-    position:relative;overflow:hidden;border-radius:30px;background:var(--green);color:var(--cream);
-    padding:64px 56px;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;
-  }
-  .cross-card .blob{position:absolute;pointer-events:none;opacity:.18}
-  .cross-card .blob.r{right:-70px;bottom:-80px;width:280px}
-  .cross-h{font-family:"Gloock",serif;font-weight:400;font-size:clamp(1.8rem,3.6vw,2.7rem);color:#fff;line-height:1.15;position:relative;z-index:1}
-  .cross-p{font-family:"PT Serif",serif;color:rgba(250,247,242,.78);margin-top:14px;font-size:1.02rem;max-width:480px;position:relative;z-index:1}
-  .cross-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start;position:relative;z-index:1}
-  .cross-note{font-size:.82rem;color:rgba(250,247,242,.55);font-family:var(--body)}
-  .btn-outline-cream{background:transparent;color:var(--cream);border:1.5px solid rgba(250,247,242,.4)}
-  .btn-outline-cream:hover{border-color:#fff;background:rgba(250,247,242,.08)}
-
-  /* ============ 10. final CTA ============ */
-  .final-pbk{text-align:center;padding:104px 0 116px;background:var(--white)}
-  .final-pbk h2{
-    font-family:"Gloock",serif;font-weight:400;color:var(--charcoal);
-    font-size:clamp(2.2rem,6vw,4rem);line-height:1.08;max-width:760px;margin:0 auto 18px;
-  }
-  .final-pbk h2 em{color:var(--orange);font-style:normal}
-  .final-pbk p{font-family:"PT Serif",serif;font-style:italic;color:var(--ink-soft);margin-bottom:38px}
-  .final-pbk .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cats-close:hover{background:rgba(250,247,242,.1);transform:rotate(90deg)}
+  .cats-close svg{width:20px;height:20px}
+  .cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .cats-grid .cat-card{position:relative;height:432px;animation:cats-rise .55s cubic-bezier(.3,.9,.4,1) both}
+  .cats-grid .cat-card:nth-child(2){animation-delay:.06s}
+  .cats-grid .cat-card:nth-child(3){animation-delay:.12s}
+  .cats-grid .cat-card:nth-child(4){animation-delay:.18s}
+  .cats-grid .cat-card:nth-child(5){animation-delay:.24s}
+  @keyframes cats-rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
   .rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
   .rv.in{opacity:1;transform:none}
 
   /* ============ responsive ============ */
   @media (max-width:1000px){
-    .feat-grid{grid-template-columns:1fr;max-width:560px}
-    .whydk-grid{grid-template-columns:1fr 1fr}
+    .cats-grid{
+      grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(220px,72%);
+      overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    }
+    .cats-grid::-webkit-scrollbar{display:none}
+    .cats-grid .cat-card{scroll-snap-align:center}
   }
   @media (max-width:900px){
     .shelf{
@@ -299,22 +256,16 @@
     .stage{padding:48px 0 48px}
     .ground{display:none}
     .pbk{padding:68px 0}
-    .howdk{grid-template-columns:1fr;gap:34px}
-    .howdk-line{display:none}
-    .howdk-step{display:grid;grid-template-columns:56px 1fr;gap:18px;text-align:left}
-    .howdk-node{margin:0}
-    .cross-card{grid-template-columns:1fr;padding:44px 30px}
-    .cat-row{grid-template-columns:44px 1fr 34px;gap:14px}
-    .cat-meta{display:none}
-    .paper{padding:32px 26px}
-  }
-  @media (max-width:640px){
-    .whydk-grid{grid-template-columns:1fr}
+    .cats{padding:58px 0}
+    .cats-collapsed{grid-template-columns:1fr;gap:30px}
+    .cats-stack{height:388px;max-width:480px}
   }
   @media (prefers-reduced-motion:reduce){
-    .book,.pill,.feat-card,.whydk,.cat-row{transition:none}
+    .book,.pill{transition:none}
     .book:hover,.book:focus-visible{transform:rotateY(42deg) translateY(-12px)}
     .rv{opacity:1;transform:none;transition:none}
+    .cats-stack .cat-card{transition:none}
+    .cats-grid .cat-card{animation:none}
   }
 </style>
 </head>
@@ -474,289 +425,38 @@
   </div>
 </section>
 
-<!-- 3. CATEGORIES -->
-<section class="pbk">
+<!-- 3. PLAYBOOK CATEGORIES -->
+<section class="cats" id="cats">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">The catalogue</p>
-      <h2>Six streams. Same honest treatment.</h2>
-      <p>Every playbook answers the same questions: is this you, where does it lead, who hires, and what to do each term.</p>
+    <!-- collapsed state -->
+    <div class="cats-collapsed">
+      <div class="cats-intro">
+        <p class="cats-eyebrow">Playbook categories</p>
+        <h2 class="cats-h">Your complete interview preparation, organized your way.</h2>
+        <p class="cats-p">Explore playbooks across essential case types and core business topics to strengthen your concepts and ace every interview.</p>
+        <div class="cats-controls">
+          <button class="btn btn-primary" id="cats-open" type="button">See All Categories
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="cats-arrows">
+            <button class="cats-arrow" id="cats-prev" type="button" aria-label="Previous category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+            <button class="cats-arrow" id="cats-next" type="button" aria-label="Next category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="cats-stack" id="cats-stack" aria-hidden="true"></div>
     </div>
-    <div class="cat-list rv">
-      <a class="cat-row" href="playbook.html?s=general-management">
-        <span class="cat-num">01</span>
-        <span><span class="cat-name">General Management</span><span class="cat-desc">run businesses, not functions — the leadership-programme route</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="cat-row" href="playbook.html?s=marketing">
-        <span class="cat-num">02</span>
-        <span><span class="cat-name">Marketing</span><span class="cat-desc">brands, distribution and the FMCG track — creative judgement with numbers</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="cat-row" href="playbook.html?s=finance">
-        <span class="cat-num">03</span>
-        <span><span class="cat-name">Finance</span><span class="cat-desc">IB, markets and corporate finance — be trusted with capital</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="cat-row" href="playbook.html?s=operations-supply-chain">
-        <span class="cat-num">04</span>
-        <span><span class="cat-name">Operations &amp; Supply Chain</span><span class="cat-desc">from dark stores to factory floors — the stream that moves atoms</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="cat-row" href="playbook.html?s=human-resources">
-        <span class="cat-num">05</span>
-        <span><span class="cat-name">Human Resources</span><span class="cat-desc">the people P&amp;L — HRLPs and the business-partner track</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="cat-row" href="playbook.html?s=business-analytics">
-        <span class="cat-num">06</span>
-        <span><span class="cat-name">Business Analytics</span><span class="cat-desc">decisions with evidence attached — analytics and product routes</span></span>
-        <span class="cat-meta">8 chapters · 9 min</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <span class="cat-row soon">
-        <span class="cat-num">07</span>
-        <span><span class="cat-name">Consulting &amp; Product</span><span class="cat-desc">next on the shelf — being written</span></span>
-        <span class="cat-meta">Coming soon</span>
-        <span class="cat-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></span>
-      </span>
-    </div>
-  </div>
-</section>
 
-<!-- 4. FEATURED -->
-<section class="pbk pbk-alt">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">Most pulled off the shelf</p>
-      <h2>Featured playbooks.</h2>
-    </div>
-    <div class="feat-grid">
-      <div class="feat-card rv">
-        <span class="thumb-book cv-mkt" aria-hidden="true"><span class="bk-face"><span class="bk-cover">
-          <span class="bk-kicker">Stream playbook</span>
-          <span class="bk-title"><b>Own the Shelf</b><i>the marketing route</i></span>
-          <span class="bk-foot">Embark India</span>
-        </span></span></span>
+    <!-- expanded state -->
+    <div class="cats-expanded">
+      <div class="cats-open-head">
         <div>
-          <h3>Marketing</h3>
-          <p class="feat-why">The most misunderstood stream — everyone likes ads, few respect distribution.</p>
+          <p class="cats-eyebrow">Playbook categories</p>
+          <h2 class="cats-h">Your complete interview preparation, organized your way.</h2>
         </div>
-        <ul class="feat-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>The FMCG brand track, ASM stint and all</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>HUL, P&amp;G, ITC and the growth-role route</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Term-by-term plan from swipe file to PPO</li>
-        </ul>
-        <a class="btn btn-primary btn-sm" href="playbook.html?s=marketing">Open playbook</a>
+        <button class="cats-close" id="cats-close" type="button" aria-label="Collapse categories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
-      <div class="feat-card rv">
-        <span class="thumb-book cv-fin" aria-hidden="true"><span class="bk-face"><span class="bk-cover">
-          <span class="bk-kicker">Stream playbook</span>
-          <span class="bk-title"><b>Finance</b><i>trusted with capital</i></span>
-          <span class="bk-foot">Embark India</span>
-        </span></span></span>
-        <div>
-          <h3>Finance</h3>
-          <p class="feat-why">The most chased stream — and the one where shortlists are decided by October.</p>
-        </div>
-        <ul class="feat-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>IB vs corporate finance vs markets, honestly</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>The deal-journal habit that beats memorised DCFs</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Goldman to Razorpay — who actually hires</li>
-        </ul>
-        <a class="btn btn-primary btn-sm" href="playbook.html?s=finance">Open playbook</a>
-      </div>
-      <div class="feat-card rv">
-        <span class="thumb-book cv-ana" aria-hidden="true"><span class="bk-face"><span class="bk-cover">
-          <span class="bk-kicker">Stream playbook</span>
-          <span class="bk-title"><b>Decisions, with Evidence</b><i>business analytics</i></span>
-          <span class="bk-foot">Embark India</span>
-        </span></span></span>
-        <div>
-          <h3>Business Analytics</h3>
-          <p class="feat-why">The fastest-growing corridor — where a little SQL buys a lot of trust.</p>
-        </div>
-        <ul class="feat-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Analytics consulting vs product analytics routes</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>The portfolio-over-certificates strategy</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ZS, Mastercard, AmEx and the tech side</li>
-        </ul>
-        <a class="btn btn-primary btn-sm" href="playbook.html?s=business-analytics">Open playbook</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 5. WHY -->
-<section class="pbk">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">Why Embark playbooks</p>
-      <h2>Not brochures. Field notes.</h2>
-    </div>
-    <div class="whydk-grid">
-      <div class="whydk rv">
-        <div class="whydk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7.5" r="3.5"/><path d="m16 11 2 2 4-4"/></svg></div>
-        <h3>Written from the climb</h3>
-        <p>Sourced from people who sat in these interviews and worked these roles — not from coaching brochures.</p>
-      </div>
-      <div class="whydk rv">
-        <div class="whydk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
-        <h3>Blunt on purpose</h3>
-        <p>Including the parts nobody markets: the sales stint, the October shortlists, the streams that aren't for you.</p>
-      </div>
-      <div class="whydk rv">
-        <div class="whydk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/><path d="m10 15 2 2 4-4"/></svg></div>
-        <h3>Timed, not vague</h3>
-        <p>Every playbook is a term-by-term gameplan plus a checklist that tracks your progress — advice with dates on it.</p>
-      </div>
-      <div class="whydk rv">
-        <div class="whydk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h3>Free, no gate</h3>
-        <p>No signup wall, no "unlock full guide". Read everything; the checklist saves in your browser.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 6. HOW IT WORKS -->
-<section class="pbk pbk-alt">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">How it works</p>
-      <h2>Read once. Work it for two years.</h2>
-    </div>
-    <div class="howdk">
-      <div class="howdk-line" aria-hidden="true"></div>
-      <div class="howdk-step rv">
-        <div class="howdk-node" aria-hidden="true">1</div>
-        <div>
-          <h3>Choose honestly</h3>
-          <p>Each book opens with "this is for you if". If none of the three lines feel like you — that's an answer too.</p>
-        </div>
-      </div>
-      <div class="howdk-step rv">
-        <div class="howdk-node" aria-hidden="true">2</div>
-        <div>
-          <h3>Follow the gameplan</h3>
-          <p>The term-by-term timeline tells you what matters when, so placement season is a rehearsal, not a scramble.</p>
-        </div>
-      </div>
-      <div class="howdk-step rv">
-        <div class="howdk-node" aria-hidden="true">3</div>
-        <div>
-          <h3>Tick as you build</h3>
-          <p>Seven skills per stream, saved in your browser. Come back each term and watch the bar fill.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 7. PREVIEW -->
-<section class="pbk">
-  <div class="wrap">
-    <div class="sec-head rv" style="text-align:center;margin-left:auto;margin-right:auto">
-      <p class="eyebrow" style="justify-content:center">A page from the book</p>
-      <h2>See exactly what you're getting.</h2>
-    </div>
-    <div class="paper-wrap rv">
-      <div class="paper">
-        <p class="paper-kicker">From the Marketing playbook · Chapter: the 2-year gameplan</p>
-        <h3>What matters, when.</h3>
-        <div class="paper-step">
-          <span class="pn" aria-hidden="true">1</span>
-          <div><b>Before the MBA</b><p>Work retail shelves with your eyes: pick two brands and track everything they do for a month. Start a swipe file.</p></div>
-        </div>
-        <div class="paper-step">
-          <span class="pn" aria-hidden="true">2</span>
-          <div><b>Term 1–2</b><p>Marketing club, but more importantly: win one live project with a real company. FMCG shortlists love evidence over enthusiasm.</p></div>
-        </div>
-        <div class="paper-step">
-          <span class="pn" aria-hidden="true">3</span>
-          <div><b>Summer internship</b><p>FMCG summer = sales stint. Embrace the territory; the best PPOs go to people who loved the market, not survived it.</p></div>
-        </div>
-        <div style="margin-top:26px">
-          <p class="paper-kicker" style="margin-bottom:10px">Chapter: skill checklist</p>
-          <div class="paper-check done"><span class="box" aria-hidden="true">✓</span><span>Explain a brand's positioning in one sentence a rickshaw driver would get</span></div>
-          <div class="paper-check"><span class="box" aria-hidden="true"></span><span>Read a Nielsen share report and find the story</span></div>
-        </div>
-        <p class="paper-more">…five more chapters inside: roles &amp; five-year arcs, recruiters, do/don't signals, strong colleges.</p>
-      </div>
-    </div>
-    <div class="preview-cta rv">
-      <a class="btn btn-primary" href="playbook.html?s=marketing">Read the full Marketing playbook</a>
-    </div>
-  </div>
-</section>
-
-<!-- 8. MENTORSHIP CROSS-SELL -->
-<section class="pbk pbk-alt">
-  <div class="wrap">
-    <div class="cross-card rv">
-      <svg class="blob r" viewBox="0 0 300 270" aria-hidden="true"><path fill="#FB4D0A" d="M246 27c35 27 57 73 49 112-8 40-46 73-90 86-45 13-95 6-125-22C50 175 40 126 55 86 69 46 107 16 150 9c37-6 70 0 96 18Z"/></svg>
-      <div>
-        <h2 class="cross-h">A map is not a mentor.</h2>
-        <p class="cross-p">Playbooks tell you the route. A mentor who has walked it tells you where <em>you</em> specifically will slip. One-on-one mentorship is live on Embark India — stream selection, profile plans, and honest feedback from people in these roles today.</p>
-      </div>
-      <div class="cross-actions">
-        <a class="btn btn-primary" href="mentorship.html">Explore mentorship</a>
-        <a class="btn btn-outline-cream btn-sm" href="mentorship.html#intro">Book a free intro call</a>
-        <span class="cross-note">The intro call is free, always — founding cohort gets founding terms.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 9. FAQ -->
-<section class="pbk">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">Questions, answered plainly</p>
-      <h2>Frequently asked questions</h2>
-    </div>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary>Are the playbooks free?</summary>
-        <p class="faq-body">Yes — fully free, no signup wall, no "unlock the rest" email gate. If anything ever costs money on Embark India, it will say so before you click, not after.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Who writes these?</summary>
-        <p class="faq-body">The Embark team drafts them from conversations with practitioners in each stream, then keeps them updated as recruiting seasons change. They're living documents — spot something stale and we'll fix it.</p>
-      </details>
-      <details class="faq-item">
-        <summary>I'm torn between two streams. What do I do?</summary>
-        <p class="faq-body">Read the "this is for you if" section of both — written to help you rule out, not just rule in. Still tied? That's precisely the conversation mentorship is for; join the waitlist and we'll pair you with someone who has done both interviews.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Does my checklist progress sync across devices?</summary>
-        <p class="faq-body">Not yet — ticks save in your browser on this device. Accounts with synced progress are on the roadmap; until then, use the device you study on.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Which streams are coming next?</summary>
-        <p class="faq-body">Consulting and Product Management are already on the shelf as "coming soon", in that order. Want a different one prioritised? Tell us at hello@embarkindia.in — genuinely, the order is votable.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can I contribute or correct something?</summary>
-        <p class="faq-body">Please do. If you work in one of these streams and something reads wrong, write to hello@embarkindia.in. The playbooks get better the more practitioners argue with them.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- 10. FINAL CTA -->
-<section class="final-pbk">
-  <div class="wrap rv">
-    <h2>Stop preparing<br>by <em>rumour</em>.</h2>
-    <p>Six maps. Two years. One honest pick.</p>
-    <div class="btns">
-      <a class="btn btn-primary" href="#shelf">Pull your book off the shelf</a>
-      <a class="btn btn-ghost" href="blog.html">Read the blog</a>
+      <div class="cats-grid" id="cats-grid"></div>
     </div>
   </div>
 </section>
@@ -830,6 +530,61 @@
     }), { threshold: .1 });
     rvs.forEach(el => io.observe(el));
   }
+</script>
+<script>
+  // ---- Playbook categories: fanned stack + expandable grid ----
+  (function () {
+    const R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    const CATS = [
+      { title: 'Industry-Specific Playbooks', desc: 'Role and industry focused concepts, frameworks and interview questions.',
+        img: 'assets/categories/industry-specific.jpg', acc: '#5B93E6', tintd: 'rgba(13,31,60,.92)', href: '#',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M9.5 8h.01M14.5 8h.01M9.5 12h.01M14.5 12h.01M10 21v-4h4v4"/></svg>' },
+      { title: 'Guesstimates', desc: 'Structured approaches to estimation questions with clear examples.',
+        img: 'assets/categories/guesstimates.jpg', acc: '#5FC08A', tintd: 'rgba(11,44,30,.92)', href: '#',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>' },
+      { title: 'Market Entry Case Studies', desc: 'Learn to evaluate new markets and entry strategies effectively.',
+        img: 'assets/categories/market-entry.jpg', acc: '#E8AE4A', tintd: 'rgba(8,42,40,.92)', href: '#',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.5 4 5.7 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.7-4-9s1.4-6.5 4-9Z"/></svg>' },
+      { title: 'Pricing Case Studies', desc: 'Master pricing strategies and recommendations through real cases.',
+        img: 'assets/categories/pricing.jpg', acc: '#FB7A43', tintd: 'rgba(32,24,20,.92)', href: '#',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13 21a2 2 0 0 1-2.8 0L3 13.8V4h9.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>' },
+      { title: 'Profitability Case Studies', desc: 'Analyze profit drivers, identify issues and propose actionable solutions.',
+        img: 'assets/categories/profitability.jpg', acc: '#E8B24A', tintd: 'rgba(46,15,17,.92)', href: '#',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7"/><rect x="12" y="7" width="3" height="11"/><rect x="17" y="4" width="3" height="14"/></svg>' }
+    ];
+    const card = c => `<article class="cat-card" style="--img:url('${c.img}');--acc:${c.acc};--tintd:${c.tintd}">
+      <div class="cat-body">
+        <span class="cat-ico" aria-hidden="true">${c.icon}</span>
+        <h3 class="cat-title">${c.title}</h3>
+        <span class="cat-rule" aria-hidden="true"></span>
+        <p class="cat-desc">${c.desc}</p>
+        <a class="cat-explore" href="${c.href}">Explore ${R}</a>
+      </div>
+    </article>`;
+
+    const stack = document.getElementById('cats-stack');
+    const grid = document.getElementById('cats-grid');
+    const sec = document.getElementById('cats');
+    if (!stack || !grid || !sec) return;
+    stack.innerHTML = CATS.map(card).join('');
+    grid.innerHTML = CATS.map(card).join('');
+
+    let order = Array.from(stack.children);
+    const STEP = 64;
+    const layout = () => order.forEach((el, pos) => {
+      el.style.zIndex = order.length - pos;
+      el.style.transform = `translate(${pos * STEP}px,-50%) scale(${(1 - pos * 0.05).toFixed(3)})`;
+      el.style.filter = `brightness(${(1 - pos * 0.13).toFixed(3)})`;
+    });
+    layout();
+    document.getElementById('cats-next').addEventListener('click', () => { order.push(order.shift()); layout(); });
+    document.getElementById('cats-prev').addEventListener('click', () => { order.unshift(order.pop()); layout(); });
+
+    const setOpen = v => sec.classList.toggle('open', v);
+    document.getElementById('cats-open').addEventListener('click', () => setOpen(true));
+    document.getElementById('cats-close').addEventListener('click', () => setOpen(false));
+    stack.addEventListener('click', () => setOpen(true));
+  })();
 </script>
 <script src="nav.js?v=2" defer></script>
 </body>
