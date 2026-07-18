@@ -130,21 +130,22 @@
   .pbk-alt{background:var(--white)}
 
   /* ============ 2. domain carousel strip ============ */
+  .mq-sec{background:var(--white);padding:32px 0}
   .mq{
-    overflow:hidden;padding:30px 0;position:relative;
+    overflow:hidden;padding:6px 0;position:relative;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
   }
   .mq-track{display:flex;width:max-content;animation:mq-scroll 38s linear infinite;will-change:transform}
   .mq:hover .mq-track{animation-play-state:paused}
   .mq-item{
-    flex:none;display:inline-flex;align-items:center;gap:11px;margin-right:14px;white-space:nowrap;
-    font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em;
+    flex:none;display:inline-flex;align-items:center;gap:10px;margin-right:12px;white-space:nowrap;
+    font-family:var(--display);font-weight:700;font-size:.98rem;letter-spacing:-.01em;
     color:var(--charcoal);background:var(--white);
     border:1.5px solid rgba(22,22,22,.14);border-radius:999px;
-    padding:14px 26px;box-shadow:var(--shadow-card);
+    padding:11px 20px;box-shadow:var(--shadow-card);
   }
-  .mq-item::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);flex:none}
+  .mq-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);flex:none}
   @keyframes mq-scroll{to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){
     .mq{-webkit-mask-image:none;mask-image:none}
@@ -227,6 +228,60 @@
   .cats-grid .cat-card:nth-child(5){animation-delay:.24s}
   @keyframes cats-rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
+  /* ============ 4. why students need (pain points) ============ */
+  .wsn{display:grid;grid-template-columns:1.85fr 1fr;gap:34px;align-items:stretch}
+  .wsn-head h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.08;letter-spacing:-.02em;color:var(--charcoal)}
+  .wsn-head h2 span{color:var(--orange)}
+  .wsn-rule{width:54px;height:4px;border-radius:2px;background:var(--orange);margin:16px 0}
+  .wsn-head p{font-size:1rem;color:var(--ink-soft);max-width:440px;line-height:1.6}
+  .wsn-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+  .wsn-card{
+    background:var(--white);border:1px solid rgba(22,22,22,.1);border-radius:18px;padding:24px 20px;
+    box-shadow:0 10px 26px rgba(22,22,22,.05);transition:transform .25s,box-shadow .25s;
+  }
+  .wsn-card:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(22,22,22,.1)}
+  .wsn-ico{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .wsn-ico svg{width:27px;height:27px}
+  .wsn-num{font-family:"Anton",sans-serif;font-size:.82rem;letter-spacing:.06em;margin:18px 0 8px;display:inline-block}
+  .wsn-card h3{font-family:var(--display);font-weight:700;font-size:1.06rem;line-height:1.22;color:var(--charcoal);margin-bottom:10px}
+  .wsn-card p{font-size:.85rem;line-height:1.55;color:var(--ink-soft)}
+  .wsn-card p b{color:var(--charcoal);font-weight:600}
+  .wsn-card:nth-child(odd) .wsn-ico{background:#FDECE3;color:var(--orange-deep)}
+  .wsn-card:nth-child(odd) .wsn-num{color:var(--orange-deep)}
+  .wsn-card:nth-child(even) .wsn-ico{background:#E7ECF4;color:var(--navy)}
+  .wsn-card:nth-child(even) .wsn-num{color:var(--navy)}
+  .wsn-panel{
+    position:relative;overflow:hidden;border-radius:24px;padding:40px 36px;display:flex;flex-direction:column;
+    background:linear-gradient(158deg,#FFF3EC 0%,#FCE6D9 100%);border:1px solid rgba(251,77,10,.12);
+  }
+  .wsn-panel-ico{
+    width:66px;height:66px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;
+    color:var(--orange-deep);box-shadow:0 10px 24px rgba(251,77,10,.16);margin-bottom:26px;position:relative;z-index:1;
+  }
+  .wsn-panel-ico svg{width:33px;height:33px}
+  .wsn-panel-text{font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1.42;color:var(--charcoal);letter-spacing:-.01em;position:relative;z-index:1}
+  .wsn-panel-text b{color:var(--orange-deep)}
+  .wsn-dots{position:absolute;top:22px;right:22px;color:rgba(251,77,10,.32)}
+  .wsn-plane{position:absolute;right:22px;bottom:20px;width:120px;color:var(--orange);opacity:.9;pointer-events:none}
+
+  /* ============ 5. why embark playbooks (feature grid) ============ */
+  .wep{background:linear-gradient(180deg,#FFFFFF 0%,#FBF3ED 100%)}
+  .wep-head{text-align:center;max-width:640px;margin:0 auto 58px}
+  .wep-head h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.02em;color:var(--charcoal)}
+  .wep-head p{font-size:1.05rem;color:var(--ink-soft);margin-top:12px}
+  .wep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:52px 44px;max-width:940px;margin:0 auto}
+  .wep-item{text-align:center;position:relative}
+  .wep-ico{
+    width:62px;height:62px;border-radius:18px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
+    background:#fff;color:var(--navy);box-shadow:0 10px 24px rgba(11,31,58,.1);transition:transform .25s,color .25s;
+  }
+  .wep-item:hover .wep-ico{transform:translateY(-4px);color:var(--orange)}
+  .wep-ico svg{width:28px;height:28px}
+  .wep-item h3{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--charcoal);margin-bottom:9px}
+  .wep-item p{font-size:.9rem;line-height:1.55;color:var(--ink-soft);max-width:250px;margin:0 auto}
+  .wep-item:not(:nth-child(3n))::after{content:"";position:absolute;top:31px;right:-32px;width:40px;border-top:2px dashed rgba(11,31,58,.2)}
+  .wep-item:not(:nth-child(3n))::before{content:"";position:absolute;top:28px;right:-14px;width:7px;height:7px;border-radius:50%;background:rgba(251,77,10,.5);z-index:1}
+
   .rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
   .rv.in{opacity:1;transform:none}
 
@@ -239,6 +294,15 @@
     }
     .cats-grid::-webkit-scrollbar{display:none}
     .cats-grid .cat-card{scroll-snap-align:center}
+    .wsn{grid-template-columns:1fr;gap:28px}
+    .wsn-cards{grid-template-columns:1fr 1fr}
+    .wsn-plane{width:96px}
+    .wep-grid{grid-template-columns:1fr 1fr;gap:44px 36px}
+    .wep-item:not(:nth-child(3n))::after,.wep-item:not(:nth-child(3n))::before{display:none}
+  }
+  @media (max-width:640px){
+    .wsn-cards{grid-template-columns:1fr}
+    .wep-grid{grid-template-columns:1fr}
   }
   @media (max-width:900px){
     .shelf{
@@ -393,7 +457,7 @@
 </main>
 
 <!-- 2. DOMAIN CAROUSEL STRIP -->
-<section class="pbk pbk-alt">
+<section class="mq-sec">
   <div class="mq" aria-label="MBA domains covered">
     <div class="mq-track">
       <span class="mq-item">Marketing</span>
@@ -457,6 +521,95 @@
         <button class="cats-close" id="cats-close" type="button" aria-label="Collapse categories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
       <div class="cats-grid" id="cats-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. WHY STUDENTS NEED THESE PLAYBOOKS -->
+<section class="pbk pbk-alt">
+  <div class="wrap">
+    <div class="wsn">
+      <div>
+        <div class="wsn-head rv">
+          <h2>Why Students Need<br><span>These Playbooks</span></h2>
+          <div class="wsn-rule" aria-hidden="true"></div>
+          <p>MBA interview preparation can feel overwhelming. We make revision simpler and more focused.</p>
+        </div>
+        <div class="wsn-cards">
+          <div class="wsn-card rv">
+            <div class="wsn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9" y="4" width="5" height="16" rx="1"/><path d="m15.6 5.2 4 1-3.4 13.8-4-1z"/></svg></div>
+            <span class="wsn-num">01</span>
+            <h3>Too Many Resources</h3>
+            <p>Notes, videos, textbooks, PDFs, and websites leave preparation <b>scattered across multiple sources</b>.</p>
+          </div>
+          <div class="wsn-card rv">
+            <div class="wsn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M15 5H5.5L3 7.5 5.5 10H15z"/><path d="M9 14h9.5l2.5 2.5-2.5 2.5H9z"/></svg></div>
+            <span class="wsn-num">02</span>
+            <h3>Unclear Priorities</h3>
+            <p>Students often struggle to identify what matters most and what interviewers are likely to assess.</p>
+          </div>
+          <div class="wsn-card rv">
+            <div class="wsn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h6"/><path d="M8 2v4M16 2v4M3 10h18"/><circle cx="17.5" cy="16.5" r="4.2"/><path d="M17.5 14.8v1.7l1.1.9"/></svg></div>
+            <span class="wsn-num">03</span>
+            <h3>Limited Revision Time</h3>
+            <p>Interviews arrive quickly, leaving little time to revise an extensive <b>MBA syllabus</b>.</p>
+          </div>
+          <div class="wsn-card rv">
+            <div class="wsn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a8.4 8.4 0 0 1-.9-4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></div>
+            <span class="wsn-num">04</span>
+            <h3>Difficulty Structuring Answers</h3>
+            <p>Understanding a concept is easier than explaining it clearly, practically, and confidently in an interview.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="wsn-panel rv">
+        <svg class="wsn-dots" width="72" height="72" viewBox="0 0 72 72" fill="currentColor" aria-hidden="true"><g><circle cx="6" cy="6" r="2.4"/><circle cx="24" cy="6" r="2.4"/><circle cx="42" cy="6" r="2.4"/><circle cx="60" cy="6" r="2.4"/><circle cx="6" cy="24" r="2.4"/><circle cx="24" cy="24" r="2.4"/><circle cx="42" cy="24" r="2.4"/><circle cx="60" cy="24" r="2.4"/><circle cx="6" cy="42" r="2.4"/><circle cx="24" cy="42" r="2.4"/><circle cx="42" cy="42" r="2.4"/><circle cx="60" cy="42" r="2.4"/></g></svg>
+        <div class="wsn-panel-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7C10.4 5.6 8 5 4 5v13c4 0 6.4.6 8 2 1.6-1.4 4-2 8-2V5c-4 0-6.4.6-8 2Z"/><path d="M12 7v13"/><path d="M19.5 2.5l.5 1.4 1.4.5-1.4.5-.5 1.4-.5-1.4L17.6 4.4l1.4-.5z"/></svg></div>
+        <p class="wsn-panel-text"><b>Embark India playbooks</b> bring essential concepts, questions, frameworks, and examples into one focused interview-preparation resource.</p>
+        <svg class="wsn-plane" viewBox="0 0 130 92" fill="none" aria-hidden="true"><path d="M8 82 C 34 62, 62 52, 98 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 7" opacity=".55"/><path d="M124 8 98 86 79 55 124 8Z" fill="currentColor"/><path d="M124 8 52 60 79 55 124 8Z" fill="currentColor" opacity=".6"/></svg>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 5. WHY EMBARK INDIA PLAYBOOKS -->
+<section class="pbk wep">
+  <div class="wrap">
+    <div class="wep-head rv">
+      <h2>Why Embark India Playbooks?</h2>
+      <p>Built for interviews. Designed for quick revision. Focused on results.</p>
+    </div>
+    <div class="wep-grid">
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Only What Matters</h3>
+        <p>Curated content with only the most important concepts, frameworks, and questions.</p>
+      </div>
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><rect x="8" y="2.5" width="8" height="4" rx="1"/><path d="M8 11h8M8 15h5"/></svg></div>
+        <h3>Structured Preparation</h3>
+        <p>Topics are organized in a logical flow for better understanding and faster revision.</p>
+      </div>
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a8.4 8.4 0 0 1-.9-4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5Z"/><path d="M9.9 9.2a2.2 2.2 0 0 1 4.1.9c0 1.5-2 2-2 2"/><path d="M12 15.5h.01"/></svg></div>
+        <h3>Interview-Focused Questions</h3>
+        <p>Practice the type of questions that are commonly asked in MBA interviews.</p>
+      </div>
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="6" r="2.6"/><circle cx="17.5" cy="18" r="2.6"/><path d="m8.3 10.8 6.9-3.6M8.3 13.2l6.9 3.6"/></svg></div>
+        <h3>Practical Frameworks</h3>
+        <p>Simple and effective frameworks to help you structure your answers with confidence.</p>
+      </div>
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Quick Revision</h3>
+        <p>Concise summaries, key points, and cheat sheets for last-minute revision.</p>
+      </div>
+      <div class="wep-item rv">
+        <div class="wep-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="m12.8 11 .9 1.9 2 .2-1.5 1.4.5 2-1.9-1.1-1.9 1.1.5-2L9.9 13.1l2-.2z"/></svg></div>
+        <h3>Everything in One Place</h3>
+        <p>No more switching between resources. One playbook for complete preparation.</p>
+      </div>
     </div>
   </div>
 </section>
