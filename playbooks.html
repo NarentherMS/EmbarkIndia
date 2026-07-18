@@ -282,6 +282,46 @@
   .wep-item:not(:nth-child(3n))::after{content:"";position:absolute;top:31px;right:-32px;width:40px;border-top:2px dashed rgba(11,31,58,.2)}
   .wep-item:not(:nth-child(3n))::before{content:"";position:absolute;top:28px;right:-14px;width:7px;height:7px;border-radius:50%;background:rgba(251,77,10,.5);z-index:1}
 
+  /* ============ 6. testimonials carousel ============ */
+  .tst{background:var(--cream)}
+  .tst-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px}
+  .tst-top h2{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,3.2vw,2.5rem);letter-spacing:-.02em;color:var(--charcoal);margin-top:6px}
+  .tst-nav{display:flex;gap:10px;flex:none}
+  .tst-arrow{
+    width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(22,22,22,.18);background:var(--white);
+    color:var(--charcoal);cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .2s,border-color .2s,opacity .2s,transform .12s;box-shadow:var(--shadow-card);
+  }
+  .tst-arrow:hover{border-color:var(--charcoal)}
+  .tst-arrow:active{transform:scale(.92)}
+  .tst-arrow:disabled{opacity:.35;cursor:default}
+  .tst-arrow svg{width:19px;height:19px}
+  .tst-track{
+    display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+    padding:4px 4px 10px;margin:-4px -4px 0;scrollbar-width:none;
+  }
+  .tst-track::-webkit-scrollbar{display:none}
+  .tst-card{
+    flex:0 0 calc((100% - 44px) / 3);scroll-snap-align:start;box-sizing:border-box;
+    background:var(--white);border:1px solid rgba(22,22,22,.1);border-radius:20px;
+    padding:28px 26px;display:flex;flex-direction:column;
+    box-shadow:0 12px 30px rgba(22,22,22,.05);transition:transform .25s,box-shadow .25s;
+  }
+  .tst-card:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(22,22,22,.1)}
+  .tst-stars{display:flex;gap:3px;color:var(--orange);margin-bottom:16px}
+  .tst-stars svg{width:17px;height:17px}
+  .tst-title{font-family:var(--display);font-weight:700;font-size:1.06rem;line-height:1.3;color:var(--charcoal);margin-bottom:12px}
+  .tst-quote{font-family:"PT Serif",serif;font-style:italic;font-size:.96rem;line-height:1.62;color:var(--ink-soft);margin:0 0 22px;flex:1}
+  .tst-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-top:18px;border-top:1px solid rgba(22,22,22,.09)}
+  .tst-name{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--charcoal)}
+  .tst-meta{font-size:.78rem;color:var(--ink-soft);margin-top:4px}
+  .tst-verified{
+    flex:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+    font-family:var(--body);font-size:.72rem;font-weight:600;color:#2E8B57;
+    background:rgba(46,139,87,.1);border:1px solid rgba(46,139,87,.2);border-radius:999px;padding:5px 11px;
+  }
+  .tst-verified svg{width:12px;height:12px}
+
   .rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
   .rv.in{opacity:1;transform:none}
 
@@ -299,10 +339,12 @@
     .wsn-plane{width:96px}
     .wep-grid{grid-template-columns:1fr 1fr;gap:44px 36px}
     .wep-item:not(:nth-child(3n))::after,.wep-item:not(:nth-child(3n))::before{display:none}
+    .tst-card{flex-basis:calc((100% - 22px) / 2)}
   }
   @media (max-width:640px){
     .wsn-cards{grid-template-columns:1fr}
     .wep-grid{grid-template-columns:1fr}
+    .tst-card{flex-basis:86%}
   }
   @media (max-width:900px){
     .shelf{
@@ -614,6 +656,23 @@
   </div>
 </section>
 
+<!-- 6. TESTIMONIALS -->
+<section class="pbk tst">
+  <div class="wrap">
+    <div class="tst-top rv">
+      <div>
+        <p class="eyebrow">What students say</p>
+        <h2>Revision that earned its place.</h2>
+      </div>
+      <div class="tst-nav">
+        <button class="tst-arrow" id="tst-prev" type="button" aria-label="Previous testimonials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+        <button class="tst-arrow" id="tst-next" type="button" aria-label="Next testimonials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="tst-track rv" id="tst-track"></div>
+  </div>
+</section>
+
 <footer>
   <svg class="foot-path" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
     <path class="fp-line" d="M-20 70 C 180 20, 360 85, 560 48 S 920 12, 1128 44" fill="none"/>
@@ -737,6 +796,60 @@
     document.getElementById('cats-open').addEventListener('click', () => setOpen(true));
     document.getElementById('cats-close').addEventListener('click', () => setOpen(false));
     stack.addEventListener('click', () => setOpen(true));
+  })();
+
+  // ---- Testimonials carousel ----
+  (function () {
+    const star = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 17.9 6 20.5l1.5-6.5-5-4.4 6.6-.6z"/></svg>';
+    const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+    const T = [
+      { stars: 5, title: 'Marketing playbook made revision much easier',
+        quote: 'I had my summer placement interview in two days and this helped me revise the important concepts quickly. The examples were simple, practical, and much better than going through scattered notes.',
+        name: 'Aishwarya Menon', meta: 'IIM Tiruchirappalli · Marketing Playbook' },
+      { stars: 5, title: 'Very useful before consulting shortlists',
+        quote: 'What I liked most was the clarity. The frameworks were organised well, and I could actually understand how to use them in interview answers instead of just memorising definitions.',
+        name: 'Rohit Bansal', meta: 'IIM Udaipur · Consulting Playbook' },
+      { stars: 5, title: 'Helped me structure my answers better',
+        quote: 'I was comfortable with the concepts, but I used to struggle while answering in interviews. This playbook made my responses more structured and helped me speak with more confidence.',
+        name: 'Sneha Kulkarni', meta: 'IIM Raipur · Strategy Playbook' },
+      { stars: 5, title: 'Great for last-minute preparation',
+        quote: 'I used the Finance playbook just before my placement process and it was genuinely helpful. It covered the important topics without feeling too heavy, and the format made revision fast.',
+        name: 'Aditya Prakash', meta: 'IIM Ranchi · Finance Playbook' },
+      { stars: 5, title: 'Finally felt my preparation was in one place',
+        quote: 'Earlier I was switching between class notes, PDFs and random websites. This gave me one clean resource to prepare from, especially for guesstimates and case-based questions.',
+        name: 'Neha Agarwal', meta: 'IIM Kashipur · Guesstimates Playbook' }
+    ];
+    const track = document.getElementById('tst-track');
+    if (!track) return;
+    track.innerHTML = T.map(t => `<article class="tst-card">
+      <div class="tst-stars" aria-label="${t.stars} out of 5 stars">${star.repeat(t.stars)}</div>
+      <h3 class="tst-title">${t.title}</h3>
+      <p class="tst-quote">${t.quote}</p>
+      <div class="tst-foot">
+        <div>
+          <div class="tst-name">${t.name}</div>
+          <div class="tst-meta">${t.meta}</div>
+        </div>
+        <span class="tst-verified">${check} Verified</span>
+      </div>
+    </article>`).join('');
+
+    const prev = document.getElementById('tst-prev');
+    const next = document.getElementById('tst-next');
+    const step = () => {
+      const card = track.querySelector('.tst-card');
+      return card ? card.getBoundingClientRect().width + 22 : track.clientWidth;
+    };
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 8;
+      next.disabled = track.scrollLeft >= max - 8;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 <script src="nav.js?v=2" defer></script>
