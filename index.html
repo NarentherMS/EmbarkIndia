@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=PT+Serif:ital@1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/gl.css?v=5">
+<link rel="stylesheet" href="css/gl.css?v=6">
 <style>
   /* ---------- hero carousel ---------- */
   .hcar{position:relative;background:var(--cream);overflow:hidden}
@@ -471,8 +471,6 @@
   .nextgen{background:#FFFFFF;padding:80px 0 72px}
   .ng-top{margin-bottom:64px}
   body .pstrip-sec{background:#F1F1F1;padding:72px 0}
-  body .bloghl{background:#FFFFFF;padding:76px 0 80px}
-  .bh-card{border:1px solid rgba(22,22,22,.07)}
   body .final-home{background:#FAF7F2;padding:72px 0 84px}
 
   /* ---------- creative floating nav ---------- */
@@ -582,28 +580,6 @@
   .c-green .svc-go{color:var(--green)}
   .c-dark .svc-go{color:var(--charcoal)}
   .svc-go svg{width:18px;height:18px;transition:transform .2s}
-
-  /* ---------- blog highlights ---------- */
-  .bloghl{padding:88px 0 24px}
-  .bh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:34px}
-  .bh-card{
-    display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;
-    background:#FFFFFF;border-radius:20px;padding:30px 30px 26px;
-    box-shadow:var(--shadow-card);transition:transform .22s,box-shadow .22s;
-  }
-  .bh-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(22,22,22,.14)}
-  .bh-card:hover .bh-title{color:var(--orange-deep)}
-  .bh-cat{
-    align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--orange-deep);background:var(--orange-soft);border-radius:999px;padding:5px 12px;
-  }
-  .bh-title{
-    font-family:var(--display);font-weight:700;font-size:1.22rem;line-height:1.28;
-    letter-spacing:-.01em;transition:color .2s;
-  }
-  .bh-ex{font-size:.9rem;color:var(--ink-soft)}
-  .bh-meta{margin-top:auto;font-size:.8rem;color:var(--ink-soft);padding-top:12px;border-top:1px dashed rgba(22,22,22,.14)}
-  .bh-meta b{color:var(--charcoal);font-weight:600}
 
   /* ---------- pastel service strip ---------- */
   .pstrip-sec{padding:88px 0;background:var(--white);overflow:hidden}
@@ -767,10 +743,6 @@
   @media (max-width:540px){
     body .ng-stats{grid-template-columns:1fr}
   }
-  /* light wave section */
-  body .bloghl{position:relative;overflow:hidden}
-  .bloghl .wrap{position:relative;z-index:1}
-
   /* ---------- reality grid polish ---------- */
   body .ng-stat{padding:36px 32px 40px !important;border-radius:10px}
   body .ng-num,body .ng-num.acc{font-size:clamp(2.1rem,3.2vw,2.8rem);line-height:1;display:block}
@@ -791,7 +763,7 @@
   body .rcell.rbrand .rc-desc{color:rgba(250,247,242,.75);opacity:1}
   body .rcell.rbrand:hover .rc-desc{color:rgba(250,247,242,.9)}
 
-  /* ---------- featured blogs (spotlight style) ---------- */
+  /* ---------- spotlight pill ---------- */
   .spot-pill{
     display:inline-flex;align-items:center;gap:8px;
     font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
@@ -799,74 +771,6 @@
     border:1px solid rgba(251,77,10,.3);border-radius:999px;padding:7px 15px;margin-bottom:14px;
   }
   .spot-pill svg{width:13px;height:13px}
-  .fb-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:36px}
-  .fb-head h2{margin-bottom:8px}
-  .fb-sub{color:var(--ink-soft);font-size:.98rem;max-width:520px}
-  .fb-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:24px;align-items:stretch}
-  .fb-feature{
-    position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-    border-radius:22px;overflow:hidden;text-decoration:none;color:#fff;
-    background:linear-gradient(155deg,#16345C 0%,#0B1F3A 60%,#081729 100%);
-    padding:40px 40px 30px;min-height:420px;
-    box-shadow:0 16px 40px rgba(11,31,58,.28);
-    transition:transform .25s,box-shadow .25s;
-  }
-  .fb-feature:hover{transform:translateY(-6px);box-shadow:0 24px 54px rgba(11,31,58,.36)}
-  .fb-feature::before{
-    content:"";position:absolute;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,.12) 1.3px,transparent 1.7px);
-    background-size:12px 12px;
-    -webkit-mask-image:linear-gradient(120deg,#000 0%,transparent 55%);
-    mask-image:linear-gradient(120deg,#000 0%,transparent 55%);
-  }
-  .fbf-ghost{
-    position:absolute;top:-30px;right:-8px;font-family:var(--display);font-weight:800;
-    font-size:11rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.12);
-    pointer-events:none;
-  }
-  .fbf-badge{
-    position:absolute;top:26px;left:40px;
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-    background:var(--orange);color:#fff;border-radius:999px;padding:6px 14px;
-  }
-  .fbf-mast{font-family:var(--display);font-weight:800;font-size:.95rem;color:rgba(250,247,242,.7);margin-bottom:14px;position:relative}
-  .fbf-mast b{color:var(--orange)}
-  .fb-feature h3{
-    font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2.6vw,2rem);
-    line-height:1.2;letter-spacing:-.01em;margin-bottom:12px;position:relative;color:#fff;
-  }
-  .fb-feature p{font-size:.95rem;color:rgba(250,247,242,.75);max-width:520px;position:relative;margin-bottom:22px}
-  .fbf-meta{
-    display:flex;gap:20px;align-items:center;position:relative;flex-wrap:wrap;
-    border-top:1px solid rgba(250,247,242,.18);padding-top:16px;
-    font-size:.82rem;color:rgba(250,247,242,.75);
-  }
-  .fbf-meta span{display:inline-flex;align-items:center;gap:7px}
-  .fbf-meta svg{width:14px;height:14px;color:var(--orange)}
-  .fb-side{display:flex;flex-direction:column}
-  .fb-item{
-    display:flex;gap:16px;align-items:center;text-decoration:none;color:inherit;
-    background:#FFFFFF;border:1px solid rgba(22,22,22,.07);border-radius:16px;padding:16px 18px;
-    box-shadow:0 4px 14px rgba(11,31,58,.06);
-    transition:transform .2s,box-shadow .2s;
-  }
-  .fb-item:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(11,31,58,.12)}
-  .fb-item:hover b{color:var(--orange-deep)}
-  .fb-thumb{
-    flex:none;width:62px;height:62px;border-radius:13px;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;
-  }
-  .fb-item b{font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.3;display:block;letter-spacing:-.01em;transition:color .2s}
-  .fb-item small{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:6px}
-  .fb-explore{
-    display:flex;align-items:center;justify-content:center;gap:9px;margin-top:auto;
-    border:2px dashed rgba(11,31,58,.3);border-radius:16px;padding:17px;
-    text-decoration:none;font-weight:600;font-size:.92rem;color:var(--navy);
-    transition:border-color .25s,background .25s,color .25s;
-  }
-  .fb-explore:hover{border-color:var(--orange);background:var(--orange-soft);color:var(--orange-deep)}
 
   /* ---------- colleges spotlight marquee ---------- */
   body .colleges{background:#FFFFFF;padding:44px 0 48px}
@@ -909,12 +813,8 @@
   }
   .col-btn:hover{background:var(--orange-deep);gap:12px}
   @media (prefers-reduced-motion:reduce){.col-row{animation:none}}
-  body .bloghl{background:#FFFFFF}
   body .final-home{background:#FAF7F2}
   @media (max-width:960px){
-    .fb-grid{grid-template-columns:1fr}
-    .fb-feature{min-height:340px;padding:32px 26px 24px}
-    .fbf-badge{left:26px}
     .col-card{flex-basis:250px}
   }
 </style>
@@ -928,7 +828,6 @@
       <li><a href="mentorship.html">Mentorship</a></li>
       <li><a href="competitions.html">Competitions</a></li>
       <li><a href="guest-lectures.html">Guest lectures</a></li>
-      <li><a href="blog.html">Blog</a></li>
       <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
     <a class="btn btn-ghost btn-sm nav-signin" href="account.html">Sign in</a>
@@ -940,7 +839,6 @@
     <a href="mentorship.html">Mentorship</a>
     <a href="competitions.html">Competitions</a>
     <a href="guest-lectures.html">Guest lectures</a>
-    <a href="blog.html">Blog</a>
     <a href="playbooks.html">Playbooks</a>
     <a href="account.html">Sign in / My account</a>
   </div>
@@ -1285,30 +1183,6 @@
   </div>
 </section>
 
-<section class="bloghl" aria-label="Featured blogs">
-  <svg class="dotwave light" viewBox="0 0 1300 240" preserveAspectRatio="none" aria-hidden="true">
-    <defs><pattern id="dotsw2" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.2" cy="2.2" r="1.3" fill="rgba(22,22,22,.14)"/></pattern></defs>
-    <path d="M-60 170 C 240 60, 480 230, 780 130 S 1130 20, 1380 100" fill="none" stroke="url(#dotsw2)" stroke-width="70"/>
-  </svg>
-  <div class="wrap">
-    <div class="fb-head reveal">
-      <div>
-        <span class="spot-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Expert content</span>
-        <h2>Featured Blogs</h2>
-        <p class="fb-sub">Exam strategy, placement decoding and career guidance — written plainly for MBA aspirants</p>
-      </div>
-      <a class="btn btn-ghost btn-sm" href="blog.html">All blogs →</a>
-    </div>
-    <div class="fb-grid">
-      <a class="fb-feature reveal" id="fb-feature" href="blog.html"></a>
-      <div class="fb-side reveal">
-        <div id="fb-list"></div>
-        <a class="fb-explore" href="blog.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Explore all articles</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="final-home">
   <div class="wrap">
     <div class="fh-card reveal">
@@ -1358,7 +1232,6 @@
             <li><a href="competitions.html">Case competitions</a></li>
             <li><a href="guest-lectures.html">Guest lectures</a></li>
             <li><a href="playbooks.html">Stream playbooks</a></li>
-            <li><a href="blog.html">The eMBArk Times</a></li>
           </ul>
         </div>
         <div>
@@ -1386,7 +1259,6 @@
   </div>
 </footer>
 
-<script src="js/posts.js?v=2"></script>
 <script>
 
   // ----- live competitions from the database (auto by date, spec 5.2) -----
@@ -1443,33 +1315,6 @@
     else window.addEventListener('load', check);
   })();
 
-  // ----- featured blogs -----
-  (() => {
-    if (typeof POSTS === 'undefined') return;
-    const fmt = d => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-    const THUMBS = ['#0B1F3A', '#FB4D0A', '#16345C', '#C93A05'];
-    const sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
-    const f = sorted[0];
-    const feat = document.getElementById('fb-feature');
-    feat.href = 'blog-post.html?p=' + f.slug;
-    feat.innerHTML = `
-      <span class="fbf-ghost" aria-hidden="true">${f.category.slice(0,2).toUpperCase()}</span>
-      <span class="fbf-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:12px;height:12px"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Featured</span>
-      <div class="fbf-mast">The e<b>MBA</b>rk Times</div>
-      <h3>${f.title}</h3>
-      <p>${f.excerpt}</p>
-      <div class="fbf-meta">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>${fmt(f.date)}</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${f.readMins} min read</span>
-        <span>${f.category}</span>
-      </div>`;
-    document.getElementById('fb-list').innerHTML = sorted.slice(1, 4).map((p, i) => `
-      <a class="fb-item" href="blog-post.html?p=${p.slug}" style="margin-bottom:14px">
-        <span class="fb-thumb" style="background:${THUMBS[i % THUMBS.length]}" aria-hidden="true">${p.category.slice(0,2).toUpperCase()}</span>
-        <span><b>${p.title}</b><small>${fmt(p.date)} · ${p.readMins} min read</small></span>
-      </a>`).join('');
-  })();
-
   // ----- colleges snapshot -----
   (() => {
     const COLLEGES = [
@@ -1494,7 +1339,7 @@
           <div class="col-stat"><small>Avg package</small><b>${c.avg}</b></div>
           <div class="col-stat hi"><small>Highest</small><b>${c.hi}</b></div>
         </div>
-        <a class="col-btn" href="blog.html">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="col-btn" href="playbooks.html">View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>`).join('');
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) row.innerHTML += row.innerHTML;
   })();

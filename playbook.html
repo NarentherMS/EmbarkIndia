@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/gl.css?v=5">
+<link rel="stylesheet" href="css/gl.css?v=6">
 </head>
 <body>
 
@@ -22,7 +22,6 @@
       <li><a href="mentorship.html">Mentorship</a></li>
       <li><a href="competitions.html">Competitions</a></li>
       <li><a href="guest-lectures.html">Guest lectures</a></li>
-      <li><a href="blog.html">Blog</a></li>
       <li><a href="playbooks.html">Playbooks</a></li>
     </ul>
     <a class="btn btn-ghost btn-sm nav-signin" href="account.html">Sign in</a>
@@ -35,7 +34,6 @@
     <a href="mentorship.html">Mentorship</a>
     <a href="competitions.html">Competitions</a>
     <a href="guest-lectures.html">Guest lectures</a>
-    <a href="blog.html">Blog</a>
     <a href="playbooks.html">Playbooks</a>
     <a href="playbooks.html" style="color:var(--orange-deep)">Switch stream</a>
     <a href="account.html">Sign in / My account</a>
@@ -156,7 +154,7 @@
     <div class="sec-head reveal">
       <p class="eyebrow">Where this stream is strong</p>
       <h2>Colleges with a real bench here.</h2>
-      <p>Click any college to read everything we've written about it.</p>
+      <p>These are the campuses where this stream runs deep.</p>
     </div>
     <div class="pb-colleges" id="pb-colleges"></div>
   </div>
@@ -167,11 +165,10 @@
     <div class="pb-next-card reveal">
       <div>
         <h2>A map is not a mentor.</h2>
-        <p>Personalised guidance for your profile — mentorship is coming to Embark India. Meanwhile, the blog goes deeper on everything here.</p>
+        <p>Personalised guidance for your profile — mentorship is coming to Embark India. Meanwhile, the playbooks go deeper on every stream.</p>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn btn-primary" href="blog.html">Read the blog</a>
-        <a class="btn btn-light" href="playbooks.html">Other streams</a>
+        <a class="btn btn-primary" href="playbooks.html">Other streams</a>
       </div>
     </div>
   </div>
@@ -205,7 +202,6 @@
             <li><a href="competitions.html">Case competitions</a></li>
             <li><a href="guest-lectures.html">Guest lectures</a></li>
             <li><a href="playbooks.html">Stream playbooks</a></li>
-            <li><a href="blog.html">The eMBArk Times</a></li>
           </ul>
         </div>
         <div>
@@ -293,7 +289,7 @@
   document.getElementById('pb-dont').innerHTML = pb.signals.dont.map(s => `<li>${s}</li>`).join('');
 
   document.getElementById('pb-colleges').innerHTML = pb.colleges.map(c =>
-    `<a href="blog.html?college=${encodeURIComponent(c)}">${c}</a>`).join('');
+    `<span>${c}</span>`).join('');
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const reveals = document.querySelectorAll('.reveal');
